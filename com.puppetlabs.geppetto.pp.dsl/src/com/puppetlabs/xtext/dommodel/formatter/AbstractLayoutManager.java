@@ -8,20 +8,20 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter;
+package com.puppetlabs.xtext.dommodel.formatter;
 
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.IDomNode.NodeClassifier;
-import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
-import org.cloudsmith.xtext.dommodel.formatter.css.LineBreaks;
-import org.cloudsmith.xtext.dommodel.formatter.css.Spacing;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.DedentStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.IndentStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.textflow.CharSequences;
-import org.cloudsmith.xtext.textflow.ITextFlow;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode.NodeClassifier;
+import com.puppetlabs.xtext.dommodel.IDomNode.NodeType;
+import com.puppetlabs.xtext.dommodel.formatter.css.LineBreaks;
+import com.puppetlabs.xtext.dommodel.formatter.css.Spacing;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.DedentStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.IndentStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.xtext.textflow.CharSequences;
+import com.puppetlabs.xtext.textflow.ITextFlow;
 import org.eclipse.xtext.util.Strings;
 
 /**

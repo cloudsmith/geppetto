@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import static com.google.inject.util.Modules.override;
-import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+import static com.puppetlabs.geppetto.injectable.CommonModuleProvider.getCommonModule;
 
-import org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule;
-import org.cloudsmith.geppetto.pp.dsl.PPStandaloneSetup;
-import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
+import com.puppetlabs.geppetto.pp.dsl.PPRuntimeModule;
+import com.puppetlabs.geppetto.pp.dsl.PPStandaloneSetup;
+import com.puppetlabs.geppetto.pp.dsl.target.PuppetTarget;
 import org.eclipse.xtext.resource.SynchronizedXtextResourceSet;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.service.AbstractGenericModule;

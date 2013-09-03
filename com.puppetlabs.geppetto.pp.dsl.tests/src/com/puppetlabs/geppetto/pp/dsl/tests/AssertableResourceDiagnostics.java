@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import java.util.ArrayList;
 import java.util.Arrays;

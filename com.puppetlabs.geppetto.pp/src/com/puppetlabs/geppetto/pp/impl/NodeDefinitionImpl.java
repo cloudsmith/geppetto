@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
 import java.util.Collection;
 
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.NodeDefinition;
-import org.cloudsmith.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.NodeDefinition;
+import com.puppetlabs.geppetto.pp.PPPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -31,9 +31,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl#getHostNames <em>Host Names</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl#getParentName <em>Parent Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl#getStatements <em>Statements</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.NodeDefinitionImpl#getHostNames <em>Host Names</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.NodeDefinitionImpl#getParentName <em>Parent Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.NodeDefinitionImpl#getStatements <em>Statements</em>}</li>
  * </ul>
  * </p>
  * 

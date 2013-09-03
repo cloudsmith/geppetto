@@ -5,7 +5,7 @@
 		<product name="Geppetto" application="org.eclipse.ui.ide.workbench"
 			description="%productBlurb">
 			<property name="windowImages" value="geppetto.gif,geppetto32.gif,geppetto48.gif" />
-			<property name="cssTheme" value="org.cloudsmith.geppetto.themes.classic" />
+			<property name="cssTheme" value="com.puppetlabs.geppetto.themes.classic" />
 			<property name="aboutImage" value="geppetto_lg.gif" />
 			<property name="aboutText" value="%productBlurb" />
 			<property name="appName" value="Geppetto" />
@@ -20,20 +20,20 @@
 			<property name="introDescription-overview" value="%introDescription-overview" />
 			<property name="introDescription-tutorials" value="%introDescription-tutorials" />
 			<property name="applicationCSSResources"
-				value="platform:/plugin/org.cloudsmith.geppetto/images">
+				value="platform:/plugin/com.puppetlabs.geppetto/images">
 			</property>
 		</product>
 	</extension>
 	<!-- <extension point="org.eclipse.ui.intro"> <introProductBinding introId="org.eclipse.ui.intro.universal" 
-		productId="org.cloudsmith.geppetto.ide"> </introProductBinding> </extension> -->
+		productId="com.puppetlabs.geppetto.ide"> </introProductBinding> </extension> -->
 	<extension point="org.eclipse.ui.newWizards">
-		<primaryWizard id="org.cloudsmith.geppetto.ui.NewManifestWizard" />
-		<primaryWizard id="org.cloudsmith.geppetto.ui.NewModulefileWizard" />
-		<primaryWizard id="org.cloudsmith.geppetto.ui.NewPuppetProjectWizard" />
+		<primaryWizard id="com.puppetlabs.geppetto.ui.NewManifestWizard" />
+		<primaryWizard id="com.puppetlabs.geppetto.ui.NewModulefileWizard" />
+		<primaryWizard id="com.puppetlabs.geppetto.ui.NewPuppetProjectWizard" />
 		<primaryWizard
-			id="org.cloudsmith.geppetto.ui.NewPuppetModuleProjectWizard" />
+			id="com.puppetlabs.geppetto.ui.NewPuppetModuleProjectWizard" />
 		<primaryWizard
-			id="org.cloudsmith.geppetto.ui.NewPuppetProjectFromForgeWizard" />
+			id="com.puppetlabs.geppetto.ui.NewPuppetProjectFromForgeWizard" />
 	</extension>
 	<extension point="org.eclipse.e4.ui.css.swt.theme">
 		<theme basestylesheeturi="css/e4_default.css"

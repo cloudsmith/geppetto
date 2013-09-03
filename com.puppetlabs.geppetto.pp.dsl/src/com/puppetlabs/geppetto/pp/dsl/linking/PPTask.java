@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package com.puppetlabs.geppetto.pp.dsl.linking;
 
 /**
  * Contains information about a task parsed from "TODO", "FIXME" and the like

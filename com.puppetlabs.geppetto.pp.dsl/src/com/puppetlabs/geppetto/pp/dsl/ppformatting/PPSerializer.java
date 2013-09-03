@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ppformatting;
+package com.puppetlabs.geppetto.pp.dsl.ppformatting;
 
 import java.io.IOException;
 import java.io.Writer;
 
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
-import org.cloudsmith.xtext.textflow.ITextFlow;
-import org.cloudsmith.xtext.textflow.TextFlow;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContext;
+import com.puppetlabs.xtext.textflow.ITextFlow;
+import com.puppetlabs.xtext.textflow.TextFlow;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;

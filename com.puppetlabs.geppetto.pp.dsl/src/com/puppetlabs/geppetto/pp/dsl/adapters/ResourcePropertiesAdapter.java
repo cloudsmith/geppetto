@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.adapters;
+package com.puppetlabs.geppetto.pp.dsl.adapters;
 
 import java.util.Map;
 

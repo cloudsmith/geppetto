@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences;
 
 /**
  * Constants for PP Preferences
@@ -51,7 +51,7 @@ public class PPPreferenceConstants {
 	 */
 	public static final String USE_PROJECT_SETTINGS = "useProjectSettings";
 
-	public static final String SAVE_ACTIONS_ID = "org.cloudsmith.geppetto.pp.dsl.PP.saveactions";
+	public static final String SAVE_ACTIONS_ID = "com.puppetlabs.geppetto.pp.dsl.PP.saveactions";
 
 	public static final String SAVE_ACTIONS_USE_PROJECT_SETTINGS = SAVE_ACTIONS_ID + "." + USE_PROJECT_SETTINGS;
 

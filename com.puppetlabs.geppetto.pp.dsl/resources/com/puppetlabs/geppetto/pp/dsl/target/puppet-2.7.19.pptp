@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pptp="http://www.cloudsmith.org/geppetto/1.0.0/PPTP">
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pptp="http://www.puppetlabs.com/geppetto/1.0.0/PPTP">
   <pptp:PuppetDistribution description="Puppet Distribution" version="2.7.19" label="puppet">
     <contents xsi:type="pptp:NameSpace" name="settings" reserved="true">
       <contents xsi:type="pptp:TPVariable" name="*"/>

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.semver.tests;
+package com.puppetlabs.geppetto.semver.tests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -16,8 +16,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.cloudsmith.geppetto.semver.Version;
-import org.cloudsmith.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
 import org.junit.Assert;
 import org.junit.Test;
 

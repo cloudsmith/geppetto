@@ -8,16 +8,16 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation.tests;
+package com.puppetlabs.geppetto.validation.tests;
 
 import static org.junit.Assert.assertTrue;
 
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
-import org.cloudsmith.geppetto.pp.dsl.validation.DefaultPotentialProblemsAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
-import org.cloudsmith.geppetto.validation.runner.PPDiagnosticsRunner;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.PuppetManifest;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.geppetto.pp.dsl.validation.DefaultPotentialProblemsAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor;
+import com.puppetlabs.geppetto.validation.runner.PPDiagnosticsRunner;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.parser.IParseResult;
 import org.junit.Test;

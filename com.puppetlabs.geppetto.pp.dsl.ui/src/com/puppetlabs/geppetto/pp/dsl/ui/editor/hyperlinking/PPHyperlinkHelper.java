@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.hyperlinking;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.hyperlinking;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.dsl.linking.PPObjectAtOffsetHelper;
-import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPObjectAtOffsetHelper;
+import com.puppetlabs.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.jface.text.Region;

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.v2.service;
+package com.puppetlabs.geppetto.forge.v2.service;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -16,9 +16,9 @@ import java.util.List;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
-import org.cloudsmith.geppetto.forge.model.Constants;
-import org.cloudsmith.geppetto.forge.v2.model.Module;
-import org.cloudsmith.geppetto.forge.v2.model.Tag;
+import com.puppetlabs.geppetto.forge.model.Constants;
+import com.puppetlabs.geppetto.forge.v2.model.Module;
+import com.puppetlabs.geppetto.forge.v2.model.Tag;
 
 /**
  * A CRUD service for {@link Tag} objects

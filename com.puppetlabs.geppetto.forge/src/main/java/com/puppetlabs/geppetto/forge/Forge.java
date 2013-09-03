@@ -8,16 +8,16 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge;
+package com.puppetlabs.geppetto.forge;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.Collection;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
 
 /**
  * This class basically mimics the PMT (Puppet Module Tool)

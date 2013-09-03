@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.resource;
+package com.puppetlabs.xtext.resource;
 
 import org.eclipse.emf.common.util.URI;
 

@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package com.puppetlabs.geppetto.pp.dsl.linking;
 
-import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
+import com.puppetlabs.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.diagnostics.IDiagnosticConsumer;
 import org.eclipse.xtext.linking.lazy.LazyLinker;

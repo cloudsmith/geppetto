@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.cloudsmith.geppetto.graph</name>
+	<name>com.puppetlabs.geppetto.graph</name>
 	<comment></comment>
 	<projects>
 	</projects>

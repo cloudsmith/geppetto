@@ -2,11 +2,11 @@
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;  Puppet Labs&#xA;"
-    modelDirectory="/org.cloudsmith.geppetto.catalog/src" editDirectory="" editorDirectory=""
-    modelPluginID="org.cloudsmith.geppetto.catalog" modelName="Catalog" testsDirectory=""
+    modelDirectory="/com.puppetlabs.geppetto.catalog/src" editDirectory="" editorDirectory=""
+    modelPluginID="com.puppetlabs.geppetto.catalog" modelName="Catalog" testsDirectory=""
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false">
   <foreignModel>Catalog.ecore</foreignModel>
-  <genPackages prefix="Catalog" basePackage="org.cloudsmith.geppetto" disposableProviderFactory="true"
+  <genPackages prefix="Catalog" basePackage="com.puppetlabs.geppetto" disposableProviderFactory="true"
       ecorePackage="Catalog.ecore#/">
     <genClasses ecoreClass="Catalog.ecore#//Catalog">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Catalog.ecore#//Catalog/name"/>

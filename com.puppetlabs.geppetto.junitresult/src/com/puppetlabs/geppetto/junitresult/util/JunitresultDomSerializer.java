@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.util;
+package com.puppetlabs.geppetto.junitresult.util;
 
 import java.io.OutputStream;
 import java.text.DecimalFormat;
@@ -25,15 +25,15 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.cloudsmith.geppetto.junitresult.Error;
-import org.cloudsmith.geppetto.junitresult.Failure;
-import org.cloudsmith.geppetto.junitresult.JunitResult;
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
-import org.cloudsmith.geppetto.junitresult.NegativeResult;
-import org.cloudsmith.geppetto.junitresult.Testcase;
-import org.cloudsmith.geppetto.junitresult.Testrun;
-import org.cloudsmith.geppetto.junitresult.Testsuite;
-import org.cloudsmith.geppetto.junitresult.Testsuites;
+import com.puppetlabs.geppetto.junitresult.Error;
+import com.puppetlabs.geppetto.junitresult.Failure;
+import com.puppetlabs.geppetto.junitresult.JunitResult;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.NegativeResult;
+import com.puppetlabs.geppetto.junitresult.Testcase;
+import com.puppetlabs.geppetto.junitresult.Testrun;
+import com.puppetlabs.geppetto.junitresult.Testsuite;
+import com.puppetlabs.geppetto.junitresult.Testsuites;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

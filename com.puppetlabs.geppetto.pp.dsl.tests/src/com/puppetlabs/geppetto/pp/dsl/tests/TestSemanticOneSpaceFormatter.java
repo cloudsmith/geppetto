@@ -8,22 +8,22 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import static com.google.inject.util.Modules.override;
-import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+import static com.puppetlabs.geppetto.injectable.CommonModuleProvider.getCommonModule;
 
-import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.LiteralList;
-import org.cloudsmith.geppetto.pp.PPFactory;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule;
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.OneWhitespaceDomFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
-import org.cloudsmith.xtext.serializer.DomBasedSerializer;
+import com.puppetlabs.geppetto.pp.AssignmentExpression;
+import com.puppetlabs.geppetto.pp.LiteralList;
+import com.puppetlabs.geppetto.pp.PPFactory;
+import com.puppetlabs.geppetto.pp.PuppetManifest;
+import com.puppetlabs.geppetto.pp.dsl.PPRuntimeModule;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.IDomModelFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.OneWhitespaceDomFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContext;
+import com.puppetlabs.xtext.serializer.DomBasedSerializer;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
@@ -48,8 +48,8 @@ public class TestSemanticOneSpaceFormatter extends AbstractPuppetTests {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IDomModelFormatter#format(org.cloudsmith.geppetto.pp.dsl.xt.dommodel.IDomNode,
-		 * org.eclipse.xtext.util.ITextRegion, org.cloudsmith.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext,
+		 * @see com.puppetlabs.geppetto.pp.dsl.xt.dommodel.formatter.IDomModelFormatter#format(com.puppetlabs.geppetto.pp.dsl.xt.dommodel.IDomNode,
+		 * org.eclipse.xtext.util.ITextRegion, com.puppetlabs.geppetto.pp.dsl.xt.dommodel.formatter.IFormattingContext,
 		 * org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor)
 		 */
 		@Override

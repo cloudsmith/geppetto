@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge;
+package com.puppetlabs.geppetto.forge;
 
-import org.cloudsmith.geppetto.forge.client.ForgeException;
+import com.puppetlabs.geppetto.forge.client.ForgeException;
 
 /**
  * Exception thrown on attempts to package a module with incomplete metadata

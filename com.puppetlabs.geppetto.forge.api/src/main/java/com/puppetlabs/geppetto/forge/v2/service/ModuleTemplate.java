@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.v2.service;
+package com.puppetlabs.geppetto.forge.v2.service;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.v2.model.Module;
+import com.puppetlabs.geppetto.forge.v2.model.Module;
 
 import com.google.gson.annotations.Expose;
 

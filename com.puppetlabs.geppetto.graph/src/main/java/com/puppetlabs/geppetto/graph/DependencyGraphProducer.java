@@ -8,17 +8,17 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph;
+package com.puppetlabs.geppetto.graph;
 
 import java.io.File;
 import java.io.OutputStream;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.validation.runner.AllModuleReferences;
-import org.cloudsmith.geppetto.validation.runner.BuildResult;
-import org.cloudsmith.geppetto.validation.runner.MetadataInfo;
-import org.cloudsmith.graph.ICancel;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.validation.runner.AllModuleReferences;
+import com.puppetlabs.geppetto.validation.runner.BuildResult;
+import com.puppetlabs.geppetto.validation.runner.MetadataInfo;
+import com.puppetlabs.graph.ICancel;
 
 import com.google.common.collect.Multimap;
 

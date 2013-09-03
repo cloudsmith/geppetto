@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.cloudsmith.geppetto</groupId>
+		<groupId>com.puppetlabs.geppetto</groupId>
 		<artifactId>parent</artifactId>
 		<version>4.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>org.cloudsmith.geppetto.semver.tests</artifactId>
+	<artifactId>com.puppetlabs.geppetto.semver.tests</artifactId>
 	<name>Geppetto Semantic Versioning Tests</name>
 
 	<build>
@@ -29,8 +29,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.cloudsmith.geppetto</groupId>
-			<artifactId>org.cloudsmith.geppetto.semver</artifactId>
+			<groupId>com.puppetlabs.geppetto</groupId>
+			<artifactId>com.puppetlabs.geppetto.semver</artifactId>
 			<version>4.0.0-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>

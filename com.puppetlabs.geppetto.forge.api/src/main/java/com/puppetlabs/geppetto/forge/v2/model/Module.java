@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.v2.model;
+package com.puppetlabs.geppetto.forge.v2.model;
 
-import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.safeName;
-import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.safeOwner;
+import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.safeName;
+import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.safeOwner;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby;
+package com.puppetlabs.geppetto.ruby;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -20,23 +20,23 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.pp.pptp.Function;
-import org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer;
-import org.cloudsmith.geppetto.pp.pptp.MetaType;
-import org.cloudsmith.geppetto.pp.pptp.MetaVariable;
-import org.cloudsmith.geppetto.pp.pptp.NameSpace;
-import org.cloudsmith.geppetto.pp.pptp.PPTPFactory;
-import org.cloudsmith.geppetto.pp.pptp.Parameter;
-import org.cloudsmith.geppetto.pp.pptp.Property;
-import org.cloudsmith.geppetto.pp.pptp.PuppetDistribution;
-import org.cloudsmith.geppetto.pp.pptp.TPVariable;
-import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
-import org.cloudsmith.geppetto.pp.pptp.Type;
-import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
-import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
-import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
-import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
-import org.cloudsmith.geppetto.ruby.spi.IRubyServicesFactory;
+import com.puppetlabs.geppetto.pp.pptp.Function;
+import com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer;
+import com.puppetlabs.geppetto.pp.pptp.MetaType;
+import com.puppetlabs.geppetto.pp.pptp.MetaVariable;
+import com.puppetlabs.geppetto.pp.pptp.NameSpace;
+import com.puppetlabs.geppetto.pp.pptp.PPTPFactory;
+import com.puppetlabs.geppetto.pp.pptp.Parameter;
+import com.puppetlabs.geppetto.pp.pptp.Property;
+import com.puppetlabs.geppetto.pp.pptp.PuppetDistribution;
+import com.puppetlabs.geppetto.pp.pptp.TPVariable;
+import com.puppetlabs.geppetto.pp.pptp.TargetEntry;
+import com.puppetlabs.geppetto.pp.pptp.Type;
+import com.puppetlabs.geppetto.pp.pptp.TypeFragment;
+import com.puppetlabs.geppetto.ruby.spi.IRubyIssue;
+import com.puppetlabs.geppetto.ruby.spi.IRubyParseResult;
+import com.puppetlabs.geppetto.ruby.spi.IRubyServices;
+import com.puppetlabs.geppetto.ruby.spi.IRubyServicesFactory;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;

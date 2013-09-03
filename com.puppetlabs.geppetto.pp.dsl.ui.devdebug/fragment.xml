@@ -6,7 +6,7 @@
     <menuContribution
           locationURI="popup:org.eclipse.xtext.ui.outline?after=additions">
        <command
-             commandId="org.cloudsmith.geppetto.pp.dsl.ui.devdebug"
+             commandId="com.puppetlabs.geppetto.pp.dsl.ui.devdebug"
              label="PP Dev Debug"
              style="push">
           <visibleWhen
@@ -22,12 +22,12 @@
         <menuContribution
             locationURI="popup:#TextEditorContext?after=group.edit">
              <command
-                 commandId="org.cloudsmith.geppetto.pp.dsl.ui.devdebug"
+                 commandId="com.puppetlabs.geppetto.pp.dsl.ui.devdebug"
                  style="push"
                  tooltip="Run a debug action">
             <visibleWhen checkEnabled="false">
                 <reference
-                    definitionId="org.cloudsmith.geppetto.pp.dsl.PP.Editor.opened">
+                    definitionId="com.puppetlabs.geppetto.pp.dsl.PP.Editor.opened">
                 </reference>
             </visibleWhen>
          </command>  

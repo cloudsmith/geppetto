@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.&#xA;All rights reserved. This program and the accompanying materials&#xA;are made available under the terms of the Eclipse Public License v1.0&#xA;which accompanies this distribution, and is available at&#xA;http://www.eclipse.org/legal/epl-v10.html&#xA;&#xA;Contributors:&#xA;  Puppet Labs&#xA;"
-    modelDirectory="/org.cloudsmith.geppetto.pp/src" editDirectory="" editorDirectory=""
-    modelPluginID="org.cloudsmith.geppetto.pp" templateDirectory="" modelName="PP"
-    modelPluginClass="" editPluginClass="org.cloudsmith.geppetto.pp.provider.PuppetEditPlugin"
-    editorPluginClass="org.cloudsmith.geppetto.pp.presentation.PuppetEditorPlugin"
-    codeFormatting="true" testsDirectory="" testSuiteClass="org.cloudsmith.geppetto.pp.tests.PuppetAllTests"
-    complianceLevel="6.0" copyrightFields="false" editPluginID="org.cloudsmith.geppetto.pp.edit"
-    editorPluginID="org.cloudsmith.geppetto.pp.edit" language="" classNamePattern="">
-  <genPackages prefix="PP" basePackage="org.cloudsmith.geppetto" disposableProviderFactory="true"
+    modelDirectory="/com.puppetlabs.geppetto.pp/src" editDirectory="" editorDirectory=""
+    modelPluginID="com.puppetlabs.geppetto.pp" templateDirectory="" modelName="PP"
+    modelPluginClass="" editPluginClass="com.puppetlabs.geppetto.pp.provider.PuppetEditPlugin"
+    editorPluginClass="com.puppetlabs.geppetto.pp.presentation.PuppetEditorPlugin"
+    codeFormatting="true" testsDirectory="" testSuiteClass="com.puppetlabs.geppetto.pp.tests.PuppetAllTests"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="com.puppetlabs.geppetto.pp.edit"
+    editorPluginID="com.puppetlabs.geppetto.pp.edit" language="" classNamePattern="">
+  <genPackages prefix="PP" basePackage="com.puppetlabs.geppetto" disposableProviderFactory="true"
       ecorePackage="PP.ecore#/">
     <genClasses ecoreClass="PP.ecore#//PuppetManifest"/>
     <genClasses ecoreClass="PP.ecore#//Expression"/>

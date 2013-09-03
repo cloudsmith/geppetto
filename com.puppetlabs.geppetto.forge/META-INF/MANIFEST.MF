@@ -1,28 +1,28 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.cloudsmith.geppetto.forge;singleton:=true
+Bundle-SymbolicName: com.puppetlabs.geppetto.forge;singleton:=true
 Bundle-Version: 4.0.0
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.cloudsmith.geppetto.forge;
-  uses:="org.cloudsmith.geppetto.diagnostic,
-   org.cloudsmith.geppetto.semver,
-   org.cloudsmith.geppetto.forge.v2.model,
+Export-Package: com.puppetlabs.geppetto.forge;
+  uses:="com.puppetlabs.geppetto.diagnostic,
+   com.puppetlabs.geppetto.semver,
+   com.puppetlabs.geppetto.forge.v2.model,
    com.google.inject,
-   org.cloudsmith.geppetto.forge.client",
- org.cloudsmith.geppetto.forge.impl;
-  x-friends:="org.cloudsmith.geppetto.forge.tests",
- org.cloudsmith.geppetto.forge.util;
-  uses:="org.cloudsmith.geppetto.diagnostic,
+   com.puppetlabs.geppetto.forge.client",
+ com.puppetlabs.geppetto.forge.impl;
+  x-friends:="com.puppetlabs.geppetto.forge.tests",
+ com.puppetlabs.geppetto.forge.util;
+  uses:="com.puppetlabs.geppetto.diagnostic,
    org.jrubyparser.ast,
    org.jrubyparser.lexer,
-   org.cloudsmith.geppetto.forge,
-   org.cloudsmith.geppetto.semver,
+   com.puppetlabs.geppetto.forge,
+   com.puppetlabs.geppetto.semver,
    org.jrubyparser,
    org.codehaus.jackson,
-   org.cloudsmith.geppetto.forge.v2.model"
+   com.puppetlabs.geppetto.forge.v2.model"
 Import-Package: com.google.gson,
  com.google.inject;version="[1.3.0,1.4.0)",
  com.google.inject.binder;version="[1.3.0,1.4.0)",
@@ -33,16 +33,16 @@ Import-Package: com.google.gson,
  org.apache.commons.compress.archivers.tar,
  org.apache.http,
  org.apache.http.client,
- org.cloudsmith.geppetto.common.os,
- org.cloudsmith.geppetto.diagnostic,
- org.cloudsmith.geppetto.forge.client,
- org.cloudsmith.geppetto.forge.model,
- org.cloudsmith.geppetto.forge.v1.model,
- org.cloudsmith.geppetto.forge.v1.service,
- org.cloudsmith.geppetto.forge.v2,
- org.cloudsmith.geppetto.forge.v2.model,
- org.cloudsmith.geppetto.forge.v2.service,
- org.cloudsmith.geppetto.semver,
+ com.puppetlabs.geppetto.common.os,
+ com.puppetlabs.geppetto.diagnostic,
+ com.puppetlabs.geppetto.forge.client,
+ com.puppetlabs.geppetto.forge.model,
+ com.puppetlabs.geppetto.forge.v1.model,
+ com.puppetlabs.geppetto.forge.v1.service,
+ com.puppetlabs.geppetto.forge.v2,
+ com.puppetlabs.geppetto.forge.v2.model,
+ com.puppetlabs.geppetto.forge.v2.service,
+ com.puppetlabs.geppetto.semver,
  org.codehaus.jackson,
  org.jrubyparser,
  org.jrubyparser.ast,

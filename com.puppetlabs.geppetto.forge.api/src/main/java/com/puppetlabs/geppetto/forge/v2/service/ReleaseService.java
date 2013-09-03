@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.v2.service;
+package com.puppetlabs.geppetto.forge.v2.service;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,9 +20,9 @@ import java.util.Map;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
-import org.cloudsmith.geppetto.forge.model.Constants;
-import org.cloudsmith.geppetto.forge.v2.model.Release;
-import org.cloudsmith.geppetto.semver.Version;
+import com.puppetlabs.geppetto.forge.model.Constants;
+import com.puppetlabs.geppetto.forge.v2.model.Release;
+import com.puppetlabs.geppetto.semver.Version;
 
 /**
  * A CRUD service for {@link Release} objects

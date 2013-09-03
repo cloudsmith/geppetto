@@ -1,11 +1,11 @@
-package org.cloudsmith.geppetto.catalog.test;
+package com.puppetlabs.geppetto.catalog.test;
 
 import java.io.File;
 
 import junit.framework.TestCase;
 
-import org.cloudsmith.geppetto.catalog.Catalog;
-import org.cloudsmith.geppetto.catalog.util.CatalogJsonSerializer;
+import com.puppetlabs.geppetto.catalog.Catalog;
+import com.puppetlabs.geppetto.catalog.util.CatalogJsonSerializer;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;

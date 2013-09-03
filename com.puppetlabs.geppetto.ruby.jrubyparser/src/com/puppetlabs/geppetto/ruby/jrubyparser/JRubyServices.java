@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.jrubyparser;
+package com.puppetlabs.geppetto.ruby.jrubyparser;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,14 +19,14 @@ import java.io.Reader;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.common.os.StreamUtil;
-import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
-import org.cloudsmith.geppetto.ruby.PPTypeInfo;
-import org.cloudsmith.geppetto.ruby.RubySyntaxException;
-import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
-import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
-import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
-import org.cloudsmith.geppetto.ruby.spi.IRubyServicesFactory;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.ruby.PPFunctionInfo;
+import com.puppetlabs.geppetto.ruby.PPTypeInfo;
+import com.puppetlabs.geppetto.ruby.RubySyntaxException;
+import com.puppetlabs.geppetto.ruby.spi.IRubyIssue;
+import com.puppetlabs.geppetto.ruby.spi.IRubyParseResult;
+import com.puppetlabs.geppetto.ruby.spi.IRubyServices;
+import com.puppetlabs.geppetto.ruby.spi.IRubyServicesFactory;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.jrubyparser.CompatVersion;

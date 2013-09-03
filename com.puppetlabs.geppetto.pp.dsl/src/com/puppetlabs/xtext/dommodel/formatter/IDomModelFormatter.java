@@ -10,10 +10,10 @@
  *   Puppet Labs - initial API and implementation
  * 
  */
-package org.cloudsmith.xtext.dommodel.formatter;
+package com.puppetlabs.xtext.dommodel.formatter;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContext;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.ReplaceRegion;

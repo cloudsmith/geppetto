@@ -8,28 +8,28 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.formatting;
+package com.puppetlabs.geppetto.pp.dsl.formatting;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.cloudsmith.geppetto.common.stats.IntegerCluster;
-import org.cloudsmith.geppetto.pp.LiteralHash;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.HashEntryElements;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.LiteralHashElements;
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
-import org.cloudsmith.xtext.dommodel.formatter.DelegatingLayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
-import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.textflow.ITextFlow;
-import org.cloudsmith.xtext.textflow.TextFlow;
+import com.puppetlabs.geppetto.common.stats.IntegerCluster;
+import com.puppetlabs.geppetto.pp.LiteralHash;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess.HashEntryElements;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess.LiteralHashElements;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode.NodeType;
+import com.puppetlabs.xtext.dommodel.formatter.DelegatingLayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.css.Alignment;
+import com.puppetlabs.xtext.dommodel.formatter.css.IStyleFactory;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.xtext.textflow.ITextFlow;
+import com.puppetlabs.xtext.textflow.TextFlow;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractElement;
 

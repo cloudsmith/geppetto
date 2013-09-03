@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph.catalog;
+package com.puppetlabs.geppetto.graph.catalog;
 
 import java.io.OutputStream;
 import java.util.Collection;
@@ -16,22 +16,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.catalog.Catalog;
-import org.cloudsmith.geppetto.catalog.CatalogEdge;
-import org.cloudsmith.geppetto.catalog.CatalogResource;
-import org.cloudsmith.geppetto.catalog.CatalogResourceParameter;
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.IGraphElement;
-import org.cloudsmith.graph.ILabeledGraphElement;
-import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.elements.RootGraph;
-import org.cloudsmith.graph.elements.Vertex;
-import org.cloudsmith.graph.graphcss.StyleSet;
-import org.cloudsmith.graph.style.Span;
-import org.cloudsmith.graph.style.labels.ILabelTemplate;
-import org.cloudsmith.graph.style.labels.LabelCell;
-import org.cloudsmith.graph.style.labels.LabelRow;
-import org.cloudsmith.graph.style.labels.LabelStringTemplate;
+import com.puppetlabs.geppetto.catalog.Catalog;
+import com.puppetlabs.geppetto.catalog.CatalogEdge;
+import com.puppetlabs.geppetto.catalog.CatalogResource;
+import com.puppetlabs.geppetto.catalog.CatalogResourceParameter;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.IGraphElement;
+import com.puppetlabs.graph.ILabeledGraphElement;
+import com.puppetlabs.graph.elements.Edge;
+import com.puppetlabs.graph.elements.RootGraph;
+import com.puppetlabs.graph.elements.Vertex;
+import com.puppetlabs.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.style.Span;
+import com.puppetlabs.graph.style.labels.ILabelTemplate;
+import com.puppetlabs.graph.style.labels.LabelCell;
+import com.puppetlabs.graph.style.labels.LabelRow;
+import com.puppetlabs.graph.style.labels.LabelStringTemplate;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package com.puppetlabs.geppetto.pp.dsl.linking;
 
 import java.util.EnumSet;
 import java.util.Iterator;

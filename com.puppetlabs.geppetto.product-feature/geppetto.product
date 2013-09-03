@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Geppetto" uid="org.cloudsmith.geppetto.ide2" id="org.cloudsmith.geppetto.ide2" application="org.eclipse.ui.ide.workbench" version="0.0.0" useFeatures="true" includeLaunchers="true">
+<product name="Geppetto" uid="com.puppetlabs.geppetto.ide2" id="com.puppetlabs.geppetto.ide2" application="org.eclipse.ui.ide.workbench" version="0.0.0" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="geppetto_lg.gif"/>
@@ -23,16 +23,16 @@
    <windowImages i16="geppetto.gif" i32="geppetto32.gif" i48="geppetto48.gif"/>
 
    <splash
-      location="org.cloudsmith.geppetto"
+      location="com.puppetlabs.geppetto"
       startupProgressRect="3,277,449,15"
       startupMessageRect="7,254,441,20"
       startupForegroundColor="9C99B3" />
    <launcher name="geppetto">
-      <linux icon="/org.cloudsmith.geppetto/geppetto.xpm"/>
-      <macosx icon="/org.cloudsmith.geppetto/geppetto.icns"/>
+      <linux icon="/com.puppetlabs.geppetto/geppetto.xpm"/>
+      <macosx icon="/com.puppetlabs.geppetto/geppetto.icns"/>
       <solaris/>
       <win useIco="true">
-         <ico path="/org.cloudsmith.geppetto/geppetto.ico"/>
+         <ico path="/com.puppetlabs.geppetto/geppetto.ico"/>
          <bmp/>
       </win>
    </launcher>
@@ -46,7 +46,7 @@
    </plugins>
 
    <features>
-      <feature id="org.cloudsmith.geppetto.product"/>
+      <feature id="com.puppetlabs.geppetto.product"/>
    </features>
 
    <configurations>

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph;
+package com.puppetlabs.geppetto.graph;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,12 +16,12 @@ import java.io.OutputStream;
 import java.util.concurrent.CancellationException;
 import java.util.zip.GZIPOutputStream;
 
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.graphviz.GraphvizFormat;
-import org.cloudsmith.graph.graphviz.GraphvizLayout;
-import org.cloudsmith.graph.graphviz.IGraphviz;
-import org.cloudsmith.graph.graphviz.IGraphviz.SVGOutputFilter;
-import org.cloudsmith.graph.utils.IOutputStreamFilterFactory;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.graphviz.GraphvizFormat;
+import com.puppetlabs.graph.graphviz.GraphvizLayout;
+import com.puppetlabs.graph.graphviz.IGraphviz;
+import com.puppetlabs.graph.graphviz.IGraphviz.SVGOutputFilter;
+import com.puppetlabs.graph.utils.IOutputStreamFilterFactory;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubMonitor;

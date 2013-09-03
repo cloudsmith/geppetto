@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.viewers.Viewer;

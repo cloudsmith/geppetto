@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.util;
+package com.puppetlabs.geppetto.forge.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
 import org.jrubyparser.CompatVersion;
 import org.jrubyparser.Parser;
 import org.jrubyparser.ast.CallNode;

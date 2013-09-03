@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.lexer;
+package com.puppetlabs.geppetto.pp.dsl.lexer;
 
 import java.util.Arrays;
 

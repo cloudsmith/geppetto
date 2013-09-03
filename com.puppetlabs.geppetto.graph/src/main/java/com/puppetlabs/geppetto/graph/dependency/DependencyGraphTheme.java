@@ -8,21 +8,21 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph.dependency;
+package com.puppetlabs.geppetto.graph.dependency;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.cloudsmith.graph.graphcss.IFunctionFactory;
-import org.cloudsmith.graph.graphcss.Rule;
-import org.cloudsmith.graph.graphcss.Select;
-import org.cloudsmith.graph.style.Alignment;
-import org.cloudsmith.graph.style.Arrow;
-import org.cloudsmith.graph.style.IStyleFactory;
-import org.cloudsmith.graph.style.LineType;
-import org.cloudsmith.graph.style.NodeShape;
-import org.cloudsmith.graph.style.themes.DefaultStyleTheme;
+import com.puppetlabs.graph.graphcss.IFunctionFactory;
+import com.puppetlabs.graph.graphcss.Rule;
+import com.puppetlabs.graph.graphcss.Select;
+import com.puppetlabs.graph.style.Alignment;
+import com.puppetlabs.graph.style.Arrow;
+import com.puppetlabs.graph.style.IStyleFactory;
+import com.puppetlabs.graph.style.LineType;
+import com.puppetlabs.graph.style.NodeShape;
+import com.puppetlabs.graph.style.themes.DefaultStyleTheme;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -46,7 +46,7 @@ public class DependencyGraphTheme extends DefaultStyleTheme implements Dependenc
 
 	/* (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.style.themes.DefaultStyleTheme#getInstanceRules() */
+	 * @see com.puppetlabs.graph.style.themes.DefaultStyleTheme#getInstanceRules() */
 	@Override
 	public Collection<Rule> getInstanceRules() {
 		ArrayList<Rule> rules = Lists.newArrayList();

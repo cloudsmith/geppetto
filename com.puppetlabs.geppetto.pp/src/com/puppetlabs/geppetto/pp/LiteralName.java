@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.LiteralName#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.LiteralName#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getLiteralName()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getLiteralName()
  * @model
  * @generated
  */
@@ -37,14 +37,14 @@ public interface LiteralName extends LiteralExpression {
 	 * 
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getLiteralName_Value()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getLiteralName_Value()
 	 * @model
 	 * @generated
 	 */
 	String getValue();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.LiteralName#getValue <em>Value</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.LiteralName#getValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

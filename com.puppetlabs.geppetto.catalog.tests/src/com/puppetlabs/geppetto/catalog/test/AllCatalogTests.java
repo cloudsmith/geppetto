@@ -9,7 +9,7 @@
  *   Puppet Labs
  */
 
-package org.cloudsmith.geppetto.catalog.test;
+package com.puppetlabs.geppetto.catalog.test;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

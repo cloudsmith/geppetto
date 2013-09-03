@@ -8,28 +8,28 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.contentassist;
+package com.puppetlabs.geppetto.pp.dsl.ui.contentassist;
 
-import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
-import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
+import static com.puppetlabs.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
+import static com.puppetlabs.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
 
 import java.util.List;
 import java.util.ListIterator;
 
-import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.AttributeOperation;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.ResourceBody;
-import org.cloudsmith.geppetto.pp.ResourceExpression;
-import org.cloudsmith.geppetto.pp.StringExpression;
-import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
-import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPFinder.SearchResult;
-import org.cloudsmith.geppetto.pp.dsl.ui.labeling.IIconNames;
-import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.AssignmentExpression;
+import com.puppetlabs.geppetto.pp.AttributeOperation;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.ResourceBody;
+import com.puppetlabs.geppetto.pp.ResourceExpression;
+import com.puppetlabs.geppetto.pp.StringExpression;
+import com.puppetlabs.geppetto.pp.adapters.ClassifierAdapter;
+import com.puppetlabs.geppetto.pp.adapters.ClassifierAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.eval.PPStringConstantEvaluator;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPFinder;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPFinder.SearchResult;
+import com.puppetlabs.geppetto.pp.dsl.ui.labeling.IIconNames;
+import com.puppetlabs.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -254,7 +254,7 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#completeAttributeOperation_Op(org.eclipse.emf.ecore.EObject,
+	 * @see com.puppetlabs.geppetto.pp.dsl.ui.contentassist.AbstractPPProposalProvider#completeAttributeOperation_Op(org.eclipse.emf.ecore.EObject,
 	 * org.eclipse.xtext.Assignment, org.eclipse.xtext.ui.editor.contentassist.ContentAssistContext,
 	 * org.eclipse.xtext.ui.editor.contentassist.ICompletionProposalAcceptor)
 	 */

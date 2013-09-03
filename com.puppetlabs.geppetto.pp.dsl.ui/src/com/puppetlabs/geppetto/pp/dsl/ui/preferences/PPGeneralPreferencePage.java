@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.swt.widgets.Composite;
 

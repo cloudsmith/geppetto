@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult;
+package com.puppetlabs.geppetto.junitresult;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,15 +20,15 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getTests <em>Tests</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getFailures <em>Failures</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getErrors <em>Errors</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getTestsuites <em>Testsuites</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getName <em>Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getTests <em>Tests</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getFailures <em>Failures</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getErrors <em>Errors</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getTestsuites <em>Testsuites</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest()
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest()
  * @model abstract="true"
  * @generated
  */
@@ -43,7 +43,7 @@ public interface AbstractAggregatedTest extends JunitResult {
 	 * 
 	 * @return the value of the '<em>Errors</em>' attribute.
 	 * @see #setErrors(int)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Errors()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Errors()
 	 * @model
 	 * @generated
 	 */
@@ -59,7 +59,7 @@ public interface AbstractAggregatedTest extends JunitResult {
 	 * 
 	 * @return the value of the '<em>Failures</em>' attribute.
 	 * @see #setFailures(int)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Failures()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Failures()
 	 * @model
 	 * @generated
 	 */
@@ -75,7 +75,7 @@ public interface AbstractAggregatedTest extends JunitResult {
 	 * 
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Name()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Name()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -91,7 +91,7 @@ public interface AbstractAggregatedTest extends JunitResult {
 	 * 
 	 * @return the value of the '<em>Tests</em>' attribute.
 	 * @see #setTests(int)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Tests()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Tests()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -99,7 +99,7 @@ public interface AbstractAggregatedTest extends JunitResult {
 
 	/**
 	 * Returns the value of the '<em><b>Testsuites</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.junitresult.Testsuite}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.junitresult.Testsuite}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Testsuites</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -107,14 +107,14 @@ public interface AbstractAggregatedTest extends JunitResult {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Testsuites</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Testsuites()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getAbstractAggregatedTest_Testsuites()
 	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Testsuite> getTestsuites();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getErrors <em>Errors</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getErrors <em>Errors</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -126,7 +126,7 @@ public interface AbstractAggregatedTest extends JunitResult {
 	void setErrors(int value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getFailures <em>Failures</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getFailures <em>Failures</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -138,7 +138,7 @@ public interface AbstractAggregatedTest extends JunitResult {
 	void setFailures(int value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -150,7 +150,7 @@ public interface AbstractAggregatedTest extends JunitResult {
 	void setName(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getTests <em>Tests</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getTests <em>Tests</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

@@ -10,7 +10,7 @@
  *     Puppet Labs Inc - Makes field width settable, shows errors in decorator 
  *******************************************************************************/
 
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.fieldassist.ControlDecoration;

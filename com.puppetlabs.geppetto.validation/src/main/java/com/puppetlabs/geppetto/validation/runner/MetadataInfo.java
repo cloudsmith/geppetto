@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation.runner;
+package com.puppetlabs.geppetto.validation.runner;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.v2.model.Dependency;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.forge.v2.model.Dependency;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.semver.VersionRange;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;

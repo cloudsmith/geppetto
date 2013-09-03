@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter;
+package com.puppetlabs.xtext.dommodel.formatter;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.RegionMatch;
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.RegionMatch;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.css.debug.FormattingTracer;
 
 import com.google.inject.Inject;
 

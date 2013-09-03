@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult;
+package com.puppetlabs.geppetto.junitresult;
 
 /**
  * <!-- begin-user-doc -->
@@ -23,13 +23,13 @@ package org.cloudsmith.geppetto.junitresult;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testrun#getProject <em>Project</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testrun#getStarted <em>Started</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testrun#getIgnored <em>Ignored</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testrun#getProject <em>Project</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testrun#getStarted <em>Started</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testrun#getIgnored <em>Ignored</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestrun()
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestrun()
  * @model
  * @generated
  */
@@ -44,7 +44,7 @@ public interface Testrun extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Ignored</em>' attribute.
 	 * @see #setIgnored(int)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestrun_Ignored()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestrun_Ignored()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -60,7 +60,7 @@ public interface Testrun extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Project</em>' attribute.
 	 * @see #setProject(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestrun_Project()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestrun_Project()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -76,14 +76,14 @@ public interface Testrun extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Started</em>' attribute.
 	 * @see #setStarted(int)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestrun_Started()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestrun_Started()
 	 * @model required="true"
 	 * @generated
 	 */
 	int getStarted();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testrun#getIgnored <em>Ignored</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testrun#getIgnored <em>Ignored</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -95,7 +95,7 @@ public interface Testrun extends AbstractAggregatedTest {
 	void setIgnored(int value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testrun#getProject <em>Project</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testrun#getProject <em>Project</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -107,7 +107,7 @@ public interface Testrun extends AbstractAggregatedTest {
 	void setProject(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testrun#getStarted <em>Started</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testrun#getStarted <em>Started</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

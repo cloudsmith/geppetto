@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ppformatting;
+package com.puppetlabs.geppetto.pp.dsl.ppformatting;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;

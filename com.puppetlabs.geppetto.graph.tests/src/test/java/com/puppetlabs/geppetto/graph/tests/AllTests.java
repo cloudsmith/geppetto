@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.graph.tests;
+package com.puppetlabs.geppetto.graph.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

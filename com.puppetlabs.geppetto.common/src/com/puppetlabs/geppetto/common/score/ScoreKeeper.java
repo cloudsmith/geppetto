@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.common.score;
+package com.puppetlabs.geppetto.common.score;
 
 import java.util.Comparator;
 import java.util.Set;

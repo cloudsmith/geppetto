@@ -8,17 +8,17 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.editor;
+package com.puppetlabs.geppetto.ui.editor;
 
-import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
-import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.MODULEFILE_NAME;
 
 import java.util.Iterator;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
-import org.cloudsmith.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.pp.dsl.ui.PPUiConstants;
+import com.puppetlabs.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResourceChangeEvent;

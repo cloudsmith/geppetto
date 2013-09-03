@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.validation.tests;
+package com.puppetlabs.geppetto.validation.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

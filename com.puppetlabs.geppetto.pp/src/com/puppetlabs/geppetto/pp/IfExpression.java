@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,13 +20,13 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.IfExpression#getCondExpr <em>Cond Expr</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.IfExpression#getThenStatements <em>Then Statements</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.IfExpression#getElseStatement <em>Else Statement</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.IfExpression#getCondExpr <em>Cond Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.IfExpression#getThenStatements <em>Then Statements</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.IfExpression#getElseStatement <em>Else Statement</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getIfExpression()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getIfExpression()
  * @model
  * @generated
  */
@@ -41,7 +41,7 @@ public interface IfExpression extends Expression {
 	 * 
 	 * @return the value of the '<em>Cond Expr</em>' containment reference.
 	 * @see #setCondExpr(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getIfExpression_CondExpr()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getIfExpression_CondExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -57,7 +57,7 @@ public interface IfExpression extends Expression {
 	 * 
 	 * @return the value of the '<em>Else Statement</em>' containment reference.
 	 * @see #setElseStatement(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getIfExpression_ElseStatement()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getIfExpression_ElseStatement()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -65,7 +65,7 @@ public interface IfExpression extends Expression {
 
 	/**
 	 * Returns the value of the '<em><b>Then Statements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.Expression}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.Expression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Then Statements</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -73,14 +73,14 @@ public interface IfExpression extends Expression {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Then Statements</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getIfExpression_ThenStatements()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getIfExpression_ThenStatements()
 	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Expression> getThenStatements();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.IfExpression#getCondExpr <em>Cond Expr</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.IfExpression#getCondExpr <em>Cond Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -92,7 +92,7 @@ public interface IfExpression extends Expression {
 	void setCondExpr(Expression value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.IfExpression#getElseStatement <em>Else Statement</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.IfExpression#getElseStatement <em>Else Statement</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

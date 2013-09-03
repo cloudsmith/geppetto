@@ -8,29 +8,29 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation.tests;
+package com.puppetlabs.geppetto.validation.tests;
 
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.List;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.client.GsonModule;
-import org.cloudsmith.geppetto.forge.impl.ForgeModule;
-import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
-import org.cloudsmith.geppetto.pp.dsl.validation.DefaultPotentialProblemsAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
-import org.cloudsmith.geppetto.pp.dsl.validation.ValidationAdvisor;
-import org.cloudsmith.geppetto.ruby.RubyHelper;
-import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
-import org.cloudsmith.geppetto.validation.ValidationOptions;
-import org.cloudsmith.geppetto.validation.ValidationService;
-import org.cloudsmith.geppetto.validation.impl.ValidationModule;
-import org.cloudsmith.geppetto.validation.runner.AllModuleReferences;
-import org.cloudsmith.geppetto.validation.runner.AllModuleReferences.Export;
-import org.cloudsmith.geppetto.validation.runner.IEncodingProvider;
-import org.cloudsmith.geppetto.validation.runner.PPDiagnosticsSetup;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.client.GsonModule;
+import com.puppetlabs.geppetto.forge.impl.ForgeModule;
+import com.puppetlabs.geppetto.pp.dsl.target.PuppetTarget;
+import com.puppetlabs.geppetto.pp.dsl.validation.DefaultPotentialProblemsAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
+import com.puppetlabs.geppetto.pp.dsl.validation.ValidationAdvisor;
+import com.puppetlabs.geppetto.ruby.RubyHelper;
+import com.puppetlabs.geppetto.ruby.jrubyparser.JRubyServices;
+import com.puppetlabs.geppetto.validation.ValidationOptions;
+import com.puppetlabs.geppetto.validation.ValidationService;
+import com.puppetlabs.geppetto.validation.impl.ValidationModule;
+import com.puppetlabs.geppetto.validation.runner.AllModuleReferences;
+import com.puppetlabs.geppetto.validation.runner.AllModuleReferences.Export;
+import com.puppetlabs.geppetto.validation.runner.IEncodingProvider;
+import com.puppetlabs.geppetto.validation.runner.PPDiagnosticsSetup;
 import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 

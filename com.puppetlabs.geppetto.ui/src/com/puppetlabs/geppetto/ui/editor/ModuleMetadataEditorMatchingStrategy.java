@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.editor;
+package com.puppetlabs.geppetto.ui.editor;
 
-import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
-import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.MODULEFILE_NAME;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.IEditorInput;

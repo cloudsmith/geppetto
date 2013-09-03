@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph.dependency;
+package com.puppetlabs.geppetto.graph.dependency;
 
-import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
-import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
-import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.safeName;
-import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.safeOwner;
+import static com.puppetlabs.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.MODULEFILE_NAME;
+import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.safeName;
+import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.safeOwner;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -26,35 +26,35 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
-import org.cloudsmith.geppetto.forge.v2.model.Dependency;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.graph.DependencyGraphProducer;
-import org.cloudsmith.geppetto.graph.IHrefProducer;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
-import org.cloudsmith.geppetto.semver.Version;
-import org.cloudsmith.geppetto.semver.VersionRange;
-import org.cloudsmith.geppetto.validation.runner.AllModuleReferences;
-import org.cloudsmith.geppetto.validation.runner.AllModuleReferences.Export;
-import org.cloudsmith.geppetto.validation.runner.BuildResult;
-import org.cloudsmith.geppetto.validation.runner.MetadataInfo;
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.ICancel.NullIndicator;
-import org.cloudsmith.graph.IVertex;
-import org.cloudsmith.graph.dot.DotRenderer;
-import org.cloudsmith.graph.elements.Edge;
-import org.cloudsmith.graph.elements.GraphElement;
-import org.cloudsmith.graph.elements.RootGraph;
-import org.cloudsmith.graph.elements.Vertex;
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.graphcss.IFunctionFactory;
-import org.cloudsmith.graph.graphcss.StyleSet;
-import org.cloudsmith.graph.style.IStyle;
-import org.cloudsmith.graph.style.IStyleFactory;
-import org.cloudsmith.graph.style.labels.LabelRow;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
+import com.puppetlabs.geppetto.forge.v2.model.Dependency;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.graph.DependencyGraphProducer;
+import com.puppetlabs.geppetto.graph.IHrefProducer;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.validation.runner.AllModuleReferences;
+import com.puppetlabs.geppetto.validation.runner.AllModuleReferences.Export;
+import com.puppetlabs.geppetto.validation.runner.BuildResult;
+import com.puppetlabs.geppetto.validation.runner.MetadataInfo;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.ICancel.NullIndicator;
+import com.puppetlabs.graph.IVertex;
+import com.puppetlabs.graph.dot.DotRenderer;
+import com.puppetlabs.graph.elements.Edge;
+import com.puppetlabs.graph.elements.GraphElement;
+import com.puppetlabs.graph.elements.RootGraph;
+import com.puppetlabs.graph.elements.Vertex;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.graphcss.IFunctionFactory;
+import com.puppetlabs.graph.graphcss.StyleSet;
+import com.puppetlabs.graph.style.IStyle;
+import com.puppetlabs.graph.style.IStyleFactory;
+import com.puppetlabs.graph.style.labels.LabelRow;
 import org.eclipse.emf.ecore.EClass;
 
 import com.google.common.collect.ArrayListMultimap;

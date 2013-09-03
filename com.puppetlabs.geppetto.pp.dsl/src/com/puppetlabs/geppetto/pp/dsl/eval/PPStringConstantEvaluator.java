@@ -8,18 +8,18 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.eval;
+package com.puppetlabs.geppetto.pp.dsl.eval;
 
 import java.util.Collections;
 
-import org.cloudsmith.geppetto.pp.DoubleQuotedString;
-import org.cloudsmith.geppetto.pp.LiteralBoolean;
-import org.cloudsmith.geppetto.pp.LiteralDefault;
-import org.cloudsmith.geppetto.pp.LiteralName;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.LiteralUndef;
-import org.cloudsmith.geppetto.pp.SingleQuotedString;
-import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
+import com.puppetlabs.geppetto.pp.DoubleQuotedString;
+import com.puppetlabs.geppetto.pp.LiteralBoolean;
+import com.puppetlabs.geppetto.pp.LiteralDefault;
+import com.puppetlabs.geppetto.pp.LiteralName;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.LiteralUndef;
+import com.puppetlabs.geppetto.pp.SingleQuotedString;
+import com.puppetlabs.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 
 /**

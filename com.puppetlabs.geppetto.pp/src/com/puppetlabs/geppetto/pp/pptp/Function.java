@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp;
+package com.puppetlabs.geppetto.pp.pptp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp.pptp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.Function#isRValue <em>RValue</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.Function#isRValue <em>RValue</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getFunction()
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getFunction()
  * @model
  * @generated
  */
@@ -37,14 +37,14 @@ public interface Function extends IDocumented, TargetElement {
 	 * 
 	 * @return the value of the '<em>RValue</em>' attribute.
 	 * @see #setRValue(boolean)
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getFunction_RValue()
+	 * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getFunction_RValue()
 	 * @model
 	 * @generated
 	 */
 	boolean isRValue();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.Function#isRValue <em>RValue</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.pptp.Function#isRValue <em>RValue</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

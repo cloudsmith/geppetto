@@ -8,25 +8,25 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.pp.AttributeOperation;
-import org.cloudsmith.geppetto.pp.AttributeOperations;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.PPFactory;
-import org.cloudsmith.geppetto.pp.ResourceBody;
-import org.cloudsmith.geppetto.pp.ResourceExpression;
-import org.cloudsmith.geppetto.pp.SingleQuotedString;
-import org.cloudsmith.geppetto.pp.VariableExpression;
-import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
-import org.cloudsmith.geppetto.pp.dsl.validation.PPJavaValidator;
-import org.cloudsmith.xtext.serializer.DomBasedSerializer;
+import com.puppetlabs.geppetto.pp.AttributeOperation;
+import com.puppetlabs.geppetto.pp.AttributeOperations;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.PPFactory;
+import com.puppetlabs.geppetto.pp.ResourceBody;
+import com.puppetlabs.geppetto.pp.ResourceExpression;
+import com.puppetlabs.geppetto.pp.SingleQuotedString;
+import com.puppetlabs.geppetto.pp.VariableExpression;
+import com.puppetlabs.geppetto.pp.VirtualNameOrReference;
+import com.puppetlabs.geppetto.pp.dsl.validation.PPJavaValidator;
+import com.puppetlabs.xtext.serializer.DomBasedSerializer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -456,6 +456,6 @@ public class AbstractPuppetTests extends AbstractXtextTests {
 		with(getSetupClass());
 		PPJavaValidator validator = get(PPJavaValidator.class);
 		EValidatorRegistrar registrar = get(EValidatorRegistrar.class);
-		tester = new ValidatorTester<PPJavaValidator>(validator, registrar, "org.cloudsmith.geppetto.pp.dsl.PP");
+		tester = new ValidatorTester<PPJavaValidator>(validator, registrar, "com.puppetlabs.geppetto.pp.dsl.PP");
 	}
 }

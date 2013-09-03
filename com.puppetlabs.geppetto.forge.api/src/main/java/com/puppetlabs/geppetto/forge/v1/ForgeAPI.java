@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.v1;
+package com.puppetlabs.geppetto.forge.v1;
 
-import org.cloudsmith.geppetto.forge.v1.service.ModuleService;
+import com.puppetlabs.geppetto.forge.v1.service.ModuleService;
 
 import com.google.inject.Injector;
 

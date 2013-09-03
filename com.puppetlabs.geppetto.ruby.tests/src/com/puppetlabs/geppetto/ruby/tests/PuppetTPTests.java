@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.tests;
+package com.puppetlabs.geppetto.ruby.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -18,15 +18,15 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.facter.Facter.Facter1_6;
-import org.cloudsmith.geppetto.pp.pptp.AbstractType;
-import org.cloudsmith.geppetto.pp.pptp.Function;
-import org.cloudsmith.geppetto.pp.pptp.Parameter;
-import org.cloudsmith.geppetto.pp.pptp.Property;
-import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
-import org.cloudsmith.geppetto.pp.pptp.Type;
-import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
-import org.cloudsmith.geppetto.ruby.RubyHelper;
+import com.puppetlabs.geppetto.pp.facter.Facter.Facter1_6;
+import com.puppetlabs.geppetto.pp.pptp.AbstractType;
+import com.puppetlabs.geppetto.pp.pptp.Function;
+import com.puppetlabs.geppetto.pp.pptp.Parameter;
+import com.puppetlabs.geppetto.pp.pptp.Property;
+import com.puppetlabs.geppetto.pp.pptp.TargetEntry;
+import com.puppetlabs.geppetto.pp.pptp.Type;
+import com.puppetlabs.geppetto.pp.pptp.TypeFragment;
+import com.puppetlabs.geppetto.ruby.RubyHelper;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;

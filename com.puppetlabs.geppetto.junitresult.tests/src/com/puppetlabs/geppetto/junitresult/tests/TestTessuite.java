@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.tests;
+package com.puppetlabs.geppetto.junitresult.tests;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,13 +17,13 @@ import java.util.Date;
 
 import junit.framework.TestCase;
 
-import org.cloudsmith.geppetto.junitresult.Failure;
-import org.cloudsmith.geppetto.junitresult.JunitResult;
-import org.cloudsmith.geppetto.junitresult.NegativeResult;
-import org.cloudsmith.geppetto.junitresult.Property;
-import org.cloudsmith.geppetto.junitresult.Testcase;
-import org.cloudsmith.geppetto.junitresult.Testsuite;
-import org.cloudsmith.geppetto.junitresult.util.JunitresultLoader;
+import com.puppetlabs.geppetto.junitresult.Failure;
+import com.puppetlabs.geppetto.junitresult.JunitResult;
+import com.puppetlabs.geppetto.junitresult.NegativeResult;
+import com.puppetlabs.geppetto.junitresult.Property;
+import com.puppetlabs.geppetto.junitresult.Testcase;
+import com.puppetlabs.geppetto.junitresult.Testsuite;
+import com.puppetlabs.geppetto.junitresult.util.JunitresultLoader;
 import org.eclipse.core.runtime.Path;
 
 /**
@@ -66,7 +66,7 @@ public class TestTessuite extends TestCase {
 
 		assertEquals(1, tc2.getErrors().size());
 		NegativeResult error = tc2.getErrors().get(0);
-		assertTrue(error instanceof org.cloudsmith.geppetto.junitresult.Error);
+		assertTrue(error instanceof com.puppetlabs.geppetto.junitresult.Error);
 		assertEquals("java.lang.RuntimeException: humidity level too high\n" + //
 				"\tat net.cars.engine.Bougie.spark(Unknown Source)\n" + //
 				"\tat net.cars.engine.BougieTest.sparkHumid(BougieTest.java:36)\n", error.getValue());

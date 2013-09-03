@@ -8,18 +8,18 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import java.io.StringReader;
 
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.LiteralRegex;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.ResourceExpression;
-import org.cloudsmith.geppetto.pp.SingleQuotedString;
-import org.cloudsmith.geppetto.pp.dsl.parser.antlr.PPParser;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
-import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.LiteralRegex;
+import com.puppetlabs.geppetto.pp.PuppetManifest;
+import com.puppetlabs.geppetto.pp.ResourceExpression;
+import com.puppetlabs.geppetto.pp.SingleQuotedString;
+import com.puppetlabs.geppetto.pp.dsl.parser.antlr.PPParser;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.parser.IParseResult;
 import org.junit.Test;

@@ -6,43 +6,43 @@
     <extension
             point="org.eclipse.ui.editors">
         <editor
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
               contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
               default="true"
               extensions="pp"
               icon="icons/obj16/file_pp.gif"
-              id="org.cloudsmith.geppetto.pp.dsl.PP"
+              id="com.puppetlabs.geppetto.pp.dsl.PP"
               name="Puppet Manifest Editor">
         </editor>
     </extension>
     <extension
         point="org.eclipse.ui.handlers">
         <handler
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
+            class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclarationHandler"
             commandId="org.eclipse.xtext.ui.editor.hyperlinking.OpenDeclaration">
             <activeWhen>
                 <reference
-                    definitionId="org.cloudsmith.geppetto.pp.dsl.PP.Editor.opened">
+                    definitionId="com.puppetlabs.geppetto.pp.dsl.PP.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
         <handler
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
-            commandId="org.cloudsmith.geppetto.pp.dsl.PP.validate">
+            class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.handler.ValidateActionHandler"
+            commandId="com.puppetlabs.geppetto.pp.dsl.PP.validate">
          <activeWhen>
             <reference
-                    definitionId="org.cloudsmith.geppetto.pp.dsl.PP.Editor.opened">
+                    definitionId="com.puppetlabs.geppetto.pp.dsl.PP.Editor.opened">
             </reference>
          </activeWhen>
       </handler>
     </extension>
     <extension point="org.eclipse.core.expressions.definitions">
-        <definition id="org.cloudsmith.geppetto.pp.dsl.PP.Editor.opened">
+        <definition id="com.puppetlabs.geppetto.pp.dsl.PP.Editor.opened">
             <and>
                 <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
                 <with variable="activeEditor">
                     <test property="org.eclipse.xtext.ui.editor.XtextEditor.languageName" 
-                        value="org.cloudsmith.geppetto.pp.dsl.PP" 
+                        value="com.puppetlabs.geppetto.pp.dsl.PP" 
                         forcePluginActivation="true"/>
                 </with>        
             </and>
@@ -51,127 +51,127 @@
     <extension
             point="org.eclipse.ui.preferencePages">
         <page
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPGeneralPreferencePage"
-              id="org.cloudsmith.geppetto.pp.dsl.PP"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPGeneralPreferencePage"
+              id="com.puppetlabs.geppetto.pp.dsl.PP"
               name="Puppet">
-            <keywordReference id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP"/>
+            <keywordReference id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP"/>
         </page>
         <page
-            category="org.cloudsmith.geppetto.pp.dsl.PP"
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
-            id="org.cloudsmith.geppetto.pp.dsl.PP.coloring"
+            category="com.puppetlabs.geppetto.pp.dsl.PP"
+            class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+            id="com.puppetlabs.geppetto.pp.dsl.PP.coloring"
             name="Syntax Coloring">
-            <keywordReference id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP"/>
+            <keywordReference id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP"/>
         </page>
         <page
-            category="org.cloudsmith.geppetto.pp.dsl.PP"
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
-            id="org.cloudsmith.geppetto.pp.dsl.PP.templates"
+            category="com.puppetlabs.geppetto.pp.dsl.PP"
+            class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.templates.XtextTemplatePreferencePage"
+            id="com.puppetlabs.geppetto.pp.dsl.PP.templates"
             name="Templates">
-            <keywordReference id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP"/>
+            <keywordReference id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP"/>
         </page>
         <page
-              category="org.cloudsmith.geppetto.pp.dsl.PP"
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.AutoEditPreferencePage"
-              id="org.cloudsmith.geppetto.pp.dsl.PP.autoEdits"
+              category="com.puppetlabs.geppetto.pp.dsl.PP"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.AutoEditPreferencePage"
+              id="com.puppetlabs.geppetto.pp.dsl.PP.autoEdits"
               name="Auto Edits">
            <keywordReference
-                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+                 id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
         <page
-              category="org.cloudsmith.geppetto.pp.dsl.PP"
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPathPreferencePage"
-              id="org.cloudsmith.geppetto.pp.dsl.PP.searchPath"
+              category="com.puppetlabs.geppetto.pp.dsl.PP"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPathPreferencePage"
+              id="com.puppetlabs.geppetto.pp.dsl.PP.searchPath"
               name="Search Path">
            <keywordReference
-                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+                 id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
         <page
-              category="org.cloudsmith.geppetto.pp.dsl.PP"
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPEnvironmentPreferencePage"
-              id="org.cloudsmith.geppetto.pp.dsl.PP.environment"
+              category="com.puppetlabs.geppetto.pp.dsl.PP"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPEnvironmentPreferencePage"
+              id="com.puppetlabs.geppetto.pp.dsl.PP.environment"
               name="Environment">
            <keywordReference
-                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+                 id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
         <page
-              category="org.cloudsmith.geppetto.pp.dsl.PP"
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPForgePreferencePage"
-              id="org.cloudsmith.geppetto.pp.dsl.PP.forge"
+              category="com.puppetlabs.geppetto.pp.dsl.PP"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPForgePreferencePage"
+              id="com.puppetlabs.geppetto.pp.dsl.PP.forge"
               name="Puppet Forge">
            <keywordReference
-                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+                 id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
         <page
-              category="org.cloudsmith.geppetto.pp.dsl.PP"
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPotentialProblemsPreferencePage"
-              id="org.cloudsmith.geppetto.pp.dsl.PP.pproblem"
+              category="com.puppetlabs.geppetto.pp.dsl.PP"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPotentialProblemsPreferencePage"
+              id="com.puppetlabs.geppetto.pp.dsl.PP.pproblem"
               name="Potential Problems">
            <keywordReference
-                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+                 id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
         <page
-              category="org.cloudsmith.geppetto.pp.dsl.PP"
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPStylisticProblemsPreferencePage"
-              id="org.cloudsmith.geppetto.pp.dsl.PP.sproblem"
+              category="com.puppetlabs.geppetto.pp.dsl.PP"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPStylisticProblemsPreferencePage"
+              id="com.puppetlabs.geppetto.pp.dsl.PP.sproblem"
               name="Stylistic Problems">
            <keywordReference
-                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+                 id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
         <page
-              category="org.cloudsmith.geppetto.pp.dsl.PP"
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPSaveActionsPreferencePage"
-              id="org.cloudsmith.geppetto.pp.dsl.PP.saveactions"
+              category="com.puppetlabs.geppetto.pp.dsl.PP"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPSaveActionsPreferencePage"
+              id="com.puppetlabs.geppetto.pp.dsl.PP.saveactions"
               name="Save Actions">
            <keywordReference
-                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+                 id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
         <page
-              category="org.cloudsmith.geppetto.pp.dsl.PP"
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPFormatterPreferencePage"
-              id="org.cloudsmith.geppetto.pp.dsl.PP.formatter"
+              category="com.puppetlabs.geppetto.pp.dsl.PP"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPFormatterPreferencePage"
+              id="com.puppetlabs.geppetto.pp.dsl.PP.formatter"
               name="Formatter">
            <keywordReference
-                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+                 id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
         <page
-              category="org.cloudsmith.geppetto.pp.dsl.PP.formatter"
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPCommentsPreferencePage"
-              id="org.cloudsmith.geppetto.pp.dsl.PP.formatter.comments"
+              category="com.puppetlabs.geppetto.pp.dsl.PP.formatter"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPCommentsPreferencePage"
+              id="com.puppetlabs.geppetto.pp.dsl.PP.formatter.comments"
               name="Comments">
            <keywordReference
-                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+                 id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
         <page
-              category="org.cloudsmith.geppetto.pp.dsl.PP.formatter"
-              class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPBreakAndAlignPreferencePage"
-              id="org.cloudsmith.geppetto.pp.dsl.PP.formatter.align"
+              category="com.puppetlabs.geppetto.pp.dsl.PP.formatter"
+              class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPBreakAndAlignPreferencePage"
+              id="com.puppetlabs.geppetto.pp.dsl.PP.formatter.align"
               name="Break and Align">
            <keywordReference
-                 id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP">
+                 id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP">
            </keywordReference>
         </page>
     </extension>
     <extension
         point="org.eclipse.ui.keywords">
         <keyword
-            id="org.cloudsmith.geppetto.pp.dsl.ui.keyword_PP"
+            id="com.puppetlabs.geppetto.pp.dsl.ui.keyword_PP"
             label="PP"/>
     </extension>
     <extension
          point="org.eclipse.ui.commands">
       <command
             description="Trigger expensive validation"
-            id="org.cloudsmith.geppetto.pp.dsl.PP.validate"
+            id="com.puppetlabs.geppetto.pp.dsl.PP.validate"
             name="Validate">
       </command>
     </extension>
@@ -179,12 +179,12 @@
         <menuContribution
             locationURI="popup:#TextEditorContext?after=group.edit">
              <command
-                 commandId="org.cloudsmith.geppetto.pp.dsl.PP.validate"
+                 commandId="com.puppetlabs.geppetto.pp.dsl.PP.validate"
                  style="push"
                  tooltip="Trigger expensive validation">
             <visibleWhen checkEnabled="false">
                 <reference
-                    definitionId="org.cloudsmith.geppetto.pp.dsl.PP.Editor.opened">
+                    definitionId="com.puppetlabs.geppetto.pp.dsl.PP.Editor.opened">
                 </reference>
             </visibleWhen>
          </command>  
@@ -194,7 +194,7 @@
 		<menuContribution locationURI="popup:#TextEditorContext?endof=group.find">
 			<command commandId="org.eclipse.xtext.ui.editor.FindReferences">
 				<visibleWhen checkEnabled="false">
-                	<reference definitionId="org.cloudsmith.geppetto.pp.dsl.PP.Editor.opened">
+                	<reference definitionId="com.puppetlabs.geppetto.pp.dsl.PP.Editor.opened">
                 	</reference>
             	</visibleWhen>
 			</command>
@@ -202,11 +202,11 @@
 	</extension>
 	<extension point="org.eclipse.ui.handlers">
 	    <handler
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.FindReferencesHandler"
+            class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.FindReferencesHandler"
             commandId="org.eclipse.xtext.ui.editor.FindReferences">
             <activeWhen>
                 <reference
-                    definitionId="org.cloudsmith.geppetto.pp.dsl.PP.Editor.opened">
+                    definitionId="com.puppetlabs.geppetto.pp.dsl.PP.Editor.opened">
                 </reference>
             </activeWhen>
         </handler>
@@ -217,13 +217,13 @@
 	<extension
 		point="org.eclipse.emf.ecore.extension_parser">
 		<parser
-			class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
+			class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.resource.IResourceFactory"
 			type="pp">
 		</parser>
 	</extension>
 	<extension point="org.eclipse.xtext.extension_resourceServiceProvider">
         <resourceServiceProvider
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+            class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
             uriExtension="pp">
         </resourceServiceProvider>
     </extension>
@@ -235,11 +235,11 @@
 	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
-			class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
+			class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.outline.quickoutline.ShowQuickOutlineActionHandler"
 			commandId="org.eclipse.xtext.ui.editor.outline.QuickOutline">
 			<activeWhen>
 				<reference
-					definitionId="org.cloudsmith.geppetto.pp.dsl.PP.Editor.opened">
+					definitionId="com.puppetlabs.geppetto.pp.dsl.PP.Editor.opened">
 				</reference>
 			</activeWhen>
 		</handler>
@@ -259,7 +259,7 @@
 				style="push"
 				tooltip="Open Quick Outline">
 				<visibleWhen checkEnabled="false">
-					<reference definitionId="org.cloudsmith.geppetto.pp.dsl.PP.Editor.opened"/>
+					<reference definitionId="com.puppetlabs.geppetto.pp.dsl.PP.Editor.opened"/>
 				</visibleWhen>
 			</command>
 		</menuContribution>
@@ -268,25 +268,25 @@
    <extension
          point="org.eclipse.ui.ide.markerResolution">
       <markerResolutionGenerator
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
+            class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
       </markerResolutionGenerator>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
       <command
             description="Runs a development debug utility"
-            id="org.cloudsmith.geppetto.pp.dsl.ui.devdebug"
+            id="com.puppetlabs.geppetto.pp.dsl.ui.devdebug"
             name="Devdebug">
       </command>
    </extension>
    	<extension
 		point="org.eclipse.ui.handlers">
            <handler
-            class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.commands.PPDevDebug"
-            commandId="org.cloudsmith.geppetto.pp.dsl.ui.devdebug">
+            class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.commands.PPDevDebug"
+            commandId="com.puppetlabs.geppetto.pp.dsl.ui.devdebug">
          <activeWhen>
             <reference
-                    definitionId="org.cloudsmith.geppetto.pp.dsl.PP.Editor.opened">
+                    definitionId="com.puppetlabs.geppetto.pp.dsl.PP.Editor.opened">
             </reference>
          </activeWhen>
       </handler>
@@ -298,7 +298,7 @@
        <builder
              hasNature="true">
           <run
-                class="org.cloudsmith.geppetto.pp.dsl.ui.builder.PPModuleMetadataBuilder">
+                class="com.puppetlabs.geppetto.pp.dsl.ui.builder.PPModuleMetadataBuilder">
           </run>
        </builder>
     </extension>
@@ -308,24 +308,24 @@
           point="org.eclipse.core.resources.natures">
        <runtime>
           <run
-                class="org.cloudsmith.geppetto.pp.dsl.ui.builder.PuppetNature">
+                class="com.puppetlabs.geppetto.pp.dsl.ui.builder.PuppetNature">
           </run>
        </runtime>
        <builder
-             id="org.cloudsmith.geppetto.pp.dsl.ui.modulefileBuilder">
+             id="com.puppetlabs.geppetto.pp.dsl.ui.modulefileBuilder">
        </builder>
     </extension>
     <extension
           point="org.eclipse.ui.popupMenus">
        <objectContribution
              adaptable="true"
-             id="org.cloudsmith.geppetto.pp.dsl.ui.contribution1"
+             id="com.puppetlabs.geppetto.pp.dsl.ui.contribution1"
              nameFilter="*"
              objectClass="org.eclipse.core.resources.IProject">
           <action
-                class="org.cloudsmith.geppetto.pp.dsl.ui.builder.ToggleNatureAction"
+                class="com.puppetlabs.geppetto.pp.dsl.ui.builder.ToggleNatureAction"
                 enablesFor="+"
-                id="org.cloudsmith.geppetto.pp.dsl.ui.addRemoveNatureAction"
+                id="com.puppetlabs.geppetto.pp.dsl.ui.addRemoveNatureAction"
                 label="Add/Remove Puppet Nature"
                 menubarPath="additions">
           </action>
@@ -345,21 +345,21 @@
     <extension
           point="org.eclipse.xtext.extension_resourceServiceProvider">
        <resourceServiceProvider
-             class="org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpRubyExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+             class="com.puppetlabs.geppetto.pp.dsl.ui.pptp.PptpRubyExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
              uriExtension="rb">
        </resourceServiceProvider>
     </extension>
     <extension
           point="org.eclipse.xtext.extension_resourceServiceProvider">
        <resourceServiceProvider
-             class="org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
+             class="com.puppetlabs.geppetto.pp.dsl.ui.pptp.PptpExecutableExtensionFactory:org.eclipse.xtext.ui.resource.IResourceUIServiceProvider"
              uriExtension="pptp">
        </resourceServiceProvider>
     </extension>
     <extension
           point="org.eclipse.ui.startup">
        <startup
-             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.internal.PPStartup">
+             class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.internal.PPStartup">
        </startup>
     </extension>
     <extension
@@ -376,15 +376,15 @@
     <extension
           point="org.eclipse.xtext.builder.participant">
        <participant
-             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuilderParticipant">
+             class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.builder.PPBuilderParticipant">
        </participant>
     </extension>
     <extension
           point="org.eclipse.ui.ide.projectNatureImages">
        <image
              icon="icons/obj8/puppet-7x8px.png"
-             id="org.cloudsmith.geppetto.pp.dsl.ui.puppetNatureImage"
-             natureId="org.cloudsmith.geppetto.pp.dsl.ui.puppetNature">
+             id="com.puppetlabs.geppetto.pp.dsl.ui.puppetNatureImage"
+             natureId="com.puppetlabs.geppetto.pp.dsl.ui.puppetNature">
           <description>
              Decorates Puppet (nature) Projects.
           </description>
@@ -395,7 +395,7 @@
        <decorator
              adaptable="true"
              icon="icons/obj8/puppet-7x8px.png"
-             id="org.cloudsmith.geppetto.pp.dsl.ui.ppProjectNatureDecorator"
+             id="com.puppetlabs.geppetto.pp.dsl.ui.ppProjectNatureDecorator"
              label="Puppet Project Nature"
              lightweight="true"
              location="TOP_RIGHT"
@@ -403,7 +403,7 @@
           <enablement>
              <objectState
                    name="nature"
-                   value="org.cloudsmith.geppetto.pp.dsl.ui.puppetNature">
+                   value="com.puppetlabs.geppetto.pp.dsl.ui.puppetNature">
              </objectState>
           </enablement>
           <description>
@@ -412,8 +412,8 @@
        </decorator>
        <decorator
              adaptable="true"
-             class="org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz.AggregateErrorLabelDecorator"
-             id="org.cloudsmith.geppetto.pp.dsl.ui.errorDecorator"
+             class="com.puppetlabs.geppetto.pp.dsl.ui.jdt_ersatz.AggregateErrorLabelDecorator"
+             id="com.puppetlabs.geppetto.pp.dsl.ui.errorDecorator"
              label="Aggregate Error Decorator"
              lightweight="true"
              state="true">
@@ -431,56 +431,56 @@
           point="org.eclipse.ui.propertyPages">
        <page
              adaptable="true"
-             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPropertiesRootPage"
-             id="org.cloudsmith.geppetto.pp.dsl.PP.properties"
+             class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPropertiesRootPage"
+             id="com.puppetlabs.geppetto.pp.dsl.PP.properties"
              name="Puppet Project Properties"
              objectClass="org.eclipse.core.resources.IProject">
        </page>
        <page
              adaptable="true"
-             category="org.cloudsmith.geppetto.pp.dsl.PP.properties"
-             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPEnvironmentPreferencePage"
-             id="org.cloudsmith.geppetto.pp.dsl.PP.environment"
+             category="com.puppetlabs.geppetto.pp.dsl.PP.properties"
+             class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPEnvironmentPreferencePage"
+             id="com.puppetlabs.geppetto.pp.dsl.PP.environment"
              name="Puppet Environment"
              objectClass="org.eclipse.core.resources.IProject">
        </page>
        <page
              adaptable="true"
-             category="org.cloudsmith.geppetto.pp.dsl.PP.properties"
-             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPathPreferencePage"
-             id="org.cloudsmith.geppetto.pp.dsl.PP.searchPath"
+             category="com.puppetlabs.geppetto.pp.dsl.PP.properties"
+             class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPathPreferencePage"
+             id="com.puppetlabs.geppetto.pp.dsl.PP.searchPath"
              name="Puppet Search Path"
              objectClass="org.eclipse.core.resources.IProject">
        </page>
        <page
              adaptable="true"
-             category="org.cloudsmith.geppetto.pp.dsl.PP.properties"
-             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPSaveActionsPreferencePage"
-             id="org.cloudsmith.geppetto.pp.dsl.PP.saveactions"
+             category="com.puppetlabs.geppetto.pp.dsl.PP.properties"
+             class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPSaveActionsPreferencePage"
+             id="com.puppetlabs.geppetto.pp.dsl.PP.saveactions"
              name="Save Actions"
              objectClass="org.eclipse.core.resources.IProject">
        </page>
        <page
              adaptable="true"
-             category="org.cloudsmith.geppetto.pp.dsl.PP.properties"
-             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPFormatterPreferencePage"
-             id="org.cloudsmith.geppetto.pp.dsl.PP.formatter"
+             category="com.puppetlabs.geppetto.pp.dsl.PP.properties"
+             class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPFormatterPreferencePage"
+             id="com.puppetlabs.geppetto.pp.dsl.PP.formatter"
              name="Formatter"
              objectClass="org.eclipse.core.resources.IProject">
        </page>
        <page
              adaptable="true"
-             category="org.cloudsmith.geppetto.pp.dsl.PP.formatter"
-             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPCommentsPreferencePage"
-             id="org.cloudsmith.geppetto.pp.dsl.PP.formatter.comments"
+             category="com.puppetlabs.geppetto.pp.dsl.PP.formatter"
+             class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPCommentsPreferencePage"
+             id="com.puppetlabs.geppetto.pp.dsl.PP.formatter.comments"
              name="Comments"
              objectClass="org.eclipse.core.resources.IProject">
        </page>
        <page
              adaptable="true"
-             category="org.cloudsmith.geppetto.pp.dsl.PP.formatter"
-             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPBreakAndAlignPreferencePage"
-             id="org.cloudsmith.geppetto.pp.dsl.PP.formatter.align"
+             category="com.puppetlabs.geppetto.pp.dsl.PP.formatter"
+             class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPBreakAndAlignPreferencePage"
+             id="com.puppetlabs.geppetto.pp.dsl.PP.formatter.align"
              name="Break and Align"
              objectClass="org.eclipse.core.resources.IProject">
        </page>
@@ -490,21 +490,21 @@
        <command
              categoryId="org.eclipse.ui.category.window"
              description="Open puppet manifest or ruby file containing a definition"
-             id="org.cloudsmith.geppetto.pp.dsl.ui.OpenPPElementCommand"
+             id="com.puppetlabs.geppetto.pp.dsl.ui.OpenPPElementCommand"
              name="Open Puppet Element">
        </command>
     </extension>
     <extension
           point="org.eclipse.ui.handlers">
        <handler
-             class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.search.OpenPuppetElementHandler"
-             commandId="org.cloudsmith.geppetto.pp.dsl.ui.OpenPPElementCommand">
+             class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.search.OpenPuppetElementHandler"
+             commandId="com.puppetlabs.geppetto.pp.dsl.ui.OpenPPElementCommand">
        </handler>
     </extension>
     <extension
           point="org.eclipse.ui.bindings">
        <key
-             commandId="org.cloudsmith.geppetto.pp.dsl.ui.OpenPPElementCommand"
+             commandId="com.puppetlabs.geppetto.pp.dsl.ui.OpenPPElementCommand"
              contextId="org.eclipse.ui.contexts.window"
              schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
              sequence="M1+SHIFT+. O">
@@ -516,17 +516,17 @@
              allPopups="false"
              locationURI="menu:navigate?after=open.ext4">
           <command
-                commandId="org.cloudsmith.geppetto.pp.dsl.ui.OpenPPElementCommand"
+                commandId="com.puppetlabs.geppetto.pp.dsl.ui.OpenPPElementCommand"
                 style="push">
           </command>
        </menuContribution>
     </extension>
  	<extension point="org.eclipse.search.searchResultViewPages">
     	<viewPage
-          class="org.cloudsmith.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchViewPage"
+          class="com.puppetlabs.geppetto.pp.dsl.ui.PPExecutableExtensionFactory:com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchViewPage"
           icon="icons/searchpage.gif"
-          id="org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchViewPage"
-          searchResultClass="org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchResult">
+          id="com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchViewPage"
+          searchResultClass="com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchResult">
     	</viewPage>
  	</extension>
 

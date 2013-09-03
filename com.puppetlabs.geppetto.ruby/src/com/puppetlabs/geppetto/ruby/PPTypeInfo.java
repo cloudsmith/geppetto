@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby;
+package com.puppetlabs.geppetto.ruby;
 
 import java.util.Collections;
 import java.util.Map;

@@ -8,27 +8,27 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.serializer.acceptor;
+package com.puppetlabs.xtext.serializer.acceptor;
 
-import static org.cloudsmith.xtext.dommodel.IDomNode.NodeType.ACTION;
-import static org.cloudsmith.xtext.dommodel.IDomNode.NodeType.COMMENT;
-import static org.cloudsmith.xtext.dommodel.IDomNode.NodeType.DATATYPE;
-import static org.cloudsmith.xtext.dommodel.IDomNode.NodeType.ENUM;
-import static org.cloudsmith.xtext.dommodel.IDomNode.NodeType.KEYWORD;
-import static org.cloudsmith.xtext.dommodel.IDomNode.NodeType.RULECALL;
-import static org.cloudsmith.xtext.dommodel.IDomNode.NodeType.TERMINAL;
-import static org.cloudsmith.xtext.dommodel.IDomNode.NodeType.WHITESPACE;
+import static com.puppetlabs.xtext.dommodel.IDomNode.NodeType.ACTION;
+import static com.puppetlabs.xtext.dommodel.IDomNode.NodeType.COMMENT;
+import static com.puppetlabs.xtext.dommodel.IDomNode.NodeType.DATATYPE;
+import static com.puppetlabs.xtext.dommodel.IDomNode.NodeType.ENUM;
+import static com.puppetlabs.xtext.dommodel.IDomNode.NodeType.KEYWORD;
+import static com.puppetlabs.xtext.dommodel.IDomNode.NodeType.RULECALL;
+import static com.puppetlabs.xtext.dommodel.IDomNode.NodeType.TERMINAL;
+import static com.puppetlabs.xtext.dommodel.IDomNode.NodeType.WHITESPACE;
 
 import java.util.List;
 
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.IDomNode.NodeClassifier;
-import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
-import org.cloudsmith.xtext.dommodel.impl.BaseDomNode;
-import org.cloudsmith.xtext.dommodel.impl.CompositeDomNode;
-import org.cloudsmith.xtext.dommodel.impl.LeafDomNode;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode.NodeClassifier;
+import com.puppetlabs.xtext.dommodel.IDomNode.NodeType;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentConfiguration;
+import com.puppetlabs.xtext.dommodel.impl.BaseDomNode;
+import com.puppetlabs.xtext.dommodel.impl.CompositeDomNode;
+import com.puppetlabs.xtext.dommodel.impl.LeafDomNode;
 import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;

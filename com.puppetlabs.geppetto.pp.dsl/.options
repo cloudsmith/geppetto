@@ -1,4 +1,4 @@
 # produce debugging trace output in linker
-org.cloudsmith.geppetto.pp.dsl/debug/linker=false
+com.puppetlabs.geppetto.pp.dsl/debug/linker=false
 # Turns on tracing/recording of formatting details
-org.cloudsmith.geppetto.pp.dsl/debug/formatter=false
+com.puppetlabs.geppetto.pp.dsl/debug/formatter=false

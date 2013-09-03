@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.context;
+package com.puppetlabs.xtext.dommodel.formatter.context;
 
 import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.xtext.formatting.IIndentationInformation;

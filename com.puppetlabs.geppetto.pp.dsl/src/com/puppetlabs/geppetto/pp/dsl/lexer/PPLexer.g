@@ -5,7 +5,7 @@ options {
 }
 
 @header {
-package org.cloudsmith.geppetto.pp.dsl.lexer;
+package com.puppetlabs.geppetto.pp.dsl.lexer;
 
 // Use our own Lexer superclass by means of import. 
 import org.eclipse.xtext.parser.antlr.Lexer;

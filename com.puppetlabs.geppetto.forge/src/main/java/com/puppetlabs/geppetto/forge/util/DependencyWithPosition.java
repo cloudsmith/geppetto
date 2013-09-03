@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.util;
+package com.puppetlabs.geppetto.forge.util;
 
 import java.io.File;
 
-import org.cloudsmith.geppetto.forge.FilePosition;
-import org.cloudsmith.geppetto.forge.v2.model.Dependency;
+import com.puppetlabs.geppetto.forge.FilePosition;
+import com.puppetlabs.geppetto.forge.v2.model.Dependency;
 
 public class DependencyWithPosition extends Dependency implements FilePosition {
 	private final int offset;

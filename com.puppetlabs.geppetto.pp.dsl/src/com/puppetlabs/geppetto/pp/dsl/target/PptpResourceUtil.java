@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.target;
+package com.puppetlabs.geppetto.pp.dsl.target;
 
 import java.net.URL;
 

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.serialization;
+package com.puppetlabs.geppetto.pp.dsl.serialization;
 
 import java.util.Collections;
 import java.util.Map;

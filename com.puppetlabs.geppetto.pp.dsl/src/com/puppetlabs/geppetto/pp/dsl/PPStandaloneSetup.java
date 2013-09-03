@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl;
+package com.puppetlabs.geppetto.pp.dsl;
 
 import java.util.Map;
 
-import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
-import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRuntimeModule;
-import org.cloudsmith.geppetto.ruby.resource.PptpRubyResourceFactory;
+import com.puppetlabs.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
+import com.puppetlabs.geppetto.pp.dsl.pptp.PptpRuntimeModule;
+import com.puppetlabs.geppetto.ruby.resource.PptpRubyResourceFactory;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EPackage.Registry;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -44,13 +44,13 @@ public class PPStandaloneSetup extends PPStandaloneSetupGenerated {
 		if(!registry.containsKey(org.eclipse.xtext.XtextPackage.eNS_URI))
 			registry.put(org.eclipse.xtext.XtextPackage.eNS_URI, org.eclipse.xtext.XtextPackage.eINSTANCE);
 
-		if(!registry.containsKey(org.cloudsmith.geppetto.pp.PPPackage.eNS_URI))
-			registry.put(org.cloudsmith.geppetto.pp.PPPackage.eNS_URI, org.cloudsmith.geppetto.pp.PPPackage.eINSTANCE);
+		if(!registry.containsKey(com.puppetlabs.geppetto.pp.PPPackage.eNS_URI))
+			registry.put(com.puppetlabs.geppetto.pp.PPPackage.eNS_URI, com.puppetlabs.geppetto.pp.PPPackage.eINSTANCE);
 
-		if(!registry.containsKey(org.cloudsmith.geppetto.pp.pptp.PPTPPackage.eNS_URI))
+		if(!registry.containsKey(com.puppetlabs.geppetto.pp.pptp.PPTPPackage.eNS_URI))
 			registry.put(
-				org.cloudsmith.geppetto.pp.pptp.PPTPPackage.eNS_URI,
-				org.cloudsmith.geppetto.pp.pptp.PPTPPackage.eINSTANCE);
+				com.puppetlabs.geppetto.pp.pptp.PPTPPackage.eNS_URI,
+				com.puppetlabs.geppetto.pp.pptp.PPTPPackage.eINSTANCE);
 
 		Map<String, Object> factoryMap = Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap();
 		if(!factoryMap.containsKey("pptp"))

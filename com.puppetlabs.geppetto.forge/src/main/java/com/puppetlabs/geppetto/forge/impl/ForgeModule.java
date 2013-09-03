@@ -8,18 +8,18 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.impl;
+package com.puppetlabs.geppetto.forge.impl;
 
 import static com.google.inject.name.Names.named;
-import static org.cloudsmith.geppetto.forge.Forge.MODULE_FILE_FILTER;
-import static org.cloudsmith.geppetto.forge.util.ModuleUtils.DEFAULT_FILE_FILTER;
+import static com.puppetlabs.geppetto.forge.Forge.MODULE_FILE_FILTER;
+import static com.puppetlabs.geppetto.forge.util.ModuleUtils.DEFAULT_FILE_FILTER;
 
 import java.io.FileFilter;
 
-import org.cloudsmith.geppetto.forge.ERB;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.MetadataExtractor;
-import org.cloudsmith.geppetto.forge.client.GsonModule;
+import com.puppetlabs.geppetto.forge.ERB;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.MetadataExtractor;
+import com.puppetlabs.geppetto.forge.client.GsonModule;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;

@@ -17,13 +17,13 @@
 
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
-            uri="http://www.cloudsmith.org/geppetto/1.0.0/PP"
-            class="org.cloudsmith.geppetto.pp.PPPackage"
+            uri="http://www.puppetlabs.com/geppetto/1.0.0/PP"
+            class="com.puppetlabs.geppetto.pp.PPPackage"
             genModel="model/PP.genmodel"/>
       <package
-            class="org.cloudsmith.geppetto.pp.pptp.PPTPPackage"
+            class="com.puppetlabs.geppetto.pp.pptp.PPTPPackage"
             genModel="model/PPTP.genmodel"
-            uri="http://www.cloudsmith.org/geppetto/1.0.0/PPTP">
+            uri="http://www.puppetlabs.com/geppetto/1.0.0/PPTP">
       </package>
    </extension>
 

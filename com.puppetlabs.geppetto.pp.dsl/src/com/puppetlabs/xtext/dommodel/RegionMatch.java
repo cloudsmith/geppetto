@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel;
+package com.puppetlabs.xtext.dommodel;
 
 import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.Triple;

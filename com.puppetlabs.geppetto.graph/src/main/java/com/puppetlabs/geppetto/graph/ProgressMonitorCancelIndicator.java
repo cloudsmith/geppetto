@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph;
+package com.puppetlabs.geppetto.graph;
 
 import java.util.concurrent.CancellationException;
 
-import org.cloudsmith.graph.ICancel;
+import com.puppetlabs.graph.ICancel;
 import org.eclipse.core.runtime.IProgressMonitor;
 
 /**
@@ -37,7 +37,7 @@ public class ProgressMonitorCancelIndicator implements ICancel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.ICancel#assertContinue()
+	 * @see com.puppetlabs.graph.ICancel#assertContinue()
 	 */
 	@Override
 	public void assertContinue() throws CancellationException {
@@ -48,7 +48,7 @@ public class ProgressMonitorCancelIndicator implements ICancel {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.graph.ICancel#isCanceled()
+	 * @see com.puppetlabs.graph.ICancel#isCanceled()
 	 */
 	@Override
 	public boolean isCanceled() {

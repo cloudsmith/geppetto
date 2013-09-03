@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.ecore.EFactory;
 
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EFactory;
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage
+ * @see com.puppetlabs.geppetto.pp.PPPackage
  * @generated
  */
 public interface PPFactory extends EFactory {
@@ -29,7 +29,7 @@ public interface PPFactory extends EFactory {
 	 * 
 	 * @generated
 	 */
-	PPFactory eINSTANCE = org.cloudsmith.geppetto.pp.impl.PPFactoryImpl.init();
+	PPFactory eINSTANCE = com.puppetlabs.geppetto.pp.impl.PPFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Additive Expression</em>'.

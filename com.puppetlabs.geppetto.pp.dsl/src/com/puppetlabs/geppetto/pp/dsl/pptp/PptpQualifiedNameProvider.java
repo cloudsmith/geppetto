@@ -8,15 +8,15 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.pptp;
+package com.puppetlabs.geppetto.pp.dsl.pptp;
 
-import org.cloudsmith.geppetto.pp.pptp.Function;
-import org.cloudsmith.geppetto.pp.pptp.MetaVariable;
-import org.cloudsmith.geppetto.pp.pptp.NameSpace;
-import org.cloudsmith.geppetto.pp.pptp.Parameter;
-import org.cloudsmith.geppetto.pp.pptp.Property;
-import org.cloudsmith.geppetto.pp.pptp.PuppetDistribution;
-import org.cloudsmith.geppetto.pp.pptp.TPVariable;
+import com.puppetlabs.geppetto.pp.pptp.Function;
+import com.puppetlabs.geppetto.pp.pptp.MetaVariable;
+import com.puppetlabs.geppetto.pp.pptp.NameSpace;
+import com.puppetlabs.geppetto.pp.pptp.Parameter;
+import com.puppetlabs.geppetto.pp.pptp.Property;
+import com.puppetlabs.geppetto.pp.pptp.PuppetDistribution;
+import com.puppetlabs.geppetto.pp.pptp.TPVariable;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;

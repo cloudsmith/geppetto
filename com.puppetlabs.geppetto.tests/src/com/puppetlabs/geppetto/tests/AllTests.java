@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.tests;
+package com.puppetlabs.geppetto.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -9,14 +9,14 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @SuiteClasses({
 	// @fmtOff
-	org.cloudsmith.geppetto.semver.tests.AllTests.class,
-	org.cloudsmith.geppetto.forge.api.tests.AllTests.class,
-	org.cloudsmith.geppetto.forge.api.it.ForgeIT.class,
-	org.cloudsmith.geppetto.forge.tests.ForgeTests.class,
-	org.cloudsmith.geppetto.ruby.tests.AllTests.class,
-	org.cloudsmith.geppetto.pp.dsl.tests.AllTests.class,
-	org.cloudsmith.geppetto.validation.tests.AllTests.class,
-	org.cloudsmith.geppetto.graph.tests.AllTests.class
+	com.puppetlabs.geppetto.semver.tests.AllTests.class,
+	com.puppetlabs.geppetto.forge.api.tests.AllTests.class,
+	com.puppetlabs.geppetto.forge.api.it.ForgeIT.class,
+	com.puppetlabs.geppetto.forge.tests.ForgeTests.class,
+	com.puppetlabs.geppetto.ruby.tests.AllTests.class,
+	com.puppetlabs.geppetto.pp.dsl.tests.AllTests.class,
+	com.puppetlabs.geppetto.validation.tests.AllTests.class,
+	com.puppetlabs.geppetto.graph.tests.AllTests.class
 	// @fmtOn
 })
 @RunWith(Suite.class)

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation;
+package com.puppetlabs.geppetto.validation;
 
 /**
  * A representation of the literals of the enumeration ' <em><b>File Type</b></em>', and utility methods for working with them.

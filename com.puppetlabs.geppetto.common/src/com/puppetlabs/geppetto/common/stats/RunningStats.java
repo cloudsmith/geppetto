@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.common.stats;
+package com.puppetlabs.geppetto.common.stats;
 
 import com.google.common.base.Preconditions;
 

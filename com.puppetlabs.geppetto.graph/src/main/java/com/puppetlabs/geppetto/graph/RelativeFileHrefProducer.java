@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph;
+package com.puppetlabs.geppetto.graph;
 
 import java.io.File;
 

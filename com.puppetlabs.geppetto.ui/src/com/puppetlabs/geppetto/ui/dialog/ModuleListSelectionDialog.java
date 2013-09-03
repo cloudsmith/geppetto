@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.dialog;
+package com.puppetlabs.geppetto.ui.dialog;
 
-import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
-import org.cloudsmith.geppetto.ui.UIPlugin;
-import org.cloudsmith.geppetto.ui.util.StringUtil;
+import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
+import com.puppetlabs.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.ui.util.StringUtil;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;

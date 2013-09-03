@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.labeling;
+package com.puppetlabs.geppetto.pp.dsl.ui.labeling;
 
 /**
  * File names of icons.

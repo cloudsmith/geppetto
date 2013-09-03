@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.catalog.test;
+package com.puppetlabs.geppetto.catalog.test;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

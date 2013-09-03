@@ -8,19 +8,20 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui;
+package com.puppetlabs.geppetto.pp.dsl.ui;
 
-import org.cloudsmith.geppetto.forge.Forge;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.QualifiedName;
+
+import com.puppetlabs.geppetto.forge.Forge;
 
 /**
  * Constants for PP Ui
  * 
  */
 public interface PPUiConstants {
-	String PLUGIN_ID = "org.cloudsmith.geppetto.pp.dsl.ui";
+	String PLUGIN_ID = "com.puppetlabs.geppetto.pp.dsl.ui";
 
 	String DEBUG_OPTION_MODULEFILE = PLUGIN_ID + "/debug/modulefile";
 
@@ -32,23 +33,23 @@ public interface PPUiConstants {
 
 	IPath METADATA_JSON_PATH = new Path(Forge.METADATA_JSON_NAME);
 
-	String PUPPET_MODULE_PROBLEM_MARKER_TYPE = "org.cloudsmith.geppetto.pp.dsl.ui.puppetModuleProblem";
+	String PUPPET_MODULE_PROBLEM_MARKER_TYPE = "com.puppetlabs.geppetto.pp.dsl.ui.puppetModuleProblem";
 
-	String PUPPET_TASK_MARKER_TYPE = "org.cloudsmith.geppetto.pp.dsl.ui.puppetTaskMarker";
+	String PUPPET_TASK_MARKER_TYPE = "com.puppetlabs.geppetto.pp.dsl.ui.puppetTaskMarker";
 
-	String MODULEFILE_BUILDER_ID = "org.cloudsmith.geppetto.pp.dsl.ui.modulefileBuilder";
+	String MODULEFILE_BUILDER_ID = "com.puppetlabs.geppetto.pp.dsl.ui.modulefileBuilder";
 
 	/**
 	 * Name of hidden project that contains the target platform .pptp file.
 	 */
-	String PPTP_TARGET_PROJECT_NAME = ".org_cloudsmith_geppetto_pptp_target";
+	String PPTP_TARGET_PROJECT_NAME = ".com_puppetlabs_geppetto_pptp_target";
 
 	/**
 	 * Name of project to be deleted on startup (hack).
 	 */
-	String OLD_PPTP_TARGET_PROJECT_NAME = "org_cloudsmith_geppetto_pptp_target";
+	String OLD_PPTP_TARGET_PROJECT_NAME = ".org_cloudsmith_geppetto_pptp_target";
 
-	String PUPPET_NATURE_ID = "org.cloudsmith.geppetto.pp.dsl.ui.puppetNature";
+	String PUPPET_NATURE_ID = "com.puppetlabs.geppetto.pp.dsl.ui.puppetNature";
 
 	String DEBUG_OPTION_PARSER = PLUGIN_ID + "/debug/parser";
 

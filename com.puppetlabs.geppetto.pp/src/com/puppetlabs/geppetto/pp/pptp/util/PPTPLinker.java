@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.util;
+package com.puppetlabs.geppetto.pp.pptp.util;
 
 /**
  * Utility class that helps with adding types and fragments and keeping them linked.

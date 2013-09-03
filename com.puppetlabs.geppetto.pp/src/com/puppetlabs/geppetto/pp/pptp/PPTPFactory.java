@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp;
+package com.puppetlabs.geppetto.pp.pptp;
 
 import org.eclipse.emf.ecore.EFactory;
 
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EFactory;
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage
  * @generated
  */
 public interface PPTPFactory extends EFactory {
@@ -29,7 +29,7 @@ public interface PPTPFactory extends EFactory {
 	 * 
 	 * @generated
 	 */
-	PPTPFactory eINSTANCE = org.cloudsmith.geppetto.pp.pptp.impl.PPTPFactoryImpl.init();
+	PPTPFactory eINSTANCE = com.puppetlabs.geppetto.pp.pptp.impl.PPTPFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Function</em>'.

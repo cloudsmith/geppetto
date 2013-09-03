@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.util;
+package com.puppetlabs.geppetto.forge.util;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -27,9 +27,9 @@ import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.apache.commons.compress.archivers.tar.TarConstants;
-import org.cloudsmith.geppetto.common.os.FileUtils;
-import org.cloudsmith.geppetto.common.os.OsUtil;
-import org.cloudsmith.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.common.os.FileUtils;
+import com.puppetlabs.geppetto.common.os.OsUtil;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
 
 public class TarUtils {
 	/**

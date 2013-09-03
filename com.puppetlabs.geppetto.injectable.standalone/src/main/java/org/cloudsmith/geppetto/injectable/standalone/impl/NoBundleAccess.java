@@ -9,14 +9,14 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.injectable.standalone.impl;
+package com.puppetlabs.geppetto.injectable.standalone.impl;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import org.cloudsmith.geppetto.common.util.BundleAccess;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
 
 public class NoBundleAccess implements BundleAccess {
 	@Override

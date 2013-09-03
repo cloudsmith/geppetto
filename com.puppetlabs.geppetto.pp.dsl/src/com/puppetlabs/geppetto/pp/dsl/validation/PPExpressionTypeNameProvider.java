@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.validation;
+package com.puppetlabs.geppetto.pp.dsl.validation;
 
-import org.cloudsmith.geppetto.common.tracer.IStringProvider;
+import com.puppetlabs.geppetto.common.tracer.IStringProvider;
 
 import com.google.inject.Singleton;
 

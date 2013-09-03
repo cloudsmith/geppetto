@@ -9,7 +9,7 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.common.util;
+package com.puppetlabs.geppetto.common.util;
 
 import java.io.File;
 import java.io.IOException;

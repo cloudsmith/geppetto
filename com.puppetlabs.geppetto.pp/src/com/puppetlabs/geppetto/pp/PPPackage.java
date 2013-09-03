@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.pp.PPFactory
+ * @see com.puppetlabs.geppetto.pp.PPFactory
  * @model kind="package"
  * @generated
  */
@@ -47,34 +47,34 @@ public interface PPPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.PuppetManifestImpl <em>Puppet Manifest</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.PuppetManifestImpl <em>Puppet Manifest</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.PuppetManifestImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getPuppetManifest()
+		 * @see com.puppetlabs.geppetto.pp.impl.PuppetManifestImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getPuppetManifest()
 		 * @generated
 		 */
 		EClass PUPPET_MANIFEST = eINSTANCE.getPuppetManifest();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ExpressionImpl <em>Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ExpressionImpl <em>Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.ExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getExpression()
 		 * @generated
 		 */
 		EClass EXPRESSION = eINSTANCE.getExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ResourceBodyImpl <em>Resource Body</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ResourceBodyImpl <em>Resource Body</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ResourceBodyImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getResourceBody()
+		 * @see com.puppetlabs.geppetto.pp.impl.ResourceBodyImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getResourceBody()
 		 * @generated
 		 */
 		EClass RESOURCE_BODY = eINSTANCE.getResourceBody();
@@ -98,12 +98,12 @@ public interface PPPackage extends EPackage {
 		EReference RESOURCE_BODY__NAME_EXPR = eINSTANCE.getResourceBody_NameExpr();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl <em>Attribute Operation</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.AttributeOperationImpl <em>Attribute Operation</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAttributeOperation()
+		 * @see com.puppetlabs.geppetto.pp.impl.AttributeOperationImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAttributeOperation()
 		 * @generated
 		 */
 		EClass ATTRIBUTE_OPERATION = eINSTANCE.getAttributeOperation();
@@ -136,12 +136,12 @@ public interface PPPackage extends EPackage {
 		EAttribute ATTRIBUTE_OPERATION__OP = eINSTANCE.getAttributeOperation_Op();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationsImpl <em>Attribute Operations</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.AttributeOperationsImpl <em>Attribute Operations</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.AttributeOperationsImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAttributeOperations()
+		 * @see com.puppetlabs.geppetto.pp.impl.AttributeOperationsImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAttributeOperations()
 		 * @generated
 		 */
 		EClass ATTRIBUTE_OPERATIONS = eINSTANCE.getAttributeOperations();
@@ -156,45 +156,45 @@ public interface PPPackage extends EPackage {
 		EReference ATTRIBUTE_OPERATIONS__ATTRIBUTES = eINSTANCE.getAttributeOperations_Attributes();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.ICollectQuery <em>ICollect Query</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.ICollectQuery <em>ICollect Query</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.ICollectQuery
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getICollectQuery()
+		 * @see com.puppetlabs.geppetto.pp.ICollectQuery
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getICollectQuery()
 		 * @generated
 		 */
 		EClass ICOLLECT_QUERY = eINSTANCE.getICollectQuery();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.VirtualCollectQueryImpl <em>Virtual Collect Query</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.VirtualCollectQueryImpl <em>Virtual Collect Query</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.VirtualCollectQueryImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVirtualCollectQuery()
+		 * @see com.puppetlabs.geppetto.pp.impl.VirtualCollectQueryImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getVirtualCollectQuery()
 		 * @generated
 		 */
 		EClass VIRTUAL_COLLECT_QUERY = eINSTANCE.getVirtualCollectQuery();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ExportedCollectQueryImpl <em>Exported Collect Query</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ExportedCollectQueryImpl <em>Exported Collect Query</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ExportedCollectQueryImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExportedCollectQuery()
+		 * @see com.puppetlabs.geppetto.pp.impl.ExportedCollectQueryImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getExportedCollectQuery()
 		 * @generated
 		 */
 		EClass EXPORTED_COLLECT_QUERY = eINSTANCE.getExportedCollectQuery();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.HostClassDefinitionImpl <em>Host Class Definition</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.HostClassDefinitionImpl <em>Host Class Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.HostClassDefinitionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getHostClassDefinition()
+		 * @see com.puppetlabs.geppetto.pp.impl.HostClassDefinitionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getHostClassDefinition()
 		 * @generated
 		 */
 		EClass HOST_CLASS_DEFINITION = eINSTANCE.getHostClassDefinition();
@@ -209,12 +209,12 @@ public interface PPPackage extends EPackage {
 		EReference HOST_CLASS_DEFINITION__PARENT = eINSTANCE.getHostClassDefinition_Parent();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl <em>Definition</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.DefinitionImpl <em>Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.DefinitionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDefinition()
+		 * @see com.puppetlabs.geppetto.pp.impl.DefinitionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getDefinition()
 		 * @generated
 		 */
 		EClass DEFINITION = eINSTANCE.getDefinition();
@@ -247,13 +247,13 @@ public interface PPPackage extends EPackage {
 		EReference DEFINITION__STATEMENTS = eINSTANCE.getDefinition_Statements();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentListImpl <em>Definition Argument List</em>}'
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.DefinitionArgumentListImpl <em>Definition Argument List</em>}'
 		 * class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.DefinitionArgumentListImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDefinitionArgumentList()
+		 * @see com.puppetlabs.geppetto.pp.impl.DefinitionArgumentListImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getDefinitionArgumentList()
 		 * @generated
 		 */
 		EClass DEFINITION_ARGUMENT_LIST = eINSTANCE.getDefinitionArgumentList();
@@ -268,12 +268,12 @@ public interface PPPackage extends EPackage {
 		EReference DEFINITION_ARGUMENT_LIST__ARGUMENTS = eINSTANCE.getDefinitionArgumentList_Arguments();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl <em>Definition Argument</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.DefinitionArgumentImpl <em>Definition Argument</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDefinitionArgument()
+		 * @see com.puppetlabs.geppetto.pp.impl.DefinitionArgumentImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getDefinitionArgument()
 		 * @generated
 		 */
 		EClass DEFINITION_ARGUMENT = eINSTANCE.getDefinitionArgument();
@@ -306,12 +306,12 @@ public interface PPPackage extends EPackage {
 		EAttribute DEFINITION_ARGUMENT__OP = eINSTANCE.getDefinitionArgument_Op();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.CaseExpressionImpl <em>Case Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.CaseExpressionImpl <em>Case Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.CaseExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getCaseExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.CaseExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getCaseExpression()
 		 * @generated
 		 */
 		EClass CASE_EXPRESSION = eINSTANCE.getCaseExpression();
@@ -335,12 +335,12 @@ public interface PPPackage extends EPackage {
 		EReference CASE_EXPRESSION__CASES = eINSTANCE.getCaseExpression_Cases();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.CaseImpl <em>Case</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.CaseImpl <em>Case</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.CaseImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getCase()
+		 * @see com.puppetlabs.geppetto.pp.impl.CaseImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getCase()
 		 * @generated
 		 */
 		EClass CASE = eINSTANCE.getCase();
@@ -364,12 +364,12 @@ public interface PPPackage extends EPackage {
 		EReference CASE__VALUES = eINSTANCE.getCase_Values();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.IfExpressionImpl <em>If Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.IfExpressionImpl <em>If Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.IfExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getIfExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.IfExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getIfExpression()
 		 * @generated
 		 */
 		EClass IF_EXPRESSION = eINSTANCE.getIfExpression();
@@ -402,24 +402,24 @@ public interface PPPackage extends EPackage {
 		EReference IF_EXPRESSION__ELSE_STATEMENT = eINSTANCE.getIfExpression_ElseStatement();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralExpressionImpl <em>Literal Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralExpressionImpl <em>Literal Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.LiteralExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.LiteralExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralExpression()
 		 * @generated
 		 */
 		EClass LITERAL_EXPRESSION = eINSTANCE.getLiteralExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralNameOrReferenceImpl <em>Literal Name Or Reference</em>}'
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralNameOrReferenceImpl <em>Literal Name Or Reference</em>}'
 		 * class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.LiteralNameOrReferenceImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralNameOrReference()
+		 * @see com.puppetlabs.geppetto.pp.impl.LiteralNameOrReferenceImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralNameOrReference()
 		 * @generated
 		 */
 		EClass LITERAL_NAME_OR_REFERENCE = eINSTANCE.getLiteralNameOrReference();
@@ -434,12 +434,12 @@ public interface PPPackage extends EPackage {
 		EAttribute LITERAL_NAME_OR_REFERENCE__VALUE = eINSTANCE.getLiteralNameOrReference_Value();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ResourceExpressionImpl <em>Resource Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ResourceExpressionImpl <em>Resource Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ResourceExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getResourceExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.ResourceExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getResourceExpression()
 		 * @generated
 		 */
 		EClass RESOURCE_EXPRESSION = eINSTANCE.getResourceExpression();
@@ -463,12 +463,12 @@ public interface PPPackage extends EPackage {
 		EReference RESOURCE_EXPRESSION__RESOURCE_DATA = eINSTANCE.getResourceExpression_ResourceData();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ImportExpressionImpl <em>Import Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ImportExpressionImpl <em>Import Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ImportExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getImportExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.ImportExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getImportExpression()
 		 * @generated
 		 */
 		EClass IMPORT_EXPRESSION = eINSTANCE.getImportExpression();
@@ -483,12 +483,12 @@ public interface PPPackage extends EPackage {
 		EReference IMPORT_EXPRESSION__VALUES = eINSTANCE.getImportExpression_Values();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralListImpl <em>Literal List</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralListImpl <em>Literal List</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.LiteralListImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralList()
+		 * @see com.puppetlabs.geppetto.pp.impl.LiteralListImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralList()
 		 * @generated
 		 */
 		EClass LITERAL_LIST = eINSTANCE.getLiteralList();
@@ -503,12 +503,12 @@ public interface PPPackage extends EPackage {
 		EReference LITERAL_LIST__ELEMENTS = eINSTANCE.getLiteralList_Elements();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralHashImpl <em>Literal Hash</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralHashImpl <em>Literal Hash</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.LiteralHashImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralHash()
+		 * @see com.puppetlabs.geppetto.pp.impl.LiteralHashImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralHash()
 		 * @generated
 		 */
 		EClass LITERAL_HASH = eINSTANCE.getLiteralHash();
@@ -523,12 +523,12 @@ public interface PPPackage extends EPackage {
 		EReference LITERAL_HASH__ELEMENTS = eINSTANCE.getLiteralHash_Elements();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.HashEntryImpl <em>Hash Entry</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.HashEntryImpl <em>Hash Entry</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.HashEntryImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getHashEntry()
+		 * @see com.puppetlabs.geppetto.pp.impl.HashEntryImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getHashEntry()
 		 * @generated
 		 */
 		EClass HASH_ENTRY = eINSTANCE.getHashEntry();
@@ -552,12 +552,12 @@ public interface PPPackage extends EPackage {
 		EReference HASH_ENTRY__VALUE = eINSTANCE.getHashEntry_Value();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralBooleanImpl <em>Literal Boolean</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralBooleanImpl <em>Literal Boolean</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.LiteralBooleanImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralBoolean()
+		 * @see com.puppetlabs.geppetto.pp.impl.LiteralBooleanImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralBoolean()
 		 * @generated
 		 */
 		EClass LITERAL_BOOLEAN = eINSTANCE.getLiteralBoolean();
@@ -572,34 +572,34 @@ public interface PPPackage extends EPackage {
 		EAttribute LITERAL_BOOLEAN__VALUE = eINSTANCE.getLiteralBoolean_Value();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralUndefImpl <em>Literal Undef</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralUndefImpl <em>Literal Undef</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.LiteralUndefImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralUndef()
+		 * @see com.puppetlabs.geppetto.pp.impl.LiteralUndefImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralUndef()
 		 * @generated
 		 */
 		EClass LITERAL_UNDEF = eINSTANCE.getLiteralUndef();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralDefaultImpl <em>Literal Default</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralDefaultImpl <em>Literal Default</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.LiteralDefaultImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralDefault()
+		 * @see com.puppetlabs.geppetto.pp.impl.LiteralDefaultImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralDefault()
 		 * @generated
 		 */
 		EClass LITERAL_DEFAULT = eINSTANCE.getLiteralDefault();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralRegexImpl <em>Literal Regex</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralRegexImpl <em>Literal Regex</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.LiteralRegexImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralRegex()
+		 * @see com.puppetlabs.geppetto.pp.impl.LiteralRegexImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralRegex()
 		 * @generated
 		 */
 		EClass LITERAL_REGEX = eINSTANCE.getLiteralRegex();
@@ -614,12 +614,12 @@ public interface PPPackage extends EPackage {
 		EAttribute LITERAL_REGEX__VALUE = eINSTANCE.getLiteralRegex_Value();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralNameImpl <em>Literal Name</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralNameImpl <em>Literal Name</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.LiteralNameImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralName()
+		 * @see com.puppetlabs.geppetto.pp.impl.LiteralNameImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralName()
 		 * @generated
 		 */
 		EClass LITERAL_NAME = eINSTANCE.getLiteralName();
@@ -634,12 +634,12 @@ public interface PPPackage extends EPackage {
 		EAttribute LITERAL_NAME__VALUE = eINSTANCE.getLiteralName_Value();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.VariableExpressionImpl <em>Variable Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.VariableExpressionImpl <em>Variable Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.VariableExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVariableExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.VariableExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getVariableExpression()
 		 * @generated
 		 */
 		EClass VARIABLE_EXPRESSION = eINSTANCE.getVariableExpression();
@@ -654,157 +654,157 @@ public interface PPPackage extends EPackage {
 		EAttribute VARIABLE_EXPRESSION__VAR_NAME = eINSTANCE.getVariableExpression_VarName();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.RelationshipExpressionImpl <em>Relationship Expression</em>}'
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.RelationshipExpressionImpl <em>Relationship Expression</em>}'
 		 * class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.RelationshipExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getRelationshipExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.RelationshipExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getRelationshipExpression()
 		 * @generated
 		 */
 		EClass RELATIONSHIP_EXPRESSION = eINSTANCE.getRelationshipExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.AssignmentExpressionImpl <em>Assignment Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.AssignmentExpressionImpl <em>Assignment Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.AssignmentExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAssignmentExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.AssignmentExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAssignmentExpression()
 		 * @generated
 		 */
 		EClass ASSIGNMENT_EXPRESSION = eINSTANCE.getAssignmentExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.AppendExpressionImpl <em>Append Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.AppendExpressionImpl <em>Append Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.AppendExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAppendExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.AppendExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAppendExpression()
 		 * @generated
 		 */
 		EClass APPEND_EXPRESSION = eINSTANCE.getAppendExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.OrExpressionImpl <em>Or Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.OrExpressionImpl <em>Or Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.OrExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getOrExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.OrExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getOrExpression()
 		 * @generated
 		 */
 		EClass OR_EXPRESSION = eINSTANCE.getOrExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.AndExpressionImpl <em>And Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.AndExpressionImpl <em>And Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.AndExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAndExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.AndExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAndExpression()
 		 * @generated
 		 */
 		EClass AND_EXPRESSION = eINSTANCE.getAndExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.RelationalExpressionImpl <em>Relational Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.RelationalExpressionImpl <em>Relational Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.RelationalExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getRelationalExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.RelationalExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getRelationalExpression()
 		 * @generated
 		 */
 		EClass RELATIONAL_EXPRESSION = eINSTANCE.getRelationalExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.EqualityExpressionImpl <em>Equality Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.EqualityExpressionImpl <em>Equality Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.EqualityExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getEqualityExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.EqualityExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getEqualityExpression()
 		 * @generated
 		 */
 		EClass EQUALITY_EXPRESSION = eINSTANCE.getEqualityExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ShiftExpressionImpl <em>Shift Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ShiftExpressionImpl <em>Shift Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ShiftExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getShiftExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.ShiftExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getShiftExpression()
 		 * @generated
 		 */
 		EClass SHIFT_EXPRESSION = eINSTANCE.getShiftExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.AdditiveExpressionImpl <em>Additive Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.AdditiveExpressionImpl <em>Additive Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.AdditiveExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAdditiveExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.AdditiveExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAdditiveExpression()
 		 * @generated
 		 */
 		EClass ADDITIVE_EXPRESSION = eINSTANCE.getAdditiveExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.MultiplicativeExpressionImpl <em>Multiplicative Expression</em>}'
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.MultiplicativeExpressionImpl <em>Multiplicative Expression</em>}'
 		 * class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.MultiplicativeExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getMultiplicativeExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.MultiplicativeExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getMultiplicativeExpression()
 		 * @generated
 		 */
 		EClass MULTIPLICATIVE_EXPRESSION = eINSTANCE.getMultiplicativeExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.MatchingExpressionImpl <em>Matching Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.MatchingExpressionImpl <em>Matching Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.MatchingExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getMatchingExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.MatchingExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getMatchingExpression()
 		 * @generated
 		 */
 		EClass MATCHING_EXPRESSION = eINSTANCE.getMatchingExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.InExpressionImpl <em>In Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.InExpressionImpl <em>In Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.InExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getInExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.InExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getInExpression()
 		 * @generated
 		 */
 		EClass IN_EXPRESSION = eINSTANCE.getInExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.AtExpressionImpl <em>At Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.AtExpressionImpl <em>At Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.AtExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAtExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.AtExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAtExpression()
 		 * @generated
 		 */
 		EClass AT_EXPRESSION = eINSTANCE.getAtExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl <em>Collect Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.CollectExpressionImpl <em>Collect Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getCollectExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.CollectExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getCollectExpression()
 		 * @generated
 		 */
 		EClass COLLECT_EXPRESSION = eINSTANCE.getCollectExpression();
@@ -837,45 +837,45 @@ public interface PPPackage extends EPackage {
 		EReference COLLECT_EXPRESSION__ATTRIBUTES = eINSTANCE.getCollectExpression_Attributes();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.SelectorExpressionImpl <em>Selector Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.SelectorExpressionImpl <em>Selector Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.SelectorExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSelectorExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.SelectorExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getSelectorExpression()
 		 * @generated
 		 */
 		EClass SELECTOR_EXPRESSION = eINSTANCE.getSelectorExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.SelectorEntryImpl <em>Selector Entry</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.SelectorEntryImpl <em>Selector Entry</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.SelectorEntryImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSelectorEntry()
+		 * @see com.puppetlabs.geppetto.pp.impl.SelectorEntryImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getSelectorEntry()
 		 * @generated
 		 */
 		EClass SELECTOR_ENTRY = eINSTANCE.getSelectorEntry();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.FunctionCallImpl <em>Function Call</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.FunctionCallImpl <em>Function Call</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.FunctionCallImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getFunctionCall()
+		 * @see com.puppetlabs.geppetto.pp.impl.FunctionCallImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getFunctionCall()
 		 * @generated
 		 */
 		EClass FUNCTION_CALL = eINSTANCE.getFunctionCall();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.BinaryOpExpressionImpl <em>Binary Op Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.BinaryOpExpressionImpl <em>Binary Op Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.BinaryOpExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getBinaryOpExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.BinaryOpExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getBinaryOpExpression()
 		 * @generated
 		 */
 		EClass BINARY_OP_EXPRESSION = eINSTANCE.getBinaryOpExpression();
@@ -890,12 +890,12 @@ public interface PPPackage extends EPackage {
 		EAttribute BINARY_OP_EXPRESSION__OP_NAME = eINSTANCE.getBinaryOpExpression_OpName();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.BinaryExpressionImpl <em>Binary Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.BinaryExpressionImpl <em>Binary Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.BinaryExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getBinaryExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.BinaryExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getBinaryExpression()
 		 * @generated
 		 */
 		EClass BINARY_EXPRESSION = eINSTANCE.getBinaryExpression();
@@ -919,13 +919,13 @@ public interface PPPackage extends EPackage {
 		EReference BINARY_EXPRESSION__RIGHT_EXPR = eINSTANCE.getBinaryExpression_RightExpr();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ParameterizedExpressionImpl <em>Parameterized Expression</em>}'
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ParameterizedExpressionImpl <em>Parameterized Expression</em>}'
 		 * class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ParameterizedExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getParameterizedExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.ParameterizedExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getParameterizedExpression()
 		 * @generated
 		 */
 		EClass PARAMETERIZED_EXPRESSION = eINSTANCE.getParameterizedExpression();
@@ -949,12 +949,12 @@ public interface PPPackage extends EPackage {
 		EReference PARAMETERIZED_EXPRESSION__PARAMETERS = eINSTANCE.getParameterizedExpression_Parameters();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl <em>Node Definition</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.NodeDefinitionImpl <em>Node Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getNodeDefinition()
+		 * @see com.puppetlabs.geppetto.pp.impl.NodeDefinitionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getNodeDefinition()
 		 * @generated
 		 */
 		EClass NODE_DEFINITION = eINSTANCE.getNodeDefinition();
@@ -987,12 +987,12 @@ public interface PPPackage extends EPackage {
 		EReference NODE_DEFINITION__STATEMENTS = eINSTANCE.getNodeDefinition_Statements();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.UnaryExpressionImpl <em>Unary Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.UnaryExpressionImpl <em>Unary Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.UnaryExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnaryExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.UnaryExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getUnaryExpression()
 		 * @generated
 		 */
 		EClass UNARY_EXPRESSION = eINSTANCE.getUnaryExpression();
@@ -1007,34 +1007,34 @@ public interface PPPackage extends EPackage {
 		EReference UNARY_EXPRESSION__EXPR = eINSTANCE.getUnaryExpression_Expr();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.UnaryMinusExpressionImpl <em>Unary Minus Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.UnaryMinusExpressionImpl <em>Unary Minus Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.UnaryMinusExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnaryMinusExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.UnaryMinusExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getUnaryMinusExpression()
 		 * @generated
 		 */
 		EClass UNARY_MINUS_EXPRESSION = eINSTANCE.getUnaryMinusExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.UnaryNotExpressionImpl <em>Unary Not Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.UnaryNotExpressionImpl <em>Unary Not Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.UnaryNotExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnaryNotExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.UnaryNotExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getUnaryNotExpression()
 		 * @generated
 		 */
 		EClass UNARY_NOT_EXPRESSION = eINSTANCE.getUnaryNotExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ExpressionBlockImpl <em>Expression Block</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ExpressionBlockImpl <em>Expression Block</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ExpressionBlockImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExpressionBlock()
+		 * @see com.puppetlabs.geppetto.pp.impl.ExpressionBlockImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getExpressionBlock()
 		 * @generated
 		 */
 		EClass EXPRESSION_BLOCK = eINSTANCE.getExpressionBlock();
@@ -1049,35 +1049,35 @@ public interface PPPackage extends EPackage {
 		EReference EXPRESSION_BLOCK__STATEMENTS = eINSTANCE.getExpressionBlock_Statements();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ElseExpressionImpl <em>Else Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ElseExpressionImpl <em>Else Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ElseExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getElseExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.ElseExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getElseExpression()
 		 * @generated
 		 */
 		EClass ELSE_EXPRESSION = eINSTANCE.getElseExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ElseIfExpressionImpl <em>Else If Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ElseIfExpressionImpl <em>Else If Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ElseIfExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getElseIfExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.ElseIfExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getElseIfExpression()
 		 * @generated
 		 */
 		EClass ELSE_IF_EXPRESSION = eINSTANCE.getElseIfExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.VirtualNameOrReferenceImpl <em>Virtual Name Or Reference</em>}'
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.VirtualNameOrReferenceImpl <em>Virtual Name Or Reference</em>}'
 		 * class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.VirtualNameOrReferenceImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVirtualNameOrReference()
+		 * @see com.puppetlabs.geppetto.pp.impl.VirtualNameOrReferenceImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getVirtualNameOrReference()
 		 * @generated
 		 */
 		EClass VIRTUAL_NAME_OR_REFERENCE = eINSTANCE.getVirtualNameOrReference();
@@ -1101,13 +1101,13 @@ public interface PPPackage extends EPackage {
 		EAttribute VIRTUAL_NAME_OR_REFERENCE__EXPORTED = eINSTANCE.getVirtualNameOrReference_Exported();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ParenthesisedExpressionImpl <em>Parenthesised Expression</em>}'
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ParenthesisedExpressionImpl <em>Parenthesised Expression</em>}'
 		 * class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ParenthesisedExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getParenthesisedExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.ParenthesisedExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getParenthesisedExpression()
 		 * @generated
 		 */
 		EClass PARENTHESISED_EXPRESSION = eINSTANCE.getParenthesisedExpression();
@@ -1122,12 +1122,12 @@ public interface PPPackage extends EPackage {
 		EReference PARENTHESISED_EXPRESSION__EXPR = eINSTANCE.getParenthesisedExpression_Expr();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ExprListImpl <em>Expr List</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ExprListImpl <em>Expr List</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ExprListImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExprList()
+		 * @see com.puppetlabs.geppetto.pp.impl.ExprListImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getExprList()
 		 * @generated
 		 */
 		EClass EXPR_LIST = eINSTANCE.getExprList();
@@ -1142,12 +1142,12 @@ public interface PPPackage extends EPackage {
 		EReference EXPR_LIST__EXPRESSIONS = eINSTANCE.getExprList_Expressions();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.DoubleQuotedStringImpl <em>Double Quoted String</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.DoubleQuotedStringImpl <em>Double Quoted String</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.DoubleQuotedStringImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDoubleQuotedString()
+		 * @see com.puppetlabs.geppetto.pp.impl.DoubleQuotedStringImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getDoubleQuotedString()
 		 * @generated
 		 */
 		EClass DOUBLE_QUOTED_STRING = eINSTANCE.getDoubleQuotedString();
@@ -1162,12 +1162,12 @@ public interface PPPackage extends EPackage {
 		EReference DOUBLE_QUOTED_STRING__STRING_PART = eINSTANCE.getDoubleQuotedString_StringPart();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.SingleQuotedStringImpl <em>Single Quoted String</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.SingleQuotedStringImpl <em>Single Quoted String</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.SingleQuotedStringImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSingleQuotedString()
+		 * @see com.puppetlabs.geppetto.pp.impl.SingleQuotedStringImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getSingleQuotedString()
 		 * @generated
 		 */
 		EClass SINGLE_QUOTED_STRING = eINSTANCE.getSingleQuotedString();
@@ -1182,23 +1182,23 @@ public interface PPPackage extends EPackage {
 		EAttribute SINGLE_QUOTED_STRING__TEXT = eINSTANCE.getSingleQuotedString_Text();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.StringExpressionImpl <em>String Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.StringExpressionImpl <em>String Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.StringExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getStringExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.StringExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getStringExpression()
 		 * @generated
 		 */
 		EClass STRING_EXPRESSION = eINSTANCE.getStringExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.UnquotedStringImpl <em>Unquoted String</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.UnquotedStringImpl <em>Unquoted String</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.UnquotedStringImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnquotedString()
+		 * @see com.puppetlabs.geppetto.pp.impl.UnquotedStringImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getUnquotedString()
 		 * @generated
 		 */
 		EClass UNQUOTED_STRING = eINSTANCE.getUnquotedString();
@@ -1213,23 +1213,23 @@ public interface PPPackage extends EPackage {
 		EReference UNQUOTED_STRING__EXPRESSION = eINSTANCE.getUnquotedString_Expression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.IQuotedString <em>IQuoted String</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.IQuotedString <em>IQuoted String</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.IQuotedString
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getIQuotedString()
+		 * @see com.puppetlabs.geppetto.pp.IQuotedString
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getIQuotedString()
 		 * @generated
 		 */
 		EClass IQUOTED_STRING = eINSTANCE.getIQuotedString();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.InterpolatedVariableImpl <em>Interpolated Variable</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.InterpolatedVariableImpl <em>Interpolated Variable</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.InterpolatedVariableImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getInterpolatedVariable()
+		 * @see com.puppetlabs.geppetto.pp.impl.InterpolatedVariableImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getInterpolatedVariable()
 		 * @generated
 		 */
 		EClass INTERPOLATED_VARIABLE = eINSTANCE.getInterpolatedVariable();
@@ -1244,23 +1244,23 @@ public interface PPPackage extends EPackage {
 		EAttribute INTERPOLATED_VARIABLE__VAR_NAME = eINSTANCE.getInterpolatedVariable_VarName();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.TextExpressionImpl <em>Text Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.TextExpressionImpl <em>Text Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.TextExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getTextExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.TextExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getTextExpression()
 		 * @generated
 		 */
 		EClass TEXT_EXPRESSION = eINSTANCE.getTextExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.VerbatimTEImpl <em>Verbatim TE</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.VerbatimTEImpl <em>Verbatim TE</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.VerbatimTEImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVerbatimTE()
+		 * @see com.puppetlabs.geppetto.pp.impl.VerbatimTEImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getVerbatimTE()
 		 * @generated
 		 */
 		EClass VERBATIM_TE = eINSTANCE.getVerbatimTE();
@@ -1275,12 +1275,12 @@ public interface PPPackage extends EPackage {
 		EAttribute VERBATIM_TE__TEXT = eINSTANCE.getVerbatimTE_Text();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.ExpressionTEImpl <em>Expression TE</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.ExpressionTEImpl <em>Expression TE</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.ExpressionTEImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExpressionTE()
+		 * @see com.puppetlabs.geppetto.pp.impl.ExpressionTEImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getExpressionTE()
 		 * @generated
 		 */
 		EClass EXPRESSION_TE = eINSTANCE.getExpressionTE();
@@ -1295,12 +1295,12 @@ public interface PPPackage extends EPackage {
 		EReference EXPRESSION_TE__EXPRESSION = eINSTANCE.getExpressionTE_Expression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.VariableTEImpl <em>Variable TE</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.VariableTEImpl <em>Variable TE</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.VariableTEImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVariableTE()
+		 * @see com.puppetlabs.geppetto.pp.impl.VariableTEImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getVariableTE()
 		 * @generated
 		 */
 		EClass VARIABLE_TE = eINSTANCE.getVariableTE();
@@ -1315,23 +1315,23 @@ public interface PPPackage extends EPackage {
 		EAttribute VARIABLE_TE__VAR_NAME = eINSTANCE.getVariableTE_VarName();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralClassImpl <em>Literal Class</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralClassImpl <em>Literal Class</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.LiteralClassImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralClass()
+		 * @see com.puppetlabs.geppetto.pp.impl.LiteralClassImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralClass()
 		 * @generated
 		 */
 		EClass LITERAL_CLASS = eINSTANCE.getLiteralClass();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl <em>Unless Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.UnlessExpressionImpl <em>Unless Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnlessExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.UnlessExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getUnlessExpression()
 		 * @generated
 		 */
 		EClass UNLESS_EXPRESSION = eINSTANCE.getUnlessExpression();
@@ -1364,12 +1364,12 @@ public interface PPPackage extends EPackage {
 		EReference UNLESS_EXPRESSION__ELSE_STATEMENT = eINSTANCE.getUnlessExpression_ElseStatement();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.LambdaImpl <em>Lambda</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.LambdaImpl <em>Lambda</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.LambdaImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLambda()
+		 * @see com.puppetlabs.geppetto.pp.impl.LambdaImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLambda()
 		 * @generated
 		 */
 		EClass LAMBDA = eINSTANCE.getLambda();
@@ -1384,23 +1384,23 @@ public interface PPPackage extends EPackage {
 		EReference LAMBDA__ARGUMENTS = eINSTANCE.getLambda_Arguments();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.NamedAccessExpressionImpl <em>Named Access Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.NamedAccessExpressionImpl <em>Named Access Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.NamedAccessExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getNamedAccessExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.NamedAccessExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getNamedAccessExpression()
 		 * @generated
 		 */
 		EClass NAMED_ACCESS_EXPRESSION = eINSTANCE.getNamedAccessExpression();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.MethodCallImpl <em>Method Call</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.MethodCallImpl <em>Method Call</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.MethodCallImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getMethodCall()
+		 * @see com.puppetlabs.geppetto.pp.impl.MethodCallImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getMethodCall()
 		 * @generated
 		 */
 		EClass METHOD_CALL = eINSTANCE.getMethodCall();
@@ -1424,12 +1424,12 @@ public interface PPPackage extends EPackage {
 		EReference METHOD_CALL__METHOD_EXPR = eINSTANCE.getMethodCall_MethodExpr();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.WithLambdaExpressionImpl <em>With Lambda Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.WithLambdaExpressionImpl <em>With Lambda Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.WithLambdaExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getWithLambdaExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.WithLambdaExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getWithLambdaExpression()
 		 * @generated
 		 */
 		EClass WITH_LAMBDA_EXPRESSION = eINSTANCE.getWithLambdaExpression();
@@ -1444,12 +1444,12 @@ public interface PPPackage extends EPackage {
 		EReference WITH_LAMBDA_EXPRESSION__LAMBDA = eINSTANCE.getWithLambdaExpression_Lambda();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.JavaLambdaImpl <em>Java Lambda</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.JavaLambdaImpl <em>Java Lambda</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.JavaLambdaImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getJavaLambda()
+		 * @see com.puppetlabs.geppetto.pp.impl.JavaLambdaImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getJavaLambda()
 		 * @generated
 		 */
 		EClass JAVA_LAMBDA = eINSTANCE.getJavaLambda();
@@ -1464,23 +1464,23 @@ public interface PPPackage extends EPackage {
 		EAttribute JAVA_LAMBDA__FARROW = eINSTANCE.getJavaLambda_Farrow();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.RubyLambdaImpl <em>Ruby Lambda</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.RubyLambdaImpl <em>Ruby Lambda</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.RubyLambdaImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getRubyLambda()
+		 * @see com.puppetlabs.geppetto.pp.impl.RubyLambdaImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getRubyLambda()
 		 * @generated
 		 */
 		EClass RUBY_LAMBDA = eINSTANCE.getRubyLambda();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.impl.SeparatorExpressionImpl <em>Separator Expression</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.impl.SeparatorExpressionImpl <em>Separator Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.impl.SeparatorExpressionImpl
-		 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSeparatorExpression()
+		 * @see com.puppetlabs.geppetto.pp.impl.SeparatorExpressionImpl
+		 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getSeparatorExpression()
 		 * @generated
 		 */
 		EClass SEPARATOR_EXPRESSION = eINSTANCE.getSeparatorExpression();
@@ -1503,7 +1503,7 @@ public interface PPPackage extends EPackage {
 	 * 
 	 * @generated
 	 */
-	String eNS_URI = "http://www.cloudsmith.org/geppetto/1.0.0/PP";
+	String eNS_URI = "http://www.puppetlabs.com/geppetto/1.0.0/PP";
 
 	/**
 	 * The package namespace name.
@@ -1521,15 +1521,15 @@ public interface PPPackage extends EPackage {
 	 * 
 	 * @generated
 	 */
-	PPPackage eINSTANCE = org.cloudsmith.geppetto.pp.impl.PPPackageImpl.init();
+	PPPackage eINSTANCE = com.puppetlabs.geppetto.pp.impl.PPPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ExpressionImpl <em>Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ExpressionImpl <em>Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.ExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getExpression()
 	 * @generated
 	 */
 	int EXPRESSION = 1;
@@ -1545,12 +1545,12 @@ public interface PPPackage extends EPackage {
 	int EXPRESSION_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ExpressionBlockImpl <em>Expression Block</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ExpressionBlockImpl <em>Expression Block</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ExpressionBlockImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExpressionBlock()
+	 * @see com.puppetlabs.geppetto.pp.impl.ExpressionBlockImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getExpressionBlock()
 	 * @generated
 	 */
 	int EXPRESSION_BLOCK = 52;
@@ -1576,12 +1576,12 @@ public interface PPPackage extends EPackage {
 	int EXPRESSION_BLOCK_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.PuppetManifestImpl <em>Puppet Manifest</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.PuppetManifestImpl <em>Puppet Manifest</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.PuppetManifestImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getPuppetManifest()
+	 * @see com.puppetlabs.geppetto.pp.impl.PuppetManifestImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getPuppetManifest()
 	 * @generated
 	 */
 	int PUPPET_MANIFEST = 0;
@@ -1607,12 +1607,12 @@ public interface PPPackage extends EPackage {
 	int PUPPET_MANIFEST_FEATURE_COUNT = EXPRESSION_BLOCK_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ResourceBodyImpl <em>Resource Body</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ResourceBodyImpl <em>Resource Body</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ResourceBodyImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getResourceBody()
+	 * @see com.puppetlabs.geppetto.pp.impl.ResourceBodyImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getResourceBody()
 	 * @generated
 	 */
 	int RESOURCE_BODY = 2;
@@ -1648,12 +1648,12 @@ public interface PPPackage extends EPackage {
 	int RESOURCE_BODY_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl <em>Attribute Operation</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.AttributeOperationImpl <em>Attribute Operation</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.AttributeOperationImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAttributeOperation()
+	 * @see com.puppetlabs.geppetto.pp.impl.AttributeOperationImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAttributeOperation()
 	 * @generated
 	 */
 	int ATTRIBUTE_OPERATION = 3;
@@ -1699,12 +1699,12 @@ public interface PPPackage extends EPackage {
 	int ATTRIBUTE_OPERATION_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.AttributeOperationsImpl <em>Attribute Operations</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.AttributeOperationsImpl <em>Attribute Operations</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.AttributeOperationsImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAttributeOperations()
+	 * @see com.puppetlabs.geppetto.pp.impl.AttributeOperationsImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAttributeOperations()
 	 * @generated
 	 */
 	int ATTRIBUTE_OPERATIONS = 4;
@@ -1730,12 +1730,12 @@ public interface PPPackage extends EPackage {
 	int ATTRIBUTE_OPERATIONS_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.ICollectQuery <em>ICollect Query</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.ICollectQuery <em>ICollect Query</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.ICollectQuery
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getICollectQuery()
+	 * @see com.puppetlabs.geppetto.pp.ICollectQuery
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getICollectQuery()
 	 * @generated
 	 */
 	int ICOLLECT_QUERY = 5;
@@ -1751,12 +1751,12 @@ public interface PPPackage extends EPackage {
 	int ICOLLECT_QUERY_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.UnaryExpressionImpl <em>Unary Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.UnaryExpressionImpl <em>Unary Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.UnaryExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnaryExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.UnaryExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getUnaryExpression()
 	 * @generated
 	 */
 	int UNARY_EXPRESSION = 49;
@@ -1782,12 +1782,12 @@ public interface PPPackage extends EPackage {
 	int UNARY_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.VirtualCollectQueryImpl <em>Virtual Collect Query</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.VirtualCollectQueryImpl <em>Virtual Collect Query</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.VirtualCollectQueryImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVirtualCollectQuery()
+	 * @see com.puppetlabs.geppetto.pp.impl.VirtualCollectQueryImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getVirtualCollectQuery()
 	 * @generated
 	 */
 	int VIRTUAL_COLLECT_QUERY = 6;
@@ -1813,12 +1813,12 @@ public interface PPPackage extends EPackage {
 	int VIRTUAL_COLLECT_QUERY_FEATURE_COUNT = UNARY_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ExportedCollectQueryImpl <em>Exported Collect Query</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ExportedCollectQueryImpl <em>Exported Collect Query</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ExportedCollectQueryImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExportedCollectQuery()
+	 * @see com.puppetlabs.geppetto.pp.impl.ExportedCollectQueryImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getExportedCollectQuery()
 	 * @generated
 	 */
 	int EXPORTED_COLLECT_QUERY = 7;
@@ -1844,23 +1844,23 @@ public interface PPPackage extends EPackage {
 	int EXPORTED_COLLECT_QUERY_FEATURE_COUNT = UNARY_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.HostClassDefinitionImpl <em>Host Class Definition</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.HostClassDefinitionImpl <em>Host Class Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.HostClassDefinitionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getHostClassDefinition()
+	 * @see com.puppetlabs.geppetto.pp.impl.HostClassDefinitionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getHostClassDefinition()
 	 * @generated
 	 */
 	int HOST_CLASS_DEFINITION = 8;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.DefinitionImpl <em>Definition</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.DefinitionImpl <em>Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.DefinitionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDefinition()
+	 * @see com.puppetlabs.geppetto.pp.impl.DefinitionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getDefinition()
 	 * @generated
 	 */
 	int DEFINITION = 9;
@@ -1956,12 +1956,12 @@ public interface PPPackage extends EPackage {
 	int HOST_CLASS_DEFINITION_FEATURE_COUNT = DEFINITION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentListImpl <em>Definition Argument List</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.DefinitionArgumentListImpl <em>Definition Argument List</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.DefinitionArgumentListImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDefinitionArgumentList()
+	 * @see com.puppetlabs.geppetto.pp.impl.DefinitionArgumentListImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getDefinitionArgumentList()
 	 * @generated
 	 */
 	int DEFINITION_ARGUMENT_LIST = 10;
@@ -1987,12 +1987,12 @@ public interface PPPackage extends EPackage {
 	int DEFINITION_ARGUMENT_LIST_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl <em>Definition Argument</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.DefinitionArgumentImpl <em>Definition Argument</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDefinitionArgument()
+	 * @see com.puppetlabs.geppetto.pp.impl.DefinitionArgumentImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getDefinitionArgument()
 	 * @generated
 	 */
 	int DEFINITION_ARGUMENT = 11;
@@ -2038,12 +2038,12 @@ public interface PPPackage extends EPackage {
 	int DEFINITION_ARGUMENT_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.CaseExpressionImpl <em>Case Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.CaseExpressionImpl <em>Case Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.CaseExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getCaseExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.CaseExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getCaseExpression()
 	 * @generated
 	 */
 	int CASE_EXPRESSION = 12;
@@ -2079,12 +2079,12 @@ public interface PPPackage extends EPackage {
 	int CASE_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.CaseImpl <em>Case</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.CaseImpl <em>Case</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.CaseImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getCase()
+	 * @see com.puppetlabs.geppetto.pp.impl.CaseImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getCase()
 	 * @generated
 	 */
 	int CASE = 13;
@@ -2120,12 +2120,12 @@ public interface PPPackage extends EPackage {
 	int CASE_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.IfExpressionImpl <em>If Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.IfExpressionImpl <em>If Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.IfExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getIfExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.IfExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getIfExpression()
 	 * @generated
 	 */
 	int IF_EXPRESSION = 14;
@@ -2171,12 +2171,12 @@ public interface PPPackage extends EPackage {
 	int IF_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralExpressionImpl <em>Literal Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralExpressionImpl <em>Literal Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.LiteralExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.LiteralExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralExpression()
 	 * @generated
 	 */
 	int LITERAL_EXPRESSION = 15;
@@ -2192,12 +2192,12 @@ public interface PPPackage extends EPackage {
 	int LITERAL_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralNameOrReferenceImpl <em>Literal Name Or Reference</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralNameOrReferenceImpl <em>Literal Name Or Reference</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.LiteralNameOrReferenceImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralNameOrReference()
+	 * @see com.puppetlabs.geppetto.pp.impl.LiteralNameOrReferenceImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralNameOrReference()
 	 * @generated
 	 */
 	int LITERAL_NAME_OR_REFERENCE = 16;
@@ -2223,12 +2223,12 @@ public interface PPPackage extends EPackage {
 	int LITERAL_NAME_OR_REFERENCE_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ResourceExpressionImpl <em>Resource Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ResourceExpressionImpl <em>Resource Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ResourceExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getResourceExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.ResourceExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getResourceExpression()
 	 * @generated
 	 */
 	int RESOURCE_EXPRESSION = 17;
@@ -2264,12 +2264,12 @@ public interface PPPackage extends EPackage {
 	int RESOURCE_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ImportExpressionImpl <em>Import Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ImportExpressionImpl <em>Import Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ImportExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getImportExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.ImportExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getImportExpression()
 	 * @generated
 	 */
 	int IMPORT_EXPRESSION = 18;
@@ -2295,12 +2295,12 @@ public interface PPPackage extends EPackage {
 	int IMPORT_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralListImpl <em>Literal List</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralListImpl <em>Literal List</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.LiteralListImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralList()
+	 * @see com.puppetlabs.geppetto.pp.impl.LiteralListImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralList()
 	 * @generated
 	 */
 	int LITERAL_LIST = 19;
@@ -2326,12 +2326,12 @@ public interface PPPackage extends EPackage {
 	int LITERAL_LIST_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralHashImpl <em>Literal Hash</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralHashImpl <em>Literal Hash</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.LiteralHashImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralHash()
+	 * @see com.puppetlabs.geppetto.pp.impl.LiteralHashImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralHash()
 	 * @generated
 	 */
 	int LITERAL_HASH = 20;
@@ -2357,12 +2357,12 @@ public interface PPPackage extends EPackage {
 	int LITERAL_HASH_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.HashEntryImpl <em>Hash Entry</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.HashEntryImpl <em>Hash Entry</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.HashEntryImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getHashEntry()
+	 * @see com.puppetlabs.geppetto.pp.impl.HashEntryImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getHashEntry()
 	 * @generated
 	 */
 	int HASH_ENTRY = 21;
@@ -2398,12 +2398,12 @@ public interface PPPackage extends EPackage {
 	int HASH_ENTRY_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralBooleanImpl <em>Literal Boolean</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralBooleanImpl <em>Literal Boolean</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.LiteralBooleanImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralBoolean()
+	 * @see com.puppetlabs.geppetto.pp.impl.LiteralBooleanImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralBoolean()
 	 * @generated
 	 */
 	int LITERAL_BOOLEAN = 22;
@@ -2429,12 +2429,12 @@ public interface PPPackage extends EPackage {
 	int LITERAL_BOOLEAN_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralUndefImpl <em>Literal Undef</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralUndefImpl <em>Literal Undef</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.LiteralUndefImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralUndef()
+	 * @see com.puppetlabs.geppetto.pp.impl.LiteralUndefImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralUndef()
 	 * @generated
 	 */
 	int LITERAL_UNDEF = 23;
@@ -2450,12 +2450,12 @@ public interface PPPackage extends EPackage {
 	int LITERAL_UNDEF_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralDefaultImpl <em>Literal Default</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralDefaultImpl <em>Literal Default</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.LiteralDefaultImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralDefault()
+	 * @see com.puppetlabs.geppetto.pp.impl.LiteralDefaultImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralDefault()
 	 * @generated
 	 */
 	int LITERAL_DEFAULT = 24;
@@ -2471,12 +2471,12 @@ public interface PPPackage extends EPackage {
 	int LITERAL_DEFAULT_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralRegexImpl <em>Literal Regex</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralRegexImpl <em>Literal Regex</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.LiteralRegexImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralRegex()
+	 * @see com.puppetlabs.geppetto.pp.impl.LiteralRegexImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralRegex()
 	 * @generated
 	 */
 	int LITERAL_REGEX = 25;
@@ -2502,12 +2502,12 @@ public interface PPPackage extends EPackage {
 	int LITERAL_REGEX_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralNameImpl <em>Literal Name</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralNameImpl <em>Literal Name</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.LiteralNameImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralName()
+	 * @see com.puppetlabs.geppetto.pp.impl.LiteralNameImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralName()
 	 * @generated
 	 */
 	int LITERAL_NAME = 26;
@@ -2533,12 +2533,12 @@ public interface PPPackage extends EPackage {
 	int LITERAL_NAME_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.VariableExpressionImpl <em>Variable Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.VariableExpressionImpl <em>Variable Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.VariableExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVariableExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.VariableExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getVariableExpression()
 	 * @generated
 	 */
 	int VARIABLE_EXPRESSION = 27;
@@ -2564,12 +2564,12 @@ public interface PPPackage extends EPackage {
 	int VARIABLE_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.BinaryExpressionImpl <em>Binary Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.BinaryExpressionImpl <em>Binary Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.BinaryExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getBinaryExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.BinaryExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getBinaryExpression()
 	 * @generated
 	 */
 	int BINARY_EXPRESSION = 46;
@@ -2605,12 +2605,12 @@ public interface PPPackage extends EPackage {
 	int BINARY_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.BinaryOpExpressionImpl <em>Binary Op Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.BinaryOpExpressionImpl <em>Binary Op Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.BinaryOpExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getBinaryOpExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.BinaryOpExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getBinaryOpExpression()
 	 * @generated
 	 */
 	int BINARY_OP_EXPRESSION = 45;
@@ -2656,12 +2656,12 @@ public interface PPPackage extends EPackage {
 	int BINARY_OP_EXPRESSION_FEATURE_COUNT = BINARY_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.RelationshipExpressionImpl <em>Relationship Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.RelationshipExpressionImpl <em>Relationship Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.RelationshipExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getRelationshipExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.RelationshipExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getRelationshipExpression()
 	 * @generated
 	 */
 	int RELATIONSHIP_EXPRESSION = 28;
@@ -2707,12 +2707,12 @@ public interface PPPackage extends EPackage {
 	int RELATIONSHIP_EXPRESSION_FEATURE_COUNT = BINARY_OP_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.AssignmentExpressionImpl <em>Assignment Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.AssignmentExpressionImpl <em>Assignment Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.AssignmentExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAssignmentExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.AssignmentExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAssignmentExpression()
 	 * @generated
 	 */
 	int ASSIGNMENT_EXPRESSION = 29;
@@ -2748,12 +2748,12 @@ public interface PPPackage extends EPackage {
 	int ASSIGNMENT_EXPRESSION_FEATURE_COUNT = BINARY_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.AppendExpressionImpl <em>Append Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.AppendExpressionImpl <em>Append Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.AppendExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAppendExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.AppendExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAppendExpression()
 	 * @generated
 	 */
 	int APPEND_EXPRESSION = 30;
@@ -2789,12 +2789,12 @@ public interface PPPackage extends EPackage {
 	int APPEND_EXPRESSION_FEATURE_COUNT = BINARY_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.OrExpressionImpl <em>Or Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.OrExpressionImpl <em>Or Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.OrExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getOrExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.OrExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getOrExpression()
 	 * @generated
 	 */
 	int OR_EXPRESSION = 31;
@@ -2830,12 +2830,12 @@ public interface PPPackage extends EPackage {
 	int OR_EXPRESSION_FEATURE_COUNT = BINARY_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.AndExpressionImpl <em>And Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.AndExpressionImpl <em>And Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.AndExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAndExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.AndExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAndExpression()
 	 * @generated
 	 */
 	int AND_EXPRESSION = 32;
@@ -2871,12 +2871,12 @@ public interface PPPackage extends EPackage {
 	int AND_EXPRESSION_FEATURE_COUNT = BINARY_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.RelationalExpressionImpl <em>Relational Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.RelationalExpressionImpl <em>Relational Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.RelationalExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getRelationalExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.RelationalExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getRelationalExpression()
 	 * @generated
 	 */
 	int RELATIONAL_EXPRESSION = 33;
@@ -2922,12 +2922,12 @@ public interface PPPackage extends EPackage {
 	int RELATIONAL_EXPRESSION_FEATURE_COUNT = BINARY_OP_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.EqualityExpressionImpl <em>Equality Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.EqualityExpressionImpl <em>Equality Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.EqualityExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getEqualityExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.EqualityExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getEqualityExpression()
 	 * @generated
 	 */
 	int EQUALITY_EXPRESSION = 34;
@@ -2973,12 +2973,12 @@ public interface PPPackage extends EPackage {
 	int EQUALITY_EXPRESSION_FEATURE_COUNT = BINARY_OP_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ShiftExpressionImpl <em>Shift Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ShiftExpressionImpl <em>Shift Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ShiftExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getShiftExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.ShiftExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getShiftExpression()
 	 * @generated
 	 */
 	int SHIFT_EXPRESSION = 35;
@@ -3024,12 +3024,12 @@ public interface PPPackage extends EPackage {
 	int SHIFT_EXPRESSION_FEATURE_COUNT = BINARY_OP_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.AdditiveExpressionImpl <em>Additive Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.AdditiveExpressionImpl <em>Additive Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.AdditiveExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAdditiveExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.AdditiveExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAdditiveExpression()
 	 * @generated
 	 */
 	int ADDITIVE_EXPRESSION = 36;
@@ -3075,12 +3075,12 @@ public interface PPPackage extends EPackage {
 	int ADDITIVE_EXPRESSION_FEATURE_COUNT = BINARY_OP_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.MultiplicativeExpressionImpl <em>Multiplicative Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.MultiplicativeExpressionImpl <em>Multiplicative Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.MultiplicativeExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getMultiplicativeExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.MultiplicativeExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getMultiplicativeExpression()
 	 * @generated
 	 */
 	int MULTIPLICATIVE_EXPRESSION = 37;
@@ -3126,12 +3126,12 @@ public interface PPPackage extends EPackage {
 	int MULTIPLICATIVE_EXPRESSION_FEATURE_COUNT = BINARY_OP_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.MatchingExpressionImpl <em>Matching Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.MatchingExpressionImpl <em>Matching Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.MatchingExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getMatchingExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.MatchingExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getMatchingExpression()
 	 * @generated
 	 */
 	int MATCHING_EXPRESSION = 38;
@@ -3177,12 +3177,12 @@ public interface PPPackage extends EPackage {
 	int MATCHING_EXPRESSION_FEATURE_COUNT = BINARY_OP_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.InExpressionImpl <em>In Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.InExpressionImpl <em>In Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.InExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getInExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.InExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getInExpression()
 	 * @generated
 	 */
 	int IN_EXPRESSION = 39;
@@ -3228,12 +3228,12 @@ public interface PPPackage extends EPackage {
 	int IN_EXPRESSION_FEATURE_COUNT = BINARY_OP_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ParameterizedExpressionImpl <em>Parameterized Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ParameterizedExpressionImpl <em>Parameterized Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ParameterizedExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getParameterizedExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.ParameterizedExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getParameterizedExpression()
 	 * @generated
 	 */
 	int PARAMETERIZED_EXPRESSION = 47;
@@ -3269,12 +3269,12 @@ public interface PPPackage extends EPackage {
 	int PARAMETERIZED_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.AtExpressionImpl <em>At Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.AtExpressionImpl <em>At Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.AtExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getAtExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.AtExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getAtExpression()
 	 * @generated
 	 */
 	int AT_EXPRESSION = 40;
@@ -3310,12 +3310,12 @@ public interface PPPackage extends EPackage {
 	int AT_EXPRESSION_FEATURE_COUNT = PARAMETERIZED_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl <em>Collect Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.CollectExpressionImpl <em>Collect Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getCollectExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.CollectExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getCollectExpression()
 	 * @generated
 	 */
 	int COLLECT_EXPRESSION = 41;
@@ -3361,12 +3361,12 @@ public interface PPPackage extends EPackage {
 	int COLLECT_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.SelectorExpressionImpl <em>Selector Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.SelectorExpressionImpl <em>Selector Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.SelectorExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSelectorExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.SelectorExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getSelectorExpression()
 	 * @generated
 	 */
 	int SELECTOR_EXPRESSION = 42;
@@ -3402,12 +3402,12 @@ public interface PPPackage extends EPackage {
 	int SELECTOR_EXPRESSION_FEATURE_COUNT = PARAMETERIZED_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.SelectorEntryImpl <em>Selector Entry</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.SelectorEntryImpl <em>Selector Entry</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.SelectorEntryImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSelectorEntry()
+	 * @see com.puppetlabs.geppetto.pp.impl.SelectorEntryImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getSelectorEntry()
 	 * @generated
 	 */
 	int SELECTOR_ENTRY = 43;
@@ -3443,12 +3443,12 @@ public interface PPPackage extends EPackage {
 	int SELECTOR_ENTRY_FEATURE_COUNT = BINARY_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.WithLambdaExpressionImpl <em>With Lambda Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.WithLambdaExpressionImpl <em>With Lambda Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.WithLambdaExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getWithLambdaExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.WithLambdaExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getWithLambdaExpression()
 	 * @generated
 	 */
 	int WITH_LAMBDA_EXPRESSION = 73;
@@ -3494,12 +3494,12 @@ public interface PPPackage extends EPackage {
 	int WITH_LAMBDA_EXPRESSION_FEATURE_COUNT = PARAMETERIZED_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.FunctionCallImpl <em>Function Call</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.FunctionCallImpl <em>Function Call</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.FunctionCallImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getFunctionCall()
+	 * @see com.puppetlabs.geppetto.pp.impl.FunctionCallImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getFunctionCall()
 	 * @generated
 	 */
 	int FUNCTION_CALL = 44;
@@ -3545,12 +3545,12 @@ public interface PPPackage extends EPackage {
 	int FUNCTION_CALL_FEATURE_COUNT = WITH_LAMBDA_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl <em>Node Definition</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.NodeDefinitionImpl <em>Node Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.NodeDefinitionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getNodeDefinition()
+	 * @see com.puppetlabs.geppetto.pp.impl.NodeDefinitionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getNodeDefinition()
 	 * @generated
 	 */
 	int NODE_DEFINITION = 48;
@@ -3596,12 +3596,12 @@ public interface PPPackage extends EPackage {
 	int NODE_DEFINITION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.UnaryMinusExpressionImpl <em>Unary Minus Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.UnaryMinusExpressionImpl <em>Unary Minus Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.UnaryMinusExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnaryMinusExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.UnaryMinusExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getUnaryMinusExpression()
 	 * @generated
 	 */
 	int UNARY_MINUS_EXPRESSION = 50;
@@ -3627,12 +3627,12 @@ public interface PPPackage extends EPackage {
 	int UNARY_MINUS_EXPRESSION_FEATURE_COUNT = UNARY_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.UnaryNotExpressionImpl <em>Unary Not Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.UnaryNotExpressionImpl <em>Unary Not Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.UnaryNotExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnaryNotExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.UnaryNotExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getUnaryNotExpression()
 	 * @generated
 	 */
 	int UNARY_NOT_EXPRESSION = 51;
@@ -3658,12 +3658,12 @@ public interface PPPackage extends EPackage {
 	int UNARY_NOT_EXPRESSION_FEATURE_COUNT = UNARY_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ElseExpressionImpl <em>Else Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ElseExpressionImpl <em>Else Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ElseExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getElseExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.ElseExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getElseExpression()
 	 * @generated
 	 */
 	int ELSE_EXPRESSION = 53;
@@ -3689,12 +3689,12 @@ public interface PPPackage extends EPackage {
 	int ELSE_EXPRESSION_FEATURE_COUNT = EXPRESSION_BLOCK_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ElseIfExpressionImpl <em>Else If Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ElseIfExpressionImpl <em>Else If Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ElseIfExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getElseIfExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.ElseIfExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getElseIfExpression()
 	 * @generated
 	 */
 	int ELSE_IF_EXPRESSION = 54;
@@ -3740,12 +3740,12 @@ public interface PPPackage extends EPackage {
 	int ELSE_IF_EXPRESSION_FEATURE_COUNT = IF_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.VirtualNameOrReferenceImpl <em>Virtual Name Or Reference</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.VirtualNameOrReferenceImpl <em>Virtual Name Or Reference</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.VirtualNameOrReferenceImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVirtualNameOrReference()
+	 * @see com.puppetlabs.geppetto.pp.impl.VirtualNameOrReferenceImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getVirtualNameOrReference()
 	 * @generated
 	 */
 	int VIRTUAL_NAME_OR_REFERENCE = 55;
@@ -3781,12 +3781,12 @@ public interface PPPackage extends EPackage {
 	int VIRTUAL_NAME_OR_REFERENCE_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ParenthesisedExpressionImpl <em>Parenthesised Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ParenthesisedExpressionImpl <em>Parenthesised Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ParenthesisedExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getParenthesisedExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.ParenthesisedExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getParenthesisedExpression()
 	 * @generated
 	 */
 	int PARENTHESISED_EXPRESSION = 56;
@@ -3812,12 +3812,12 @@ public interface PPPackage extends EPackage {
 	int PARENTHESISED_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ExprListImpl <em>Expr List</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ExprListImpl <em>Expr List</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ExprListImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExprList()
+	 * @see com.puppetlabs.geppetto.pp.impl.ExprListImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getExprList()
 	 * @generated
 	 */
 	int EXPR_LIST = 57;
@@ -3843,12 +3843,12 @@ public interface PPPackage extends EPackage {
 	int EXPR_LIST_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.StringExpressionImpl <em>String Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.StringExpressionImpl <em>String Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.StringExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getStringExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.StringExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getStringExpression()
 	 * @generated
 	 */
 	int STRING_EXPRESSION = 60;
@@ -3864,12 +3864,12 @@ public interface PPPackage extends EPackage {
 	int STRING_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.DoubleQuotedStringImpl <em>Double Quoted String</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.DoubleQuotedStringImpl <em>Double Quoted String</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.DoubleQuotedStringImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getDoubleQuotedString()
+	 * @see com.puppetlabs.geppetto.pp.impl.DoubleQuotedStringImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getDoubleQuotedString()
 	 * @generated
 	 */
 	int DOUBLE_QUOTED_STRING = 58;
@@ -3895,12 +3895,12 @@ public interface PPPackage extends EPackage {
 	int DOUBLE_QUOTED_STRING_FEATURE_COUNT = STRING_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.SingleQuotedStringImpl <em>Single Quoted String</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.SingleQuotedStringImpl <em>Single Quoted String</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.SingleQuotedStringImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSingleQuotedString()
+	 * @see com.puppetlabs.geppetto.pp.impl.SingleQuotedStringImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getSingleQuotedString()
 	 * @generated
 	 */
 	int SINGLE_QUOTED_STRING = 59;
@@ -3926,12 +3926,12 @@ public interface PPPackage extends EPackage {
 	int SINGLE_QUOTED_STRING_FEATURE_COUNT = STRING_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.UnquotedStringImpl <em>Unquoted String</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.UnquotedStringImpl <em>Unquoted String</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.UnquotedStringImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnquotedString()
+	 * @see com.puppetlabs.geppetto.pp.impl.UnquotedStringImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getUnquotedString()
 	 * @generated
 	 */
 	int UNQUOTED_STRING = 61;
@@ -3957,12 +3957,12 @@ public interface PPPackage extends EPackage {
 	int UNQUOTED_STRING_FEATURE_COUNT = STRING_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.IQuotedString <em>IQuoted String</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.IQuotedString <em>IQuoted String</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.IQuotedString
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getIQuotedString()
+	 * @see com.puppetlabs.geppetto.pp.IQuotedString
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getIQuotedString()
 	 * @generated
 	 */
 	int IQUOTED_STRING = 62;
@@ -3978,12 +3978,12 @@ public interface PPPackage extends EPackage {
 	int IQUOTED_STRING_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.InterpolatedVariableImpl <em>Interpolated Variable</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.InterpolatedVariableImpl <em>Interpolated Variable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.InterpolatedVariableImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getInterpolatedVariable()
+	 * @see com.puppetlabs.geppetto.pp.impl.InterpolatedVariableImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getInterpolatedVariable()
 	 * @generated
 	 */
 	int INTERPOLATED_VARIABLE = 63;
@@ -4009,12 +4009,12 @@ public interface PPPackage extends EPackage {
 	int INTERPOLATED_VARIABLE_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.TextExpressionImpl <em>Text Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.TextExpressionImpl <em>Text Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.TextExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getTextExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.TextExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getTextExpression()
 	 * @generated
 	 */
 	int TEXT_EXPRESSION = 64;
@@ -4030,12 +4030,12 @@ public interface PPPackage extends EPackage {
 	int TEXT_EXPRESSION_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.VerbatimTEImpl <em>Verbatim TE</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.VerbatimTEImpl <em>Verbatim TE</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.VerbatimTEImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVerbatimTE()
+	 * @see com.puppetlabs.geppetto.pp.impl.VerbatimTEImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getVerbatimTE()
 	 * @generated
 	 */
 	int VERBATIM_TE = 65;
@@ -4061,12 +4061,12 @@ public interface PPPackage extends EPackage {
 	int VERBATIM_TE_FEATURE_COUNT = TEXT_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.ExpressionTEImpl <em>Expression TE</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.ExpressionTEImpl <em>Expression TE</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.ExpressionTEImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getExpressionTE()
+	 * @see com.puppetlabs.geppetto.pp.impl.ExpressionTEImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getExpressionTE()
 	 * @generated
 	 */
 	int EXPRESSION_TE = 66;
@@ -4092,12 +4092,12 @@ public interface PPPackage extends EPackage {
 	int EXPRESSION_TE_FEATURE_COUNT = TEXT_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.VariableTEImpl <em>Variable TE</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.VariableTEImpl <em>Variable TE</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.VariableTEImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getVariableTE()
+	 * @see com.puppetlabs.geppetto.pp.impl.VariableTEImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getVariableTE()
 	 * @generated
 	 */
 	int VARIABLE_TE = 67;
@@ -4123,12 +4123,12 @@ public interface PPPackage extends EPackage {
 	int VARIABLE_TE_FEATURE_COUNT = TEXT_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LiteralClassImpl <em>Literal Class</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.LiteralClassImpl <em>Literal Class</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.LiteralClassImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLiteralClass()
+	 * @see com.puppetlabs.geppetto.pp.impl.LiteralClassImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLiteralClass()
 	 * @generated
 	 */
 	int LITERAL_CLASS = 68;
@@ -4144,12 +4144,12 @@ public interface PPPackage extends EPackage {
 	int LITERAL_CLASS_FEATURE_COUNT = LITERAL_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl <em>Unless Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.UnlessExpressionImpl <em>Unless Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getUnlessExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.UnlessExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getUnlessExpression()
 	 * @generated
 	 */
 	int UNLESS_EXPRESSION = 69;
@@ -4195,12 +4195,12 @@ public interface PPPackage extends EPackage {
 	int UNLESS_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.LambdaImpl <em>Lambda</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.LambdaImpl <em>Lambda</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.LambdaImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getLambda()
+	 * @see com.puppetlabs.geppetto.pp.impl.LambdaImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getLambda()
 	 * @generated
 	 */
 	int LAMBDA = 70;
@@ -4236,12 +4236,12 @@ public interface PPPackage extends EPackage {
 	int LAMBDA_FEATURE_COUNT = EXPRESSION_BLOCK_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.NamedAccessExpressionImpl <em>Named Access Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.NamedAccessExpressionImpl <em>Named Access Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.NamedAccessExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getNamedAccessExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.NamedAccessExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getNamedAccessExpression()
 	 * @generated
 	 */
 	int NAMED_ACCESS_EXPRESSION = 71;
@@ -4277,12 +4277,12 @@ public interface PPPackage extends EPackage {
 	int NAMED_ACCESS_EXPRESSION_FEATURE_COUNT = BINARY_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.MethodCallImpl <em>Method Call</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.MethodCallImpl <em>Method Call</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.MethodCallImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getMethodCall()
+	 * @see com.puppetlabs.geppetto.pp.impl.MethodCallImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getMethodCall()
 	 * @generated
 	 */
 	int METHOD_CALL = 72;
@@ -4348,12 +4348,12 @@ public interface PPPackage extends EPackage {
 	int METHOD_CALL_FEATURE_COUNT = WITH_LAMBDA_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.JavaLambdaImpl <em>Java Lambda</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.JavaLambdaImpl <em>Java Lambda</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.JavaLambdaImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getJavaLambda()
+	 * @see com.puppetlabs.geppetto.pp.impl.JavaLambdaImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getJavaLambda()
 	 * @generated
 	 */
 	int JAVA_LAMBDA = 74;
@@ -4399,12 +4399,12 @@ public interface PPPackage extends EPackage {
 	int JAVA_LAMBDA_FEATURE_COUNT = LAMBDA_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.RubyLambdaImpl <em>Ruby Lambda</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.RubyLambdaImpl <em>Ruby Lambda</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.RubyLambdaImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getRubyLambda()
+	 * @see com.puppetlabs.geppetto.pp.impl.RubyLambdaImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getRubyLambda()
 	 * @generated
 	 */
 	int RUBY_LAMBDA = 75;
@@ -4440,12 +4440,12 @@ public interface PPPackage extends EPackage {
 	int RUBY_LAMBDA_FEATURE_COUNT = LAMBDA_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.impl.SeparatorExpressionImpl <em>Separator Expression</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.impl.SeparatorExpressionImpl <em>Separator Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.impl.SeparatorExpressionImpl
-	 * @see org.cloudsmith.geppetto.pp.impl.PPPackageImpl#getSeparatorExpression()
+	 * @see com.puppetlabs.geppetto.pp.impl.SeparatorExpressionImpl
+	 * @see com.puppetlabs.geppetto.pp.impl.PPPackageImpl#getSeparatorExpression()
 	 * @generated
 	 */
 	int SEPARATOR_EXPRESSION = 76;
@@ -4461,1182 +4461,1182 @@ public interface PPPackage extends EPackage {
 	int SEPARATOR_EXPRESSION_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AdditiveExpression <em>Additive Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.AdditiveExpression <em>Additive Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Additive Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AdditiveExpression
+	 * @see com.puppetlabs.geppetto.pp.AdditiveExpression
 	 * @generated
 	 */
 	EClass getAdditiveExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AndExpression <em>And Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.AndExpression <em>And Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>And Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AndExpression
+	 * @see com.puppetlabs.geppetto.pp.AndExpression
 	 * @generated
 	 */
 	EClass getAndExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AppendExpression <em>Append Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.AppendExpression <em>Append Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Append Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AppendExpression
+	 * @see com.puppetlabs.geppetto.pp.AppendExpression
 	 * @generated
 	 */
 	EClass getAppendExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AssignmentExpression <em>Assignment Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.AssignmentExpression <em>Assignment Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Assignment Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AssignmentExpression
+	 * @see com.puppetlabs.geppetto.pp.AssignmentExpression
 	 * @generated
 	 */
 	EClass getAssignmentExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AtExpression <em>At Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.AtExpression <em>At Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>At Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AtExpression
+	 * @see com.puppetlabs.geppetto.pp.AtExpression
 	 * @generated
 	 */
 	EClass getAtExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AttributeOperation <em>Attribute Operation</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.AttributeOperation <em>Attribute Operation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Attribute Operation</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AttributeOperation
+	 * @see com.puppetlabs.geppetto.pp.AttributeOperation
 	 * @generated
 	 */
 	EClass getAttributeOperation();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.AttributeOperation#getKey <em>Key</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.AttributeOperation#getKey <em>Key</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Key</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AttributeOperation#getKey()
+	 * @see com.puppetlabs.geppetto.pp.AttributeOperation#getKey()
 	 * @see #getAttributeOperation()
 	 * @generated
 	 */
 	EAttribute getAttributeOperation_Key();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.AttributeOperation#getOp <em>Op</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.AttributeOperation#getOp <em>Op</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Op</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AttributeOperation#getOp()
+	 * @see com.puppetlabs.geppetto.pp.AttributeOperation#getOp()
 	 * @see #getAttributeOperation()
 	 * @generated
 	 */
 	EAttribute getAttributeOperation_Op();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.AttributeOperation#getValue <em>Value</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.AttributeOperation#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AttributeOperation#getValue()
+	 * @see com.puppetlabs.geppetto.pp.AttributeOperation#getValue()
 	 * @see #getAttributeOperation()
 	 * @generated
 	 */
 	EReference getAttributeOperation_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.AttributeOperations <em>Attribute Operations</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.AttributeOperations <em>Attribute Operations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Attribute Operations</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AttributeOperations
+	 * @see com.puppetlabs.geppetto.pp.AttributeOperations
 	 * @generated
 	 */
 	EClass getAttributeOperations();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.AttributeOperations#getAttributes
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.AttributeOperations#getAttributes
 	 * <em>Attributes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Attributes</em>'.
-	 * @see org.cloudsmith.geppetto.pp.AttributeOperations#getAttributes()
+	 * @see com.puppetlabs.geppetto.pp.AttributeOperations#getAttributes()
 	 * @see #getAttributeOperations()
 	 * @generated
 	 */
 	EReference getAttributeOperations_Attributes();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.BinaryExpression <em>Binary Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.BinaryExpression <em>Binary Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Binary Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.BinaryExpression
+	 * @see com.puppetlabs.geppetto.pp.BinaryExpression
 	 * @generated
 	 */
 	EClass getBinaryExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.BinaryExpression#getLeftExpr <em>Left Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.BinaryExpression#getLeftExpr <em>Left Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Left Expr</em>'.
-	 * @see org.cloudsmith.geppetto.pp.BinaryExpression#getLeftExpr()
+	 * @see com.puppetlabs.geppetto.pp.BinaryExpression#getLeftExpr()
 	 * @see #getBinaryExpression()
 	 * @generated
 	 */
 	EReference getBinaryExpression_LeftExpr();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.BinaryExpression#getRightExpr <em>Right Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.BinaryExpression#getRightExpr <em>Right Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Right Expr</em>'.
-	 * @see org.cloudsmith.geppetto.pp.BinaryExpression#getRightExpr()
+	 * @see com.puppetlabs.geppetto.pp.BinaryExpression#getRightExpr()
 	 * @see #getBinaryExpression()
 	 * @generated
 	 */
 	EReference getBinaryExpression_RightExpr();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.BinaryOpExpression <em>Binary Op Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.BinaryOpExpression <em>Binary Op Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Binary Op Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.BinaryOpExpression
+	 * @see com.puppetlabs.geppetto.pp.BinaryOpExpression
 	 * @generated
 	 */
 	EClass getBinaryOpExpression();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.BinaryOpExpression#getOpName <em>Op Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.BinaryOpExpression#getOpName <em>Op Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Op Name</em>'.
-	 * @see org.cloudsmith.geppetto.pp.BinaryOpExpression#getOpName()
+	 * @see com.puppetlabs.geppetto.pp.BinaryOpExpression#getOpName()
 	 * @see #getBinaryOpExpression()
 	 * @generated
 	 */
 	EAttribute getBinaryOpExpression_OpName();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.Case <em>Case</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.Case <em>Case</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Case</em>'.
-	 * @see org.cloudsmith.geppetto.pp.Case
+	 * @see com.puppetlabs.geppetto.pp.Case
 	 * @generated
 	 */
 	EClass getCase();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.Case#getStatements <em>Statements</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.Case#getStatements <em>Statements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.cloudsmith.geppetto.pp.Case#getStatements()
+	 * @see com.puppetlabs.geppetto.pp.Case#getStatements()
 	 * @see #getCase()
 	 * @generated
 	 */
 	EReference getCase_Statements();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.Case#getValues <em>Values</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.Case#getValues <em>Values</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Values</em>'.
-	 * @see org.cloudsmith.geppetto.pp.Case#getValues()
+	 * @see com.puppetlabs.geppetto.pp.Case#getValues()
 	 * @see #getCase()
 	 * @generated
 	 */
 	EReference getCase_Values();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.CaseExpression <em>Case Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.CaseExpression <em>Case Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Case Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.CaseExpression
+	 * @see com.puppetlabs.geppetto.pp.CaseExpression
 	 * @generated
 	 */
 	EClass getCaseExpression();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.CaseExpression#getCases <em>Cases</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.CaseExpression#getCases <em>Cases</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Cases</em>'.
-	 * @see org.cloudsmith.geppetto.pp.CaseExpression#getCases()
+	 * @see com.puppetlabs.geppetto.pp.CaseExpression#getCases()
 	 * @see #getCaseExpression()
 	 * @generated
 	 */
 	EReference getCaseExpression_Cases();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.CaseExpression#getSwitchExpr <em>Switch Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.CaseExpression#getSwitchExpr <em>Switch Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Switch Expr</em>'.
-	 * @see org.cloudsmith.geppetto.pp.CaseExpression#getSwitchExpr()
+	 * @see com.puppetlabs.geppetto.pp.CaseExpression#getSwitchExpr()
 	 * @see #getCaseExpression()
 	 * @generated
 	 */
 	EReference getCaseExpression_SwitchExpr();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.CollectExpression <em>Collect Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.CollectExpression <em>Collect Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Collect Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.CollectExpression
+	 * @see com.puppetlabs.geppetto.pp.CollectExpression
 	 * @generated
 	 */
 	EClass getCollectExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.CollectExpression#getAttributes <em>Attributes</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.CollectExpression#getAttributes <em>Attributes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Attributes</em>'.
-	 * @see org.cloudsmith.geppetto.pp.CollectExpression#getAttributes()
+	 * @see com.puppetlabs.geppetto.pp.CollectExpression#getAttributes()
 	 * @see #getCollectExpression()
 	 * @generated
 	 */
 	EReference getCollectExpression_Attributes();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.CollectExpression#getClassReference
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.CollectExpression#getClassReference
 	 * <em>Class Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Class Reference</em>'.
-	 * @see org.cloudsmith.geppetto.pp.CollectExpression#getClassReference()
+	 * @see com.puppetlabs.geppetto.pp.CollectExpression#getClassReference()
 	 * @see #getCollectExpression()
 	 * @generated
 	 */
 	EReference getCollectExpression_ClassReference();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.CollectExpression#getQuery <em>Query</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.CollectExpression#getQuery <em>Query</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Query</em>'.
-	 * @see org.cloudsmith.geppetto.pp.CollectExpression#getQuery()
+	 * @see com.puppetlabs.geppetto.pp.CollectExpression#getQuery()
 	 * @see #getCollectExpression()
 	 * @generated
 	 */
 	EReference getCollectExpression_Query();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.Definition <em>Definition</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.Definition <em>Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Definition</em>'.
-	 * @see org.cloudsmith.geppetto.pp.Definition
+	 * @see com.puppetlabs.geppetto.pp.Definition
 	 * @generated
 	 */
 	EClass getDefinition();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.Definition#getArguments <em>Arguments</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.Definition#getArguments <em>Arguments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Arguments</em>'.
-	 * @see org.cloudsmith.geppetto.pp.Definition#getArguments()
+	 * @see com.puppetlabs.geppetto.pp.Definition#getArguments()
 	 * @see #getDefinition()
 	 * @generated
 	 */
 	EReference getDefinition_Arguments();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.Definition#getClassName <em>Class Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.Definition#getClassName <em>Class Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Class Name</em>'.
-	 * @see org.cloudsmith.geppetto.pp.Definition#getClassName()
+	 * @see com.puppetlabs.geppetto.pp.Definition#getClassName()
 	 * @see #getDefinition()
 	 * @generated
 	 */
 	EAttribute getDefinition_ClassName();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.Definition#getStatements <em>Statements</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.Definition#getStatements <em>Statements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.cloudsmith.geppetto.pp.Definition#getStatements()
+	 * @see com.puppetlabs.geppetto.pp.Definition#getStatements()
 	 * @see #getDefinition()
 	 * @generated
 	 */
 	EReference getDefinition_Statements();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.DefinitionArgument <em>Definition Argument</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.DefinitionArgument <em>Definition Argument</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Definition Argument</em>'.
-	 * @see org.cloudsmith.geppetto.pp.DefinitionArgument
+	 * @see com.puppetlabs.geppetto.pp.DefinitionArgument
 	 * @generated
 	 */
 	EClass getDefinitionArgument();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getArgName <em>Arg Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.DefinitionArgument#getArgName <em>Arg Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Arg Name</em>'.
-	 * @see org.cloudsmith.geppetto.pp.DefinitionArgument#getArgName()
+	 * @see com.puppetlabs.geppetto.pp.DefinitionArgument#getArgName()
 	 * @see #getDefinitionArgument()
 	 * @generated
 	 */
 	EAttribute getDefinitionArgument_ArgName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getOp <em>Op</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.DefinitionArgument#getOp <em>Op</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Op</em>'.
-	 * @see org.cloudsmith.geppetto.pp.DefinitionArgument#getOp()
+	 * @see com.puppetlabs.geppetto.pp.DefinitionArgument#getOp()
 	 * @see #getDefinitionArgument()
 	 * @generated
 	 */
 	EAttribute getDefinitionArgument_Op();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getValue <em>Value</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.DefinitionArgument#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see org.cloudsmith.geppetto.pp.DefinitionArgument#getValue()
+	 * @see com.puppetlabs.geppetto.pp.DefinitionArgument#getValue()
 	 * @see #getDefinitionArgument()
 	 * @generated
 	 */
 	EReference getDefinitionArgument_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.DefinitionArgumentList <em>Definition Argument List</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.DefinitionArgumentList <em>Definition Argument List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Definition Argument List</em>'.
-	 * @see org.cloudsmith.geppetto.pp.DefinitionArgumentList
+	 * @see com.puppetlabs.geppetto.pp.DefinitionArgumentList
 	 * @generated
 	 */
 	EClass getDefinitionArgumentList();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.DefinitionArgumentList#getArguments
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.DefinitionArgumentList#getArguments
 	 * <em>Arguments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Arguments</em>'.
-	 * @see org.cloudsmith.geppetto.pp.DefinitionArgumentList#getArguments()
+	 * @see com.puppetlabs.geppetto.pp.DefinitionArgumentList#getArguments()
 	 * @see #getDefinitionArgumentList()
 	 * @generated
 	 */
 	EReference getDefinitionArgumentList_Arguments();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.DoubleQuotedString <em>Double Quoted String</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.DoubleQuotedString <em>Double Quoted String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Double Quoted String</em>'.
-	 * @see org.cloudsmith.geppetto.pp.DoubleQuotedString
+	 * @see com.puppetlabs.geppetto.pp.DoubleQuotedString
 	 * @generated
 	 */
 	EClass getDoubleQuotedString();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.DoubleQuotedString#getStringPart
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.DoubleQuotedString#getStringPart
 	 * <em>String Part</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>String Part</em>'.
-	 * @see org.cloudsmith.geppetto.pp.DoubleQuotedString#getStringPart()
+	 * @see com.puppetlabs.geppetto.pp.DoubleQuotedString#getStringPart()
 	 * @see #getDoubleQuotedString()
 	 * @generated
 	 */
 	EReference getDoubleQuotedString_StringPart();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ElseExpression <em>Else Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ElseExpression <em>Else Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Else Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ElseExpression
+	 * @see com.puppetlabs.geppetto.pp.ElseExpression
 	 * @generated
 	 */
 	EClass getElseExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ElseIfExpression <em>Else If Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ElseIfExpression <em>Else If Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Else If Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ElseIfExpression
+	 * @see com.puppetlabs.geppetto.pp.ElseIfExpression
 	 * @generated
 	 */
 	EClass getElseIfExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.EqualityExpression <em>Equality Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.EqualityExpression <em>Equality Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Equality Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.EqualityExpression
+	 * @see com.puppetlabs.geppetto.pp.EqualityExpression
 	 * @generated
 	 */
 	EClass getEqualityExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ExportedCollectQuery <em>Exported Collect Query</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ExportedCollectQuery <em>Exported Collect Query</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Exported Collect Query</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ExportedCollectQuery
+	 * @see com.puppetlabs.geppetto.pp.ExportedCollectQuery
 	 * @generated
 	 */
 	EClass getExportedCollectQuery();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.Expression <em>Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.Expression <em>Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.Expression
+	 * @see com.puppetlabs.geppetto.pp.Expression
 	 * @generated
 	 */
 	EClass getExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ExpressionBlock <em>Expression Block</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ExpressionBlock <em>Expression Block</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Expression Block</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ExpressionBlock
+	 * @see com.puppetlabs.geppetto.pp.ExpressionBlock
 	 * @generated
 	 */
 	EClass getExpressionBlock();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.ExpressionBlock#getStatements
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.ExpressionBlock#getStatements
 	 * <em>Statements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ExpressionBlock#getStatements()
+	 * @see com.puppetlabs.geppetto.pp.ExpressionBlock#getStatements()
 	 * @see #getExpressionBlock()
 	 * @generated
 	 */
 	EReference getExpressionBlock_Statements();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ExpressionTE <em>Expression TE</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ExpressionTE <em>Expression TE</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Expression TE</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ExpressionTE
+	 * @see com.puppetlabs.geppetto.pp.ExpressionTE
 	 * @generated
 	 */
 	EClass getExpressionTE();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.ExpressionTE#getExpression <em>Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.ExpressionTE#getExpression <em>Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ExpressionTE#getExpression()
+	 * @see com.puppetlabs.geppetto.pp.ExpressionTE#getExpression()
 	 * @see #getExpressionTE()
 	 * @generated
 	 */
 	EReference getExpressionTE_Expression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ExprList <em>Expr List</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ExprList <em>Expr List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Expr List</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ExprList
+	 * @see com.puppetlabs.geppetto.pp.ExprList
 	 * @generated
 	 */
 	EClass getExprList();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.ExprList#getExpressions <em>Expressions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.ExprList#getExpressions <em>Expressions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Expressions</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ExprList#getExpressions()
+	 * @see com.puppetlabs.geppetto.pp.ExprList#getExpressions()
 	 * @see #getExprList()
 	 * @generated
 	 */
 	EReference getExprList_Expressions();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.FunctionCall <em>Function Call</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.FunctionCall <em>Function Call</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Function Call</em>'.
-	 * @see org.cloudsmith.geppetto.pp.FunctionCall
+	 * @see com.puppetlabs.geppetto.pp.FunctionCall
 	 * @generated
 	 */
 	EClass getFunctionCall();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.HashEntry <em>Hash Entry</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.HashEntry <em>Hash Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Hash Entry</em>'.
-	 * @see org.cloudsmith.geppetto.pp.HashEntry
+	 * @see com.puppetlabs.geppetto.pp.HashEntry
 	 * @generated
 	 */
 	EClass getHashEntry();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.HashEntry#getKey <em>Key</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.HashEntry#getKey <em>Key</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Key</em>'.
-	 * @see org.cloudsmith.geppetto.pp.HashEntry#getKey()
+	 * @see com.puppetlabs.geppetto.pp.HashEntry#getKey()
 	 * @see #getHashEntry()
 	 * @generated
 	 */
 	EReference getHashEntry_Key();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.HashEntry#getValue <em>Value</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.HashEntry#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see org.cloudsmith.geppetto.pp.HashEntry#getValue()
+	 * @see com.puppetlabs.geppetto.pp.HashEntry#getValue()
 	 * @see #getHashEntry()
 	 * @generated
 	 */
 	EReference getHashEntry_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.HostClassDefinition <em>Host Class Definition</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.HostClassDefinition <em>Host Class Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Host Class Definition</em>'.
-	 * @see org.cloudsmith.geppetto.pp.HostClassDefinition
+	 * @see com.puppetlabs.geppetto.pp.HostClassDefinition
 	 * @generated
 	 */
 	EClass getHostClassDefinition();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.HostClassDefinition#getParent <em>Parent</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.HostClassDefinition#getParent <em>Parent</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Parent</em>'.
-	 * @see org.cloudsmith.geppetto.pp.HostClassDefinition#getParent()
+	 * @see com.puppetlabs.geppetto.pp.HostClassDefinition#getParent()
 	 * @see #getHostClassDefinition()
 	 * @generated
 	 */
 	EReference getHostClassDefinition_Parent();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ICollectQuery <em>ICollect Query</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ICollectQuery <em>ICollect Query</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>ICollect Query</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ICollectQuery
+	 * @see com.puppetlabs.geppetto.pp.ICollectQuery
 	 * @generated
 	 */
 	EClass getICollectQuery();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.IfExpression <em>If Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.IfExpression <em>If Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>If Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.IfExpression
+	 * @see com.puppetlabs.geppetto.pp.IfExpression
 	 * @generated
 	 */
 	EClass getIfExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.IfExpression#getCondExpr <em>Cond Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.IfExpression#getCondExpr <em>Cond Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Cond Expr</em>'.
-	 * @see org.cloudsmith.geppetto.pp.IfExpression#getCondExpr()
+	 * @see com.puppetlabs.geppetto.pp.IfExpression#getCondExpr()
 	 * @see #getIfExpression()
 	 * @generated
 	 */
 	EReference getIfExpression_CondExpr();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.IfExpression#getElseStatement <em>Else Statement</em>}
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.IfExpression#getElseStatement <em>Else Statement</em>}
 	 * '.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Else Statement</em>'.
-	 * @see org.cloudsmith.geppetto.pp.IfExpression#getElseStatement()
+	 * @see com.puppetlabs.geppetto.pp.IfExpression#getElseStatement()
 	 * @see #getIfExpression()
 	 * @generated
 	 */
 	EReference getIfExpression_ElseStatement();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.IfExpression#getThenStatements
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.IfExpression#getThenStatements
 	 * <em>Then Statements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Then Statements</em>'.
-	 * @see org.cloudsmith.geppetto.pp.IfExpression#getThenStatements()
+	 * @see com.puppetlabs.geppetto.pp.IfExpression#getThenStatements()
 	 * @see #getIfExpression()
 	 * @generated
 	 */
 	EReference getIfExpression_ThenStatements();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ImportExpression <em>Import Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ImportExpression <em>Import Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Import Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ImportExpression
+	 * @see com.puppetlabs.geppetto.pp.ImportExpression
 	 * @generated
 	 */
 	EClass getImportExpression();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.ImportExpression#getValues <em>Values</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.ImportExpression#getValues <em>Values</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Values</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ImportExpression#getValues()
+	 * @see com.puppetlabs.geppetto.pp.ImportExpression#getValues()
 	 * @see #getImportExpression()
 	 * @generated
 	 */
 	EReference getImportExpression_Values();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.InExpression <em>In Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.InExpression <em>In Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>In Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.InExpression
+	 * @see com.puppetlabs.geppetto.pp.InExpression
 	 * @generated
 	 */
 	EClass getInExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.InterpolatedVariable <em>Interpolated Variable</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.InterpolatedVariable <em>Interpolated Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Interpolated Variable</em>'.
-	 * @see org.cloudsmith.geppetto.pp.InterpolatedVariable
+	 * @see com.puppetlabs.geppetto.pp.InterpolatedVariable
 	 * @generated
 	 */
 	EClass getInterpolatedVariable();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.InterpolatedVariable#getVarName <em>Var Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.InterpolatedVariable#getVarName <em>Var Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Var Name</em>'.
-	 * @see org.cloudsmith.geppetto.pp.InterpolatedVariable#getVarName()
+	 * @see com.puppetlabs.geppetto.pp.InterpolatedVariable#getVarName()
 	 * @see #getInterpolatedVariable()
 	 * @generated
 	 */
 	EAttribute getInterpolatedVariable_VarName();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.IQuotedString <em>IQuoted String</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.IQuotedString <em>IQuoted String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>IQuoted String</em>'.
-	 * @see org.cloudsmith.geppetto.pp.IQuotedString
+	 * @see com.puppetlabs.geppetto.pp.IQuotedString
 	 * @generated
 	 */
 	EClass getIQuotedString();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.JavaLambda <em>Java Lambda</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.JavaLambda <em>Java Lambda</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Java Lambda</em>'.
-	 * @see org.cloudsmith.geppetto.pp.JavaLambda
+	 * @see com.puppetlabs.geppetto.pp.JavaLambda
 	 * @generated
 	 */
 	EClass getJavaLambda();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.JavaLambda#isFarrow <em>Farrow</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.JavaLambda#isFarrow <em>Farrow</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Farrow</em>'.
-	 * @see org.cloudsmith.geppetto.pp.JavaLambda#isFarrow()
+	 * @see com.puppetlabs.geppetto.pp.JavaLambda#isFarrow()
 	 * @see #getJavaLambda()
 	 * @generated
 	 */
 	EAttribute getJavaLambda_Farrow();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.Lambda <em>Lambda</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.Lambda <em>Lambda</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Lambda</em>'.
-	 * @see org.cloudsmith.geppetto.pp.Lambda
+	 * @see com.puppetlabs.geppetto.pp.Lambda
 	 * @generated
 	 */
 	EClass getLambda();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.Lambda#getArguments <em>Arguments</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.Lambda#getArguments <em>Arguments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Arguments</em>'.
-	 * @see org.cloudsmith.geppetto.pp.Lambda#getArguments()
+	 * @see com.puppetlabs.geppetto.pp.Lambda#getArguments()
 	 * @see #getLambda()
 	 * @generated
 	 */
 	EReference getLambda_Arguments();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralBoolean <em>Literal Boolean</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.LiteralBoolean <em>Literal Boolean</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Literal Boolean</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralBoolean
+	 * @see com.puppetlabs.geppetto.pp.LiteralBoolean
 	 * @generated
 	 */
 	EClass getLiteralBoolean();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.LiteralBoolean#isValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.LiteralBoolean#isValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralBoolean#isValue()
+	 * @see com.puppetlabs.geppetto.pp.LiteralBoolean#isValue()
 	 * @see #getLiteralBoolean()
 	 * @generated
 	 */
 	EAttribute getLiteralBoolean_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralClass <em>Literal Class</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.LiteralClass <em>Literal Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Literal Class</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralClass
+	 * @see com.puppetlabs.geppetto.pp.LiteralClass
 	 * @generated
 	 */
 	EClass getLiteralClass();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralDefault <em>Literal Default</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.LiteralDefault <em>Literal Default</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Literal Default</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralDefault
+	 * @see com.puppetlabs.geppetto.pp.LiteralDefault
 	 * @generated
 	 */
 	EClass getLiteralDefault();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralExpression <em>Literal Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.LiteralExpression <em>Literal Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Literal Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralExpression
+	 * @see com.puppetlabs.geppetto.pp.LiteralExpression
 	 * @generated
 	 */
 	EClass getLiteralExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralHash <em>Literal Hash</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.LiteralHash <em>Literal Hash</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Literal Hash</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralHash
+	 * @see com.puppetlabs.geppetto.pp.LiteralHash
 	 * @generated
 	 */
 	EClass getLiteralHash();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.LiteralHash#getElements <em>Elements</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.LiteralHash#getElements <em>Elements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Elements</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralHash#getElements()
+	 * @see com.puppetlabs.geppetto.pp.LiteralHash#getElements()
 	 * @see #getLiteralHash()
 	 * @generated
 	 */
 	EReference getLiteralHash_Elements();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralList <em>Literal List</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.LiteralList <em>Literal List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Literal List</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralList
+	 * @see com.puppetlabs.geppetto.pp.LiteralList
 	 * @generated
 	 */
 	EClass getLiteralList();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.LiteralList#getElements <em>Elements</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.LiteralList#getElements <em>Elements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Elements</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralList#getElements()
+	 * @see com.puppetlabs.geppetto.pp.LiteralList#getElements()
 	 * @see #getLiteralList()
 	 * @generated
 	 */
 	EReference getLiteralList_Elements();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralName <em>Literal Name</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.LiteralName <em>Literal Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Literal Name</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralName
+	 * @see com.puppetlabs.geppetto.pp.LiteralName
 	 * @generated
 	 */
 	EClass getLiteralName();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.LiteralName#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.LiteralName#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralName#getValue()
+	 * @see com.puppetlabs.geppetto.pp.LiteralName#getValue()
 	 * @see #getLiteralName()
 	 * @generated
 	 */
 	EAttribute getLiteralName_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralNameOrReference <em>Literal Name Or Reference</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.LiteralNameOrReference <em>Literal Name Or Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Literal Name Or Reference</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralNameOrReference
+	 * @see com.puppetlabs.geppetto.pp.LiteralNameOrReference
 	 * @generated
 	 */
 	EClass getLiteralNameOrReference();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.LiteralNameOrReference#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.LiteralNameOrReference#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralNameOrReference#getValue()
+	 * @see com.puppetlabs.geppetto.pp.LiteralNameOrReference#getValue()
 	 * @see #getLiteralNameOrReference()
 	 * @generated
 	 */
 	EAttribute getLiteralNameOrReference_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralRegex <em>Literal Regex</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.LiteralRegex <em>Literal Regex</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Literal Regex</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralRegex
+	 * @see com.puppetlabs.geppetto.pp.LiteralRegex
 	 * @generated
 	 */
 	EClass getLiteralRegex();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.LiteralRegex#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.LiteralRegex#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralRegex#getValue()
+	 * @see com.puppetlabs.geppetto.pp.LiteralRegex#getValue()
 	 * @see #getLiteralRegex()
 	 * @generated
 	 */
 	EAttribute getLiteralRegex_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.LiteralUndef <em>Literal Undef</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.LiteralUndef <em>Literal Undef</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Literal Undef</em>'.
-	 * @see org.cloudsmith.geppetto.pp.LiteralUndef
+	 * @see com.puppetlabs.geppetto.pp.LiteralUndef
 	 * @generated
 	 */
 	EClass getLiteralUndef();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.MatchingExpression <em>Matching Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.MatchingExpression <em>Matching Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Matching Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.MatchingExpression
+	 * @see com.puppetlabs.geppetto.pp.MatchingExpression
 	 * @generated
 	 */
 	EClass getMatchingExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.MethodCall <em>Method Call</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.MethodCall <em>Method Call</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Method Call</em>'.
-	 * @see org.cloudsmith.geppetto.pp.MethodCall
+	 * @see com.puppetlabs.geppetto.pp.MethodCall
 	 * @generated
 	 */
 	EClass getMethodCall();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.MethodCall#getMethodExpr <em>Method Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.MethodCall#getMethodExpr <em>Method Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Method Expr</em>'.
-	 * @see org.cloudsmith.geppetto.pp.MethodCall#getMethodExpr()
+	 * @see com.puppetlabs.geppetto.pp.MethodCall#getMethodExpr()
 	 * @see #getMethodCall()
 	 * @generated
 	 */
 	EReference getMethodCall_MethodExpr();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.MethodCall#isParenthesized <em>Parenthesized</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.MethodCall#isParenthesized <em>Parenthesized</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Parenthesized</em>'.
-	 * @see org.cloudsmith.geppetto.pp.MethodCall#isParenthesized()
+	 * @see com.puppetlabs.geppetto.pp.MethodCall#isParenthesized()
 	 * @see #getMethodCall()
 	 * @generated
 	 */
 	EAttribute getMethodCall_Parenthesized();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.MultiplicativeExpression <em>Multiplicative Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.MultiplicativeExpression <em>Multiplicative Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Multiplicative Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.MultiplicativeExpression
+	 * @see com.puppetlabs.geppetto.pp.MultiplicativeExpression
 	 * @generated
 	 */
 	EClass getMultiplicativeExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.NamedAccessExpression <em>Named Access Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.NamedAccessExpression <em>Named Access Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Named Access Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.NamedAccessExpression
+	 * @see com.puppetlabs.geppetto.pp.NamedAccessExpression
 	 * @generated
 	 */
 	EClass getNamedAccessExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.NodeDefinition <em>Node Definition</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.NodeDefinition <em>Node Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Node Definition</em>'.
-	 * @see org.cloudsmith.geppetto.pp.NodeDefinition
+	 * @see com.puppetlabs.geppetto.pp.NodeDefinition
 	 * @generated
 	 */
 	EClass getNodeDefinition();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.NodeDefinition#getHostNames <em>Host Names</em>}
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.NodeDefinition#getHostNames <em>Host Names</em>}
 	 * '.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Host Names</em>'.
-	 * @see org.cloudsmith.geppetto.pp.NodeDefinition#getHostNames()
+	 * @see com.puppetlabs.geppetto.pp.NodeDefinition#getHostNames()
 	 * @see #getNodeDefinition()
 	 * @generated
 	 */
 	EReference getNodeDefinition_HostNames();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.NodeDefinition#getParentName <em>Parent Name</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.NodeDefinition#getParentName <em>Parent Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Parent Name</em>'.
-	 * @see org.cloudsmith.geppetto.pp.NodeDefinition#getParentName()
+	 * @see com.puppetlabs.geppetto.pp.NodeDefinition#getParentName()
 	 * @see #getNodeDefinition()
 	 * @generated
 	 */
 	EReference getNodeDefinition_ParentName();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.NodeDefinition#getStatements <em>Statements</em>}
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.NodeDefinition#getStatements <em>Statements</em>}
 	 * '.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Statements</em>'.
-	 * @see org.cloudsmith.geppetto.pp.NodeDefinition#getStatements()
+	 * @see com.puppetlabs.geppetto.pp.NodeDefinition#getStatements()
 	 * @see #getNodeDefinition()
 	 * @generated
 	 */
 	EReference getNodeDefinition_Statements();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.OrExpression <em>Or Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.OrExpression <em>Or Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Or Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.OrExpression
+	 * @see com.puppetlabs.geppetto.pp.OrExpression
 	 * @generated
 	 */
 	EClass getOrExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ParameterizedExpression <em>Parameterized Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ParameterizedExpression <em>Parameterized Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Parameterized Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ParameterizedExpression
+	 * @see com.puppetlabs.geppetto.pp.ParameterizedExpression
 	 * @generated
 	 */
 	EClass getParameterizedExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.ParameterizedExpression#getLeftExpr
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.ParameterizedExpression#getLeftExpr
 	 * <em>Left Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Left Expr</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ParameterizedExpression#getLeftExpr()
+	 * @see com.puppetlabs.geppetto.pp.ParameterizedExpression#getLeftExpr()
 	 * @see #getParameterizedExpression()
 	 * @generated
 	 */
 	EReference getParameterizedExpression_LeftExpr();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.ParameterizedExpression#getParameters
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.ParameterizedExpression#getParameters
 	 * <em>Parameters</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ParameterizedExpression#getParameters()
+	 * @see com.puppetlabs.geppetto.pp.ParameterizedExpression#getParameters()
 	 * @see #getParameterizedExpression()
 	 * @generated
 	 */
 	EReference getParameterizedExpression_Parameters();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ParenthesisedExpression <em>Parenthesised Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ParenthesisedExpression <em>Parenthesised Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Parenthesised Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ParenthesisedExpression
+	 * @see com.puppetlabs.geppetto.pp.ParenthesisedExpression
 	 * @generated
 	 */
 	EClass getParenthesisedExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.ParenthesisedExpression#getExpr <em>Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.ParenthesisedExpression#getExpr <em>Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Expr</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ParenthesisedExpression#getExpr()
+	 * @see com.puppetlabs.geppetto.pp.ParenthesisedExpression#getExpr()
 	 * @see #getParenthesisedExpression()
 	 * @generated
 	 */
@@ -5653,460 +5653,460 @@ public interface PPPackage extends EPackage {
 	PPFactory getPPFactory();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.PuppetManifest <em>Puppet Manifest</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.PuppetManifest <em>Puppet Manifest</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Puppet Manifest</em>'.
-	 * @see org.cloudsmith.geppetto.pp.PuppetManifest
+	 * @see com.puppetlabs.geppetto.pp.PuppetManifest
 	 * @generated
 	 */
 	EClass getPuppetManifest();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.RelationalExpression <em>Relational Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.RelationalExpression <em>Relational Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Relational Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.RelationalExpression
+	 * @see com.puppetlabs.geppetto.pp.RelationalExpression
 	 * @generated
 	 */
 	EClass getRelationalExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.RelationshipExpression <em>Relationship Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.RelationshipExpression <em>Relationship Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Relationship Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.RelationshipExpression
+	 * @see com.puppetlabs.geppetto.pp.RelationshipExpression
 	 * @generated
 	 */
 	EClass getRelationshipExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ResourceBody <em>Resource Body</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ResourceBody <em>Resource Body</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Resource Body</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ResourceBody
+	 * @see com.puppetlabs.geppetto.pp.ResourceBody
 	 * @generated
 	 */
 	EClass getResourceBody();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.ResourceBody#getAttributes <em>Attributes</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.ResourceBody#getAttributes <em>Attributes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Attributes</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ResourceBody#getAttributes()
+	 * @see com.puppetlabs.geppetto.pp.ResourceBody#getAttributes()
 	 * @see #getResourceBody()
 	 * @generated
 	 */
 	EReference getResourceBody_Attributes();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.ResourceBody#getNameExpr <em>Name Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.ResourceBody#getNameExpr <em>Name Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Name Expr</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ResourceBody#getNameExpr()
+	 * @see com.puppetlabs.geppetto.pp.ResourceBody#getNameExpr()
 	 * @see #getResourceBody()
 	 * @generated
 	 */
 	EReference getResourceBody_NameExpr();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ResourceExpression <em>Resource Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ResourceExpression <em>Resource Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Resource Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ResourceExpression
+	 * @see com.puppetlabs.geppetto.pp.ResourceExpression
 	 * @generated
 	 */
 	EClass getResourceExpression();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.ResourceExpression#getResourceData
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.ResourceExpression#getResourceData
 	 * <em>Resource Data</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Resource Data</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ResourceExpression#getResourceData()
+	 * @see com.puppetlabs.geppetto.pp.ResourceExpression#getResourceData()
 	 * @see #getResourceExpression()
 	 * @generated
 	 */
 	EReference getResourceExpression_ResourceData();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.ResourceExpression#getResourceExpr
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.ResourceExpression#getResourceExpr
 	 * <em>Resource Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Resource Expr</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ResourceExpression#getResourceExpr()
+	 * @see com.puppetlabs.geppetto.pp.ResourceExpression#getResourceExpr()
 	 * @see #getResourceExpression()
 	 * @generated
 	 */
 	EReference getResourceExpression_ResourceExpr();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.RubyLambda <em>Ruby Lambda</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.RubyLambda <em>Ruby Lambda</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Ruby Lambda</em>'.
-	 * @see org.cloudsmith.geppetto.pp.RubyLambda
+	 * @see com.puppetlabs.geppetto.pp.RubyLambda
 	 * @generated
 	 */
 	EClass getRubyLambda();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.SelectorEntry <em>Selector Entry</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.SelectorEntry <em>Selector Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Selector Entry</em>'.
-	 * @see org.cloudsmith.geppetto.pp.SelectorEntry
+	 * @see com.puppetlabs.geppetto.pp.SelectorEntry
 	 * @generated
 	 */
 	EClass getSelectorEntry();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.SelectorExpression <em>Selector Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.SelectorExpression <em>Selector Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Selector Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.SelectorExpression
+	 * @see com.puppetlabs.geppetto.pp.SelectorExpression
 	 * @generated
 	 */
 	EClass getSelectorExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.SeparatorExpression <em>Separator Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.SeparatorExpression <em>Separator Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Separator Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.SeparatorExpression
+	 * @see com.puppetlabs.geppetto.pp.SeparatorExpression
 	 * @generated
 	 */
 	EClass getSeparatorExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.ShiftExpression <em>Shift Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.ShiftExpression <em>Shift Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Shift Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.ShiftExpression
+	 * @see com.puppetlabs.geppetto.pp.ShiftExpression
 	 * @generated
 	 */
 	EClass getShiftExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.SingleQuotedString <em>Single Quoted String</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.SingleQuotedString <em>Single Quoted String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Single Quoted String</em>'.
-	 * @see org.cloudsmith.geppetto.pp.SingleQuotedString
+	 * @see com.puppetlabs.geppetto.pp.SingleQuotedString
 	 * @generated
 	 */
 	EClass getSingleQuotedString();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.SingleQuotedString#getText <em>Text</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.SingleQuotedString#getText <em>Text</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Text</em>'.
-	 * @see org.cloudsmith.geppetto.pp.SingleQuotedString#getText()
+	 * @see com.puppetlabs.geppetto.pp.SingleQuotedString#getText()
 	 * @see #getSingleQuotedString()
 	 * @generated
 	 */
 	EAttribute getSingleQuotedString_Text();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.StringExpression <em>String Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.StringExpression <em>String Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>String Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.StringExpression
+	 * @see com.puppetlabs.geppetto.pp.StringExpression
 	 * @generated
 	 */
 	EClass getStringExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.TextExpression <em>Text Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.TextExpression <em>Text Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Text Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.TextExpression
+	 * @see com.puppetlabs.geppetto.pp.TextExpression
 	 * @generated
 	 */
 	EClass getTextExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.UnaryExpression <em>Unary Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.UnaryExpression <em>Unary Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Unary Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.UnaryExpression
+	 * @see com.puppetlabs.geppetto.pp.UnaryExpression
 	 * @generated
 	 */
 	EClass getUnaryExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.UnaryExpression#getExpr <em>Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.UnaryExpression#getExpr <em>Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Expr</em>'.
-	 * @see org.cloudsmith.geppetto.pp.UnaryExpression#getExpr()
+	 * @see com.puppetlabs.geppetto.pp.UnaryExpression#getExpr()
 	 * @see #getUnaryExpression()
 	 * @generated
 	 */
 	EReference getUnaryExpression_Expr();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.UnaryMinusExpression <em>Unary Minus Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.UnaryMinusExpression <em>Unary Minus Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Unary Minus Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.UnaryMinusExpression
+	 * @see com.puppetlabs.geppetto.pp.UnaryMinusExpression
 	 * @generated
 	 */
 	EClass getUnaryMinusExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.UnaryNotExpression <em>Unary Not Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.UnaryNotExpression <em>Unary Not Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Unary Not Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.UnaryNotExpression
+	 * @see com.puppetlabs.geppetto.pp.UnaryNotExpression
 	 * @generated
 	 */
 	EClass getUnaryNotExpression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.UnlessExpression <em>Unless Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.UnlessExpression <em>Unless Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Unless Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.UnlessExpression
+	 * @see com.puppetlabs.geppetto.pp.UnlessExpression
 	 * @generated
 	 */
 	EClass getUnlessExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.UnlessExpression#getCondExpr <em>Cond Expr</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.UnlessExpression#getCondExpr <em>Cond Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Cond Expr</em>'.
-	 * @see org.cloudsmith.geppetto.pp.UnlessExpression#getCondExpr()
+	 * @see com.puppetlabs.geppetto.pp.UnlessExpression#getCondExpr()
 	 * @see #getUnlessExpression()
 	 * @generated
 	 */
 	EReference getUnlessExpression_CondExpr();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.UnlessExpression#getElseStatement
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.UnlessExpression#getElseStatement
 	 * <em>Else Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Else Statement</em>'.
-	 * @see org.cloudsmith.geppetto.pp.UnlessExpression#getElseStatement()
+	 * @see com.puppetlabs.geppetto.pp.UnlessExpression#getElseStatement()
 	 * @see #getUnlessExpression()
 	 * @generated
 	 */
 	EReference getUnlessExpression_ElseStatement();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.UnlessExpression#getThenStatements
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.UnlessExpression#getThenStatements
 	 * <em>Then Statements</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Then Statements</em>'.
-	 * @see org.cloudsmith.geppetto.pp.UnlessExpression#getThenStatements()
+	 * @see com.puppetlabs.geppetto.pp.UnlessExpression#getThenStatements()
 	 * @see #getUnlessExpression()
 	 * @generated
 	 */
 	EReference getUnlessExpression_ThenStatements();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.UnquotedString <em>Unquoted String</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.UnquotedString <em>Unquoted String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Unquoted String</em>'.
-	 * @see org.cloudsmith.geppetto.pp.UnquotedString
+	 * @see com.puppetlabs.geppetto.pp.UnquotedString
 	 * @generated
 	 */
 	EClass getUnquotedString();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.UnquotedString#getExpression <em>Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.UnquotedString#getExpression <em>Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.UnquotedString#getExpression()
+	 * @see com.puppetlabs.geppetto.pp.UnquotedString#getExpression()
 	 * @see #getUnquotedString()
 	 * @generated
 	 */
 	EReference getUnquotedString_Expression();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.VariableExpression <em>Variable Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.VariableExpression <em>Variable Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Variable Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.VariableExpression
+	 * @see com.puppetlabs.geppetto.pp.VariableExpression
 	 * @generated
 	 */
 	EClass getVariableExpression();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.VariableExpression#getVarName <em>Var Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.VariableExpression#getVarName <em>Var Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Var Name</em>'.
-	 * @see org.cloudsmith.geppetto.pp.VariableExpression#getVarName()
+	 * @see com.puppetlabs.geppetto.pp.VariableExpression#getVarName()
 	 * @see #getVariableExpression()
 	 * @generated
 	 */
 	EAttribute getVariableExpression_VarName();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.VariableTE <em>Variable TE</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.VariableTE <em>Variable TE</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Variable TE</em>'.
-	 * @see org.cloudsmith.geppetto.pp.VariableTE
+	 * @see com.puppetlabs.geppetto.pp.VariableTE
 	 * @generated
 	 */
 	EClass getVariableTE();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.VariableTE#getVarName <em>Var Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.VariableTE#getVarName <em>Var Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Var Name</em>'.
-	 * @see org.cloudsmith.geppetto.pp.VariableTE#getVarName()
+	 * @see com.puppetlabs.geppetto.pp.VariableTE#getVarName()
 	 * @see #getVariableTE()
 	 * @generated
 	 */
 	EAttribute getVariableTE_VarName();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.VerbatimTE <em>Verbatim TE</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.VerbatimTE <em>Verbatim TE</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Verbatim TE</em>'.
-	 * @see org.cloudsmith.geppetto.pp.VerbatimTE
+	 * @see com.puppetlabs.geppetto.pp.VerbatimTE
 	 * @generated
 	 */
 	EClass getVerbatimTE();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.VerbatimTE#getText <em>Text</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.VerbatimTE#getText <em>Text</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Text</em>'.
-	 * @see org.cloudsmith.geppetto.pp.VerbatimTE#getText()
+	 * @see com.puppetlabs.geppetto.pp.VerbatimTE#getText()
 	 * @see #getVerbatimTE()
 	 * @generated
 	 */
 	EAttribute getVerbatimTE_Text();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.VirtualCollectQuery <em>Virtual Collect Query</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.VirtualCollectQuery <em>Virtual Collect Query</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Virtual Collect Query</em>'.
-	 * @see org.cloudsmith.geppetto.pp.VirtualCollectQuery
+	 * @see com.puppetlabs.geppetto.pp.VirtualCollectQuery
 	 * @generated
 	 */
 	EClass getVirtualCollectQuery();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.VirtualNameOrReference <em>Virtual Name Or Reference</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.VirtualNameOrReference <em>Virtual Name Or Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Virtual Name Or Reference</em>'.
-	 * @see org.cloudsmith.geppetto.pp.VirtualNameOrReference
+	 * @see com.puppetlabs.geppetto.pp.VirtualNameOrReference
 	 * @generated
 	 */
 	EClass getVirtualNameOrReference();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.VirtualNameOrReference#isExported <em>Exported</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.VirtualNameOrReference#isExported <em>Exported</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Exported</em>'.
-	 * @see org.cloudsmith.geppetto.pp.VirtualNameOrReference#isExported()
+	 * @see com.puppetlabs.geppetto.pp.VirtualNameOrReference#isExported()
 	 * @see #getVirtualNameOrReference()
 	 * @generated
 	 */
 	EAttribute getVirtualNameOrReference_Exported();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.VirtualNameOrReference#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.VirtualNameOrReference#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.cloudsmith.geppetto.pp.VirtualNameOrReference#getValue()
+	 * @see com.puppetlabs.geppetto.pp.VirtualNameOrReference#getValue()
 	 * @see #getVirtualNameOrReference()
 	 * @generated
 	 */
 	EAttribute getVirtualNameOrReference_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.WithLambdaExpression <em>With Lambda Expression</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.WithLambdaExpression <em>With Lambda Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>With Lambda Expression</em>'.
-	 * @see org.cloudsmith.geppetto.pp.WithLambdaExpression
+	 * @see com.puppetlabs.geppetto.pp.WithLambdaExpression
 	 * @generated
 	 */
 	EClass getWithLambdaExpression();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.WithLambdaExpression#getLambda <em>Lambda</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.WithLambdaExpression#getLambda <em>Lambda</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Lambda</em>'.
-	 * @see org.cloudsmith.geppetto.pp.WithLambdaExpression#getLambda()
+	 * @see com.puppetlabs.geppetto.pp.WithLambdaExpression#getLambda()
 	 * @see #getWithLambdaExpression()
 	 * @generated
 	 */

@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.eclipse.xtext.resource.XtextResource;
@@ -126,7 +126,7 @@ public class TestIssues extends AbstractPuppetTests {
 	@Test
 	public void test_Issue399() throws Exception {
 		String code = "exec { 'something': unless => false }";
-		// URI targetURI = URI.createPlatformPluginURI("/org.cloudsmith.geppetto.pp.dsl/targets/puppet-3.0.0.pptp", true);
+		// URI targetURI = URI.createPlatformPluginURI("/com.puppetlabs.geppetto.pp.dsl/targets/puppet-3.0.0.pptp", true);
 		Resource r = loadAndLinkSingleResource(code, true);
 		tester.validate(r.getContents().get(0)).assertOK();
 		resourceWarningDiagnostics(r).assertOK();

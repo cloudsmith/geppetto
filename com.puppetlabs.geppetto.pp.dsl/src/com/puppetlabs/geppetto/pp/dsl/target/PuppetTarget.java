@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.target;
+package com.puppetlabs.geppetto.pp.dsl.target;
 
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
-import org.cloudsmith.geppetto.semver.Version;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
+import com.puppetlabs.geppetto.semver.Version;
 import org.eclipse.emf.common.util.URI;
 
 public enum PuppetTarget {

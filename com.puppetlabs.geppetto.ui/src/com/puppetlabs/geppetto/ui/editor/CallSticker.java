@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.editor;
+package com.puppetlabs.geppetto.ui.editor;
 
 import org.eclipse.jface.text.Position;
 
@@ -17,7 +17,7 @@ import org.eclipse.jface.text.Position;
  * 
  */
 class CallSticker extends Position {
-	public static final String CATEGORY = "org.cloudsmith.geppetto.call";
+	public static final String CATEGORY = "com.puppetlabs.geppetto.call";
 
 	private ArgSticker[] arguments;
 

@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences;
 
-import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApply;
-import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApplyForDefinition;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.BreakAndAlignPreferences;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.EnumPreferenceFieldEditor;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.IntegerFieldEditor;
+import com.puppetlabs.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApply;
+import com.puppetlabs.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApplyForDefinition;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.data.BreakAndAlignPreferences;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.EnumPreferenceFieldEditor;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.IntegerFieldEditor;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 
 /**

@@ -10,9 +10,9 @@
  *   Puppet Labs
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceFinder.IPPQueryData;
+import com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceFinder.IPPQueryData;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;

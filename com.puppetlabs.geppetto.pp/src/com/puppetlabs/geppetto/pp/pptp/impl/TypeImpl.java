@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.impl;
+package com.puppetlabs.geppetto.pp.pptp.impl;
 
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
-import org.cloudsmith.geppetto.pp.pptp.Type;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.pptp.Type;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeImpl#getSuperType <em>Super Type</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TypeImpl#getSuperType <em>Super Type</em>}</li>
  * </ul>
  * </p>
  * 

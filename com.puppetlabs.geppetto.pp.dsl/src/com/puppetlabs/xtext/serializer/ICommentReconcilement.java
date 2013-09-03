@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.serializer;
+package com.puppetlabs.xtext.serializer;
 
 import java.util.List;
 

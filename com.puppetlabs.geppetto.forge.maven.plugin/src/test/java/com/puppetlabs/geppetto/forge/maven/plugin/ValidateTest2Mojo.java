@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.forge.maven.plugin;
+package com.puppetlabs.geppetto.forge.maven.plugin;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.maven.plugin;
+package com.puppetlabs.geppetto.forge.maven.plugin;
 
 import java.io.File;
 
-import org.cloudsmith.geppetto.common.os.FileUtils;
+import com.puppetlabs.geppetto.common.os.FileUtils;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.common.tracer;
+package com.puppetlabs.geppetto.common.tracer;
 
-import org.cloudsmith.geppetto.common.util.BundleAccess;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

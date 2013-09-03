@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph;
+package com.puppetlabs.geppetto.graph;
 
 import java.io.File;
 
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.validation.runner.AllModuleReferences.Export;
-import org.cloudsmith.geppetto.validation.runner.MetadataInfo;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.validation.runner.AllModuleReferences.Export;
+import com.puppetlabs.geppetto.validation.runner.MetadataInfo;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 

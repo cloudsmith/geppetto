@@ -8,23 +8,23 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.impl;
+package com.puppetlabs.geppetto.forge.impl;
 
-import static org.cloudsmith.geppetto.forge.Forge.CACHE_LOCATION;
-import static org.cloudsmith.geppetto.forge.model.Constants.API_V2_URL_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.CACHE_LOCATION;
+import static com.puppetlabs.geppetto.forge.model.Constants.API_V2_URL_NAME;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.cloudsmith.geppetto.common.os.StreamUtil;
-import org.cloudsmith.geppetto.forge.Cache;
-import org.cloudsmith.geppetto.forge.util.Checksums;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
-import org.cloudsmith.geppetto.semver.Version;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.forge.Cache;
+import com.puppetlabs.geppetto.forge.util.Checksums;
+import com.puppetlabs.geppetto.forge.util.ModuleUtils;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.v2.service.ReleaseService;
+import com.puppetlabs.geppetto.semver.Version;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

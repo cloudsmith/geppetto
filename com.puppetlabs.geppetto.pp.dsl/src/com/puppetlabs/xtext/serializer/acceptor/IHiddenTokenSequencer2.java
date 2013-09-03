@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.serializer.acceptor;
+package com.puppetlabs.xtext.serializer.acceptor;
 
-import org.cloudsmith.xtext.serializer.ICommentReconcilement;
+import com.puppetlabs.xtext.serializer.ICommentReconcilement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic;

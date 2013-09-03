@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.jruby;
+package com.puppetlabs.geppetto.ruby.jruby;
 
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
+import com.puppetlabs.geppetto.ruby.spi.IRubyIssue;
 import org.jruby.Ruby;
 import org.jruby.common.IRubyWarnings;
 import org.jruby.lexer.yacc.ISourcePosition;

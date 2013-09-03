@@ -1,28 +1,28 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: com.cloudsmith.hammer.puppet.validation.tests
-Bundle-SymbolicName: org.cloudsmith.geppetto.graph.tests
+Bundle-Name: com.puppetlabs.geppetto.graph.tests
+Bundle-SymbolicName: com.puppetlabs.geppetto.graph.tests
 Bundle-Version: 4.0.0
 Bundle-Vendor: Puppet Labs, Inc.
 Require-Bundle: org.eclipse.core.runtime,
- org.cloudsmith.geppetto.graph,
- org.cloudsmith.geppetto.forge,
- org.cloudsmith.geppetto.forge.api,
- org.cloudsmith.geppetto.pp.dsl,
- org.cloudsmith.geppetto.validation,
+ com.puppetlabs.geppetto.graph,
+ com.puppetlabs.geppetto.forge,
+ com.puppetlabs.geppetto.forge.api,
+ com.puppetlabs.geppetto.pp.dsl,
+ com.puppetlabs.geppetto.validation,
  org.eclipse.xtext;bundle-version="2.0.0",
- org.cloudsmith.geppetto.pp,
- org.cloudsmith.geppetto.common,
- org.cloudsmith.geppetto.diagnostic,
- org.cloudsmith.geppetto.validation,
- org.cloudsmith.geppetto.semver,
- org.cloudsmith.geppetto.ruby,
- org.cloudsmith.geppetto.ruby.jrubyparser,
- org.cloudsmith.graph,
+ com.puppetlabs.geppetto.pp,
+ com.puppetlabs.geppetto.common,
+ com.puppetlabs.geppetto.diagnostic,
+ com.puppetlabs.geppetto.validation,
+ com.puppetlabs.geppetto.semver,
+ com.puppetlabs.geppetto.ruby,
+ com.puppetlabs.geppetto.ruby.jrubyparser,
+ com.puppetlabs.graph,
  org.junit;bundle-version="4.8.2"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Import-Package: org.cloudsmith.geppetto.injectable,
+Import-Package: com.puppetlabs.geppetto.injectable,
  org.eclipse.emf.common.util
 Bundle-ClassPath: .
-Export-Package: org.cloudsmith.geppetto.graph.tests
+Export-Package: com.puppetlabs.geppetto.graph.tests

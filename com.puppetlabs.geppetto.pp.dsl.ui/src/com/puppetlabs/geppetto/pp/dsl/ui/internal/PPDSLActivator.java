@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.internal;
+package com.puppetlabs.geppetto.pp.dsl.ui.internal;
 
 import static org.eclipse.core.resources.IResourceDelta.REMOVED;
 
@@ -16,16 +16,16 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.forge.client.GsonModule;
-import org.cloudsmith.geppetto.forge.impl.ForgeModule;
-import org.cloudsmith.geppetto.injectable.CommonModuleProvider;
-import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
-import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
-import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
-import org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz.ImagesOnFileSystemRegistry;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
-import org.cloudsmith.geppetto.ruby.RubyHelper;
-import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
+import com.puppetlabs.geppetto.forge.client.GsonModule;
+import com.puppetlabs.geppetto.forge.impl.ForgeModule;
+import com.puppetlabs.geppetto.injectable.CommonModuleProvider;
+import com.puppetlabs.geppetto.pp.dsl.PPDSLConstants;
+import com.puppetlabs.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
+import com.puppetlabs.geppetto.pp.dsl.ui.builder.PPBuildJob;
+import com.puppetlabs.geppetto.pp.dsl.ui.jdt_ersatz.ImagesOnFileSystemRegistry;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import com.puppetlabs.geppetto.ruby.RubyHelper;
+import com.puppetlabs.geppetto.ruby.jrubyparser.JRubyServices;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -54,14 +54,14 @@ import com.google.inject.Module;
  * 
  */
 public class PPDSLActivator extends PPActivator {
-	public static final String PP_LANGUAGE_NAME = "org.cloudsmith.geppetto.pp.dsl.PP";
+	public static final String PP_LANGUAGE_NAME = "com.puppetlabs.geppetto.pp.dsl.PP";
 
 	private static BundleContext slaActivatorContext;
 
 	private static final Logger logger = Logger.getLogger(PPDSLActivator.class);
 
 	private static final QualifiedName LAST_BUILDER_VERSION = new QualifiedName(
-		"org.cloudsmith.geppetto.dsl.ui", "builder.version");
+		"com.puppetlabs.geppetto.dsl.ui", "builder.version");
 
 	public static PPDSLActivator getDefault() {
 		return (PPDSLActivator) getInstance();
@@ -125,7 +125,7 @@ public class PPDSLActivator extends PPActivator {
 
 	@Override
 	public Injector getInjector(String language) {
-		if(ORG_CLOUDSMITH_GEPPETTO_PP_DSL_PP.equals(language))
+		if(COM_PUPPETLABS_GEPPETTO_PP_DSL_PP.equals(language))
 			return super.getInjector(language);
 
 		synchronized(injectors) {
@@ -144,7 +144,7 @@ public class PPDSLActivator extends PPActivator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator#getRuntimeModule(java.lang.String)
+	 * @see com.puppetlabs.geppetto.pp.dsl.ui.internal.PPActivator#getRuntimeModule(java.lang.String)
 	 */
 	@Override
 	protected Module getRuntimeModule(String grammar) {
@@ -158,7 +158,7 @@ public class PPDSLActivator extends PPActivator {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator#getUiModule(java.lang.String)
+	 * @see com.puppetlabs.geppetto.pp.dsl.ui.internal.PPActivator#getUiModule(java.lang.String)
 	 */
 	@Override
 	protected Module getUiModule(String grammar) {

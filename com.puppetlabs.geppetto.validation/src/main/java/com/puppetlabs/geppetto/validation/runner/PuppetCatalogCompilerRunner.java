@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.validation.runner;
+package com.puppetlabs.geppetto.validation.runner;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -15,12 +15,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.cloudsmith.geppetto.common.os.OsUtil;
-import org.cloudsmith.geppetto.common.os.StreamUtil;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
-import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
-import org.cloudsmith.geppetto.validation.ValidationService;
+import com.puppetlabs.geppetto.common.os.OsUtil;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
+import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
+import com.puppetlabs.geppetto.validation.ValidationService;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;
 

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package com.puppetlabs.geppetto.pp.dsl.linking;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -35,7 +35,7 @@ public class DiagnosticConsumerBasedMessageAcceptor extends AbstractMessageAccep
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
 	 * org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EStructuralFeature, int, java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -64,7 +64,7 @@ public class DiagnosticConsumerBasedMessageAcceptor extends AbstractMessageAccep
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
 	 * org.eclipse.emf.ecore.EObject, int, int, java.lang.String, java.lang.String[])
 	 */
 	@Override
@@ -76,7 +76,7 @@ public class DiagnosticConsumerBasedMessageAcceptor extends AbstractMessageAccep
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
 	 * org.eclipse.xtext.nodemodel.INode, java.lang.String, java.lang.String)
 	 */
 	@Override

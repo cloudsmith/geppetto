@@ -3,8 +3,8 @@
 <plugin>
 	<extension point="org.eclipse.m2e.core.projectConfigurators">
 		<configurator
-			class="org.cloudsmith.geppetto.m2e.ForgeProjectConfigurator"
-			id="org.cloudsmith.geppetto.m2e.forgeConfigurator"
+			class="com.puppetlabs.geppetto.m2e.ForgeProjectConfigurator"
+			id="com.puppetlabs.geppetto.m2e.forgeConfigurator"
 			name="Puppetlabs Forge Project Configurator">
 		</configurator>
 	</extension>

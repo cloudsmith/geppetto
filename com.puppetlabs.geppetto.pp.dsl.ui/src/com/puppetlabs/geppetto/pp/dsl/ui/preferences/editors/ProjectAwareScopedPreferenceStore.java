@@ -12,7 +12,7 @@
  *     itemis AG - bug fixes (see below)
  *     Puppet Labs Inc - making class project aware, fixing listening issues
  *******************************************************************************/
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors;
 
 import java.io.IOException;
 import java.util.Collection;

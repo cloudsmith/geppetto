@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.puppetlint.test;
+package com.puppetlabs.geppetto.puppetlint.test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -7,10 +7,10 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.util.List;
 
-import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner;
-import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner.Issue;
-import static org.cloudsmith.geppetto.puppetlint.PuppetLintRunner.Option.*;
-import org.cloudsmith.geppetto.puppetlint.PuppetLintService;
+import com.puppetlabs.geppetto.puppetlint.PuppetLintRunner;
+import com.puppetlabs.geppetto.puppetlint.PuppetLintRunner.Issue;
+import static com.puppetlabs.geppetto.puppetlint.PuppetLintRunner.Option.*;
+import com.puppetlabs.geppetto.puppetlint.PuppetLintService;
 import org.eclipse.core.runtime.Path;
 import org.junit.Before;
 import org.junit.Test;

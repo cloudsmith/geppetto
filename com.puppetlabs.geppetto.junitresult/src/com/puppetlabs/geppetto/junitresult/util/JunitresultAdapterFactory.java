@@ -8,19 +8,19 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.util;
+package com.puppetlabs.geppetto.junitresult.util;
 
-import org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest;
-import org.cloudsmith.geppetto.junitresult.Failure;
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
-import org.cloudsmith.geppetto.junitresult.NegativeResult;
-import org.cloudsmith.geppetto.junitresult.Property;
-import org.cloudsmith.geppetto.junitresult.Skipped;
-import org.cloudsmith.geppetto.junitresult.JunitResult;
-import org.cloudsmith.geppetto.junitresult.Testcase;
-import org.cloudsmith.geppetto.junitresult.Testrun;
-import org.cloudsmith.geppetto.junitresult.Testsuite;
-import org.cloudsmith.geppetto.junitresult.Testsuites;
+import com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest;
+import com.puppetlabs.geppetto.junitresult.Failure;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.NegativeResult;
+import com.puppetlabs.geppetto.junitresult.Property;
+import com.puppetlabs.geppetto.junitresult.Skipped;
+import com.puppetlabs.geppetto.junitresult.JunitResult;
+import com.puppetlabs.geppetto.junitresult.Testcase;
+import com.puppetlabs.geppetto.junitresult.Testrun;
+import com.puppetlabs.geppetto.junitresult.Testsuite;
+import com.puppetlabs.geppetto.junitresult.Testsuites;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.EObject;
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage
  * @generated
  */
 public class JunitresultAdapterFactory extends AdapterFactoryImpl {
@@ -62,7 +62,7 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseError(org.cloudsmith.geppetto.junitresult.Error object) {
+		public Adapter caseError(com.puppetlabs.geppetto.junitresult.Error object) {
 			return createErrorAdapter();
 		}
 
@@ -131,7 +131,7 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest
 	 * <em>Abstract Aggregated Test</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -139,7 +139,7 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest
+	 * @see com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest
 	 * @generated
 	 */
 	public Adapter createAbstractAggregatedTestAdapter() {
@@ -175,14 +175,14 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.junitresult.Error <em>Error</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.junitresult.Error <em>Error</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.junitresult.Error
+	 * @see com.puppetlabs.geppetto.junitresult.Error
 	 * @generated
 	 */
 	public Adapter createErrorAdapter() {
@@ -190,14 +190,14 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.junitresult.Failure <em>Failure</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.junitresult.Failure <em>Failure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.junitresult.Failure
+	 * @see com.puppetlabs.geppetto.junitresult.Failure
 	 * @generated
 	 */
 	public Adapter createFailureAdapter() {
@@ -205,14 +205,14 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.junitresult.JunitResult <em>Junit Result</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.junitresult.JunitResult <em>Junit Result</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.junitresult.JunitResult
+	 * @see com.puppetlabs.geppetto.junitresult.JunitResult
 	 * @generated
 	 */
 	public Adapter createJunitResultAdapter() {
@@ -220,14 +220,14 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.junitresult.NegativeResult <em>Negative Result</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.junitresult.NegativeResult <em>Negative Result</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.junitresult.NegativeResult
+	 * @see com.puppetlabs.geppetto.junitresult.NegativeResult
 	 * @generated
 	 */
 	public Adapter createNegativeResultAdapter() {
@@ -235,14 +235,14 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.junitresult.Property <em>Property</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.junitresult.Property <em>Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.junitresult.Property
+	 * @see com.puppetlabs.geppetto.junitresult.Property
 	 * @generated
 	 */
 	public Adapter createPropertyAdapter() {
@@ -250,14 +250,14 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.junitresult.Skipped <em>Skipped</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.junitresult.Skipped <em>Skipped</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.junitresult.Skipped
+	 * @see com.puppetlabs.geppetto.junitresult.Skipped
 	 * @generated
 	 */
 	public Adapter createSkippedAdapter() {
@@ -265,14 +265,14 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.junitresult.Testcase <em>Testcase</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.junitresult.Testcase <em>Testcase</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase
 	 * @generated
 	 */
 	public Adapter createTestcaseAdapter() {
@@ -280,14 +280,14 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.junitresult.Testrun <em>Testrun</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.junitresult.Testrun <em>Testrun</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.junitresult.Testrun
+	 * @see com.puppetlabs.geppetto.junitresult.Testrun
 	 * @generated
 	 */
 	public Adapter createTestrunAdapter() {
@@ -295,14 +295,14 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.junitresult.Testsuite <em>Testsuite</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.junitresult.Testsuite <em>Testsuite</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite
 	 * @generated
 	 */
 	public Adapter createTestsuiteAdapter() {
@@ -310,14 +310,14 @@ public class JunitresultAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.junitresult.Testsuites <em>Testsuites</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.junitresult.Testsuites <em>Testsuites</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuites
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuites
 	 * @generated
 	 */
 	public Adapter createTestsuitesAdapter() {

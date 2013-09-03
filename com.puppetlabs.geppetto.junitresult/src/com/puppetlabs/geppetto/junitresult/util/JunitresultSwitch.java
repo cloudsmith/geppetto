@@ -8,19 +8,19 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.util;
+package com.puppetlabs.geppetto.junitresult.util;
 
-import org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest;
-import org.cloudsmith.geppetto.junitresult.Failure;
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
-import org.cloudsmith.geppetto.junitresult.NegativeResult;
-import org.cloudsmith.geppetto.junitresult.Property;
-import org.cloudsmith.geppetto.junitresult.Skipped;
-import org.cloudsmith.geppetto.junitresult.JunitResult;
-import org.cloudsmith.geppetto.junitresult.Testcase;
-import org.cloudsmith.geppetto.junitresult.Testrun;
-import org.cloudsmith.geppetto.junitresult.Testsuite;
-import org.cloudsmith.geppetto.junitresult.Testsuites;
+import com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest;
+import com.puppetlabs.geppetto.junitresult.Failure;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.NegativeResult;
+import com.puppetlabs.geppetto.junitresult.Property;
+import com.puppetlabs.geppetto.junitresult.Skipped;
+import com.puppetlabs.geppetto.junitresult.JunitResult;
+import com.puppetlabs.geppetto.junitresult.Testcase;
+import com.puppetlabs.geppetto.junitresult.Testrun;
+import com.puppetlabs.geppetto.junitresult.Testsuite;
+import com.puppetlabs.geppetto.junitresult.Testsuites;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.util.Switch;
  * which is the result of the switch.
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage
  * @generated
  */
 public class JunitresultSwitch<T> extends Switch<T> {
@@ -93,7 +93,7 @@ public class JunitresultSwitch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseError(org.cloudsmith.geppetto.junitresult.Error object) {
+	public T caseError(com.puppetlabs.geppetto.junitresult.Error object) {
 		return null;
 	}
 
@@ -305,7 +305,7 @@ public class JunitresultSwitch<T> extends Switch<T> {
 				return result;
 			}
 			case JunitresultPackage.ERROR: {
-				org.cloudsmith.geppetto.junitresult.Error error = (org.cloudsmith.geppetto.junitresult.Error) theEObject;
+				com.puppetlabs.geppetto.junitresult.Error error = (com.puppetlabs.geppetto.junitresult.Error) theEObject;
 				T result = caseError(error);
 				if(result == null)
 					result = caseNegativeResult(error);

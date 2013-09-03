@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.formatting;
+package com.puppetlabs.geppetto.pp.dsl.formatting;
 
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentConfiguration;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentContainerInformation;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;

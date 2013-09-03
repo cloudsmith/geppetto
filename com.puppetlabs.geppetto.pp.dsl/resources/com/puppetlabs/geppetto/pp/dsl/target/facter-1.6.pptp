@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<pptp:PuppetDistribution xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pptp="http://www.cloudsmith.org/geppetto/1.0.0/PPTP" description="Facter Variables" version="1.6" label="Facter">
+<pptp:PuppetDistribution xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pptp="http://www.puppetlabs.com/geppetto/1.0.0/PPTP" description="Facter Variables" version="1.6" label="Facter">
   <contents xsi:type="pptp:TPVariable" name="architecture" documentation="The CPU hardware architecture. On OpenBSD, Linux and Debian's kfreebsd, use the hardwaremodel fact. Gentoo and Debian call 'x86_86' 'amd64'. Gentoo also calls 'i386' 'x86'." assignable="true"/>
   <contents xsi:type="pptp:TPVariable" name="arp" documentation="" assignable="true"/>
   <contents xsi:type="pptp:TPVariable" name="augeasversion" documentation="The version of the Auegas library." assignable="true"/>

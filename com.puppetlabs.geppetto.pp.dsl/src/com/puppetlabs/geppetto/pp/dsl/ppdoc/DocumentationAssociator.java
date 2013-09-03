@@ -8,21 +8,21 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ppdoc;
+package com.puppetlabs.geppetto.pp.dsl.ppdoc;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.Definition;
-import org.cloudsmith.geppetto.pp.HostClassDefinition;
-import org.cloudsmith.geppetto.pp.NodeDefinition;
-import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPTask;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.geppetto.pp.Definition;
+import com.puppetlabs.geppetto.pp.HostClassDefinition;
+import com.puppetlabs.geppetto.pp.NodeDefinition;
+import com.puppetlabs.geppetto.pp.dsl.PPDSLConstants;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourceDocumentationAdapter;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourceDocumentationAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPTask;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.IGrammarAccess;

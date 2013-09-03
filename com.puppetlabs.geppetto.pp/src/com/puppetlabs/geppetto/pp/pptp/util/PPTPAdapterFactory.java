@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.util;
+package com.puppetlabs.geppetto.pp.pptp.util;
 
-import org.cloudsmith.geppetto.pp.pptp.*;
+import com.puppetlabs.geppetto.pp.pptp.*;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage
  * @generated
  */
 public class PPTPAdapterFactory extends AdapterFactoryImpl {
@@ -151,14 +151,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.AbstractType <em>Abstract Type</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.AbstractType <em>Abstract Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.AbstractType
+	 * @see com.puppetlabs.geppetto.pp.pptp.AbstractType
 	 * @generated
 	 */
 	public Adapter createAbstractTypeAdapter() {
@@ -194,14 +194,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.Function <em>Function</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.Function <em>Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.Function
+	 * @see com.puppetlabs.geppetto.pp.pptp.Function
 	 * @generated
 	 */
 	public Adapter createFunctionAdapter() {
@@ -209,14 +209,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.IDocumented <em>IDocumented</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.IDocumented <em>IDocumented</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.IDocumented
+	 * @see com.puppetlabs.geppetto.pp.pptp.IDocumented
 	 * @generated
 	 */
 	public Adapter createIDocumentedAdapter() {
@@ -224,14 +224,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.INamed <em>INamed</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.INamed <em>INamed</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.INamed
+	 * @see com.puppetlabs.geppetto.pp.pptp.INamed
 	 * @generated
 	 */
 	public Adapter createINamedAdapter() {
@@ -239,7 +239,7 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer
 	 * <em>ITarget Element Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -247,7 +247,7 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer
+	 * @see com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer
 	 * @generated
 	 */
 	public Adapter createITargetElementContainerAdapter() {
@@ -255,14 +255,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.MetaType <em>Meta Type</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.MetaType <em>Meta Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.MetaType
+	 * @see com.puppetlabs.geppetto.pp.pptp.MetaType
 	 * @generated
 	 */
 	public Adapter createMetaTypeAdapter() {
@@ -270,14 +270,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.MetaVariable <em>Meta Variable</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.MetaVariable <em>Meta Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.MetaVariable
+	 * @see com.puppetlabs.geppetto.pp.pptp.MetaVariable
 	 * @generated
 	 */
 	public Adapter createMetaVariableAdapter() {
@@ -285,14 +285,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.NameSpace <em>Name Space</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.NameSpace <em>Name Space</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.NameSpace
+	 * @see com.puppetlabs.geppetto.pp.pptp.NameSpace
 	 * @generated
 	 */
 	public Adapter createNameSpaceAdapter() {
@@ -300,14 +300,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.Parameter <em>Parameter</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.Parameter <em>Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.Parameter
+	 * @see com.puppetlabs.geppetto.pp.pptp.Parameter
 	 * @generated
 	 */
 	public Adapter createParameterAdapter() {
@@ -315,14 +315,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.Property <em>Property</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.Property <em>Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.Property
+	 * @see com.puppetlabs.geppetto.pp.pptp.Property
 	 * @generated
 	 */
 	public Adapter createPropertyAdapter() {
@@ -330,14 +330,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.PuppetDistribution <em>Puppet Distribution</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.PuppetDistribution <em>Puppet Distribution</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.PuppetDistribution
+	 * @see com.puppetlabs.geppetto.pp.pptp.PuppetDistribution
 	 * @generated
 	 */
 	public Adapter createPuppetDistributionAdapter() {
@@ -345,14 +345,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.TargetElement <em>Target Element</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.TargetElement <em>Target Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetElement
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetElement
 	 * @generated
 	 */
 	public Adapter createTargetElementAdapter() {
@@ -360,14 +360,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry <em>Target Entry</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.TargetEntry <em>Target Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetEntry
 	 * @generated
 	 */
 	public Adapter createTargetEntryAdapter() {
@@ -375,14 +375,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.TPVariable <em>TP Variable</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.TPVariable <em>TP Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TPVariable
+	 * @see com.puppetlabs.geppetto.pp.pptp.TPVariable
 	 * @generated
 	 */
 	public Adapter createTPVariableAdapter() {
@@ -390,14 +390,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.Type <em>Type</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.Type <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.Type
+	 * @see com.puppetlabs.geppetto.pp.pptp.Type
 	 * @generated
 	 */
 	public Adapter createTypeAdapter() {
@@ -405,14 +405,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument <em>Type Argument</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.TypeArgument <em>Type Argument</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TypeArgument
+	 * @see com.puppetlabs.geppetto.pp.pptp.TypeArgument
 	 * @generated
 	 */
 	public Adapter createTypeArgumentAdapter() {
@@ -420,14 +420,14 @@ public class PPTPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.pptp.TypeFragment <em>Type Fragment</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.pptp.TypeFragment <em>Type Fragment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TypeFragment
+	 * @see com.puppetlabs.geppetto.pp.pptp.TypeFragment
 	 * @generated
 	 */
 	public Adapter createTypeFragmentAdapter() {

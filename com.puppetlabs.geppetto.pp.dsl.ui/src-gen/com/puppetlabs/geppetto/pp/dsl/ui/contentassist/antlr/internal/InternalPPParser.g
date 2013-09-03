@@ -11,7 +11,7 @@ options {
 }
 
 @header {
-package org.cloudsmith.geppetto.pp.dsl.ui.contentassist.antlr.internal; 
+package com.puppetlabs.geppetto.pp.dsl.ui.contentassist.antlr.internal; 
 
 import java.util.Map;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream.HiddenTokens;
 import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.AbstractInternalContentAssistParser;
 import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.DFA;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
 
 }
 

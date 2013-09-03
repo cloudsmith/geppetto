@@ -8,22 +8,22 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
-import org.cloudsmith.geppetto.pp.AdditiveExpression;
-import org.cloudsmith.geppetto.pp.FunctionCall;
-import org.cloudsmith.geppetto.pp.LiteralBoolean;
-import org.cloudsmith.geppetto.pp.LiteralDefault;
-import org.cloudsmith.geppetto.pp.LiteralName;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.LiteralRegex;
-import org.cloudsmith.geppetto.pp.LiteralUndef;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.SelectorEntry;
-import org.cloudsmith.geppetto.pp.SelectorExpression;
-import org.cloudsmith.geppetto.pp.SingleQuotedString;
-import org.cloudsmith.geppetto.pp.VariableExpression;
-import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
+import com.puppetlabs.geppetto.pp.AdditiveExpression;
+import com.puppetlabs.geppetto.pp.FunctionCall;
+import com.puppetlabs.geppetto.pp.LiteralBoolean;
+import com.puppetlabs.geppetto.pp.LiteralDefault;
+import com.puppetlabs.geppetto.pp.LiteralName;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.LiteralRegex;
+import com.puppetlabs.geppetto.pp.LiteralUndef;
+import com.puppetlabs.geppetto.pp.PuppetManifest;
+import com.puppetlabs.geppetto.pp.SelectorEntry;
+import com.puppetlabs.geppetto.pp.SelectorExpression;
+import com.puppetlabs.geppetto.pp.SingleQuotedString;
+import com.puppetlabs.geppetto.pp.VariableExpression;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;
 import org.junit.Test;
 

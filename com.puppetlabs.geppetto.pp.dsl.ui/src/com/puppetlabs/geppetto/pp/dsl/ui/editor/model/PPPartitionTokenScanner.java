@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.model;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.model;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
+import com.puppetlabs.geppetto.pp.dsl.ui.editor.autoedit.PPTokenTypeToPartionMapper;
 import org.eclipse.xtext.ui.editor.model.PartitionTokenScanner;
 
 /**

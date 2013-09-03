@@ -1,15 +1,14 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.tests;
+package com.puppetlabs.geppetto.forge.tests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -22,16 +21,17 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.zip.GZIPInputStream;
 
-import org.cloudsmith.geppetto.common.os.FileUtils;
-import org.cloudsmith.geppetto.common.os.StreamUtil;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
-import org.cloudsmith.geppetto.forge.util.TarUtils;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.puppetlabs.geppetto.common.os.FileUtils;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.util.ModuleUtils;
+import com.puppetlabs.geppetto.forge.util.TarUtils;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
 
 public class ForgeUtilTest extends AbstractForgeTest {
 

@@ -8,22 +8,22 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.comments;
+package com.puppetlabs.xtext.dommodel.formatter.comments;
 
 import java.util.List;
 
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.RegionMatch;
-import org.cloudsmith.xtext.dommodel.formatter.AbstractLayout;
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor.CommentFormattingOptions;
-import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor.CommentText;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.textflow.CharSequences;
-import org.cloudsmith.xtext.textflow.ITextFlow;
-import org.cloudsmith.xtext.textflow.TextFlow;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.RegionMatch;
+import com.puppetlabs.xtext.dommodel.formatter.AbstractLayout;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.comments.CommentProcessor.CommentFormattingOptions;
+import com.puppetlabs.xtext.dommodel.formatter.comments.CommentProcessor.CommentText;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.xtext.textflow.CharSequences;
+import com.puppetlabs.xtext.textflow.ITextFlow;
+import com.puppetlabs.xtext.textflow.TextFlow;
 
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.contentassist;
+package com.puppetlabs.geppetto.pp.dsl.contentassist;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,12 +19,12 @@ import java.util.Set;
 
 import org.apache.commons.codec.language.DoubleMetaphone;
 import org.apache.commons.lang.StringUtils;
-import org.cloudsmith.geppetto.common.score.ScoreKeeper;
-import org.cloudsmith.geppetto.common.score.ScoreKeeper.ScoreEntry;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.common.score.ScoreKeeper;
+import com.puppetlabs.geppetto.common.score.ScoreKeeper.ScoreEntry;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.dsl.PPDSLConstants;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;

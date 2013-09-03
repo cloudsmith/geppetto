@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,13 +20,13 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.Definition#getClassName <em>Class Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.Definition#getArguments <em>Arguments</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.Definition#getStatements <em>Statements</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.Definition#getClassName <em>Class Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.Definition#getArguments <em>Arguments</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.Definition#getStatements <em>Statements</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinition()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getDefinition()
  * @model
  * @generated
  */
@@ -41,7 +41,7 @@ public interface Definition extends Expression {
 	 * 
 	 * @return the value of the '<em>Arguments</em>' containment reference.
 	 * @see #setArguments(DefinitionArgumentList)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinition_Arguments()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getDefinition_Arguments()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -57,7 +57,7 @@ public interface Definition extends Expression {
 	 * 
 	 * @return the value of the '<em>Class Name</em>' attribute.
 	 * @see #setClassName(String)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinition_ClassName()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getDefinition_ClassName()
 	 * @model
 	 * @generated
 	 */
@@ -65,7 +65,7 @@ public interface Definition extends Expression {
 
 	/**
 	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.Expression}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.Expression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Statements</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -73,14 +73,14 @@ public interface Definition extends Expression {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Statements</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinition_Statements()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getDefinition_Statements()
 	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Expression> getStatements();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.Definition#getArguments <em>Arguments</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.Definition#getArguments <em>Arguments</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -92,7 +92,7 @@ public interface Definition extends Expression {
 	void setArguments(DefinitionArgumentList value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.Definition#getClassName <em>Class Name</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.Definition#getClassName <em>Class Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

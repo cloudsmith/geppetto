@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.spi;
+package com.puppetlabs.geppetto.ruby.spi;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,9 +16,9 @@ import java.io.Reader;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
-import org.cloudsmith.geppetto.ruby.PPTypeInfo;
-import org.cloudsmith.geppetto.ruby.RubySyntaxException;
+import com.puppetlabs.geppetto.ruby.PPFunctionInfo;
+import com.puppetlabs.geppetto.ruby.PPTypeInfo;
+import com.puppetlabs.geppetto.ruby.RubySyntaxException;
 
 /**
  * The interface for a ruby service that provides parsing (to produce syntax

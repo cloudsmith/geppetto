@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences.data;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences.data;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;
@@ -30,7 +30,7 @@ public class FormatterGeneralPreferences extends AbstractPreferenceData {
 
 	public static final String FORMATTER_INDENTSIZE = "formatterIndentSize";
 
-	public static final String FORMATTER_GENERAL_ID = "org.cloudsmith.geppetto.pp.dsl.PP.formatter";
+	public static final String FORMATTER_GENERAL_ID = "com.puppetlabs.geppetto.pp.dsl.PP.formatter";
 
 	public static final String FORMATTER_GENERAL_USE_PROJECT_SETTINGS = FORMATTER_GENERAL_ID + "." +
 			PPPreferenceConstants.USE_PROJECT_SETTINGS;

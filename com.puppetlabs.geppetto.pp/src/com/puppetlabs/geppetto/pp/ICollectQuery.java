@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  * 
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getICollectQuery()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getICollectQuery()
  * @model interface="true" abstract="true"
  * @generated
  */

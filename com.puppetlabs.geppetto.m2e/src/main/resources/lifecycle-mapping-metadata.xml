@@ -2,7 +2,7 @@
 	<pluginExecutions>
 		<pluginExecution>
 			<pluginExecutionFilter>
-				<groupId>org.cloudsmith.geppetto</groupId>
+				<groupId>com.puppetlabs.geppetto</groupId>
 				<artifactId>forge-maven-plugin</artifactId>
 				<versionRange>[3.2.0,)</versionRange>
 				<goals>
@@ -11,7 +11,7 @@
 			</pluginExecutionFilter>
 			<action>
 				<configurator>
-					<id>org.cloudsmith.geppetto.m2e.forgeConfigurator</id>
+					<id>com.puppetlabs.geppetto.m2e.forgeConfigurator</id>
 				</configurator>
 			</action>
 		</pluginExecution>

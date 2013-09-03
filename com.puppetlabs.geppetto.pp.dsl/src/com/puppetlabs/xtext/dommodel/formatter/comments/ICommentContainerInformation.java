@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.comments;
+package com.puppetlabs.xtext.dommodel.formatter.comments;
 
-import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
+import com.puppetlabs.xtext.dommodel.formatter.css.Alignment;
 
 /**
  * An ICommentContainerInformation describes a "comment container", comment start/end, and repeating tokens, as well

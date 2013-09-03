@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests.utils;
+package com.puppetlabs.geppetto.pp.dsl.tests.utils;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.junit4.serializer.DebugSequenceAcceptor;

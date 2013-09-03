@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation;
+package com.puppetlabs.geppetto.validation;
 
-import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
-import org.cloudsmith.geppetto.validation.runner.IEncodingProvider;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
+import com.puppetlabs.geppetto.validation.runner.IEncodingProvider;
 import org.eclipse.emf.common.util.URI;
 
 public class ValidationOptions {

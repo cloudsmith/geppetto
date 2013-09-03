@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.util;
+package com.puppetlabs.geppetto.forge.util;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
 import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.RootNode;
 

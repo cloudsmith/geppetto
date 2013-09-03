@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
 import java.util.Collection;
 
-import org.cloudsmith.geppetto.pp.DefinitionArgument;
-import org.cloudsmith.geppetto.pp.DefinitionArgumentList;
-import org.cloudsmith.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.DefinitionArgument;
+import com.puppetlabs.geppetto.pp.DefinitionArgumentList;
+import com.puppetlabs.geppetto.pp.PPPackage;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentListImpl#getArguments <em>Arguments</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.DefinitionArgumentListImpl#getArguments <em>Arguments</em>}</li>
  * </ul>
  * </p>
  * 

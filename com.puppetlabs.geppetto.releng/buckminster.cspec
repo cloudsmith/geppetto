@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cs:cspec xmlns:cs="http://www.eclipse.org/buckminster/CSpec-1.0" name="org.cloudsmith.geppetto.releng" componentType="buckminster" version="4.0.0.qualifier" shortDesc="Puppet Labs Geppetto Releng">
+<cs:cspec xmlns:cs="http://www.eclipse.org/buckminster/CSpec-1.0" name="com.puppetlabs.geppetto.releng" componentType="buckminster" version="4.0.0.qualifier" shortDesc="Puppet Labs Geppetto Releng">
     <cs:dependencies>
-        <cs:dependency name="org.cloudsmith.geppetto.product" componentType="eclipse.feature"/>
-        <cs:dependency name="org.cloudsmith.geppetto.site" componentType="eclipse.feature"/>
-        <cs:dependency name="org.cloudsmith.geppetto.tests" componentType="osgi.bundle"/>
+        <cs:dependency name="com.puppetlabs.geppetto.product" componentType="eclipse.feature"/>
+        <cs:dependency name="com.puppetlabs.geppetto.site" componentType="eclipse.feature"/>
+        <cs:dependency name="com.puppetlabs.geppetto.tests" componentType="osgi.bundle"/>
         <cs:dependency name="org.eclipse.equinox.executable" componentType="eclipse.feature"/>
         <cs:dependency name="org.eclipse.xtext.generator" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
         <cs:dependency name="org.junit" componentType="osgi.bundle" versionDesignator="[4.10.0,5.0.0)"/>
-        <cs:dependency name="org.cloudsmith.geppetto.m2e" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
+        <cs:dependency name="com.puppetlabs.geppetto.m2e" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
         <cs:dependency name="org.eclipse.emf.mwe2.launch" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
         <cs:dependency name="org.eclipse.emf.mwe2.language" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
         <cs:dependency name="org.eclipse.m2e.core" componentType="osgi.bundle"/>
@@ -24,9 +24,9 @@
                 <cs:property key="product.ws" value="cocoa"/>
             </cs:properties>
             <cs:prerequisites>
-                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
-                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
-                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="site.p2" alias="product.repository" component="com.puppetlabs.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="com.puppetlabs.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="com.puppetlabs.geppetto.product"/>
             </cs:prerequisites>
             <cs:products alias="output" base="${buckminster.output}/">
                 <cs:path path="product.zips/"/>
@@ -43,9 +43,9 @@
                 <cs:property key="product.ws" value="cocoa"/>
             </cs:properties>
             <cs:prerequisites>
-                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
-                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
-                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="site.p2" alias="product.repository" component="com.puppetlabs.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="com.puppetlabs.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="com.puppetlabs.geppetto.product"/>
             </cs:prerequisites>
             <cs:products alias="output" base="${buckminster.output}/">
                 <cs:path path="product.zips/"/>
@@ -62,9 +62,9 @@
                 <cs:property key="product.ws" value="gtk"/>
             </cs:properties>
             <cs:prerequisites>
-                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
-                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
-                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="site.p2" alias="product.repository" component="com.puppetlabs.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="com.puppetlabs.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="com.puppetlabs.geppetto.product"/>
             </cs:prerequisites>
             <cs:products alias="output" base="${buckminster.output}/">
                 <cs:path path="product.zips/"/>
@@ -81,9 +81,9 @@
                 <cs:property key="product.ws" value="gtk"/>
             </cs:properties>
             <cs:prerequisites>
-                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
-                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
-                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="site.p2" alias="product.repository" component="com.puppetlabs.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="com.puppetlabs.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="com.puppetlabs.geppetto.product"/>
             </cs:prerequisites>
             <cs:products alias="output" base="${buckminster.output}/">
                 <cs:path path="product.zips/"/>
@@ -100,9 +100,9 @@
                 <cs:property key="product.ws" value="win32"/>
             </cs:properties>
             <cs:prerequisites>
-                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
-                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
-                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="site.p2" alias="product.repository" component="com.puppetlabs.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="com.puppetlabs.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="com.puppetlabs.geppetto.product"/>
             </cs:prerequisites>
             <cs:products alias="output" base="${buckminster.output}/">
                 <cs:path path="product.zips/"/>
@@ -119,9 +119,9 @@
                 <cs:property key="product.ws" value="win32"/>
             </cs:properties>
             <cs:prerequisites>
-                <cs:attribute name="site.p2" alias="product.repository" component="org.cloudsmith.geppetto.site"/>
-                <cs:attribute name="product.configuration.exports" alias="products" component="org.cloudsmith.geppetto.product"/>
-                <cs:attribute name="manifest" alias="manifest" component="org.cloudsmith.geppetto.product"/>
+                <cs:attribute name="site.p2" alias="product.repository" component="com.puppetlabs.geppetto.site"/>
+                <cs:attribute name="product.configuration.exports" alias="products" component="com.puppetlabs.geppetto.product"/>
+                <cs:attribute name="manifest" alias="manifest" component="com.puppetlabs.geppetto.product"/>
             </cs:prerequisites>
             <cs:products alias="output" base="${buckminster.output}/">
                 <cs:path path="product.zips/"/>

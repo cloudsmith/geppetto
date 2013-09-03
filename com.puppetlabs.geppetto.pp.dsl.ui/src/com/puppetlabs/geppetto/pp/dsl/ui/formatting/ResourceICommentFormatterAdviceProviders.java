@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.formatting;
+package com.puppetlabs.geppetto.pp.dsl.ui.formatting;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.CommentPreferences;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.BannerAdvice;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.CommentTextAdvice;
-import org.cloudsmith.xtext.ui.resource.PlatformResourceSpecificProvider;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.data.CommentPreferences;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.BannerAdvice;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.CommentTextAdvice;
+import com.puppetlabs.xtext.ui.resource.PlatformResourceSpecificProvider;
 import org.eclipse.core.resources.IResource;
 
 import com.google.inject.Inject;

@@ -8,19 +8,19 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph.catalog;
+package com.puppetlabs.geppetto.graph.catalog;
 
 import java.util.Collections;
 
-import org.cloudsmith.geppetto.catalog.CatalogFactory;
-import org.cloudsmith.geppetto.catalog.CatalogResource;
-import org.cloudsmith.geppetto.catalog.CatalogResourceParameter;
-import org.cloudsmith.geppetto.graph.IHrefProducer;
-import org.cloudsmith.geppetto.graph.SVGProducer;
-import org.cloudsmith.graph.dot.DotRenderer;
-import org.cloudsmith.graph.elements.Vertex;
-import org.cloudsmith.graph.graphcss.GraphCSS;
-import org.cloudsmith.graph.style.IStyleFactory;
+import com.puppetlabs.geppetto.catalog.CatalogFactory;
+import com.puppetlabs.geppetto.catalog.CatalogResource;
+import com.puppetlabs.geppetto.catalog.CatalogResourceParameter;
+import com.puppetlabs.geppetto.graph.IHrefProducer;
+import com.puppetlabs.geppetto.graph.SVGProducer;
+import com.puppetlabs.graph.dot.DotRenderer;
+import com.puppetlabs.graph.elements.Vertex;
+import com.puppetlabs.graph.graphcss.GraphCSS;
+import com.puppetlabs.graph.style.IStyleFactory;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Iterables;

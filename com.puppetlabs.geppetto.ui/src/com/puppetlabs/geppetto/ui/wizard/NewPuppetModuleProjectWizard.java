@@ -8,25 +8,25 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.wizard;
+package com.puppetlabs.geppetto.ui.wizard;
 
-import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.MODULEFILE_NAME;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 
-import org.cloudsmith.geppetto.common.os.FileUtils;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
-import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
-import org.cloudsmith.geppetto.semver.Version;
-import org.cloudsmith.geppetto.ui.UIPlugin;
-import org.cloudsmith.geppetto.ui.util.ResourceUtil;
+import com.puppetlabs.geppetto.common.os.FileUtils;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.util.ModuleUtils;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.pp.dsl.ui.builder.PPBuildJob;
+import com.puppetlabs.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;

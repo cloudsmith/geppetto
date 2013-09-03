@@ -8,17 +8,17 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.ui.editor.formatting;
+package com.puppetlabs.xtext.ui.editor.formatting;
 
 import java.util.Iterator;
 
-import org.cloudsmith.geppetto.pp.dsl.validation.PPValidationUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
-import org.cloudsmith.xtext.resource.ResourceAccessScope;
-import org.cloudsmith.xtext.serializer.DomBasedSerializer;
+import com.puppetlabs.geppetto.pp.dsl.validation.PPValidationUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.IDomModelFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
+import com.puppetlabs.xtext.resource.ResourceAccessScope;
+import com.puppetlabs.xtext.serializer.DomBasedSerializer;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;

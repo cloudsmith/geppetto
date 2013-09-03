@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.ruby.tests;
+package com.puppetlabs.geppetto.ruby.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -7,13 +7,13 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.pp.pptp.AbstractType;
-import org.cloudsmith.geppetto.pp.pptp.Function;
-import org.cloudsmith.geppetto.pp.pptp.Parameter;
-import org.cloudsmith.geppetto.pp.pptp.Property;
-import org.cloudsmith.geppetto.pp.pptp.Type;
-import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
-import org.cloudsmith.geppetto.ruby.resource.PptpRubyResourceFactory;
+import com.puppetlabs.geppetto.pp.pptp.AbstractType;
+import com.puppetlabs.geppetto.pp.pptp.Function;
+import com.puppetlabs.geppetto.pp.pptp.Parameter;
+import com.puppetlabs.geppetto.pp.pptp.Property;
+import com.puppetlabs.geppetto.pp.pptp.Type;
+import com.puppetlabs.geppetto.pp.pptp.TypeFragment;
+import com.puppetlabs.geppetto.ruby.resource.PptpRubyResourceFactory;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;

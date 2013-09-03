@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.injectable.eclipse.impl;
+package com.puppetlabs.geppetto.injectable.eclipse.impl;
 
 import java.net.InetAddress;
 import java.net.URI;
@@ -12,7 +12,7 @@ import org.apache.http.conn.routing.HttpRoutePlanner;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.protocol.HttpContext;
-import org.cloudsmith.geppetto.injectable.eclipse.Activator;
+import com.puppetlabs.geppetto.injectable.eclipse.Activator;
 import org.eclipse.core.net.proxy.IProxyData;
 
 public class ProxiedRoutePlanner implements HttpRoutePlanner {

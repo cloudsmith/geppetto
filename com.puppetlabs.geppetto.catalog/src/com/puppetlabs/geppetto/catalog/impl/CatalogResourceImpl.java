@@ -8,16 +8,16 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog.impl;
+package com.puppetlabs.geppetto.catalog.impl;
 
 import java.util.Collection;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.catalog.CatalogFactory;
-import org.cloudsmith.geppetto.catalog.CatalogPackage;
-import org.cloudsmith.geppetto.catalog.CatalogResource;
-import org.cloudsmith.geppetto.catalog.CatalogResourceParameter;
-import org.cloudsmith.geppetto.catalog.util.CatalogJsonSerializer;
+import com.puppetlabs.geppetto.catalog.CatalogFactory;
+import com.puppetlabs.geppetto.catalog.CatalogPackage;
+import com.puppetlabs.geppetto.catalog.CatalogResource;
+import com.puppetlabs.geppetto.catalog.CatalogResourceParameter;
+import com.puppetlabs.geppetto.catalog.util.CatalogJsonSerializer;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -43,13 +43,13 @@ import com.google.gson.reflect.TypeToken;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl#getFile <em>File</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl#getLine <em>Line</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl#getType <em>Type</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl#getTitle <em>Title</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl#getParameters <em>Parameters</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl#isVirtual <em>Virtual</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl#isExported <em>Exported</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl#getFile <em>File</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl#getLine <em>Line</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl#getType <em>Type</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl#getTitle <em>Title</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl#getParameters <em>Parameters</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl#isVirtual <em>Virtual</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl#isExported <em>Exported</em>}</li>
  * </ul>
  * </p>
  * 

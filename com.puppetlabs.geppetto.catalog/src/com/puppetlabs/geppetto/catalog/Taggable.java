@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog;
+package com.puppetlabs.geppetto.catalog;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -22,11 +22,11 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.catalog.Taggable#getTags <em>Tags</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.Taggable#getTags <em>Tags</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getTaggable()
+ * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getTaggable()
  * @model abstract="true"
  * @generated
  */
@@ -41,7 +41,7 @@ public interface Taggable extends EObject {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Tags</em>' attribute list.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getTaggable_Tags()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getTaggable_Tags()
 	 * @model
 	 * @generated
 	 */

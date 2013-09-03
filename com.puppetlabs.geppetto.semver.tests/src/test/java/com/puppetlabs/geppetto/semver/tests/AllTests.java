@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.semver.tests;
+package com.puppetlabs.geppetto.semver.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

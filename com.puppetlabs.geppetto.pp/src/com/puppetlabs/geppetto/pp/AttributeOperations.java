@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -21,18 +21,18 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.AttributeOperations#getAttributes <em>Attributes</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.AttributeOperations#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getAttributeOperations()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getAttributeOperations()
  * @model
  * @generated
  */
 public interface AttributeOperations extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.AttributeOperation}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.AttributeOperation}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Attributes</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -40,7 +40,7 @@ public interface AttributeOperations extends EObject {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Attributes</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getAttributeOperations_Attributes()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getAttributeOperations_Attributes()
 	 * @model containment="true"
 	 * @generated
 	 */

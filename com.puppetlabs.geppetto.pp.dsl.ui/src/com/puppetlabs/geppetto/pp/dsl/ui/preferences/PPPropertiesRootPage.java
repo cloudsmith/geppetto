@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences;
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;

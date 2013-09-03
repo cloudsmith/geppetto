@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation;
+package com.puppetlabs.geppetto.validation;
 
 import java.io.File;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
-import org.cloudsmith.geppetto.validation.runner.BuildResult;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
+import com.puppetlabs.geppetto.validation.runner.BuildResult;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
 
@@ -101,7 +101,7 @@ public interface ValidationService {
 	BuildResult validateModule(Diagnostic diagnostics, File moduleDirectory, IProgressMonitor monitor);
 
 	/**
-	 * Performs static org.cloudsmith.geppetto.validation and catalog production for a given node, it's factor data, a
+	 * Performs static com.puppetlabs.geppetto.validation and catalog production for a given node, it's factor data, a
 	 * site.pp file, and a directory of modules.
 	 * 
 	 * @param diagnostics

@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.container;
+package com.puppetlabs.geppetto.pp.dsl.ui.container;
 
 import java.util.Collection;
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.Forge;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResourceDelta;

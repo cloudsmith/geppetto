@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.maven.plugin;
+package com.puppetlabs.geppetto.forge.maven.plugin;
 
-import static org.cloudsmith.geppetto.diagnostic.Diagnostic.ERROR;
-import static org.cloudsmith.geppetto.forge.Forge.PACKAGE;
+import static com.puppetlabs.geppetto.diagnostic.Diagnostic.ERROR;
+import static com.puppetlabs.geppetto.forge.Forge.PACKAGE;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import java.util.Collection;
 
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 
 /**
  * Goal that builds the module gzipped tarball and optionally generates the <tt>metadata.json</tt> file.

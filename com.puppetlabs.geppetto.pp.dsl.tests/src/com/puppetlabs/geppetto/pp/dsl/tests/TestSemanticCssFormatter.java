@@ -8,40 +8,40 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import static com.google.inject.util.Modules.override;
-import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+import static com.puppetlabs.geppetto.injectable.CommonModuleProvider.getCommonModule;
 
 import java.util.EnumSet;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
-import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
-import org.cloudsmith.xtext.dommodel.RegionMatch;
-import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
-import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
-import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor;
-import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor.CommentFormattingOptions;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation.JavaLikeMLCommentContainer;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
-import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
-import org.cloudsmith.xtext.serializer.DomBasedSerializer;
-import org.cloudsmith.xtext.textflow.CharSequences;
-import org.cloudsmith.xtext.textflow.CharSequences.Fixed;
-import org.cloudsmith.xtext.textflow.IMetrics;
-import org.cloudsmith.xtext.textflow.ITextFlow;
-import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
-import org.cloudsmith.xtext.textflow.TextFlow;
-import org.cloudsmith.xtext.textflow.TextFlowRecording;
+import com.puppetlabs.geppetto.pp.dsl.PPRuntimeModule;
+import com.puppetlabs.geppetto.pp.dsl.formatting.PPSemanticLayout;
+import com.puppetlabs.geppetto.pp.dsl.formatting.PPStylesheetProvider;
+import com.puppetlabs.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode.NodeType;
+import com.puppetlabs.xtext.dommodel.RegionMatch;
+import com.puppetlabs.xtext.dommodel.formatter.CSSDomFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.DomNodeLayoutFeeder;
+import com.puppetlabs.xtext.dommodel.formatter.IDomModelFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager;
+import com.puppetlabs.xtext.dommodel.formatter.comments.CommentProcessor;
+import com.puppetlabs.xtext.dommodel.formatter.comments.CommentProcessor.CommentFormattingOptions;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentContainerInformation;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentContainerInformation.JavaLikeMLCommentContainer;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContext;
+import com.puppetlabs.xtext.dommodel.formatter.css.DomCSS;
+import com.puppetlabs.xtext.serializer.DomBasedSerializer;
+import com.puppetlabs.xtext.textflow.CharSequences;
+import com.puppetlabs.xtext.textflow.CharSequences.Fixed;
+import com.puppetlabs.xtext.textflow.IMetrics;
+import com.puppetlabs.xtext.textflow.ITextFlow;
+import com.puppetlabs.xtext.textflow.MeasuredTextFlow;
+import com.puppetlabs.xtext.textflow.TextFlow;
+import com.puppetlabs.xtext.textflow.TextFlowRecording;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
@@ -92,7 +92,7 @@ public class TestSemanticCssFormatter extends AbstractPuppetTests {
 				binder.bind(IDomModelFormatter.class).to(DebugFormatter.class);
 				// Want serializer to insert empty WS even if there is no node model
 				binder.bind(IHiddenTokenSequencer.class).to(
-					org.cloudsmith.xtext.serializer.acceptor.HiddenTokenSequencer.class);
+					com.puppetlabs.xtext.serializer.acceptor.HiddenTokenSequencer.class);
 
 				// Bind the default style sheet (TODO: should use a test specific sheet)
 				binder.bind(DomCSS.class).toProvider(PPStylesheetProvider.class);

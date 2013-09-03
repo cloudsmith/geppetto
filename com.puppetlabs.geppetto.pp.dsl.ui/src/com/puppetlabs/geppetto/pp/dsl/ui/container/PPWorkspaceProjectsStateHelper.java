@@ -8,20 +8,20 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.container;
+package com.puppetlabs.geppetto.pp.dsl.ui.container;
 
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.v2.model.Dependency;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.semver.Version;
-import org.cloudsmith.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.v2.model.Dependency;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;

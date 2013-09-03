@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.editor;
+package com.puppetlabs.geppetto.ui.editor;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.ui.UIPlugin;
-import org.cloudsmith.geppetto.ui.editor.ModuleMetadataEditor.DiagnosticAnnotation;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.ui.editor.ModuleMetadataEditor.DiagnosticAnnotation;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextListener;

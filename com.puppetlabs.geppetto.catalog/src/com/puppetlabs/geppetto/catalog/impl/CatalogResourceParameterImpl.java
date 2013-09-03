@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog.impl;
+package com.puppetlabs.geppetto.catalog.impl;
 
 import java.util.Collection;
 
-import org.cloudsmith.geppetto.catalog.CatalogFactory;
-import org.cloudsmith.geppetto.catalog.CatalogPackage;
-import org.cloudsmith.geppetto.catalog.CatalogResourceParameter;
-import org.cloudsmith.geppetto.catalog.util.CatalogJsonSerializer;
+import com.puppetlabs.geppetto.catalog.CatalogFactory;
+import com.puppetlabs.geppetto.catalog.CatalogPackage;
+import com.puppetlabs.geppetto.catalog.CatalogResourceParameter;
+import com.puppetlabs.geppetto.catalog.util.CatalogJsonSerializer;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -38,8 +38,8 @@ import com.google.gson.reflect.TypeToken;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceParameterImpl#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceParameterImpl#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceParameterImpl#getName <em>Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceParameterImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  * 

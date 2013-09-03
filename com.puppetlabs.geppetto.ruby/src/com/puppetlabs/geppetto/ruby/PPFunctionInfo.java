@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby;
+package com.puppetlabs.geppetto.ruby;
 
 /**
  * Represents information about a puppet custom function; its name and if it

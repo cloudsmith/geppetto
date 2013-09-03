@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz;
+package com.puppetlabs.geppetto.pp.dsl.ui.jdt_ersatz;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
+import com.puppetlabs.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IMarkerDelta;
 import org.eclipse.core.resources.IResource;
@@ -33,7 +33,7 @@ import org.eclipse.ui.PlatformUI;
  */
 public class AggregateErrorLabelDecorator implements ILightweightLabelDecorator {
 
-	private static String decoratorId = "org.cloudsmith.geppetto.pp.dsl.ui.errorDecorator";
+	private static String decoratorId = "com.puppetlabs.geppetto.pp.dsl.ui.errorDecorator";
 
 	private IResourceChangeListener listener = null;
 

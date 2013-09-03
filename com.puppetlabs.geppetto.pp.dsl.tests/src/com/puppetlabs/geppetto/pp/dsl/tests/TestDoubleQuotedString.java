@@ -8,23 +8,23 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.DoubleQuotedString;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.ExpressionTE;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.TextExpression;
-import org.cloudsmith.geppetto.pp.VariableTE;
-import org.cloudsmith.geppetto.pp.VerbatimTE;
-import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
+import com.puppetlabs.geppetto.pp.DoubleQuotedString;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.ExpressionTE;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.ParenthesisedExpression;
+import com.puppetlabs.geppetto.pp.PuppetManifest;
+import com.puppetlabs.geppetto.pp.TextExpression;
+import com.puppetlabs.geppetto.pp.VariableTE;
+import com.puppetlabs.geppetto.pp.VerbatimTE;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPPDiagnostics;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.XtextResource;
 import org.junit.After;

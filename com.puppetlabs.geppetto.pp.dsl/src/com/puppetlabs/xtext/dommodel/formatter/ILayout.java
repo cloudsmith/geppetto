@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter;
+package com.puppetlabs.xtext.dommodel.formatter;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.textflow.ITextFlow;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.xtext.textflow.ITextFlow;
 
 /**
  * An ILayout is responsible for providing textual output to an {@link ITextFlow}.

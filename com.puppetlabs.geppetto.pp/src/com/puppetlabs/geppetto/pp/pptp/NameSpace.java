@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp;
+package com.puppetlabs.geppetto.pp.pptp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp.pptp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.NameSpace#isReserved <em>Reserved</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.NameSpace#isReserved <em>Reserved</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getNameSpace()
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getNameSpace()
  * @model
  * @generated
  */
@@ -37,14 +37,14 @@ public interface NameSpace extends TargetElement, ITargetElementContainer {
 	 * 
 	 * @return the value of the '<em>Reserved</em>' attribute.
 	 * @see #setReserved(boolean)
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getNameSpace_Reserved()
+	 * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getNameSpace_Reserved()
 	 * @model
 	 * @generated
 	 */
 	boolean isReserved();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.NameSpace#isReserved <em>Reserved</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.pptp.NameSpace#isReserved <em>Reserved</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

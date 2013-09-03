@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.jrubyparser;
+package com.puppetlabs.geppetto.ruby.jrubyparser;
 
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
+import com.puppetlabs.geppetto.ruby.spi.IRubyIssue;
 import org.jrubyparser.IRubyWarnings;
 import org.jrubyparser.SourcePosition;
 import org.jrubyparser.lexer.SyntaxException;

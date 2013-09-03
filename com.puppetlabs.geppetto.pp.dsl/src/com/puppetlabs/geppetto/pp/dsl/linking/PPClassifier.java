@@ -8,25 +8,25 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package com.puppetlabs.geppetto.pp.dsl.linking;
 
-import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.COLLECTOR_IS_REGULAR;
-import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_BAD;
-import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
-import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_DEFAULT;
-import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
-import static org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_REGULAR;
+import static com.puppetlabs.geppetto.pp.adapters.ClassifierAdapter.COLLECTOR_IS_REGULAR;
+import static com.puppetlabs.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_BAD;
+import static com.puppetlabs.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_CLASSPARAMS;
+import static com.puppetlabs.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_DEFAULT;
+import static com.puppetlabs.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_OVERRIDE;
+import static com.puppetlabs.geppetto.pp.adapters.ClassifierAdapter.RESOURCE_IS_REGULAR;
 
-import org.cloudsmith.geppetto.pp.AtExpression;
-import org.cloudsmith.geppetto.pp.CollectExpression;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.LiteralClass;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.ResourceExpression;
-import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
-import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapter;
-import org.cloudsmith.geppetto.pp.adapters.ClassifierAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.validation.PPPatternHelper;
+import com.puppetlabs.geppetto.pp.AtExpression;
+import com.puppetlabs.geppetto.pp.CollectExpression;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.LiteralClass;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.ResourceExpression;
+import com.puppetlabs.geppetto.pp.VirtualNameOrReference;
+import com.puppetlabs.geppetto.pp.adapters.ClassifierAdapter;
+import com.puppetlabs.geppetto.pp.adapters.ClassifierAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.validation.PPPatternHelper;
 import org.eclipse.emf.ecore.EObject;
 
 import com.google.inject.Inject;

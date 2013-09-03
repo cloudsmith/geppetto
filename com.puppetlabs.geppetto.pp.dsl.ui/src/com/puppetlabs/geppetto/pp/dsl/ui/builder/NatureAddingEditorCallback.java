@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.builder;
+package com.puppetlabs.geppetto.pp.dsl.ui.builder;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;

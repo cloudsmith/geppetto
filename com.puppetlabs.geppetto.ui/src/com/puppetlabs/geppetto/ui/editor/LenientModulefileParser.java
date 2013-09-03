@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.editor;
+package com.puppetlabs.geppetto.ui.editor;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.util.Argument;
-import org.cloudsmith.geppetto.forge.util.CallSymbol;
-import org.cloudsmith.geppetto.forge.util.ModulefileParser;
+import com.puppetlabs.geppetto.forge.util.Argument;
+import com.puppetlabs.geppetto.forge.util.CallSymbol;
+import com.puppetlabs.geppetto.forge.util.ModulefileParser;
 import org.jrubyparser.SourcePosition;
 
 public class LenientModulefileParser extends ModulefileParser {

@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.VariableTE;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.VariableTE;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.VariableTEImpl#getVarName <em>Var Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.VariableTEImpl#getVarName <em>Var Name</em>}</li>
  * </ul>
  * </p>
  * 

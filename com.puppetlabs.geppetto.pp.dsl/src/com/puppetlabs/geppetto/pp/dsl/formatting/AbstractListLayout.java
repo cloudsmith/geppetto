@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.formatting;
+package com.puppetlabs.geppetto.pp.dsl.formatting;
 
-import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApply;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.LayoutUtils;
-import org.cloudsmith.xtext.textflow.ITextFlow;
+import com.puppetlabs.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApply;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.DomNodeLayoutFeeder;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.LayoutUtils;
+import com.puppetlabs.xtext.textflow.ITextFlow;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractElement;
 

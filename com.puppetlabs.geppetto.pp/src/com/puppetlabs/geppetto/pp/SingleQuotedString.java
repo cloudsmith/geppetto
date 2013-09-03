@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.SingleQuotedString#getText <em>Text</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.SingleQuotedString#getText <em>Text</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getSingleQuotedString()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getSingleQuotedString()
  * @model
  * @generated
  */
@@ -37,14 +37,14 @@ public interface SingleQuotedString extends StringExpression, IQuotedString {
 	 * 
 	 * @return the value of the '<em>Text</em>' attribute.
 	 * @see #setText(String)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getSingleQuotedString_Text()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getSingleQuotedString_Text()
 	 * @model
 	 * @generated
 	 */
 	String getText();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.SingleQuotedString#getText <em>Text</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.SingleQuotedString#getText <em>Text</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

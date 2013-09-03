@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog;
+package com.puppetlabs.geppetto.catalog;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,17 +20,17 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogResource#getFile <em>File</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogResource#getLine <em>Line</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogResource#getType <em>Type</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogResource#getTitle <em>Title</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogResource#getParameters <em>Parameters</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogResource#isVirtual <em>Virtual</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogResource#isExported <em>Exported</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogResource#getFile <em>File</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogResource#getLine <em>Line</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogResource#getType <em>Type</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogResource#getTitle <em>Title</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogResource#getParameters <em>Parameters</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogResource#isVirtual <em>Virtual</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogResource#isExported <em>Exported</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResource()
+ * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogResource()
  * @model
  * @generated
  */
@@ -45,7 +45,7 @@ public interface CatalogResource extends Taggable {
 	 * 
 	 * @return the value of the '<em>File</em>' attribute.
 	 * @see #setFile(String)
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResource_File()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogResource_File()
 	 * @model
 	 * @generated
 	 */
@@ -61,7 +61,7 @@ public interface CatalogResource extends Taggable {
 	 * 
 	 * @return the value of the '<em>Line</em>' attribute.
 	 * @see #setLine(String)
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResource_Line()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogResource_Line()
 	 * @model
 	 * @generated
 	 */
@@ -69,7 +69,7 @@ public interface CatalogResource extends Taggable {
 
 	/**
 	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.catalog.CatalogResourceParameter}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.catalog.CatalogResourceParameter}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -77,7 +77,7 @@ public interface CatalogResource extends Taggable {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Parameters</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResource_Parameters()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogResource_Parameters()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -93,7 +93,7 @@ public interface CatalogResource extends Taggable {
 	 * 
 	 * @return the value of the '<em>Title</em>' attribute.
 	 * @see #setTitle(String)
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResource_Title()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogResource_Title()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -109,7 +109,7 @@ public interface CatalogResource extends Taggable {
 	 * 
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResource_Type()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogResource_Type()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -125,7 +125,7 @@ public interface CatalogResource extends Taggable {
 	 * 
 	 * @return the value of the '<em>Exported</em>' attribute.
 	 * @see #setExported(boolean)
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResource_Exported()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogResource_Exported()
 	 * @model
 	 * @generated
 	 */
@@ -141,14 +141,14 @@ public interface CatalogResource extends Taggable {
 	 * 
 	 * @return the value of the '<em>Virtual</em>' attribute.
 	 * @see #setVirtual(boolean)
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResource_Virtual()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogResource_Virtual()
 	 * @model
 	 * @generated
 	 */
 	boolean isVirtual();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogResource#isExported <em>Exported</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.catalog.CatalogResource#isExported <em>Exported</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -160,7 +160,7 @@ public interface CatalogResource extends Taggable {
 	void setExported(boolean value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogResource#getFile <em>File</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.catalog.CatalogResource#getFile <em>File</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -172,7 +172,7 @@ public interface CatalogResource extends Taggable {
 	void setFile(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogResource#getLine <em>Line</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.catalog.CatalogResource#getLine <em>Line</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -184,7 +184,7 @@ public interface CatalogResource extends Taggable {
 	void setLine(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogResource#getTitle <em>Title</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.catalog.CatalogResource#getTitle <em>Title</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -196,7 +196,7 @@ public interface CatalogResource extends Taggable {
 	void setTitle(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogResource#getType <em>Type</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.catalog.CatalogResource#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -208,7 +208,7 @@ public interface CatalogResource extends Taggable {
 	void setType(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogResource#isVirtual <em>Virtual</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.catalog.CatalogResource#isVirtual <em>Virtual</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

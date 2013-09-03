@@ -8,20 +8,20 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.formatting;
+package com.puppetlabs.geppetto.pp.dsl.formatting;
 
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.ResourceStyle;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.ResourceExpressionElements;
-import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
-import org.cloudsmith.xtext.dommodel.formatter.css.DefaultStylesheetProvider;
-import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
-import org.cloudsmith.xtext.dommodel.formatter.css.IFunctionFactory;
-import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
-import org.cloudsmith.xtext.dommodel.formatter.css.Select;
-import org.cloudsmith.xtext.dommodel.formatter.css.Select.Selector;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.geppetto.pp.dsl.formatting.PPSemanticLayout.ResourceStyle;
+import com.puppetlabs.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess.ResourceExpressionElements;
+import com.puppetlabs.xtext.dommodel.IDomNode.NodeType;
+import com.puppetlabs.xtext.dommodel.formatter.css.DefaultStylesheetProvider;
+import com.puppetlabs.xtext.dommodel.formatter.css.DomCSS;
+import com.puppetlabs.xtext.dommodel.formatter.css.IFunctionFactory;
+import com.puppetlabs.xtext.dommodel.formatter.css.IStyleFactory;
+import com.puppetlabs.xtext.dommodel.formatter.css.Select;
+import com.puppetlabs.xtext.dommodel.formatter.css.Select.Selector;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
 
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;

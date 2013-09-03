@@ -1,10 +1,10 @@
-package org.cloudsmith.geppetto.semver.tests;
+package com.puppetlabs.geppetto.semver.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.cloudsmith.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.Version;
 import org.junit.Test;
 
 /**

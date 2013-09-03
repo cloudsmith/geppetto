@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult;
+package com.puppetlabs.geppetto.junitresult;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Property#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Property#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Property#getName <em>Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Property#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getProperty()
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getProperty()
  * @model
  * @generated
  */
@@ -40,7 +40,7 @@ public interface Property extends EObject {
 	 * 
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getProperty_Name()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getProperty_Name()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -56,14 +56,14 @@ public interface Property extends EObject {
 	 * 
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getProperty_Value()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getProperty_Value()
 	 * @model required="true"
 	 * @generated
 	 */
 	String getValue();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Property#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Property#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -75,7 +75,7 @@ public interface Property extends EObject {
 	void setName(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Property#getValue <em>Value</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Property#getValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

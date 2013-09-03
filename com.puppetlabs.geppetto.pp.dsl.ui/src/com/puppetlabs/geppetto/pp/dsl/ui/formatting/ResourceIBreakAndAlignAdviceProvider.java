@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.formatting;
+package com.puppetlabs.geppetto.pp.dsl.ui.formatting;
 
-import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice;
-import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApply;
-import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApplyForDefinition;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.BreakAndAlignPreferences;
-import org.cloudsmith.xtext.ui.resource.PlatformResourceSpecificProvider;
+import com.puppetlabs.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice;
+import com.puppetlabs.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApply;
+import com.puppetlabs.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApplyForDefinition;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.data.BreakAndAlignPreferences;
+import com.puppetlabs.xtext.ui.resource.PlatformResourceSpecificProvider;
 import org.eclipse.core.resources.IResource;
 
 import com.google.inject.Inject;

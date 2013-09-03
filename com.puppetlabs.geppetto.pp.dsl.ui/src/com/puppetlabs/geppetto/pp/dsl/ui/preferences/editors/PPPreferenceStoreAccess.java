@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
+import com.puppetlabs.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.preferences.ConfigurationScope;

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.util;
+package com.puppetlabs.geppetto.forge.util;
 
 public class Argument {
 	private final int offset;

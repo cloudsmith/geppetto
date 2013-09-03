@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.adapters;
+package com.puppetlabs.geppetto.pp.adapters;
 
-import org.cloudsmith.geppetto.pp.pptp.Type;
+import com.puppetlabs.geppetto.pp.pptp.Type;
 import org.eclipse.emf.common.notify.impl.AdapterImpl;
 
 /**

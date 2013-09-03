@@ -10,13 +10,13 @@
  *   Puppet Labs
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 
 import static com.google.common.collect.Iterables.contains;
 import static com.google.common.collect.Iterables.isEmpty;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceFinder.ILocalResourceAccess;
+import com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceFinder.ILocalResourceAccess;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.emf.common.util.URI;

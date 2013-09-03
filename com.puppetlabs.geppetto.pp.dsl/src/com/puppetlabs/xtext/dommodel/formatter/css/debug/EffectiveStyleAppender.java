@@ -8,15 +8,15 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.css.debug;
+package com.puppetlabs.xtext.dommodel.formatter.css.debug;
 
 import java.io.IOException;
 
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
-import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
-import org.cloudsmith.xtext.dommodel.formatter.css.IStyleVisitor;
-import org.cloudsmith.xtext.dommodel.formatter.css.LineBreaks;
-import org.cloudsmith.xtext.dommodel.formatter.css.Spacing;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager;
+import com.puppetlabs.xtext.dommodel.formatter.css.Alignment;
+import com.puppetlabs.xtext.dommodel.formatter.css.IStyleVisitor;
+import com.puppetlabs.xtext.dommodel.formatter.css.LineBreaks;
+import com.puppetlabs.xtext.dommodel.formatter.css.Spacing;
 
 /**
  * @author henrik

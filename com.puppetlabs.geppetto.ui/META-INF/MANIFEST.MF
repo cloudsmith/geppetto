@@ -1,16 +1,16 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.cloudsmith.geppetto.ui;singleton:=true
+Bundle-SymbolicName: com.puppetlabs.geppetto.ui;singleton:=true
 Bundle-Version: 4.0.0
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Export-Package: org.cloudsmith.geppetto.ui,
- org.cloudsmith.geppetto.ui.wizard
-Bundle-Activator: org.cloudsmith.geppetto.ui.UIPlugin
+Export-Package: com.puppetlabs.geppetto.ui,
+ com.puppetlabs.geppetto.ui.wizard
+Bundle-Activator: com.puppetlabs.geppetto.ui.UIPlugin
 Import-Package: com.google.common.collect;version="[12.0.0,13.0.0)",
  com.google.common.io;version="[12.0.0,13.0.0)",
  com.google.inject;version="[1.3.0,1.4.0)",
@@ -20,24 +20,24 @@ Import-Package: com.google.common.collect;version="[12.0.0,13.0.0)",
  org.apache.http.auth,
  org.apache.http.client,
  org.apache.log4j,
- org.cloudsmith.geppetto.common,
- org.cloudsmith.geppetto.common.os,
- org.cloudsmith.geppetto.diagnostic,
- org.cloudsmith.geppetto.forge,
- org.cloudsmith.geppetto.forge.client,
- org.cloudsmith.geppetto.forge.impl,
- org.cloudsmith.geppetto.forge.model,
- org.cloudsmith.geppetto.forge.util,
- org.cloudsmith.geppetto.forge.v1.model,
- org.cloudsmith.geppetto.forge.v1.service,
- org.cloudsmith.geppetto.forge.v2.model,
- org.cloudsmith.geppetto.injectable,
- org.cloudsmith.geppetto.pp.dsl.ui,
- org.cloudsmith.geppetto.pp.dsl.ui.builder,
- org.cloudsmith.geppetto.pp.dsl.ui.internal,
- org.cloudsmith.geppetto.pp.dsl.ui.pptp,
- org.cloudsmith.geppetto.pp.dsl.ui.preferences,
- org.cloudsmith.geppetto.semver,
+ com.puppetlabs.geppetto.common,
+ com.puppetlabs.geppetto.common.os,
+ com.puppetlabs.geppetto.diagnostic,
+ com.puppetlabs.geppetto.forge,
+ com.puppetlabs.geppetto.forge.client,
+ com.puppetlabs.geppetto.forge.impl,
+ com.puppetlabs.geppetto.forge.model,
+ com.puppetlabs.geppetto.forge.util,
+ com.puppetlabs.geppetto.forge.v1.model,
+ com.puppetlabs.geppetto.forge.v1.service,
+ com.puppetlabs.geppetto.forge.v2.model,
+ com.puppetlabs.geppetto.injectable,
+ com.puppetlabs.geppetto.pp.dsl.ui,
+ com.puppetlabs.geppetto.pp.dsl.ui.builder,
+ com.puppetlabs.geppetto.pp.dsl.ui.internal,
+ com.puppetlabs.geppetto.pp.dsl.ui.pptp,
+ com.puppetlabs.geppetto.pp.dsl.ui.preferences,
+ com.puppetlabs.geppetto.semver,
  org.codehaus.jackson;version="1.6.0",
  org.codehaus.jackson.map;version="1.6.0",
  org.eclipse.core.commands.operations,

@@ -8,26 +8,26 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.commands;
+package com.puppetlabs.geppetto.pp.dsl.ui.commands;
 
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.common.tracer.ITracer;
-import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
-import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator;
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
-import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
-import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
-import org.cloudsmith.xtext.resource.ResourceAccessScope;
-import org.cloudsmith.xtext.serializer.DomBasedSerializer;
-import org.cloudsmith.xtext.textflow.ITextFlow.WithText;
-import org.cloudsmith.xtext.textflow.TextFlowWithDebugRecording;
+import com.puppetlabs.geppetto.common.tracer.ITracer;
+import com.puppetlabs.geppetto.pp.dsl.ui.PPUiConstants;
+import com.puppetlabs.geppetto.pp.dsl.ui.internal.PPActivator;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.CSSDomFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.DomNodeLayoutFeeder;
+import com.puppetlabs.xtext.dommodel.formatter.IDomModelFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContext;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
+import com.puppetlabs.xtext.dommodel.formatter.css.DomCSS;
+import com.puppetlabs.xtext.resource.ResourceAccessScope;
+import com.puppetlabs.xtext.serializer.DomBasedSerializer;
+import com.puppetlabs.xtext.textflow.ITextFlow.WithText;
+import com.puppetlabs.xtext.textflow.TextFlowWithDebugRecording;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -60,7 +60,7 @@ import com.google.inject.name.Named;
 
 /**
  * A command to use for development debugging purposes.
- * The intent is to install this using the org.cloudsmith.geppetto.pp.dsl.ui.devdebug
+ * The intent is to install this using the com.puppetlabs.geppetto.pp.dsl.ui.devdebug
  * fragment which makes it visible in the outline menu.
  * 
  */
@@ -270,7 +270,7 @@ public class PPDevDebug extends AbstractHandler {
 	private IStatus formattedDomDump(XtextResource resource) {
 		if(serializer instanceof DomBasedSerializer == false)
 			return new Status(
-				IStatus.ERROR, "org.cloudsmith.geppetto.pp.dsl.ui", "Not configured to use DomBasedSerializer");
+				IStatus.ERROR, "com.puppetlabs.geppetto.pp.dsl.ui", "Not configured to use DomBasedSerializer");
 		DomBasedSerializer domSerializer = ((DomBasedSerializer) serializer);
 		IDomNode dom = domSerializer.serializeToDom(resource.getContents().get(0), false);
 		ISerializationDiagnostic.Acceptor errors = ISerializationDiagnostic.EXCEPTION_THROWING_ACCEPTOR;

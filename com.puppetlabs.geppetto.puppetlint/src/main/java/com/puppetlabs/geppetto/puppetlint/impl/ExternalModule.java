@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.puppetlint.impl;
+package com.puppetlabs.geppetto.puppetlint.impl;
 
-import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner;
+import com.puppetlabs.geppetto.puppetlint.PuppetLintRunner;
 
 import com.google.inject.AbstractModule;
 

@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.puppetlint;
+package com.puppetlabs.geppetto.puppetlint;
 
-import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
-import org.cloudsmith.geppetto.puppetlint.impl.ExternalModule;
+import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
+import com.puppetlabs.geppetto.puppetlint.impl.ExternalModule;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

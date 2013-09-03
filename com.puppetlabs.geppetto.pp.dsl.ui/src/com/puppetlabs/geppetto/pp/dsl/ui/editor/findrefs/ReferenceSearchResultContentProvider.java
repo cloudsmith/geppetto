@@ -10,14 +10,14 @@
  *   Puppet Labs
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 
 import java.util.Iterator;
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescription;
-import org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchResultEvents.Added;
-import org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchResultEvents.Reset;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPResourceDescription;
+import com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchResultEvents.Added;
+import com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceSearchResultEvents.Reset;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;

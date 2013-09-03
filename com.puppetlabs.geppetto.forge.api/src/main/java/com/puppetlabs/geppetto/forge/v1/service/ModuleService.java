@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.v1.service;
+package com.puppetlabs.geppetto.forge.v1.service;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -16,9 +16,9 @@ import java.util.List;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
-import org.cloudsmith.geppetto.forge.client.ForgeClient;
-import org.cloudsmith.geppetto.forge.model.Constants;
-import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
+import com.puppetlabs.geppetto.forge.client.ForgeClient;
+import com.puppetlabs.geppetto.forge.model.Constants;
+import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
 
 import com.google.inject.Inject;
 

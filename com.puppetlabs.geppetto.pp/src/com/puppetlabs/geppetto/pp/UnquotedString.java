@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.UnquotedString#getExpression <em>Expression</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.UnquotedString#getExpression <em>Expression</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getUnquotedString()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getUnquotedString()
  * @model
  * @generated
  */
@@ -37,14 +37,14 @@ public interface UnquotedString extends StringExpression {
 	 * 
 	 * @return the value of the '<em>Expression</em>' containment reference.
 	 * @see #setExpression(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getUnquotedString_Expression()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getUnquotedString_Expression()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getExpression();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.UnquotedString#getExpression <em>Expression</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.UnquotedString#getExpression <em>Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

@@ -8,20 +8,20 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.util;
+package com.puppetlabs.geppetto.pp.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.DoubleQuotedString;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.ExpressionTE;
-import org.cloudsmith.geppetto.pp.LiteralName;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.TextExpression;
-import org.cloudsmith.geppetto.pp.VariableExpression;
-import org.cloudsmith.geppetto.pp.VariableTE;
-import org.cloudsmith.geppetto.pp.VerbatimTE;
+import com.puppetlabs.geppetto.pp.DoubleQuotedString;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.ExpressionTE;
+import com.puppetlabs.geppetto.pp.LiteralName;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.TextExpression;
+import com.puppetlabs.geppetto.pp.VariableExpression;
+import com.puppetlabs.geppetto.pp.VariableTE;
+import com.puppetlabs.geppetto.pp.VerbatimTE;
 import org.eclipse.emf.common.util.EList;
 
 /**

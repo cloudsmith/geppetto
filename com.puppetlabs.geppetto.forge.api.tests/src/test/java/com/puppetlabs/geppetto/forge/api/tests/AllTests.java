@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.forge.api.tests;
+package com.puppetlabs.geppetto.forge.api.tests;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

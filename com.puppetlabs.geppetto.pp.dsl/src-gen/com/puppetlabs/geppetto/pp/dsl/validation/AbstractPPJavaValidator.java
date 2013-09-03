@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.pp.dsl.validation;
+package com.puppetlabs.geppetto.pp.dsl.validation;
  
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public class AbstractPPJavaValidator extends AbstractDeclarativeValidator {
 	@Override
 	protected List<EPackage> getEPackages() {
 	    List<EPackage> result = new ArrayList<EPackage>();
-	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.cloudsmith.org/geppetto/1.0.0/PP"));
+	    result.add(EPackage.Registry.INSTANCE.getEPackage("http://www.puppetlabs.com/geppetto/1.0.0/PP"));
 		return result;
 	}
 

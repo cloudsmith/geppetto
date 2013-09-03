@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.maven.plugin;
+package com.puppetlabs.geppetto.forge.maven.plugin;
 
-import static org.cloudsmith.geppetto.diagnostic.Diagnostic.ERROR;
-import static org.cloudsmith.geppetto.forge.Forge.FORGE;
-import static org.cloudsmith.geppetto.forge.Forge.PUBLISHER;
+import static com.puppetlabs.geppetto.diagnostic.Diagnostic.ERROR;
+import static com.puppetlabs.geppetto.forge.Forge.FORGE;
+import static com.puppetlabs.geppetto.forge.Forge.PUBLISHER;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,8 +22,8 @@ import java.util.Properties;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.client.OAuthModule;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.client.OAuthModule;
 
 import com.google.inject.Module;
 

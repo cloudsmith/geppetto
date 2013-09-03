@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.client;
+package com.puppetlabs.geppetto.forge.client;
 
-import static org.cloudsmith.geppetto.forge.model.Constants.API_OAUTH_URL_NAME;
-import static org.cloudsmith.geppetto.forge.model.Constants.API_V1_URL_NAME;
-import static org.cloudsmith.geppetto.forge.model.Constants.API_V2_URL_NAME;
+import static com.puppetlabs.geppetto.forge.model.Constants.API_OAUTH_URL_NAME;
+import static com.puppetlabs.geppetto.forge.model.Constants.API_V1_URL_NAME;
+import static com.puppetlabs.geppetto.forge.model.Constants.API_V2_URL_NAME;
 
-import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
-import org.cloudsmith.geppetto.forge.v2.repository.MetadataRepositoryImpl;
+import com.puppetlabs.geppetto.forge.v2.MetadataRepository;
+import com.puppetlabs.geppetto.forge.v2.repository.MetadataRepositoryImpl;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;

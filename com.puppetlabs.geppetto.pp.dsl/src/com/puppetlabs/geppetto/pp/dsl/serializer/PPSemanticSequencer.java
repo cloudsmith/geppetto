@@ -1,17 +1,17 @@
-package org.cloudsmith.geppetto.pp.dsl.serializer;
+package com.puppetlabs.geppetto.pp.dsl.serializer;
 
 import java.util.Iterator;
 
-import org.cloudsmith.geppetto.pp.AttributeOperation;
-import org.cloudsmith.geppetto.pp.AttributeOperations;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.LiteralBoolean;
-import org.cloudsmith.geppetto.pp.LiteralList;
-import org.cloudsmith.geppetto.pp.SelectorExpression;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.AttributeOperationsElements;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.LiteralListElements;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess.SelectorExpressionElements;
+import com.puppetlabs.geppetto.pp.AttributeOperation;
+import com.puppetlabs.geppetto.pp.AttributeOperations;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.LiteralBoolean;
+import com.puppetlabs.geppetto.pp.LiteralList;
+import com.puppetlabs.geppetto.pp.SelectorExpression;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess.AttributeOperationsElements;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess.LiteralListElements;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess.SelectorExpressionElements;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
@@ -71,8 +71,8 @@ public class PPSemanticSequencer extends AbstractPPSemanticSequencer {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.serializer.AbstractPPSemanticSequencer#sequence_LiteralList(org.eclipse.emf.ecore.EObject,
-	 * org.cloudsmith.geppetto.pp.LiteralList)
+	 * @see com.puppetlabs.geppetto.pp.dsl.serializer.AbstractPPSemanticSequencer#sequence_LiteralList(org.eclipse.emf.ecore.EObject,
+	 * com.puppetlabs.geppetto.pp.LiteralList)
 	 */
 	@Override
 	protected void sequence_LiteralList(EObject context, LiteralList semanticObject) {
@@ -100,8 +100,8 @@ public class PPSemanticSequencer extends AbstractPPSemanticSequencer {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.serializer.AbstractPPSemanticSequencer#sequence_SelectorExpression(org.eclipse.emf.ecore.EObject,
-	 * org.cloudsmith.geppetto.pp.SelectorExpression)
+	 * @see com.puppetlabs.geppetto.pp.dsl.serializer.AbstractPPSemanticSequencer#sequence_SelectorExpression(org.eclipse.emf.ecore.EObject,
+	 * com.puppetlabs.geppetto.pp.SelectorExpression)
 	 */
 	@Override
 	protected void sequence_SelectorExpression(EObject context, SelectorExpression semanticObject) {

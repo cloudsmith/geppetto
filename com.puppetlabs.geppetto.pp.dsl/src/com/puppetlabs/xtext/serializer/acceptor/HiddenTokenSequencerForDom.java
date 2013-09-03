@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.serializer.acceptor;
+package com.puppetlabs.xtext.serializer.acceptor;
 
 import java.util.List;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.sequencer.HiddenTokenSequencer;
 

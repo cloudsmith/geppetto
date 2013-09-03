@@ -2,7 +2,7 @@
 <ecore:EPackage xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="catalog"
-    nsURI="http://www.cloudsmith.org/geppetto/1.0.0/Catalog" nsPrefix="catalog">
+    nsURI="http://www.puppetlabs.com/geppetto/1.0.0/Catalog" nsPrefix="catalog">
   <eClassifiers xsi:type="ecore:EClass" name="Catalog" eSuperTypes="#//Taggable">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">

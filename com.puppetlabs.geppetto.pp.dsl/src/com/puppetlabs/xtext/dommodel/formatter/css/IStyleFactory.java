@@ -8,20 +8,20 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.css;
+package com.puppetlabs.xtext.dommodel.formatter.css;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.AlignmentStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.DedentStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.IndentStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LineBreakStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.SpacingStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.StyleNameStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.TokenTextStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.VerbatimStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.WidthStyle;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.AlignmentStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.DedentStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.IndentStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.LayoutManagerStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.LineBreakStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.SpacingStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.StyleNameStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.TokenTextStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.VerbatimStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.WidthStyle;
 
 import com.google.common.base.Function;
 import com.google.inject.ImplementedBy;

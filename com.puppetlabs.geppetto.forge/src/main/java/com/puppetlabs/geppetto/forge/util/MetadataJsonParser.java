@@ -8,23 +8,23 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.util;
+package com.puppetlabs.geppetto.forge.util;
 
-import static org.cloudsmith.geppetto.diagnostic.Diagnostic.ERROR;
-import static org.cloudsmith.geppetto.diagnostic.Diagnostic.WARNING;
-import static org.cloudsmith.geppetto.forge.Forge.PACKAGE;
+import static com.puppetlabs.geppetto.diagnostic.Diagnostic.ERROR;
+import static com.puppetlabs.geppetto.diagnostic.Diagnostic.WARNING;
+import static com.puppetlabs.geppetto.forge.Forge.PACKAGE;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.DiagnosticType;
-import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.semver.Version;
-import org.cloudsmith.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
+import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
 import org.codehaus.jackson.JsonLocation;
 import org.codehaus.jackson.JsonParseException;
 

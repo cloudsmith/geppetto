@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult;
+package com.puppetlabs.geppetto.junitresult;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -21,20 +21,20 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getSkipped <em>Skipped</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getClassname <em>Classname</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getTime <em>Time</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getSystem_out <em>System out</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getSystem_err <em>System err</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getStatus <em>Status</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getAssertions <em>Assertions</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getFailures <em>Failures</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testcase#getErrors <em>Errors</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testcase#getSkipped <em>Skipped</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testcase#getName <em>Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testcase#getClassname <em>Classname</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testcase#getTime <em>Time</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testcase#getSystem_out <em>System out</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testcase#getSystem_err <em>System err</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testcase#getStatus <em>Status</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testcase#getAssertions <em>Assertions</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testcase#getFailures <em>Failures</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testcase#getErrors <em>Errors</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase()
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestcase()
  * @model
  * @generated
  */
@@ -49,7 +49,7 @@ public interface Testcase extends EObject {
 	 * 
 	 * @return the value of the '<em>Assertions</em>' attribute.
 	 * @see #setAssertions(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_Assertions()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestcase_Assertions()
 	 * @model
 	 * @generated
 	 */
@@ -65,7 +65,7 @@ public interface Testcase extends EObject {
 	 * 
 	 * @return the value of the '<em>Classname</em>' attribute.
 	 * @see #setClassname(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_Classname()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestcase_Classname()
 	 * @model
 	 * @generated
 	 */
@@ -73,7 +73,7 @@ public interface Testcase extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Errors</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.junitresult.Error}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.junitresult.Error}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Errors</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -81,15 +81,15 @@ public interface Testcase extends EObject {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Errors</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_Errors()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestcase_Errors()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<org.cloudsmith.geppetto.junitresult.Error> getErrors();
+	EList<com.puppetlabs.geppetto.junitresult.Error> getErrors();
 
 	/**
 	 * Returns the value of the '<em><b>Failures</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.junitresult.Failure}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.junitresult.Failure}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Failures</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -97,7 +97,7 @@ public interface Testcase extends EObject {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Failures</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_Failures()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestcase_Failures()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -113,7 +113,7 @@ public interface Testcase extends EObject {
 	 * 
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_Name()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestcase_Name()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -129,7 +129,7 @@ public interface Testcase extends EObject {
 	 * 
 	 * @return the value of the '<em>Skipped</em>' containment reference.
 	 * @see #setSkipped(Skipped)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_Skipped()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestcase_Skipped()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -145,7 +145,7 @@ public interface Testcase extends EObject {
 	 * 
 	 * @return the value of the '<em>Status</em>' attribute.
 	 * @see #setStatus(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_Status()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestcase_Status()
 	 * @model
 	 * @generated
 	 */
@@ -161,7 +161,7 @@ public interface Testcase extends EObject {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>System err</em>' attribute list.
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_System_err()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestcase_System_err()
 	 * @model
 	 * @generated
 	 */
@@ -177,7 +177,7 @@ public interface Testcase extends EObject {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>System out</em>' attribute list.
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_System_out()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestcase_System_out()
 	 * @model
 	 * @generated
 	 */
@@ -193,14 +193,14 @@ public interface Testcase extends EObject {
 	 * 
 	 * @return the value of the '<em>Time</em>' attribute.
 	 * @see #setTime(double)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestcase_Time()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestcase_Time()
 	 * @model
 	 * @generated
 	 */
 	double getTime();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testcase#getAssertions <em>Assertions</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testcase#getAssertions <em>Assertions</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -212,7 +212,7 @@ public interface Testcase extends EObject {
 	void setAssertions(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testcase#getClassname <em>Classname</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testcase#getClassname <em>Classname</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -224,7 +224,7 @@ public interface Testcase extends EObject {
 	void setClassname(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testcase#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testcase#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -236,7 +236,7 @@ public interface Testcase extends EObject {
 	void setName(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testcase#getSkipped <em>Skipped</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testcase#getSkipped <em>Skipped</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -248,7 +248,7 @@ public interface Testcase extends EObject {
 	void setSkipped(Skipped value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testcase#getStatus <em>Status</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testcase#getStatus <em>Status</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -260,7 +260,7 @@ public interface Testcase extends EObject {
 	void setStatus(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testcase#getTime <em>Time</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testcase#getTime <em>Time</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

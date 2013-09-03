@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter;
+package com.puppetlabs.xtext.dommodel.formatter;
 
 import java.util.Collections;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.textflow.ITextFlow;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.xtext.textflow.ITextFlow;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 

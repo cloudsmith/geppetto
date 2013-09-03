@@ -10,7 +10,7 @@
  *   Puppet Labs - specialized for puppet
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.search;
+package com.puppetlabs.geppetto.pp.dsl.ui.search;
 
 import java.util.Collection;
 

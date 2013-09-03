@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.coloring;
+package com.puppetlabs.geppetto.pp.dsl.ui.coloring;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.FontData;

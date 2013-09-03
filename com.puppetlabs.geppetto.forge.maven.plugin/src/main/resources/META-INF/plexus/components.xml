@@ -12,13 +12,13 @@
 						<id>default</id>
 						<phases>
 							<compile>
-								org.cloudsmith.geppetto:forge-maven-plugin:validate
+								com.puppetlabs.geppetto:forge-maven-plugin:validate
 							</compile>
 							<package>
-								org.cloudsmith.geppetto:forge-maven-plugin:package
+								com.puppetlabs.geppetto:forge-maven-plugin:package
 							</package>
 							<deploy>
-								org.cloudsmith.geppetto:forge-maven-plugin:publish
+								com.puppetlabs.geppetto:forge-maven-plugin:publish
 							</deploy>
 						</phases>
 					</lifecycle>

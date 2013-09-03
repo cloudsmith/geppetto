@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph;
+package com.puppetlabs.geppetto.graph;
 
-import org.cloudsmith.graph.DefaultGraphModule;
-import org.cloudsmith.graph.dot.DotRenderer;
-import org.cloudsmith.graph.graphviz.IGraphviz;
-import org.cloudsmith.graph.graphviz.SVGFixerOutputStream;
-import org.cloudsmith.graph.graphviz.SVGFixerOutputStreamFilterFactory;
-import org.cloudsmith.graph.utils.IOutputStreamFilterFactory;
+import com.puppetlabs.graph.DefaultGraphModule;
+import com.puppetlabs.graph.dot.DotRenderer;
+import com.puppetlabs.graph.graphviz.IGraphviz;
+import com.puppetlabs.graph.graphviz.SVGFixerOutputStream;
+import com.puppetlabs.graph.graphviz.SVGFixerOutputStreamFilterFactory;
+import com.puppetlabs.graph.utils.IOutputStreamFilterFactory;
 
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;

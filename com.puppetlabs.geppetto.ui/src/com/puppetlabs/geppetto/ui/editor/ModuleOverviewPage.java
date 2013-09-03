@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.editor;
+package com.puppetlabs.geppetto.ui.editor;
 
-import static org.cloudsmith.geppetto.common.Strings.trimToNull;
-import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+import static com.puppetlabs.geppetto.common.Strings.trimToNull;
+import static com.puppetlabs.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.eclipse.xtext.util.Strings.emptyIfNull;
 
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;

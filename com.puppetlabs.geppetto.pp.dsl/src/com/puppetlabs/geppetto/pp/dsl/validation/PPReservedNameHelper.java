@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.validation;
+package com.puppetlabs.geppetto.pp.dsl.validation;
 
 import java.util.List;
 

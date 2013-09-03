@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.puppetlint.impl;
+package com.puppetlabs.geppetto.puppetlint.impl;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,9 +18,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.cloudsmith.geppetto.common.os.OsUtil;
-import org.cloudsmith.geppetto.common.os.StreamUtil.OpenBAStream;
-import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner;
+import com.puppetlabs.geppetto.common.os.OsUtil;
+import com.puppetlabs.geppetto.common.os.StreamUtil.OpenBAStream;
+import com.puppetlabs.geppetto.puppetlint.PuppetLintRunner;
 
 /**
  * A PuppetLintRunner implementation that uses an external command. This runner will require that Ruby is installed

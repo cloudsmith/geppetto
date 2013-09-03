@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.VirtualNameOrReference;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -23,8 +23,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.VirtualNameOrReferenceImpl#getValue <em>Value</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.VirtualNameOrReferenceImpl#isExported <em>Exported</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.VirtualNameOrReferenceImpl#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.VirtualNameOrReferenceImpl#isExported <em>Exported</em>}</li>
  * </ul>
  * </p>
  * 

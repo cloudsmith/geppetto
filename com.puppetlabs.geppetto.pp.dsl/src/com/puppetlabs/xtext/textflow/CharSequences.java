@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.textflow;
+package com.puppetlabs.xtext.textflow;
 
 import java.util.List;
 

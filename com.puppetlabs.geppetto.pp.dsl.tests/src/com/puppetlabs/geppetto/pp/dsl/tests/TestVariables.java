@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
-import org.cloudsmith.geppetto.pp.dsl.validation.PPPatternHelper;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPPDiagnostics;
+import com.puppetlabs.geppetto.pp.dsl.validation.PPPatternHelper;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.junit4.validation.AssertableDiagnostics;

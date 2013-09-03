@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.css;
+package com.puppetlabs.xtext.dommodel.formatter.css;
 
 public class FlexibleQuantity implements IFlexibleQuantity {
 

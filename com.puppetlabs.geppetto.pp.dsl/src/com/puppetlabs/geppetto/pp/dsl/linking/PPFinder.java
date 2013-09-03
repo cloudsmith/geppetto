@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package com.puppetlabs.geppetto.pp.dsl.linking;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -16,25 +16,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
-import org.cloudsmith.geppetto.common.tracer.ITracer;
-import org.cloudsmith.geppetto.pp.AppendExpression;
-import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.BinaryExpression;
-import org.cloudsmith.geppetto.pp.Definition;
-import org.cloudsmith.geppetto.pp.DefinitionArgument;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.HostClassDefinition;
-import org.cloudsmith.geppetto.pp.Lambda;
-import org.cloudsmith.geppetto.pp.NodeDefinition;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.ResourceBody;
-import org.cloudsmith.geppetto.pp.VariableExpression;
-import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
-import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
-import org.cloudsmith.geppetto.pp.dsl.linking.NameInScopeFilter.Match;
-import org.cloudsmith.geppetto.pp.dsl.linking.NameInScopeFilter.SearchStrategy;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.common.tracer.ITracer;
+import com.puppetlabs.geppetto.pp.AppendExpression;
+import com.puppetlabs.geppetto.pp.AssignmentExpression;
+import com.puppetlabs.geppetto.pp.BinaryExpression;
+import com.puppetlabs.geppetto.pp.Definition;
+import com.puppetlabs.geppetto.pp.DefinitionArgument;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.HostClassDefinition;
+import com.puppetlabs.geppetto.pp.Lambda;
+import com.puppetlabs.geppetto.pp.NodeDefinition;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.ResourceBody;
+import com.puppetlabs.geppetto.pp.VariableExpression;
+import com.puppetlabs.geppetto.pp.dsl.PPDSLConstants;
+import com.puppetlabs.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
+import com.puppetlabs.geppetto.pp.dsl.linking.NameInScopeFilter.Match;
+import com.puppetlabs.geppetto.pp.dsl.linking.NameInScopeFilter.SearchStrategy;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;

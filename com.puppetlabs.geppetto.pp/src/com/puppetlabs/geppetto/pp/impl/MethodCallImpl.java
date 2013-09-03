@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.MethodCall;
-import org.cloudsmith.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.MethodCall;
+import com.puppetlabs.geppetto.pp.PPPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -26,8 +26,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.MethodCallImpl#isParenthesized <em>Parenthesized</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.MethodCallImpl#getMethodExpr <em>Method Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.MethodCallImpl#isParenthesized <em>Parenthesized</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.MethodCallImpl#getMethodExpr <em>Method Expr</em>}</li>
  * </ul>
  * </p>
  * 

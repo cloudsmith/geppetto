@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.editor;
+package com.puppetlabs.geppetto.ui.editor;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.util.CallSymbol;
-import org.cloudsmith.geppetto.forge.util.MetadataJsonParser;
+import com.puppetlabs.geppetto.forge.util.CallSymbol;
+import com.puppetlabs.geppetto.forge.util.MetadataJsonParser;
 
 public class LenientMetadataJsonParser extends MetadataJsonParser {
 	private final MetadataModel model;

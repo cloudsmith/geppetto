@@ -10,10 +10,10 @@
  *   Puppet Labs
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceFinder.IPPQueryData;
+import com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceFinder.IPPQueryData;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;

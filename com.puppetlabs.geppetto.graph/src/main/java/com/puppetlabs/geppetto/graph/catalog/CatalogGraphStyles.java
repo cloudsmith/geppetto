@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph.catalog;
+package com.puppetlabs.geppetto.graph.catalog;
 
 /**
  * Definition of styles used by DependencyGraphTheme

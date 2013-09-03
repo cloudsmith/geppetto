@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.util;
+package com.puppetlabs.geppetto.forge.util;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.v2.model.NamedTypeItem;
-import org.cloudsmith.geppetto.forge.v2.model.Type;
+import com.puppetlabs.geppetto.forge.v2.model.NamedTypeItem;
+import com.puppetlabs.geppetto.forge.v2.model.Type;
 import org.jrubyparser.ast.BlockAcceptingNode;
 import org.jrubyparser.ast.CallNode;
 import org.jrubyparser.ast.Colon2ConstNode;

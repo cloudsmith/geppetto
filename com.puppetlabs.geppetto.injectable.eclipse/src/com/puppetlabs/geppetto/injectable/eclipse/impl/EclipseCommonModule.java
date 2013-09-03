@@ -1,7 +1,7 @@
-package org.cloudsmith.geppetto.injectable.eclipse.impl;
+package com.puppetlabs.geppetto.injectable.eclipse.impl;
 
 import org.apache.http.client.HttpClient;
-import org.cloudsmith.geppetto.common.util.BundleAccess;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;

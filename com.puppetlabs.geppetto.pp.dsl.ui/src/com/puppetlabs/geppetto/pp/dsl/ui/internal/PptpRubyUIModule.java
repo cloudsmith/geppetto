@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.internal;
+package com.puppetlabs.geppetto.pp.dsl.ui.internal;
 
-import org.cloudsmith.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
-import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpResourceUiServiceProvider;
+import com.puppetlabs.geppetto.pp.dsl.pptp.PptpRubyRuntimeModule;
+import com.puppetlabs.geppetto.pp.dsl.ui.pptp.PptpResourceUiServiceProvider;
 
 /**
  * UI Runtime module for Ruby PPTP variant.
@@ -28,7 +28,7 @@ public class PptpRubyUIModule extends PptpRubyRuntimeModule {
 	public void configureResourceUIServiceLabelProvider(com.google.inject.Binder binder) {
 		binder.bind(org.eclipse.jface.viewers.ILabelProvider.class).annotatedWith(
 			org.eclipse.xtext.ui.resource.ResourceServiceDescriptionLabelProvider.class).to(
-			org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider.class);
+			com.puppetlabs.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider.class);
 	}
 
 }

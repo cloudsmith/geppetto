@@ -15,7 +15,7 @@
  *   Kevin Sawicki (GitHub Inc.) - initial API and implementation
  *   Thomas Hallgren (Puppet Labs, Inc.) - Stackhammer changes
  */
-package org.cloudsmith.geppetto.forge.client;
+package com.puppetlabs.geppetto.forge.client;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,8 +48,8 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.message.BasicNameValuePair;
-import org.cloudsmith.geppetto.forge.client.Authenticator.AuthResponse;
-import org.cloudsmith.geppetto.forge.model.Constants;
+import com.puppetlabs.geppetto.forge.client.Authenticator.AuthResponse;
+import com.puppetlabs.geppetto.forge.model.Constants;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;

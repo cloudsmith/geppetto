@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.css.debug;
+package com.puppetlabs.xtext.dommodel.formatter.css.debug;
 
 /**
  * A provider of string (label) for objects.

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,18 +20,18 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.LiteralList#getElements <em>Elements</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.LiteralList#getElements <em>Elements</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getLiteralList()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getLiteralList()
  * @model
  * @generated
  */
 public interface LiteralList extends LiteralExpression {
 	/**
 	 * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.Expression}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.Expression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Elements</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -39,7 +39,7 @@ public interface LiteralList extends LiteralExpression {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Elements</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getLiteralList_Elements()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getLiteralList_Elements()
 	 * @model containment="true"
 	 * @generated
 	 */

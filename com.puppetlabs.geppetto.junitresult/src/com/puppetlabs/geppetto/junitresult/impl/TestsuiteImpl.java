@@ -8,15 +8,15 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.impl;
+package com.puppetlabs.geppetto.junitresult.impl;
 
 import java.util.Collection;
 import java.util.Date;
 
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
-import org.cloudsmith.geppetto.junitresult.Property;
-import org.cloudsmith.geppetto.junitresult.Testcase;
-import org.cloudsmith.geppetto.junitresult.Testsuite;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.Property;
+import com.puppetlabs.geppetto.junitresult.Testcase;
+import com.puppetlabs.geppetto.junitresult.Testsuite;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -38,17 +38,17 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getProperties <em>Properties</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getTestcases <em>Testcases</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getSystem_out <em>System out</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getSystem_err <em>System err</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getHostname <em>Hostname</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getTimestamp <em>Timestamp</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getTime <em>Time</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getId <em>Id</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getPackage <em>Package</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getDisabled <em>Disabled</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl#getSkipped <em>Skipped</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl#getProperties <em>Properties</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl#getTestcases <em>Testcases</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl#getSystem_out <em>System out</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl#getSystem_err <em>System err</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl#getHostname <em>Hostname</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl#getTimestamp <em>Timestamp</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl#getTime <em>Time</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl#getId <em>Id</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl#getPackage <em>Package</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl#getDisabled <em>Disabled</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl#getSkipped <em>Skipped</em>}</li>
  * </ul>
  * </p>
  * 

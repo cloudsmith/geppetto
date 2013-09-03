@@ -1,6 +1,6 @@
-package org.cloudsmith.geppetto.validation.impl;
+package com.puppetlabs.geppetto.validation.impl;
 
-import org.cloudsmith.geppetto.validation.ValidationService;
+import com.puppetlabs.geppetto.validation.ValidationService;
 
 import com.google.inject.AbstractModule;
 

@@ -1,24 +1,24 @@
-module org.cloudsmith.geppetto.pp.dsl.generate
+module com.puppetlabs.geppetto.pp.dsl.generate
 
 import org.eclipse.emf.mwe.utils.*
 import org.eclipse.xtext.generator.*
 import org.eclipse.xtext.ui.generator.*
 
-var grammarURI = "classpath:/org/cloudsmith/geppetto/pp/dsl/PP.xtext"
+var grammarURI = "classpath:/com/puppetlabs/geppetto/pp/dsl/PP.xtext"
 var file.extensions = "pp"
-var projectName = "org.cloudsmith.geppetto.pp.dsl"
+var projectName = "com.puppetlabs.geppetto.pp.dsl"
 var runtimeProject = "../${projectName}"
-var puppetModelURI =   "platform:/plugin/org.cloudsmith.geppetto.pp/model"
+var puppetModelURI =   "platform:/plugin/com.puppetlabs.geppetto.pp/model"
 
 Workflow {
     bean = StandaloneSetup {
-    	registerGeneratedEPackage = "org.cloudsmith.geppetto.pp.PPPackage"
+    	registerGeneratedEPackage = "com.puppetlabs.geppetto.pp.PPPackage"
 		platformUri = "${runtimeProject}/.."
 		scanClassPath = true
 //		registerGenModelFile = "${puppetModelURI}/PP.genmodel"
 //		registerEcoreFile = "${puppetModelURI}/PP.ecore"
-		registerGenModelFile = "../org.cloudsmith.geppetto.pp/model/PP.genmodel"
-		registerEcoreFile = "../org.cloudsmith.geppetto.pp/model/PP.ecore"
+		registerGenModelFile = "../com.puppetlabs.geppetto.pp/model/PP.genmodel"
+		registerEcoreFile = "../com.puppetlabs.geppetto.pp/model/PP.ecore"
 	}
 
 	component = DirectoryCleaner {
@@ -85,10 +85,10 @@ Workflow {
 			
 			// Use externally specified lexer
 			fragment = parser.antlr.ex.ExternalAntlrLexerFragment {
-			    lexerGrammar = "org.cloudsmith.geppetto.pp.dsl.lexer.PPLexer"
+			    lexerGrammar = "com.puppetlabs.geppetto.pp.dsl.lexer.PPLexer"
 			    runtime = true
 			    antlrParam = "-lib"
-			    antlrParam = "${runtimeProject}/src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/lexer"
+			    antlrParam = "${runtimeProject}/src-gen/com/puppetlabs/geppetto/pp/dsl/parser/antlr/lexer"
 			}
 			
 			// java-based API for validation 

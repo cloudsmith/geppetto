@@ -8,20 +8,20 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph.catalog;
+package com.puppetlabs.geppetto.graph.catalog;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.cloudsmith.geppetto.catalog.Catalog;
-import org.cloudsmith.geppetto.catalog.util.CatalogJsonSerializer;
-import org.cloudsmith.geppetto.graph.EmptyStringHrefProducer;
-import org.cloudsmith.geppetto.graph.GraphHrefType;
-import org.cloudsmith.geppetto.graph.IHrefProducer;
-import org.cloudsmith.geppetto.graph.ProgressMonitorCancelIndicator;
-import org.cloudsmith.graph.ICancel;
-import org.cloudsmith.graph.utils.ByteArrayOutputStream2;
+import com.puppetlabs.geppetto.catalog.Catalog;
+import com.puppetlabs.geppetto.catalog.util.CatalogJsonSerializer;
+import com.puppetlabs.geppetto.graph.EmptyStringHrefProducer;
+import com.puppetlabs.geppetto.graph.GraphHrefType;
+import com.puppetlabs.geppetto.graph.IHrefProducer;
+import com.puppetlabs.geppetto.graph.ProgressMonitorCancelIndicator;
+import com.puppetlabs.graph.ICancel;
+import com.puppetlabs.graph.utils.ByteArrayOutputStream2;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.SubMonitor;

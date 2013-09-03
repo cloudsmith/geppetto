@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult;
+package com.puppetlabs.geppetto.junitresult;
 
 import java.util.Date;
 
@@ -22,21 +22,21 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getProperties <em>Properties</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTestcases <em>Testcases</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSystem_out <em>System out</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSystem_err <em>System err</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getHostname <em>Hostname</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTimestamp <em>Timestamp</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTime <em>Time</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getId <em>Id</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getPackage <em>Package</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getDisabled <em>Disabled</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSkipped <em>Skipped</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuite#getProperties <em>Properties</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuite#getTestcases <em>Testcases</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuite#getSystem_out <em>System out</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuite#getSystem_err <em>System err</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuite#getHostname <em>Hostname</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuite#getTimestamp <em>Timestamp</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuite#getTime <em>Time</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuite#getId <em>Id</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuite#getPackage <em>Package</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuite#getDisabled <em>Disabled</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuite#getSkipped <em>Skipped</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite()
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite()
  * @model
  * @generated
  */
@@ -51,7 +51,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Disabled</em>' attribute.
 	 * @see #setDisabled(int)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Disabled()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite_Disabled()
 	 * @model
 	 * @generated
 	 */
@@ -67,7 +67,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Hostname</em>' attribute.
 	 * @see #setHostname(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Hostname()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite_Hostname()
 	 * @model
 	 * @generated
 	 */
@@ -83,7 +83,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Id</em>' attribute.
 	 * @see #setId(int)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Id()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite_Id()
 	 * @model
 	 * @generated
 	 */
@@ -99,7 +99,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Package</em>' attribute.
 	 * @see #setPackage(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Package()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite_Package()
 	 * @model
 	 * @generated
 	 */
@@ -107,7 +107,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 
 	/**
 	 * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.junitresult.Property}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.junitresult.Property}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Properties</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -115,7 +115,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Properties</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Properties()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite_Properties()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -131,7 +131,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Skipped</em>' attribute.
 	 * @see #setSkipped(int)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Skipped()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite_Skipped()
 	 * @model
 	 * @generated
 	 */
@@ -147,7 +147,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>System err</em>' attribute.
 	 * @see #setSystem_err(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_System_err()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite_System_err()
 	 * @model
 	 * @generated
 	 */
@@ -163,7 +163,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>System out</em>' attribute.
 	 * @see #setSystem_out(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_System_out()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite_System_out()
 	 * @model
 	 * @generated
 	 */
@@ -171,7 +171,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 
 	/**
 	 * Returns the value of the '<em><b>Testcases</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.junitresult.Testcase}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.junitresult.Testcase}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Testcases</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -179,7 +179,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Testcases</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Testcases()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite_Testcases()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -195,7 +195,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Time</em>' attribute.
 	 * @see #setTime(double)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Time()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite_Time()
 	 * @model
 	 * @generated
 	 */
@@ -211,14 +211,14 @@ public interface Testsuite extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Timestamp</em>' attribute.
 	 * @see #setTimestamp(Date)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuite_Timestamp()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuite_Timestamp()
 	 * @model
 	 * @generated
 	 */
 	Date getTimestamp();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getDisabled <em>Disabled</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getDisabled <em>Disabled</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -230,7 +230,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	void setDisabled(int value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getHostname <em>Hostname</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getHostname <em>Hostname</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -242,7 +242,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	void setHostname(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getId <em>Id</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getId <em>Id</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -254,7 +254,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	void setId(int value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getPackage <em>Package</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getPackage <em>Package</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -266,7 +266,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	void setPackage(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSkipped <em>Skipped</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getSkipped <em>Skipped</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -278,7 +278,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	void setSkipped(int value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSystem_err <em>System err</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getSystem_err <em>System err</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -290,7 +290,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	void setSystem_err(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSystem_out <em>System out</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getSystem_out <em>System out</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -302,7 +302,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	void setSystem_out(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTime <em>Time</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getTime <em>Time</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -314,7 +314,7 @@ public interface Testsuite extends AbstractAggregatedTest {
 	void setTime(double value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTimestamp <em>Timestamp</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getTimestamp <em>Timestamp</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

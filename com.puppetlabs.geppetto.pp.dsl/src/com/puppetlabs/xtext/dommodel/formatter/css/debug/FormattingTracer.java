@@ -8,15 +8,15 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.css.debug;
+package com.puppetlabs.xtext.dommodel.formatter.css.debug;
 
 import java.util.Map;
 
-import org.cloudsmith.geppetto.common.tracer.IStringProvider;
-import org.cloudsmith.geppetto.common.tracer.ITracer;
-import org.cloudsmith.geppetto.common.util.BundleAccess;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.geppetto.common.tracer.IStringProvider;
+import com.puppetlabs.geppetto.common.tracer.ITracer;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
 
 import com.google.common.collect.MapMaker;
 import com.google.inject.Inject;
@@ -43,7 +43,7 @@ public class FormattingTracer implements ITracer {
 	 * TODO: This is obviously not generic - should reflect the name of the plugin
 	 * providing the formatter.
 	 */
-	public static final String PLUGIN_NAME = "org.cloudsmith.geppetto.pp.dsl";
+	public static final String PLUGIN_NAME = "com.puppetlabs.geppetto.pp.dsl";
 
 	/**
 	 * Name of option in formatter providing plugin that turns on debugging/tracing

@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.impl;
+package com.puppetlabs.geppetto.pp.pptp.impl;
 
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
-import org.cloudsmith.geppetto.pp.pptp.Property;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.pptp.Property;
 
 import org.eclipse.emf.ecore.EClass;
 

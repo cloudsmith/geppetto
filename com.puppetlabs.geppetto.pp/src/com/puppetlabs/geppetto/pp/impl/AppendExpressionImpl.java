@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.AppendExpression;
-import org.cloudsmith.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.AppendExpression;
+import com.puppetlabs.geppetto.pp.PPPackage;
 import org.eclipse.emf.ecore.EClass;
 
 /**

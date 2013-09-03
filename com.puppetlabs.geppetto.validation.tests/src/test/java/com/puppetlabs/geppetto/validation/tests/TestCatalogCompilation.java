@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.validation.tests;
+package com.puppetlabs.geppetto.validation.tests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,8 +6,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.cloudsmith.geppetto.validation.runner.PuppetCatalogCompilerRunner;
-import org.cloudsmith.geppetto.validation.runner.PuppetCatalogCompilerRunner.CatalogDiagnostic;
+import com.puppetlabs.geppetto.validation.runner.PuppetCatalogCompilerRunner;
+import com.puppetlabs.geppetto.validation.runner.PuppetCatalogCompilerRunner.CatalogDiagnostic;
 import org.eclipse.core.runtime.SubMonitor;
 import org.junit.Test;
 

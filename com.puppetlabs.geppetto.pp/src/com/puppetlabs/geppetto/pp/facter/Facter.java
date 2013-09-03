@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.facter;
+package com.puppetlabs.geppetto.pp.facter;
 
 import java.util.Iterator;
 import java.util.List;
@@ -16,10 +16,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.pp.pptp.PPTPFactory;
-import org.cloudsmith.geppetto.pp.pptp.PuppetDistribution;
-import org.cloudsmith.geppetto.pp.pptp.TPVariable;
-import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
+import com.puppetlabs.geppetto.pp.pptp.PPTPFactory;
+import com.puppetlabs.geppetto.pp.pptp.PuppetDistribution;
+import com.puppetlabs.geppetto.pp.pptp.TPVariable;
+import com.puppetlabs.geppetto.pp.pptp.TargetEntry;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;

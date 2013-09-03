@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,20 +20,20 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.NodeDefinition#getHostNames <em>Host Names</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.NodeDefinition#getParentName <em>Parent Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.NodeDefinition#getStatements <em>Statements</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.NodeDefinition#getHostNames <em>Host Names</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.NodeDefinition#getParentName <em>Parent Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.NodeDefinition#getStatements <em>Statements</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getNodeDefinition()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getNodeDefinition()
  * @model
  * @generated
  */
 public interface NodeDefinition extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Host Names</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.Expression}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.Expression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Host Names</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -41,7 +41,7 @@ public interface NodeDefinition extends Expression {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Host Names</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getNodeDefinition_HostNames()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getNodeDefinition_HostNames()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -57,7 +57,7 @@ public interface NodeDefinition extends Expression {
 	 * 
 	 * @return the value of the '<em>Parent Name</em>' containment reference.
 	 * @see #setParentName(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getNodeDefinition_ParentName()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getNodeDefinition_ParentName()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -65,7 +65,7 @@ public interface NodeDefinition extends Expression {
 
 	/**
 	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.Expression}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.Expression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Statements</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -73,14 +73,14 @@ public interface NodeDefinition extends Expression {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Statements</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getNodeDefinition_Statements()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getNodeDefinition_Statements()
 	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Expression> getStatements();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.NodeDefinition#getParentName <em>Parent Name</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.NodeDefinition#getParentName <em>Parent Name</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

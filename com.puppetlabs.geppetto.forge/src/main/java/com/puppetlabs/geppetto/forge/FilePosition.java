@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge;
+package com.puppetlabs.geppetto.forge;
 
 import java.io.File;
 

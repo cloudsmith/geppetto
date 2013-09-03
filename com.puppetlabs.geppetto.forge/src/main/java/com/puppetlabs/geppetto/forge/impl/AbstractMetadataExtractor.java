@@ -8,18 +8,18 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.impl;
+package com.puppetlabs.geppetto.forge.impl;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.MetadataExtractor;
-import org.cloudsmith.geppetto.forge.util.Checksums;
-import org.cloudsmith.geppetto.forge.util.Types;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.MetadataExtractor;
+import com.puppetlabs.geppetto.forge.util.Checksums;
+import com.puppetlabs.geppetto.forge.util.Types;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
 
 public abstract class AbstractMetadataExtractor implements MetadataExtractor {
 	@Override

@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.graph.tests;
+package com.puppetlabs.geppetto.graph.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -11,16 +11,16 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.graph.GraphHrefType;
-import org.cloudsmith.geppetto.graph.IHrefProducer;
-import org.cloudsmith.geppetto.graph.SVGProducer;
-import org.cloudsmith.geppetto.graph.dependency.DependencyGraphModule;
-import org.cloudsmith.geppetto.validation.FileType;
-import org.cloudsmith.geppetto.validation.ValidationOptions;
-import org.cloudsmith.geppetto.validation.ValidationService;
-import org.cloudsmith.geppetto.validation.runner.AllModuleReferences.Export;
-import org.cloudsmith.geppetto.validation.runner.BuildResult;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.graph.GraphHrefType;
+import com.puppetlabs.geppetto.graph.IHrefProducer;
+import com.puppetlabs.geppetto.graph.SVGProducer;
+import com.puppetlabs.geppetto.graph.dependency.DependencyGraphModule;
+import com.puppetlabs.geppetto.validation.FileType;
+import com.puppetlabs.geppetto.validation.ValidationOptions;
+import com.puppetlabs.geppetto.validation.ValidationService;
+import com.puppetlabs.geppetto.validation.runner.AllModuleReferences.Export;
+import com.puppetlabs.geppetto.validation.runner.BuildResult;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;

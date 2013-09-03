@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp;
+package com.puppetlabs.geppetto.pp.pptp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,12 +18,12 @@ package org.cloudsmith.geppetto.pp.pptp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isRequired <em>Required</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isNamevar <em>Namevar</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.TypeArgument#isRequired <em>Required</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.TypeArgument#isNamevar <em>Namevar</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTypeArgument()
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getTypeArgument()
  * @model abstract="true"
  * @generated
  */
@@ -38,7 +38,7 @@ public interface TypeArgument extends TargetElement {
 	 * 
 	 * @return the value of the '<em>Namevar</em>' attribute.
 	 * @see #setNamevar(boolean)
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTypeArgument_Namevar()
+	 * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getTypeArgument_Namevar()
 	 * @model
 	 * @generated
 	 */
@@ -54,14 +54,14 @@ public interface TypeArgument extends TargetElement {
 	 * 
 	 * @return the value of the '<em>Required</em>' attribute.
 	 * @see #setRequired(boolean)
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTypeArgument_Required()
+	 * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getTypeArgument_Required()
 	 * @model
 	 * @generated
 	 */
 	boolean isRequired();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isNamevar <em>Namevar</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.pptp.TypeArgument#isNamevar <em>Namevar</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -73,7 +73,7 @@ public interface TypeArgument extends TargetElement {
 	void setNamevar(boolean value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isRequired <em>Required</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.pptp.TypeArgument#isRequired <em>Required</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

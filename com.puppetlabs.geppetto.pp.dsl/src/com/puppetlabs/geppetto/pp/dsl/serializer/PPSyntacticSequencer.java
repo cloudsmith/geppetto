@@ -1,10 +1,10 @@
-package org.cloudsmith.geppetto.pp.dsl.serializer;
+package com.puppetlabs.geppetto.pp.dsl.serializer;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.ResourceBody;
-import org.cloudsmith.geppetto.pp.ResourceExpression;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.geppetto.pp.ResourceBody;
+import com.puppetlabs.geppetto.pp.ResourceExpression;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;

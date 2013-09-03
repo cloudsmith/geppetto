@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.AttributeOperations;
-import org.cloudsmith.geppetto.pp.CollectExpression;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.ICollectQuery;
-import org.cloudsmith.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.AttributeOperations;
+import com.puppetlabs.geppetto.pp.CollectExpression;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.ICollectQuery;
+import com.puppetlabs.geppetto.pp.PPPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -28,9 +28,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl#getClassReference <em>Class Reference</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl#getQuery <em>Query</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.CollectExpressionImpl#getAttributes <em>Attributes</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.CollectExpressionImpl#getClassReference <em>Class Reference</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.CollectExpressionImpl#getQuery <em>Query</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.CollectExpressionImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
  * 

@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import static org.junit.Assert.assertEquals;
 
-import org.cloudsmith.geppetto.common.stats.IntegerCluster;
+import com.puppetlabs.geppetto.common.stats.IntegerCluster;
 import org.junit.Test;
 
 /**

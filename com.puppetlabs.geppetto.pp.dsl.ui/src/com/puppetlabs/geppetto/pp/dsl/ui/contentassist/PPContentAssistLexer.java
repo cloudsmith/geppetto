@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.contentassist;
+package com.puppetlabs.geppetto.pp.dsl.ui.contentassist;
 
 import org.antlr.runtime.CharStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.RecognizerSharedState;
 import org.antlr.runtime.Token;
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
+import com.puppetlabs.geppetto.pp.dsl.lexer.PPOverridingLexer;
 
 /**
  * This lexer wraps the external lexer used by the main parser.
@@ -54,7 +54,7 @@ public class PPContentAssistLexer extends org.eclipse.xtext.ui.editor.contentass
 
 	@Override
 	public String getGrammarFileName() {
-		return "../org.cloudsmith.geppetto.pp.dsl.ui/src-gen/org/cloudsmith/geppetto/pp/dsl/ui/contentassist/antlr/lexer/InternalPPLexer.g";
+		return "../com.puppetlabs.geppetto.pp.dsl.ui/src-gen/com/puppetlabs/geppetto/pp/dsl/ui/contentassist/antlr/lexer/InternalPPLexer.g";
 	}
 
 	/*

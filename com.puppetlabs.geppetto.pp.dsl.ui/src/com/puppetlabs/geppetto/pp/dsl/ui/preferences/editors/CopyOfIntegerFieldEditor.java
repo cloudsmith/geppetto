@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors;
 
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.jface.resource.JFaceResources;

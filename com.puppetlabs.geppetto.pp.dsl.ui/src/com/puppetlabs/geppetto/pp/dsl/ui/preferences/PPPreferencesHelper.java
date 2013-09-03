@@ -8,17 +8,17 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences;
 
 import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import org.cloudsmith.geppetto.forge.model.Constants;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
-import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference;
+import com.puppetlabs.geppetto.forge.model.Constants;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.pp.dsl.ui.builder.PPBuildJob;
+import com.puppetlabs.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.ValidationPreference;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -96,7 +96,7 @@ public class PPPreferencesHelper implements IPreferenceStoreInitializer, IProper
 
 	private int autoInsertOverrides = 0;
 
-	private final static String OVERRIDE_AUTO_INSERT = "org.cloudsmith.geppetto.override.autoinsert";
+	private final static String OVERRIDE_AUTO_INSERT = "com.puppetlabs.geppetto.override.autoinsert";
 
 	public final static int AUTO_INSERT_BRACKETS = 0x01;
 

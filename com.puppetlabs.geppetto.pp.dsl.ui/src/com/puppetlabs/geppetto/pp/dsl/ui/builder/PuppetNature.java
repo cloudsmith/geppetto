@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.builder;
+package com.puppetlabs.geppetto.pp.dsl.ui.builder;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
+import com.puppetlabs.geppetto.pp.dsl.ui.PPUiConstants;
 import org.eclipse.core.resources.ICommand;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;

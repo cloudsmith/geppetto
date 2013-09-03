@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.model;
+package com.puppetlabs.geppetto.forge.model;
 
-import org.cloudsmith.geppetto.forge.client.GsonModule;
+import com.puppetlabs.geppetto.forge.client.GsonModule;
 
 /**
  * Super class of all model entitites. Provides basic JSON capability.

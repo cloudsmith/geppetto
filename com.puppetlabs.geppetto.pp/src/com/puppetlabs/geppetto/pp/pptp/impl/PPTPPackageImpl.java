@@ -8,29 +8,29 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.impl;
+package com.puppetlabs.geppetto.pp.pptp.impl;
 
 import java.io.File;
 
-import org.cloudsmith.geppetto.pp.pptp.AbstractType;
-import org.cloudsmith.geppetto.pp.pptp.Function;
-import org.cloudsmith.geppetto.pp.pptp.IDocumented;
-import org.cloudsmith.geppetto.pp.pptp.INamed;
-import org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer;
-import org.cloudsmith.geppetto.pp.pptp.MetaType;
-import org.cloudsmith.geppetto.pp.pptp.MetaVariable;
-import org.cloudsmith.geppetto.pp.pptp.NameSpace;
-import org.cloudsmith.geppetto.pp.pptp.PPTPFactory;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
-import org.cloudsmith.geppetto.pp.pptp.Parameter;
-import org.cloudsmith.geppetto.pp.pptp.Property;
-import org.cloudsmith.geppetto.pp.pptp.PuppetDistribution;
-import org.cloudsmith.geppetto.pp.pptp.TPVariable;
-import org.cloudsmith.geppetto.pp.pptp.TargetElement;
-import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
-import org.cloudsmith.geppetto.pp.pptp.Type;
-import org.cloudsmith.geppetto.pp.pptp.TypeArgument;
-import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
+import com.puppetlabs.geppetto.pp.pptp.AbstractType;
+import com.puppetlabs.geppetto.pp.pptp.Function;
+import com.puppetlabs.geppetto.pp.pptp.IDocumented;
+import com.puppetlabs.geppetto.pp.pptp.INamed;
+import com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer;
+import com.puppetlabs.geppetto.pp.pptp.MetaType;
+import com.puppetlabs.geppetto.pp.pptp.MetaVariable;
+import com.puppetlabs.geppetto.pp.pptp.NameSpace;
+import com.puppetlabs.geppetto.pp.pptp.PPTPFactory;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.pptp.Parameter;
+import com.puppetlabs.geppetto.pp.pptp.Property;
+import com.puppetlabs.geppetto.pp.pptp.PuppetDistribution;
+import com.puppetlabs.geppetto.pp.pptp.TPVariable;
+import com.puppetlabs.geppetto.pp.pptp.TargetElement;
+import com.puppetlabs.geppetto.pp.pptp.TargetEntry;
+import com.puppetlabs.geppetto.pp.pptp.Type;
+import com.puppetlabs.geppetto.pp.pptp.TypeArgument;
+import com.puppetlabs.geppetto.pp.pptp.TypeFragment;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -260,7 +260,7 @@ public class PPTPPackageImpl extends EPackageImpl implements PPTPPackage {
 	 * package, or returns the registered package, if one already exists. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#eNS_URI
+	 * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */

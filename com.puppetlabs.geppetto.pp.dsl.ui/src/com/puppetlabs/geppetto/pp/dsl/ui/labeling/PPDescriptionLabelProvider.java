@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.labeling;
+package com.puppetlabs.geppetto.pp.dsl.ui.labeling;
 
 import java.util.Iterator;
 
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.emf.common.util.URI;

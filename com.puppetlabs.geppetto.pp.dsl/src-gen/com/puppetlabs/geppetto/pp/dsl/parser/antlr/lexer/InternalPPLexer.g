@@ -6,7 +6,7 @@ lexer grammar InternalPPLexer;
 
 
 @header {
-package org.cloudsmith.geppetto.pp.dsl.parser.antlr.lexer;
+package com.puppetlabs.geppetto.pp.dsl.parser.antlr.lexer;
 
 // Hack: Use our own Lexer superclass by means of import. 
 // Currently there is no other way to specify the superclass for the lexer.

@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.impl;
+package com.puppetlabs.geppetto.junitresult.impl;
 
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EClass;
  * 
  * @generated
  */
-public class ErrorImpl extends NegativeResultImpl implements org.cloudsmith.geppetto.junitresult.Error {
+public class ErrorImpl extends NegativeResultImpl implements com.puppetlabs.geppetto.junitresult.Error {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

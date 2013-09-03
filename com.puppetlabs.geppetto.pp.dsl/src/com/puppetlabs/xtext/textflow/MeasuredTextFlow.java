@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.textflow;
+package com.puppetlabs.xtext.textflow;
 
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContext;
 
 import com.google.inject.Inject;
 

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.internal;
+package com.puppetlabs.geppetto.pp.dsl.ui.internal;
 
 import java.net.URL;
 import java.util.HashMap;

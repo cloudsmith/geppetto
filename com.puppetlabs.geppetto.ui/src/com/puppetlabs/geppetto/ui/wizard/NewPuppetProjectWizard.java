@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.wizard;
+package com.puppetlabs.geppetto.ui.wizard;
 
-import org.cloudsmith.geppetto.ui.UIPlugin;
-import org.cloudsmith.geppetto.ui.util.ResourceUtil;
+import com.puppetlabs.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.ui.util.ResourceUtil;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;

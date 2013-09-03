@@ -59,7 +59,7 @@ puppet-lint program is not embedded in the plug-in.
 
 The puppet-lint validation can be controlled by using the parameter
 _puppetLintOptions_. Look at the enum _Option_
-[in this source](https://github.com/cloudsmith/geppetto/blob/master/org.cloudsmith.geppetto.puppetlint/src/org/cloudsmith/geppetto/puppetlint/PuppetLintRunner.java)
+[in this source](https://github.com/cloudsmith/geppetto/blob/master/com.puppetlabs.geppetto.puppetlint/src/com/puppetlabs/geppetto/puppetlint/PuppetLintRunner.java)
 for a complete list of options.
 
 The puppet-lint validation can be enabled using the boolean parameter

@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog.util;
+package com.puppetlabs.geppetto.catalog.util;
 
-import org.cloudsmith.geppetto.catalog.*;
+import com.puppetlabs.geppetto.catalog.*;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.util.Switch;
  * which is the result of the switch.
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.catalog.CatalogPackage
+ * @see com.puppetlabs.geppetto.catalog.CatalogPackage
  * @generated
  */
 public class CatalogSwitch<T> extends Switch<T> {

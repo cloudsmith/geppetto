@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.jrubyparser;
+package com.puppetlabs.geppetto.ruby.jrubyparser;
 
 import java.io.File;
 import java.io.IOException;

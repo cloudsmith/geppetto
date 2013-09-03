@@ -9,7 +9,7 @@
  *   Puppet Labs
  */
 
-package org.cloudsmith.geppetto.pp.dsl.ui.linked;
+package com.puppetlabs.geppetto.pp.dsl.ui.linked;
 
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.runtime.QualifiedName;

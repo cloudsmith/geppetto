@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.validation;
+package com.puppetlabs.geppetto.pp.dsl.validation;
 
 /**
  * Interface declaring diagnostic codess.
@@ -16,7 +16,7 @@ package org.cloudsmith.geppetto.pp.dsl.validation;
  * 
  */
 public interface IPPDiagnostics {
-	public static final String ISSUE_PREFIX = "org.cloudsmith.geppetto.pp.dsl.validation.issue.";
+	public static final String ISSUE_PREFIX = "com.puppetlabs.geppetto.pp.dsl.validation.issue.";
 
 	public static final String ISSUE_PROPOSAL_SUFFIX = ".prop";
 

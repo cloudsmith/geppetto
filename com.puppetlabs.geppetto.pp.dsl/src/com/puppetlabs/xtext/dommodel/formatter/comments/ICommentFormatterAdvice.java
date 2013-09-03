@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.comments;
+package com.puppetlabs.xtext.dommodel.formatter.comments;
 
 import com.google.inject.Provider;
 
@@ -107,7 +107,7 @@ public interface ICommentFormatterAdvice {
 		}
 
 		/**
-		 * @return {@link org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.LineAlignment.LineAlignment#LEFT
+		 * @return {@link com.puppetlabs.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.LineAlignment.LineAlignment#LEFT
 		 *         LineAlignment.LEFT}
 		 */
 		@Override

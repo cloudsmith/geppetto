@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog.impl;
+package com.puppetlabs.geppetto.catalog.impl;
 
-import org.cloudsmith.geppetto.catalog.*;
+import com.puppetlabs.geppetto.catalog.*;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -49,7 +49,7 @@ public class CatalogFactoryImpl extends EFactoryImpl implements CatalogFactory {
 	 */
 	public static CatalogFactory init() {
 		try {
-			CatalogFactory theCatalogFactory = (CatalogFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.cloudsmith.org/geppetto/1.0.0/Catalog");
+			CatalogFactory theCatalogFactory = (CatalogFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.puppetlabs.com/geppetto/1.0.0/Catalog");
 			if(theCatalogFactory != null) {
 				return theCatalogFactory;
 			}

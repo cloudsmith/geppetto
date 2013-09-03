@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge;
+package com.puppetlabs.geppetto.forge;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,15 +16,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.client.ForgeException;
-import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
-import org.cloudsmith.geppetto.forge.v2.model.Dependency;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.Module;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.forge.v2.model.Release;
-import org.cloudsmith.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.client.ForgeException;
+import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
+import com.puppetlabs.geppetto.forge.v2.model.Dependency;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.Module;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.v2.model.Release;
+import com.puppetlabs.geppetto.semver.VersionRange;
 
 /**
  * This class basically mimics the PMT (Puppet Module Tool)

@@ -10,7 +10,7 @@
  *   Puppet Labs Inc - changes to store 'use project settings' in project
  *
  *******************************************************************************/
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.ui.resource;
+package com.puppetlabs.xtext.ui.resource;
 
-import org.cloudsmith.xtext.resource.ResourceAccess;
+import com.puppetlabs.xtext.resource.ResourceAccess;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IStorage;

@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.editor;
+package com.puppetlabs.geppetto.ui.editor;
 
-import static org.cloudsmith.geppetto.common.Strings.trimToNull;
-import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+import static com.puppetlabs.geppetto.common.Strings.trimToNull;
+import static com.puppetlabs.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.eclipse.xtext.util.Strings.emptyIfNull;
 
 import java.io.File;
@@ -20,17 +20,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.semver.Version;
-import org.cloudsmith.geppetto.semver.VersionRange;
-import org.cloudsmith.geppetto.ui.UIPlugin;
-import org.cloudsmith.geppetto.ui.dialog.ModuleListSelectionDialog;
-import org.cloudsmith.geppetto.ui.editor.MetadataModel.Dependency;
-import org.cloudsmith.geppetto.ui.util.StringUtil;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.ui.dialog.ModuleListSelectionDialog;
+import com.puppetlabs.geppetto.ui.editor.MetadataModel.Dependency;
+import com.puppetlabs.geppetto.ui.util.StringUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;

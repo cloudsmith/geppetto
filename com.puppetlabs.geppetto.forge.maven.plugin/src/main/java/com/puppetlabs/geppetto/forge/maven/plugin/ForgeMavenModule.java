@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.maven.plugin;
+package com.puppetlabs.geppetto.forge.maven.plugin;
 
 import java.io.FileFilter;
 
 import org.apache.maven.project.MavenProject;
-import org.cloudsmith.geppetto.forge.MetadataExtractor;
-import org.cloudsmith.geppetto.forge.impl.ForgeModule;
+import com.puppetlabs.geppetto.forge.MetadataExtractor;
+import com.puppetlabs.geppetto.forge.impl.ForgeModule;
 
 import com.google.inject.multibindings.Multibinder;
 

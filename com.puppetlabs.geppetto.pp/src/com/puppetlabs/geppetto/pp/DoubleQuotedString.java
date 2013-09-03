@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,18 +20,18 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.DoubleQuotedString#getStringPart <em>String Part</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.DoubleQuotedString#getStringPart <em>String Part</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getDoubleQuotedString()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getDoubleQuotedString()
  * @model
  * @generated
  */
 public interface DoubleQuotedString extends StringExpression, IQuotedString {
 	/**
 	 * Returns the value of the '<em><b>String Part</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.TextExpression}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.TextExpression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>String Part</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -39,7 +39,7 @@ public interface DoubleQuotedString extends StringExpression, IQuotedString {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>String Part</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDoubleQuotedString_StringPart()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getDoubleQuotedString_StringPart()
 	 * @model containment="true"
 	 * @generated
 	 */

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,9 +17,9 @@ import java.net.JarURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.cloudsmith.geppetto.common.util.BundleAccess;
-import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
-import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
+import com.puppetlabs.geppetto.pp.dsl.target.PptpResourceUtil;
+import com.puppetlabs.geppetto.pp.dsl.target.PuppetTarget;
 import org.eclipse.emf.common.util.URI;
 import org.junit.Test;
 

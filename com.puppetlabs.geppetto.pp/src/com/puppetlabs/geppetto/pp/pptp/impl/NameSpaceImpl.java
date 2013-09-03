@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.impl;
+package com.puppetlabs.geppetto.pp.pptp.impl;
 
 import java.util.Collection;
 
-import org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer;
-import org.cloudsmith.geppetto.pp.pptp.NameSpace;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
-import org.cloudsmith.geppetto.pp.pptp.TargetElement;
+import com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer;
+import com.puppetlabs.geppetto.pp.pptp.NameSpace;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.pptp.TargetElement;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -37,8 +37,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.NameSpaceImpl#getContents <em>Contents</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.NameSpaceImpl#isReserved <em>Reserved</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.NameSpaceImpl#getContents <em>Contents</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.NameSpaceImpl#isReserved <em>Reserved</em>}</li>
  * </ul>
  * </p>
  * 

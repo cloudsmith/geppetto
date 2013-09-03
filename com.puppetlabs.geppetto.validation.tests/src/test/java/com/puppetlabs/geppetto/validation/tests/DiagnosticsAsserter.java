@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation.tests;
+package com.puppetlabs.geppetto.validation.tests;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,9 +18,9 @@ import java.util.Map.Entry;
 
 import junit.framework.ComparisonFailure;
 
-import org.cloudsmith.geppetto.diagnostic.DetailedFileDiagnostic;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
+import com.puppetlabs.geppetto.diagnostic.DetailedFileDiagnostic;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;

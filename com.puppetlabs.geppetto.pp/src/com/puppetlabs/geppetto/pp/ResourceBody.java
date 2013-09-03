@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.ResourceBody#getAttributes <em>Attributes</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.ResourceBody#getNameExpr <em>Name Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.ResourceBody#getAttributes <em>Attributes</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.ResourceBody#getNameExpr <em>Name Expr</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getResourceBody()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getResourceBody()
  * @model
  * @generated
  */
@@ -40,7 +40,7 @@ public interface ResourceBody extends EObject {
 	 * 
 	 * @return the value of the '<em>Attributes</em>' containment reference.
 	 * @see #setAttributes(AttributeOperations)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getResourceBody_Attributes()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getResourceBody_Attributes()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -56,14 +56,14 @@ public interface ResourceBody extends EObject {
 	 * 
 	 * @return the value of the '<em>Name Expr</em>' containment reference.
 	 * @see #setNameExpr(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getResourceBody_NameExpr()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getResourceBody_NameExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getNameExpr();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.ResourceBody#getAttributes <em>Attributes</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.ResourceBody#getAttributes <em>Attributes</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -75,7 +75,7 @@ public interface ResourceBody extends EObject {
 	void setAttributes(AttributeOperations value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.ResourceBody#getNameExpr <em>Name Expr</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.ResourceBody#getNameExpr <em>Name Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

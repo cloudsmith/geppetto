@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp;
+package com.puppetlabs.geppetto.pp.pptp;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -20,11 +20,11 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.IDocumented#getDocumentation <em>Documentation</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.IDocumented#getDocumentation <em>Documentation</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getIDocumented()
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getIDocumented()
  * @model interface="true" abstract="true"
  * @generated
  */
@@ -39,14 +39,14 @@ public interface IDocumented extends EObject {
 	 * 
 	 * @return the value of the '<em>Documentation</em>' attribute.
 	 * @see #setDocumentation(String)
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getIDocumented_Documentation()
+	 * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getIDocumented_Documentation()
 	 * @model
 	 * @generated
 	 */
 	String getDocumentation();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.IDocumented#getDocumentation <em>Documentation</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.pptp.IDocumented#getDocumentation <em>Documentation</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.ParenthesisedExpression#getExpr <em>Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.ParenthesisedExpression#getExpr <em>Expr</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getParenthesisedExpression()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getParenthesisedExpression()
  * @model
  * @generated
  */
@@ -37,14 +37,14 @@ public interface ParenthesisedExpression extends Expression {
 	 * 
 	 * @return the value of the '<em>Expr</em>' containment reference.
 	 * @see #setExpr(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getParenthesisedExpression_Expr()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getParenthesisedExpression_Expr()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getExpr();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.ParenthesisedExpression#getExpr <em>Expr</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.ParenthesisedExpression#getExpr <em>Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

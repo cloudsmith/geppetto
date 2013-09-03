@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.common.tracer;
+package com.puppetlabs.geppetto.common.tracer;
 
 /**
  * Interface for debugging and tracing output.

@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.pptp;
+package com.puppetlabs.geppetto.pp.dsl.pptp;
 
-import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionStrategy;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPathProvider;
+import com.puppetlabs.geppetto.pp.dsl.PPDSLConstants;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPResourceDescriptionStrategy;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPathProvider;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.resource.IDefaultResourceDescriptionStrategy;

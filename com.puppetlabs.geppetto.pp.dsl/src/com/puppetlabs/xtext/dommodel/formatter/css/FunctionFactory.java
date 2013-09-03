@@ -8,16 +8,16 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.css;
+package com.puppetlabs.xtext.dommodel.formatter.css;
 
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.IDomNode.NodeClassifier;
-import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode.NodeClassifier;
+import com.puppetlabs.xtext.dommodel.IDomNode.NodeType;
 
 import com.google.common.base.Function;
 import com.google.inject.Singleton;

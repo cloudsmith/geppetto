@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.ValidationPreferenceFieldEditor;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.ValidationPreferenceFieldEditor;
 
 /**
  * A preference pane for stylistic problems

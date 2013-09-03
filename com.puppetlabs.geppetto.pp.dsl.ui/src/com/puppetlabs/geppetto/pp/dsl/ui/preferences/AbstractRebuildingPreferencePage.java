@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.builder.PPBuildJob;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
+import com.puppetlabs.geppetto.pp.dsl.ui.builder.PPBuildJob;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.IPropertyChangeListener;

@@ -8,18 +8,18 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel;
+package com.puppetlabs.xtext.dommodel;
 
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.cloudsmith.xtext.dommodel.IDomNode.NodeType;
-import org.cloudsmith.xtext.dommodel.formatter.css.IStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSetWithTracking;
-import org.cloudsmith.xtext.dommodel.formatter.css.debug.EffectiveStyleAppender;
-import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
-import org.cloudsmith.xtext.textflow.CharSequences;
+import com.puppetlabs.xtext.dommodel.IDomNode.NodeType;
+import com.puppetlabs.xtext.dommodel.formatter.css.IStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSetWithTracking;
+import com.puppetlabs.xtext.dommodel.formatter.css.debug.EffectiveStyleAppender;
+import com.puppetlabs.xtext.dommodel.formatter.css.debug.FormattingTracer;
+import com.puppetlabs.xtext.textflow.CharSequences;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.grammaranalysis.impl.GrammarElementTitleSwitch;
 import org.eclipse.xtext.nodemodel.INode;

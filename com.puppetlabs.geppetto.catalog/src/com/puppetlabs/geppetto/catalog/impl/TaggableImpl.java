@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog.impl;
+package com.puppetlabs.geppetto.catalog.impl;
 
 import java.util.Collection;
 
-import org.cloudsmith.geppetto.catalog.CatalogPackage;
-import org.cloudsmith.geppetto.catalog.Taggable;
+import com.puppetlabs.geppetto.catalog.CatalogPackage;
+import com.puppetlabs.geppetto.catalog.Taggable;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.TaggableImpl#getTags <em>Tags</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.TaggableImpl#getTags <em>Tags</em>}</li>
  * </ul>
  * </p>
  * 

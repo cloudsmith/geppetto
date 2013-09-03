@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.HostClassDefinition#getParent <em>Parent</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.HostClassDefinition#getParent <em>Parent</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getHostClassDefinition()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getHostClassDefinition()
  * @model
  * @generated
  */
@@ -37,14 +37,14 @@ public interface HostClassDefinition extends Definition {
 	 * 
 	 * @return the value of the '<em>Parent</em>' containment reference.
 	 * @see #setParent(LiteralExpression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getHostClassDefinition_Parent()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getHostClassDefinition_Parent()
 	 * @model containment="true"
 	 * @generated
 	 */
 	LiteralExpression getParent();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.HostClassDefinition#getParent <em>Parent</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.HostClassDefinition#getParent <em>Parent</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.puppetlint;
+package com.puppetlabs.geppetto.puppetlint;
 
 import java.io.File;
 import java.io.IOException;

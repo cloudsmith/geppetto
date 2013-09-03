@@ -8,18 +8,18 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.impl;
+package com.puppetlabs.geppetto.pp.pptp.impl;
 
 import java.util.Collection;
-import org.cloudsmith.geppetto.pp.pptp.Function;
-import org.cloudsmith.geppetto.pp.pptp.MetaType;
-import org.cloudsmith.geppetto.pp.pptp.MetaVariable;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
-import org.cloudsmith.geppetto.pp.pptp.TargetElement;
-import org.cloudsmith.geppetto.pp.pptp.TargetEntry;
+import com.puppetlabs.geppetto.pp.pptp.Function;
+import com.puppetlabs.geppetto.pp.pptp.MetaType;
+import com.puppetlabs.geppetto.pp.pptp.MetaVariable;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.pptp.TargetElement;
+import com.puppetlabs.geppetto.pp.pptp.TargetEntry;
 
-import org.cloudsmith.geppetto.pp.pptp.Type;
-import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
+import com.puppetlabs.geppetto.pp.pptp.Type;
+import com.puppetlabs.geppetto.pp.pptp.TypeFragment;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -39,15 +39,15 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getContents <em>Contents</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getDescription <em>Description</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getFunctions <em>Functions</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypes <em>Types</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getVersion <em>Version</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getTypeFragments <em>Type Fragments</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaType <em>Meta Type</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getLabel <em>Label</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaVariables <em>Meta Variables</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl#getContents <em>Contents</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl#getDescription <em>Description</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl#getFunctions <em>Functions</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl#getTypes <em>Types</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl#getVersion <em>Version</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl#getTypeFragments <em>Type Fragments</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaType <em>Meta Type</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl#getLabel <em>Label</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl#getMetaVariables <em>Meta Variables</em>}</li>
  * </ul>
  * </p>
  * 

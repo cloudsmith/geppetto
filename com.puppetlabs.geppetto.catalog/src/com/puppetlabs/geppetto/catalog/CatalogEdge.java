@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog;
+package com.puppetlabs.geppetto.catalog;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogEdge#getTarget <em>Target</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogEdge#getSource <em>Source</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogEdge#getTarget <em>Target</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogEdge#getSource <em>Source</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogEdge()
+ * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogEdge()
  * @model
  * @generated
  */
@@ -40,7 +40,7 @@ public interface CatalogEdge extends EObject {
 	 * 
 	 * @return the value of the '<em>Source</em>' attribute.
 	 * @see #setSource(String)
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogEdge_Source()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogEdge_Source()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -56,14 +56,14 @@ public interface CatalogEdge extends EObject {
 	 * 
 	 * @return the value of the '<em>Target</em>' attribute.
 	 * @see #setTarget(String)
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogEdge_Target()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogEdge_Target()
 	 * @model required="true"
 	 * @generated
 	 */
 	String getTarget();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogEdge#getSource <em>Source</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.catalog.CatalogEdge#getSource <em>Source</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -75,7 +75,7 @@ public interface CatalogEdge extends EObject {
 	void setSource(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogEdge#getTarget <em>Target</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.catalog.CatalogEdge#getTarget <em>Target</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

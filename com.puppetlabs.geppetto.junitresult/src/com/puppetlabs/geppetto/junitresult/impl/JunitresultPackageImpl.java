@@ -8,20 +8,20 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.impl;
+package com.puppetlabs.geppetto.junitresult.impl;
 
-import org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest;
-import org.cloudsmith.geppetto.junitresult.Failure;
-import org.cloudsmith.geppetto.junitresult.JunitresultFactory;
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
-import org.cloudsmith.geppetto.junitresult.NegativeResult;
-import org.cloudsmith.geppetto.junitresult.Property;
-import org.cloudsmith.geppetto.junitresult.Skipped;
-import org.cloudsmith.geppetto.junitresult.JunitResult;
-import org.cloudsmith.geppetto.junitresult.Testcase;
-import org.cloudsmith.geppetto.junitresult.Testrun;
-import org.cloudsmith.geppetto.junitresult.Testsuite;
-import org.cloudsmith.geppetto.junitresult.Testsuites;
+import com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest;
+import com.puppetlabs.geppetto.junitresult.Failure;
+import com.puppetlabs.geppetto.junitresult.JunitresultFactory;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.NegativeResult;
+import com.puppetlabs.geppetto.junitresult.Property;
+import com.puppetlabs.geppetto.junitresult.Skipped;
+import com.puppetlabs.geppetto.junitresult.JunitResult;
+import com.puppetlabs.geppetto.junitresult.Testcase;
+import com.puppetlabs.geppetto.junitresult.Testrun;
+import com.puppetlabs.geppetto.junitresult.Testsuite;
+import com.puppetlabs.geppetto.junitresult.Testsuites;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -196,7 +196,7 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 	 * package, or returns the registered package, if one already exists. <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#eNS_URI
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
@@ -871,7 +871,7 @@ public class JunitresultPackageImpl extends EPackageImpl implements JunitresultP
 			IS_ORDERED);
 
 		initEClass(
-			errorEClass, org.cloudsmith.geppetto.junitresult.Error.class, "Error", !IS_ABSTRACT, !IS_INTERFACE,
+			errorEClass, com.puppetlabs.geppetto.junitresult.Error.class, "Error", !IS_ABSTRACT, !IS_INTERFACE,
 			IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(failureEClass, Failure.class, "Failure", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

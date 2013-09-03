@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.util;
+package com.puppetlabs.geppetto.forge.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.forge.FilePosition;
+import com.puppetlabs.geppetto.forge.FilePosition;
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonLocation;
 import org.codehaus.jackson.JsonParseException;

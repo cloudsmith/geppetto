@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package com.puppetlabs.geppetto.pp.dsl.linking;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
 	 * org.eclipse.emf.ecore.EObject, org.eclipse.emf.ecore.EStructuralFeature, int, java.lang.String, java.lang.String[])
 	 */
 	@Override
@@ -45,7 +45,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#accept(org.eclipse.xtext.diagnostics.Severity, java.lang.String,
 	 * org.eclipse.xtext.nodemodel.INode, java.lang.String, java.lang.String[])
 	 */
 	@Override
@@ -54,7 +54,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject,
 	 * org.eclipse.emf.ecore.EStructuralFeature, int, java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -66,7 +66,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject,
 	 * org.eclipse.emf.ecore.EStructuralFeature, java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -78,7 +78,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject,
 	 * org.eclipse.emf.ecore.EStructuralFeature, int, java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -90,7 +90,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject, int,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject, int,
 	 * java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -101,7 +101,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject, java.lang.String,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject, java.lang.String,
 	 * java.lang.String)
 	 */
 	@Override
@@ -114,7 +114,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.xtext.nodemodel.INode, java.lang.String,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.xtext.nodemodel.INode, java.lang.String,
 	 * java.lang.String)
 	 */
 	@Override
@@ -125,7 +125,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptWarning(java.lang.String, org.eclipse.emf.ecore.EObject,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptWarning(java.lang.String, org.eclipse.emf.ecore.EObject,
 	 * org.eclipse.emf.ecore.EStructuralFeature, int, java.lang.String, java.lang.String[])
 	 */
 	@Override
@@ -137,7 +137,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptWarning(java.lang.String, org.eclipse.emf.ecore.EObject,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptWarning(java.lang.String, org.eclipse.emf.ecore.EObject,
 	 * org.eclipse.emf.ecore.EStructuralFeature, java.lang.String, java.lang.String[])
 	 */
 	@Override
@@ -150,7 +150,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptError(java.lang.String, org.eclipse.emf.ecore.EObject,
 	 * org.eclipse.emf.ecore.EStructuralFeature, int, java.lang.String, java.lang.String)
 	 */
 	@Override
@@ -162,7 +162,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptWarning(java.lang.String, org.eclipse.emf.ecore.EObject, int,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptWarning(java.lang.String, org.eclipse.emf.ecore.EObject, int,
 	 * java.lang.String, java.lang.String[])
 	 */
 	@Override
@@ -173,7 +173,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptWarning(java.lang.String, org.eclipse.emf.ecore.EObject, java.lang.String,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptWarning(java.lang.String, org.eclipse.emf.ecore.EObject, java.lang.String,
 	 * java.lang.String[])
 	 */
 	@Override
@@ -186,7 +186,7 @@ public abstract class AbstractMessageAcceptor implements IMessageAcceptor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor#acceptWarning(java.lang.String, org.eclipse.xtext.nodemodel.INode,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor#acceptWarning(java.lang.String, org.eclipse.xtext.nodemodel.INode,
 	 * java.lang.String, java.lang.String[])
 	 */
 	@Override

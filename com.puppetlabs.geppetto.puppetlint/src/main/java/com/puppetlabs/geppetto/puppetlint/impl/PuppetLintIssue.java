@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.puppetlint.impl;
+package com.puppetlabs.geppetto.puppetlint.impl;
 
 import static java.lang.String.format;
 
-import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner.Issue;
-import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner.Severity;
+import com.puppetlabs.geppetto.puppetlint.PuppetLintRunner.Issue;
+import com.puppetlabs.geppetto.puppetlint.PuppetLintRunner.Severity;
 
 /**
  * An issue produced by puppet-lint

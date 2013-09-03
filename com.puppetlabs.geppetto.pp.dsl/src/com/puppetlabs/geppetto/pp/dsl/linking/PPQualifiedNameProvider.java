@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package com.puppetlabs.geppetto.pp.dsl.linking;
 
-import org.cloudsmith.geppetto.pp.Definition;
-import org.cloudsmith.geppetto.pp.DefinitionArgument;
-import org.cloudsmith.geppetto.pp.HostClassDefinition;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.VariableExpression;
+import com.puppetlabs.geppetto.pp.Definition;
+import com.puppetlabs.geppetto.pp.DefinitionArgument;
+import com.puppetlabs.geppetto.pp.HostClassDefinition;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.VariableExpression;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;

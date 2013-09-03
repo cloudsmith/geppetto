@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.impl;
+package com.puppetlabs.xtext.dommodel.impl;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode;
 import org.eclipse.xtext.nodemodel.INode;
 
 /**

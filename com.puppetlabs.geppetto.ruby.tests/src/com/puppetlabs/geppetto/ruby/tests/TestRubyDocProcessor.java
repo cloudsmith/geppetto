@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.tests;
+package com.puppetlabs.geppetto.ruby.tests;
 
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.ruby.RubyDocProcessorSimple;
+import com.puppetlabs.geppetto.ruby.RubyDocProcessorSimple;
 import org.junit.Test;
 
 import com.google.common.base.Joiner;

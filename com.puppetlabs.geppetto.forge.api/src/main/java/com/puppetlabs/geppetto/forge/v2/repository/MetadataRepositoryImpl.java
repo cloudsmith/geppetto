@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.v2.repository;
+package com.puppetlabs.geppetto.forge.v2.repository;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,13 +21,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
-import org.cloudsmith.geppetto.forge.v2.model.Dependency;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.forge.v2.model.Release;
-import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
-import org.cloudsmith.geppetto.semver.Version;
-import org.cloudsmith.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.forge.v2.MetadataRepository;
+import com.puppetlabs.geppetto.forge.v2.model.Dependency;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.v2.model.Release;
+import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;

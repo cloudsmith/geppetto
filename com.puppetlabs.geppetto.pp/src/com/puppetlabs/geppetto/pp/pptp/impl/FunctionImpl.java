@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.impl;
+package com.puppetlabs.geppetto.pp.pptp.impl;
 
-import org.cloudsmith.geppetto.pp.pptp.Function;
-import org.cloudsmith.geppetto.pp.pptp.INamed;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
-import org.cloudsmith.geppetto.pp.pptp.TargetElement;
+import com.puppetlabs.geppetto.pp.pptp.Function;
+import com.puppetlabs.geppetto.pp.pptp.INamed;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.pptp.TargetElement;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -29,10 +29,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getDocumentation <em>Documentation</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#isDeprecated <em>Deprecated</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl#isRValue <em>RValue</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.FunctionImpl#getDocumentation <em>Documentation</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.FunctionImpl#getName <em>Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.FunctionImpl#isDeprecated <em>Deprecated</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.FunctionImpl#isRValue <em>RValue</em>}</li>
  * </ul>
  * </p>
  * 

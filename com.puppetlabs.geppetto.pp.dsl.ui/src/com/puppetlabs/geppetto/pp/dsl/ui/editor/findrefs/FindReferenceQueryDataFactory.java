@@ -10,14 +10,14 @@
  *   Puppet Labs
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 
 import static java.util.Collections.singleton;
 
 import java.util.Iterator;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceFinder.IPPQueryData;
+import com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceFinder.IPPQueryData;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.emf.common.util.URI;

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,19 +20,19 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.CaseExpression#getSwitchExpr <em>Switch Expr</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.CaseExpression#getCases <em>Cases</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.CaseExpression#getSwitchExpr <em>Switch Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.CaseExpression#getCases <em>Cases</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getCaseExpression()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getCaseExpression()
  * @model
  * @generated
  */
 public interface CaseExpression extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Cases</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.Case}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.Case}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Cases</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -40,7 +40,7 @@ public interface CaseExpression extends Expression {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Cases</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getCaseExpression_Cases()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getCaseExpression_Cases()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -56,14 +56,14 @@ public interface CaseExpression extends Expression {
 	 * 
 	 * @return the value of the '<em>Switch Expr</em>' containment reference.
 	 * @see #setSwitchExpr(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getCaseExpression_SwitchExpr()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getCaseExpression_SwitchExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getSwitchExpr();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.CaseExpression#getSwitchExpr <em>Switch Expr</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.CaseExpression#getSwitchExpr <em>Switch Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

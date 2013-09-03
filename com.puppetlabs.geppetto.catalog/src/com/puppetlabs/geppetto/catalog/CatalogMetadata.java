@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog;
+package com.puppetlabs.geppetto.catalog;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -20,11 +20,11 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogMetadata#getApi_version <em>Api version</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogMetadata#getApi_version <em>Api version</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogMetadata()
+ * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogMetadata()
  * @model
  * @generated
  */
@@ -39,14 +39,14 @@ public interface CatalogMetadata extends EObject {
 	 * 
 	 * @return the value of the '<em>Api version</em>' attribute.
 	 * @see #setApi_version(String)
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogMetadata_Api_version()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogMetadata_Api_version()
 	 * @model
 	 * @generated
 	 */
 	String getApi_version();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogMetadata#getApi_version <em>Api version</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.catalog.CatalogMetadata#getApi_version <em>Api version</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

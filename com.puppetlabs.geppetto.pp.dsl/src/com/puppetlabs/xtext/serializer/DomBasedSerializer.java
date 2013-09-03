@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.serializer;
+package com.puppetlabs.xtext.serializer;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -16,15 +16,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
-import org.cloudsmith.xtext.resource.ResourceAccessScope;
-import org.cloudsmith.xtext.serializer.acceptor.DomModelSequenceAdapter;
-import org.cloudsmith.xtext.serializer.acceptor.IHiddenTokenSequencer2;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.IDomModelFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentConfiguration;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
+import com.puppetlabs.xtext.resource.ResourceAccessScope;
+import com.puppetlabs.xtext.serializer.acceptor.DomModelSequenceAdapter;
+import com.puppetlabs.xtext.serializer.acceptor.IHiddenTokenSequencer2;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.formatting.ILineSeparatorInformation;

@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.autoedit;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.eclipse.jface.text.DocumentCommand;
 import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;

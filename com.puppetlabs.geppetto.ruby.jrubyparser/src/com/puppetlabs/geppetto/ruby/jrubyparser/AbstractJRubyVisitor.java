@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.ruby.jrubyparser;
+package com.puppetlabs.geppetto.ruby.jrubyparser;
 
 import org.jrubyparser.NodeVisitor;
 import org.jrubyparser.ast.*;

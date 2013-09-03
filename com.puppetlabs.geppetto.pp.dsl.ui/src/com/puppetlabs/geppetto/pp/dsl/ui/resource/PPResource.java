@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.resource;
+package com.puppetlabs.geppetto.pp.dsl.ui.resource;
 
-import org.cloudsmith.geppetto.pp.dsl.linking.DiagnosticConsumerBasedMessageAcceptor;
-import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceLinker;
-import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
+import com.puppetlabs.geppetto.pp.dsl.linking.DiagnosticConsumerBasedMessageAcceptor;
+import com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPResourceLinker;
+import com.puppetlabs.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;

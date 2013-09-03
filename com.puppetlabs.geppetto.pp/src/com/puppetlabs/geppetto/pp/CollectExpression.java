@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,13 +18,13 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.CollectExpression#getClassReference <em>Class Reference</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.CollectExpression#getQuery <em>Query</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.CollectExpression#getAttributes <em>Attributes</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.CollectExpression#getClassReference <em>Class Reference</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.CollectExpression#getQuery <em>Query</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.CollectExpression#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getCollectExpression()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getCollectExpression()
  * @model
  * @generated
  */
@@ -39,7 +39,7 @@ public interface CollectExpression extends Expression {
 	 * 
 	 * @return the value of the '<em>Attributes</em>' containment reference.
 	 * @see #setAttributes(AttributeOperations)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getCollectExpression_Attributes()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getCollectExpression_Attributes()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -55,7 +55,7 @@ public interface CollectExpression extends Expression {
 	 * 
 	 * @return the value of the '<em>Class Reference</em>' containment reference.
 	 * @see #setClassReference(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getCollectExpression_ClassReference()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getCollectExpression_ClassReference()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -71,14 +71,14 @@ public interface CollectExpression extends Expression {
 	 * 
 	 * @return the value of the '<em>Query</em>' containment reference.
 	 * @see #setQuery(ICollectQuery)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getCollectExpression_Query()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getCollectExpression_Query()
 	 * @model containment="true"
 	 * @generated
 	 */
 	ICollectQuery getQuery();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.CollectExpression#getAttributes <em>Attributes</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.CollectExpression#getAttributes <em>Attributes</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -90,7 +90,7 @@ public interface CollectExpression extends Expression {
 	void setAttributes(AttributeOperations value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.CollectExpression#getClassReference <em>Class Reference</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.CollectExpression#getClassReference <em>Class Reference</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -102,7 +102,7 @@ public interface CollectExpression extends Expression {
 	void setClassReference(Expression value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.CollectExpression#getQuery <em>Query</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.CollectExpression#getQuery <em>Query</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.formatting;
+package com.puppetlabs.xtext.formatting;
 
 import com.google.inject.ImplementedBy;
 

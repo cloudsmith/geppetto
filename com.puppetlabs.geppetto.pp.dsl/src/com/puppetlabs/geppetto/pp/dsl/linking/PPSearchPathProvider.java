@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package com.puppetlabs.geppetto.pp.dsl.linking;
 
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.IConfigurableProvider;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath.IConfigurableProvider;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 
@@ -37,7 +37,7 @@ public class PPSearchPathProvider implements ISearchPathProvider, IConfigurableP
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider#configure(org.eclipse.emf.common.util.URI,
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider#configure(org.eclipse.emf.common.util.URI,
 	 * org.eclipse.emf.common.util.URI)
 	 */
 	@Override
@@ -57,7 +57,7 @@ public class PPSearchPathProvider implements ISearchPathProvider, IConfigurableP
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider#get(org.eclipse.emf.ecore.resource.Resource)
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider#get(org.eclipse.emf.ecore.resource.Resource)
 	 */
 	@Override
 	public PPSearchPath get(Resource r) {

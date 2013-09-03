@@ -8,15 +8,15 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.v2;
+package com.puppetlabs.geppetto.forge.v2;
 
-import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
-import org.cloudsmith.geppetto.forge.client.GsonModule;
-import org.cloudsmith.geppetto.forge.model.Constants;
-import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
-import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
-import org.cloudsmith.geppetto.forge.v2.service.TagService;
-import org.cloudsmith.geppetto.forge.v2.service.UserService;
+import com.puppetlabs.geppetto.forge.client.ForgeHttpModule;
+import com.puppetlabs.geppetto.forge.client.GsonModule;
+import com.puppetlabs.geppetto.forge.model.Constants;
+import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
+import com.puppetlabs.geppetto.forge.v2.service.ReleaseService;
+import com.puppetlabs.geppetto.forge.v2.service.TagService;
+import com.puppetlabs.geppetto.forge.v2.service.UserService;
 
 import com.google.gson.Gson;
 import com.google.inject.Guice;

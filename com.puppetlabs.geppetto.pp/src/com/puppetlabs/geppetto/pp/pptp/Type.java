@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp;
+package com.puppetlabs.geppetto.pp.pptp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp.pptp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getType()
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getType()
  * @model
  * @generated
  */
@@ -38,14 +38,14 @@ public interface Type extends AbstractType {
 	 * 
 	 * @return the value of the '<em>Super Type</em>' attribute.
 	 * @see #setSuperType(String)
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getType_SuperType()
+	 * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getType_SuperType()
 	 * @model
 	 * @generated
 	 */
 	String getSuperType();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

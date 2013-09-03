@@ -1,15 +1,14 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.client;
+package com.puppetlabs.geppetto.forge.client;
 
 import java.io.IOException;
 
@@ -19,12 +18,12 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.StringBody;
-import org.cloudsmith.geppetto.forge.model.Constants;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
+import com.puppetlabs.geppetto.forge.model.Constants;
 
 /**
  */

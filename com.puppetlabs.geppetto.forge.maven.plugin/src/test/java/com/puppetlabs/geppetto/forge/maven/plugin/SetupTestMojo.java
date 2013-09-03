@@ -8,20 +8,20 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.maven.plugin;
+package com.puppetlabs.geppetto.forge.maven.plugin;
 
-import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+import static com.puppetlabs.geppetto.injectable.CommonModuleProvider.getCommonModule;
 
 import java.io.IOException;
 import java.util.Properties;
 
-import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
-import org.cloudsmith.geppetto.forge.client.GsonModule;
-import org.cloudsmith.geppetto.forge.client.OAuthModule;
-import org.cloudsmith.geppetto.forge.v2.ForgeAPI;
-import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
-import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
-import org.cloudsmith.geppetto.semver.Version;
+import com.puppetlabs.geppetto.forge.client.ForgeHttpModule;
+import com.puppetlabs.geppetto.forge.client.GsonModule;
+import com.puppetlabs.geppetto.forge.client.OAuthModule;
+import com.puppetlabs.geppetto.forge.v2.ForgeAPI;
+import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
+import com.puppetlabs.geppetto.forge.v2.service.ReleaseService;
+import com.puppetlabs.geppetto.semver.Version;
 import org.junit.Before;
 import org.junit.Test;
 

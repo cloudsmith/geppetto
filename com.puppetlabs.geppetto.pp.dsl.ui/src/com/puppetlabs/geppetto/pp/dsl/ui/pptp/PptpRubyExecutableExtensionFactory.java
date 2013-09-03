@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.pptp;
+package com.puppetlabs.geppetto.pp.dsl.ui.pptp;
 
-import org.cloudsmith.geppetto.injectable.eclipse.AbstractGuiceAwareExecutableExtensionFactory;
-import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
+import com.puppetlabs.geppetto.injectable.eclipse.AbstractGuiceAwareExecutableExtensionFactory;
+import com.puppetlabs.geppetto.pp.dsl.PPDSLConstants;
 import org.osgi.framework.Bundle;
 
 import com.google.inject.Injector;
@@ -28,7 +28,7 @@ public class PptpRubyExecutableExtensionFactory extends AbstractGuiceAwareExecut
 	 */
 	@Override
 	protected Bundle getBundle() {
-		return org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator.getInstance().getBundle();
+		return com.puppetlabs.geppetto.pp.dsl.ui.internal.PPDSLActivator.getInstance().getBundle();
 	}
 
 	/*
@@ -38,7 +38,7 @@ public class PptpRubyExecutableExtensionFactory extends AbstractGuiceAwareExecut
 	 */
 	@Override
 	protected Injector getInjector() {
-		return org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator.getInstance().getInjector(
+		return com.puppetlabs.geppetto.pp.dsl.ui.internal.PPDSLActivator.getInstance().getInjector(
 			PPDSLConstants.PPTP_RUBY_LANGUAGE_NAME);
 	}
 

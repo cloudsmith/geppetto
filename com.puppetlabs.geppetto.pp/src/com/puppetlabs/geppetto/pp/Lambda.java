@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.Lambda#getArguments <em>Arguments</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.Lambda#getArguments <em>Arguments</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getLambda()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getLambda()
  * @model abstract="true"
  * @generated
  */
@@ -37,14 +37,14 @@ public interface Lambda extends ExpressionBlock {
 	 * 
 	 * @return the value of the '<em>Arguments</em>' containment reference.
 	 * @see #setArguments(DefinitionArgumentList)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getLambda_Arguments()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getLambda_Arguments()
 	 * @model containment="true"
 	 * @generated
 	 */
 	DefinitionArgumentList getArguments();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.Lambda#getArguments <em>Arguments</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.Lambda#getArguments <em>Arguments</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

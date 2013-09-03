@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.BinaryOpExpression#getOpName <em>Op Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.BinaryOpExpression#getOpName <em>Op Name</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getBinaryOpExpression()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getBinaryOpExpression()
  * @model abstract="true"
  * @generated
  */
@@ -37,14 +37,14 @@ public interface BinaryOpExpression extends BinaryExpression {
 	 * 
 	 * @return the value of the '<em>Op Name</em>' attribute.
 	 * @see #setOpName(String)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getBinaryOpExpression_OpName()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getBinaryOpExpression_OpName()
 	 * @model
 	 * @generated
 	 */
 	String getOpName();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.BinaryOpExpression#getOpName <em>Op Name</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.BinaryOpExpression#getOpName <em>Op Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

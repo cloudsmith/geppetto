@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.impl;
+package com.puppetlabs.geppetto.pp.pptp.impl;
 
 import java.io.File;
 
-import org.cloudsmith.geppetto.pp.pptp.*;
+import com.puppetlabs.geppetto.pp.pptp.*;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -52,7 +52,7 @@ public class PPTPFactoryImpl extends EFactoryImpl implements PPTPFactory {
 	 */
 	public static PPTPFactory init() {
 		try {
-			PPTPFactory thePPTPFactory = (PPTPFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.cloudsmith.org/geppetto/1.0.0/PPTP");
+			PPTPFactory thePPTPFactory = (PPTPFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.puppetlabs.com/geppetto/1.0.0/PPTP");
 			if(thePPTPFactory != null) {
 				return thePPTPFactory;
 			}

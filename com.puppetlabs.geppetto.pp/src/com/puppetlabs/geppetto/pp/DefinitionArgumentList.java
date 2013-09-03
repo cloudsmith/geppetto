@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -21,18 +21,18 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.DefinitionArgumentList#getArguments <em>Arguments</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.DefinitionArgumentList#getArguments <em>Arguments</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinitionArgumentList()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getDefinitionArgumentList()
  * @model
  * @generated
  */
 public interface DefinitionArgumentList extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Arguments</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.DefinitionArgument}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.DefinitionArgument}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Arguments</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -40,7 +40,7 @@ public interface DefinitionArgumentList extends EObject {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Arguments</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinitionArgumentList_Arguments()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getDefinitionArgumentList_Arguments()
 	 * @model containment="true"
 	 * @generated
 	 */

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.client;
+package com.puppetlabs.geppetto.forge.client;
 
 import java.io.BufferedReader;
 import java.io.IOException;

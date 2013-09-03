@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.container;
+package com.puppetlabs.geppetto.pp.dsl.ui.container;
 
 import org.eclipse.xtext.resource.containers.IAllContainersState;
 

@@ -8,17 +8,17 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.model;
+package com.puppetlabs.geppetto.forge.model;
 
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
-import org.cloudsmith.geppetto.forge.v2.model.Module;
-import org.cloudsmith.geppetto.forge.v2.model.Release;
-import org.cloudsmith.geppetto.forge.v2.model.Tag;
-import org.cloudsmith.geppetto.forge.v2.model.User;
+import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
+import com.puppetlabs.geppetto.forge.v2.model.Module;
+import com.puppetlabs.geppetto.forge.v2.model.Release;
+import com.puppetlabs.geppetto.forge.v2.model.Tag;
+import com.puppetlabs.geppetto.forge.v2.model.User;
 
 import com.google.gson.reflect.TypeToken;
 

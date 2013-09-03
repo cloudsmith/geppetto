@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,19 +20,19 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.ResourceExpression#getResourceExpr <em>Resource Expr</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.ResourceExpression#getResourceData <em>Resource Data</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.ResourceExpression#getResourceExpr <em>Resource Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.ResourceExpression#getResourceData <em>Resource Data</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getResourceExpression()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getResourceExpression()
  * @model
  * @generated
  */
 public interface ResourceExpression extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Resource Data</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.ResourceBody}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.ResourceBody}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Resource Data</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -40,7 +40,7 @@ public interface ResourceExpression extends Expression {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Resource Data</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getResourceExpression_ResourceData()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getResourceExpression_ResourceData()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -56,14 +56,14 @@ public interface ResourceExpression extends Expression {
 	 * 
 	 * @return the value of the '<em>Resource Expr</em>' containment reference.
 	 * @see #setResourceExpr(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getResourceExpression_ResourceExpr()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getResourceExpression_ResourceExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getResourceExpr();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.ResourceExpression#getResourceExpr <em>Resource Expr</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.ResourceExpression#getResourceExpr <em>Resource Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

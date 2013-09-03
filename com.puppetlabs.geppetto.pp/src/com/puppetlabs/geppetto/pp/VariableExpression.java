@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.VariableExpression#getVarName <em>Var Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.VariableExpression#getVarName <em>Var Name</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getVariableExpression()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getVariableExpression()
  * @model
  * @generated
  */
@@ -37,14 +37,14 @@ public interface VariableExpression extends Expression {
 	 * 
 	 * @return the value of the '<em>Var Name</em>' attribute.
 	 * @see #setVarName(String)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getVariableExpression_VarName()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getVariableExpression_VarName()
 	 * @model
 	 * @generated
 	 */
 	String getVarName();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.VariableExpression#getVarName <em>Var Name</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.VariableExpression#getVarName <em>Var Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

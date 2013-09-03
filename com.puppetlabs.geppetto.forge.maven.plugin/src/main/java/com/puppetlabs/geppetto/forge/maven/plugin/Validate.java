@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.maven.plugin;
+package com.puppetlabs.geppetto.forge.maven.plugin;
 
-import static org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference.IGNORE;
-import static org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference.WARNING;
+import static com.puppetlabs.geppetto.pp.dsl.validation.ValidationPreference.IGNORE;
+import static com.puppetlabs.geppetto.pp.dsl.validation.ValidationPreference.WARNING;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,24 +23,24 @@ import java.util.List;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
-import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
-import org.cloudsmith.geppetto.pp.dsl.validation.ValidationPreference;
-import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner;
-import org.cloudsmith.geppetto.puppetlint.PuppetLintRunner.Issue;
-import org.cloudsmith.geppetto.puppetlint.PuppetLintService;
-import org.cloudsmith.geppetto.ruby.RubyHelper;
-import org.cloudsmith.geppetto.ruby.jrubyparser.JRubyServices;
-import org.cloudsmith.geppetto.validation.FileType;
-import org.cloudsmith.geppetto.validation.ValidationOptions;
-import org.cloudsmith.geppetto.validation.ValidationService;
-import org.cloudsmith.geppetto.validation.runner.IEncodingProvider;
-import org.cloudsmith.geppetto.validation.runner.PPDiagnosticsSetup;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.pp.dsl.target.PuppetTarget;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
+import com.puppetlabs.geppetto.pp.dsl.validation.ValidationPreference;
+import com.puppetlabs.geppetto.puppetlint.PuppetLintRunner;
+import com.puppetlabs.geppetto.puppetlint.PuppetLintRunner.Issue;
+import com.puppetlabs.geppetto.puppetlint.PuppetLintService;
+import com.puppetlabs.geppetto.ruby.RubyHelper;
+import com.puppetlabs.geppetto.ruby.jrubyparser.JRubyServices;
+import com.puppetlabs.geppetto.validation.FileType;
+import com.puppetlabs.geppetto.validation.ValidationOptions;
+import com.puppetlabs.geppetto.validation.ValidationService;
+import com.puppetlabs.geppetto.validation.runner.IEncodingProvider;
+import com.puppetlabs.geppetto.validation.runner.PPDiagnosticsSetup;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 

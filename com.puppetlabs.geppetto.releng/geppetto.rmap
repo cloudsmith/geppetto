@@ -5,12 +5,12 @@
   <rm:property key="svn.connectors.repository.url" value="http://community.polarion.com/projects/subversive/download/eclipse/3.0/kepler-site/"/>
   <rm:property key="eclipse.download" value="http://download.eclipse.org"/>
   <rm:property key="geppetto.clone" value="geppetto"/>
-  <rm:locator pattern="^org\.cloudsmith\.geppetto\.parent$" searchPathRef="geppetto-parent"/>
-  <rm:locator pattern="^org\.cloudsmith\.geppetto(\..+)?$" searchPathRef="geppetto"/>
-  <rm:locator pattern="^org\.cloudsmith\.graph(\..+)?$" searchPathRef="graph"/>
+  <rm:locator pattern="^com\.puppetlabs\.geppetto\.parent$" searchPathRef="geppetto-parent"/>
+  <rm:locator pattern="^com\.puppetlabs\.geppetto(\..+)?$" searchPathRef="geppetto"/>
+  <rm:locator pattern="^com\.puppetlabs\.graph(\..+)?$" searchPathRef="graph"/>
+  <rm:locator pattern="^com\.puppetlabs\.jrubyparser(\..+)?$" searchPathRef="jrubyparser"/>
   <rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(\..+)?$" searchPathRef="svn.connectors"/>
   <rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="commons-compress"/>
-  <rm:locator pattern="^org\.cloudsmith\.jrubyparser(\..+)?$" searchPathRef="jrubyparser"/>
   <rm:locator pattern="^org\.jruby(\..+)?$" searchPathRef="maven.central"/>
   <rm:locator searchPathRef="orbit" failOnError="false"/>
   <rm:locator searchPathRef="platform" failOnError="false"/>

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.v2.model;
+package com.puppetlabs.geppetto.forge.v2.model;
 
 import com.google.gson.annotations.Expose;
 

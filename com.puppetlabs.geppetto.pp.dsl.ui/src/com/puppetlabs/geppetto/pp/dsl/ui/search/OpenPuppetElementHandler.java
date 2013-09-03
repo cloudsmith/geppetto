@@ -10,10 +10,10 @@
  *   Puppet Labs - specialization for Puppet
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.search;
+package com.puppetlabs.geppetto.pp.dsl.ui.search;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
+import com.puppetlabs.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;

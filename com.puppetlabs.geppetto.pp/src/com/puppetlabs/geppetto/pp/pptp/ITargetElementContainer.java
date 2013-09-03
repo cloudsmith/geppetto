@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp;
+package com.puppetlabs.geppetto.pp.pptp;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -22,18 +22,18 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer#getContents <em>Contents</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer#getContents <em>Contents</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getITargetElementContainer()
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getITargetElementContainer()
  * @model interface="true" abstract="true"
  * @generated
  */
 public interface ITargetElementContainer extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Contents</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.pptp.TargetElement}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.pptp.TargetElement}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Contents</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -41,7 +41,7 @@ public interface ITargetElementContainer extends EObject {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Contents</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getITargetElementContainer_Contents()
+	 * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getITargetElementContainer_Contents()
 	 * @model containment="true"
 	 * @generated
 	 */

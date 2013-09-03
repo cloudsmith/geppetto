@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.maven.plugin;
+package com.puppetlabs.geppetto.forge.maven.plugin;
 
 import java.io.File;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import org.slf4j.Logger;
 
 /**

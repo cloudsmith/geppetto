@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog.impl;
+package com.puppetlabs.geppetto.catalog.impl;
 
-import org.cloudsmith.geppetto.catalog.CatalogFactory;
-import org.cloudsmith.geppetto.catalog.CatalogMetadata;
-import org.cloudsmith.geppetto.catalog.CatalogPackage;
-import org.cloudsmith.geppetto.catalog.util.CatalogJsonSerializer;
+import com.puppetlabs.geppetto.catalog.CatalogFactory;
+import com.puppetlabs.geppetto.catalog.CatalogMetadata;
+import com.puppetlabs.geppetto.catalog.CatalogPackage;
+import com.puppetlabs.geppetto.catalog.util.CatalogJsonSerializer;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -33,7 +33,7 @@ import com.google.gson.JsonSerializer;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogMetadataImpl#getApi_version <em>Api version</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogMetadataImpl#getApi_version <em>Api version</em>}</li>
  * </ul>
  * </p>
  * 

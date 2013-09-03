@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -20,13 +20,13 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.AttributeOperation#getValue <em>Value</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.AttributeOperation#getKey <em>Key</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.AttributeOperation#getOp <em>Op</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.AttributeOperation#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.AttributeOperation#getKey <em>Key</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.AttributeOperation#getOp <em>Op</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getAttributeOperation()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getAttributeOperation()
  * @model
  * @generated
  */
@@ -41,7 +41,7 @@ public interface AttributeOperation extends EObject {
 	 * 
 	 * @return the value of the '<em>Key</em>' attribute.
 	 * @see #setKey(String)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getAttributeOperation_Key()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getAttributeOperation_Key()
 	 * @model
 	 * @generated
 	 */
@@ -57,7 +57,7 @@ public interface AttributeOperation extends EObject {
 	 * 
 	 * @return the value of the '<em>Op</em>' attribute.
 	 * @see #setOp(String)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getAttributeOperation_Op()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getAttributeOperation_Op()
 	 * @model
 	 * @generated
 	 */
@@ -73,14 +73,14 @@ public interface AttributeOperation extends EObject {
 	 * 
 	 * @return the value of the '<em>Value</em>' containment reference.
 	 * @see #setValue(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getAttributeOperation_Value()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getAttributeOperation_Value()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getValue();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.AttributeOperation#getKey <em>Key</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.AttributeOperation#getKey <em>Key</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -92,7 +92,7 @@ public interface AttributeOperation extends EObject {
 	void setKey(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.AttributeOperation#getOp <em>Op</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.AttributeOperation#getOp <em>Op</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -104,7 +104,7 @@ public interface AttributeOperation extends EObject {
 	void setOp(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.AttributeOperation#getValue <em>Value</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.AttributeOperation#getValue <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

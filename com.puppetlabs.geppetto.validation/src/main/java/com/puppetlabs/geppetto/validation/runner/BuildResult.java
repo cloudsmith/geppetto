@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation.runner;
+package com.puppetlabs.geppetto.validation.runner;
 
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
 
 import com.google.common.collect.Multimap;
 

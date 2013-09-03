@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult;
+package com.puppetlabs.geppetto.junitresult;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <!-- end-user-doc -->
  * 
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getJunitResult()
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getJunitResult()
  * @model interface="true" abstract="true"
  * @generated
  */

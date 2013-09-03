@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.internal;
+package com.puppetlabs.geppetto.pp.dsl.ui.internal;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
+import com.puppetlabs.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
 import org.eclipse.ui.IStartup;
 
 import com.google.inject.Inject;

@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     Puppet Labs Inc - adapted to Geppetto (no JDT)
  *******************************************************************************/
-package org.cloudsmith.geppetto.pp.dsl.ui.jdt_ersatz;
+package com.puppetlabs.geppetto.pp.dsl.ui.jdt_ersatz;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
+import com.puppetlabs.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.ImageData;

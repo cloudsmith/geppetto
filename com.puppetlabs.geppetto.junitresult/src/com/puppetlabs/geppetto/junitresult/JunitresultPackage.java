@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult;
+package com.puppetlabs.geppetto.junitresult;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultFactory
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultFactory
  * @model kind="package"
  * @generated
  */
@@ -47,12 +47,12 @@ public interface JunitresultPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl <em>Testsuite</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl <em>Testsuite</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl
-		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getTestsuite()
+		 * @see com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl
+		 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getTestsuite()
 		 * @generated
 		 */
 		EClass TESTSUITE = eINSTANCE.getTestsuite();
@@ -157,12 +157,12 @@ public interface JunitresultPackage extends EPackage {
 		EAttribute TESTSUITE__SKIPPED = eINSTANCE.getTestsuite_Skipped();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.PropertyImpl <em>Property</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.junitresult.impl.PropertyImpl <em>Property</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.junitresult.impl.PropertyImpl
-		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getProperty()
+		 * @see com.puppetlabs.geppetto.junitresult.impl.PropertyImpl
+		 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getProperty()
 		 * @generated
 		 */
 		EClass PROPERTY = eINSTANCE.getProperty();
@@ -186,12 +186,12 @@ public interface JunitresultPackage extends EPackage {
 		EAttribute PROPERTY__VALUE = eINSTANCE.getProperty_Value();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl <em>Testcase</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl <em>Testcase</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl
-		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getTestcase()
+		 * @see com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl
+		 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getTestcase()
 		 * @generated
 		 */
 		EClass TESTCASE = eINSTANCE.getTestcase();
@@ -287,34 +287,34 @@ public interface JunitresultPackage extends EPackage {
 		EReference TESTCASE__ERRORS = eINSTANCE.getTestcase_Errors();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.ErrorImpl <em>Error</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.junitresult.impl.ErrorImpl <em>Error</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.junitresult.impl.ErrorImpl
-		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getError()
+		 * @see com.puppetlabs.geppetto.junitresult.impl.ErrorImpl
+		 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getError()
 		 * @generated
 		 */
 		EClass ERROR = eINSTANCE.getError();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.FailureImpl <em>Failure</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.junitresult.impl.FailureImpl <em>Failure</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.junitresult.impl.FailureImpl
-		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getFailure()
+		 * @see com.puppetlabs.geppetto.junitresult.impl.FailureImpl
+		 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getFailure()
 		 * @generated
 		 */
 		EClass FAILURE = eINSTANCE.getFailure();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl <em>Negative Result</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.junitresult.impl.NegativeResultImpl <em>Negative Result</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl
-		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getNegativeResult()
+		 * @see com.puppetlabs.geppetto.junitresult.impl.NegativeResultImpl
+		 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getNegativeResult()
 		 * @generated
 		 */
 		EClass NEGATIVE_RESULT = eINSTANCE.getNegativeResult();
@@ -347,12 +347,12 @@ public interface JunitresultPackage extends EPackage {
 		EAttribute NEGATIVE_RESULT__VALUE = eINSTANCE.getNegativeResult_Value();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl <em>Testrun</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.junitresult.impl.TestrunImpl <em>Testrun</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.junitresult.impl.TestrunImpl
-		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getTestrun()
+		 * @see com.puppetlabs.geppetto.junitresult.impl.TestrunImpl
+		 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getTestrun()
 		 * @generated
 		 */
 		EClass TESTRUN = eINSTANCE.getTestrun();
@@ -385,13 +385,13 @@ public interface JunitresultPackage extends EPackage {
 		EAttribute TESTRUN__IGNORED = eINSTANCE.getTestrun_Ignored();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.junitresult.impl.AbstractAggregatedTestImpl
 		 * <em>Abstract Aggregated Test</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl
-		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getAbstractAggregatedTest()
+		 * @see com.puppetlabs.geppetto.junitresult.impl.AbstractAggregatedTestImpl
+		 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getAbstractAggregatedTest()
 		 * @generated
 		 */
 		EClass ABSTRACT_AGGREGATED_TEST = eINSTANCE.getAbstractAggregatedTest();
@@ -442,12 +442,12 @@ public interface JunitresultPackage extends EPackage {
 		EReference ABSTRACT_AGGREGATED_TEST__TESTSUITES = eINSTANCE.getAbstractAggregatedTest_Testsuites();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.TestsuitesImpl <em>Testsuites</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.junitresult.impl.TestsuitesImpl <em>Testsuites</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.junitresult.impl.TestsuitesImpl
-		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getTestsuites()
+		 * @see com.puppetlabs.geppetto.junitresult.impl.TestsuitesImpl
+		 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getTestsuites()
 		 * @generated
 		 */
 		EClass TESTSUITES = eINSTANCE.getTestsuites();
@@ -471,23 +471,23 @@ public interface JunitresultPackage extends EPackage {
 		EAttribute TESTSUITES__DISABLED = eINSTANCE.getTestsuites_Disabled();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.JunitResult <em>Junit Result</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.junitresult.JunitResult <em>Junit Result</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.junitresult.JunitResult
-		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getJunitResult()
+		 * @see com.puppetlabs.geppetto.junitresult.JunitResult
+		 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getJunitResult()
 		 * @generated
 		 */
 		EClass JUNIT_RESULT = eINSTANCE.getJunitResult();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.junitresult.impl.SkippedImpl <em>Skipped</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.junitresult.impl.SkippedImpl <em>Skipped</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.junitresult.impl.SkippedImpl
-		 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getSkipped()
+		 * @see com.puppetlabs.geppetto.junitresult.impl.SkippedImpl
+		 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getSkipped()
 		 * @generated
 		 */
 		EClass SKIPPED = eINSTANCE.getSkipped();
@@ -510,7 +510,7 @@ public interface JunitresultPackage extends EPackage {
 	 * 
 	 * @generated
 	 */
-	String eNS_URI = "http://www.cloudsmith.org/geppetto/1.0.0/Junitresult";
+	String eNS_URI = "http://www.puppetlabs.com/geppetto/1.0.0/Junitresult";
 
 	/**
 	 * The package namespace name.
@@ -528,15 +528,15 @@ public interface JunitresultPackage extends EPackage {
 	 * 
 	 * @generated
 	 */
-	JunitresultPackage eINSTANCE = org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl.init();
+	JunitresultPackage eINSTANCE = com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.JunitResult <em>Junit Result</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.junitresult.JunitResult <em>Junit Result</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.junitresult.JunitResult
-	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getJunitResult()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitResult
+	 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getJunitResult()
 	 * @generated
 	 */
 	int JUNIT_RESULT = 9;
@@ -552,13 +552,13 @@ public interface JunitresultPackage extends EPackage {
 	int JUNIT_RESULT_FEATURE_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl <em>Abstract Aggregated Test</em>}'
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.junitresult.impl.AbstractAggregatedTestImpl <em>Abstract Aggregated Test</em>}'
 	 * class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl
-	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getAbstractAggregatedTest()
+	 * @see com.puppetlabs.geppetto.junitresult.impl.AbstractAggregatedTestImpl
+	 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getAbstractAggregatedTest()
 	 * @generated
 	 */
 	int ABSTRACT_AGGREGATED_TEST = 7;
@@ -624,12 +624,12 @@ public interface JunitresultPackage extends EPackage {
 	int ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT = JUNIT_RESULT_FEATURE_COUNT + 5;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl <em>Testsuite</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl <em>Testsuite</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.junitresult.impl.TestsuiteImpl
-	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getTestsuite()
+	 * @see com.puppetlabs.geppetto.junitresult.impl.TestsuiteImpl
+	 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getTestsuite()
 	 * @generated
 	 */
 	int TESTSUITE = 0;
@@ -805,12 +805,12 @@ public interface JunitresultPackage extends EPackage {
 	int TESTSUITE_FEATURE_COUNT = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 11;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.PropertyImpl <em>Property</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.junitresult.impl.PropertyImpl <em>Property</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.junitresult.impl.PropertyImpl
-	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getProperty()
+	 * @see com.puppetlabs.geppetto.junitresult.impl.PropertyImpl
+	 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getProperty()
 	 * @generated
 	 */
 	int PROPERTY = 1;
@@ -846,12 +846,12 @@ public interface JunitresultPackage extends EPackage {
 	int PROPERTY_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl <em>Testcase</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl <em>Testcase</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl
-	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getTestcase()
+	 * @see com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl
+	 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getTestcase()
 	 * @generated
 	 */
 	int TESTCASE = 2;
@@ -967,12 +967,12 @@ public interface JunitresultPackage extends EPackage {
 	int TESTCASE_FEATURE_COUNT = 10;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl <em>Negative Result</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.junitresult.impl.NegativeResultImpl <em>Negative Result</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl
-	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getNegativeResult()
+	 * @see com.puppetlabs.geppetto.junitresult.impl.NegativeResultImpl
+	 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getNegativeResult()
 	 * @generated
 	 */
 	int NEGATIVE_RESULT = 5;
@@ -1018,12 +1018,12 @@ public interface JunitresultPackage extends EPackage {
 	int NEGATIVE_RESULT_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.ErrorImpl <em>Error</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.junitresult.impl.ErrorImpl <em>Error</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.junitresult.impl.ErrorImpl
-	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getError()
+	 * @see com.puppetlabs.geppetto.junitresult.impl.ErrorImpl
+	 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getError()
 	 * @generated
 	 */
 	int ERROR = 3;
@@ -1069,12 +1069,12 @@ public interface JunitresultPackage extends EPackage {
 	int ERROR_FEATURE_COUNT = NEGATIVE_RESULT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.FailureImpl <em>Failure</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.junitresult.impl.FailureImpl <em>Failure</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.junitresult.impl.FailureImpl
-	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getFailure()
+	 * @see com.puppetlabs.geppetto.junitresult.impl.FailureImpl
+	 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getFailure()
 	 * @generated
 	 */
 	int FAILURE = 4;
@@ -1120,12 +1120,12 @@ public interface JunitresultPackage extends EPackage {
 	int FAILURE_FEATURE_COUNT = NEGATIVE_RESULT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl <em>Testrun</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.junitresult.impl.TestrunImpl <em>Testrun</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.junitresult.impl.TestrunImpl
-	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getTestrun()
+	 * @see com.puppetlabs.geppetto.junitresult.impl.TestrunImpl
+	 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getTestrun()
 	 * @generated
 	 */
 	int TESTRUN = 6;
@@ -1221,12 +1221,12 @@ public interface JunitresultPackage extends EPackage {
 	int TESTRUN_FEATURE_COUNT = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.TestsuitesImpl <em>Testsuites</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.junitresult.impl.TestsuitesImpl <em>Testsuites</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.junitresult.impl.TestsuitesImpl
-	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getTestsuites()
+	 * @see com.puppetlabs.geppetto.junitresult.impl.TestsuitesImpl
+	 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getTestsuites()
 	 * @generated
 	 */
 	int TESTSUITES = 8;
@@ -1312,12 +1312,12 @@ public interface JunitresultPackage extends EPackage {
 	int TESTSUITES_FEATURE_COUNT = ABSTRACT_AGGREGATED_TEST_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.junitresult.impl.SkippedImpl <em>Skipped</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.junitresult.impl.SkippedImpl <em>Skipped</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.junitresult.impl.SkippedImpl
-	 * @see org.cloudsmith.geppetto.junitresult.impl.JunitresultPackageImpl#getSkipped()
+	 * @see com.puppetlabs.geppetto.junitresult.impl.SkippedImpl
+	 * @see com.puppetlabs.geppetto.junitresult.impl.JunitresultPackageImpl#getSkipped()
 	 * @generated
 	 */
 	int SKIPPED = 10;
@@ -1363,106 +1363,106 @@ public interface JunitresultPackage extends EPackage {
 	int SKIPPED_FEATURE_COUNT = NEGATIVE_RESULT_FEATURE_COUNT + 0;
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest <em>Abstract Aggregated Test</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest <em>Abstract Aggregated Test</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Abstract Aggregated Test</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest
+	 * @see com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest
 	 * @generated
 	 */
 	EClass getAbstractAggregatedTest();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getErrors <em>Errors</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getErrors <em>Errors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Errors</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getErrors()
+	 * @see com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getErrors()
 	 * @see #getAbstractAggregatedTest()
 	 * @generated
 	 */
 	EAttribute getAbstractAggregatedTest_Errors();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getFailures <em>Failures</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getFailures <em>Failures</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Failures</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getFailures()
+	 * @see com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getFailures()
 	 * @see #getAbstractAggregatedTest()
 	 * @generated
 	 */
 	EAttribute getAbstractAggregatedTest_Failures();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getName()
+	 * @see com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getName()
 	 * @see #getAbstractAggregatedTest()
 	 * @generated
 	 */
 	EAttribute getAbstractAggregatedTest_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getTests <em>Tests</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getTests <em>Tests</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Tests</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getTests()
+	 * @see com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getTests()
 	 * @see #getAbstractAggregatedTest()
 	 * @generated
 	 */
 	EAttribute getAbstractAggregatedTest_Tests();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getTestsuites
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getTestsuites
 	 * <em>Testsuites</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Testsuites</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest#getTestsuites()
+	 * @see com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest#getTestsuites()
 	 * @see #getAbstractAggregatedTest()
 	 * @generated
 	 */
 	EReference getAbstractAggregatedTest_Testsuites();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Error <em>Error</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.junitresult.Error <em>Error</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Error</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Error
+	 * @see com.puppetlabs.geppetto.junitresult.Error
 	 * @generated
 	 */
 	EClass getError();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Failure <em>Failure</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.junitresult.Failure <em>Failure</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Failure</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Failure
+	 * @see com.puppetlabs.geppetto.junitresult.Failure
 	 * @generated
 	 */
 	EClass getFailure();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.JunitResult <em>Junit Result</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.junitresult.JunitResult <em>Junit Result</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Junit Result</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.JunitResult
+	 * @see com.puppetlabs.geppetto.junitresult.JunitResult
 	 * @generated
 	 */
 	EClass getJunitResult();
@@ -1478,452 +1478,452 @@ public interface JunitresultPackage extends EPackage {
 	JunitresultFactory getJunitresultFactory();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.NegativeResult <em>Negative Result</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.junitresult.NegativeResult <em>Negative Result</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Negative Result</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.NegativeResult
+	 * @see com.puppetlabs.geppetto.junitresult.NegativeResult
 	 * @generated
 	 */
 	EClass getNegativeResult();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.NegativeResult#getMessage <em>Message</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.NegativeResult#getMessage <em>Message</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Message</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.NegativeResult#getMessage()
+	 * @see com.puppetlabs.geppetto.junitresult.NegativeResult#getMessage()
 	 * @see #getNegativeResult()
 	 * @generated
 	 */
 	EAttribute getNegativeResult_Message();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.NegativeResult#getType <em>Type</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.NegativeResult#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.NegativeResult#getType()
+	 * @see com.puppetlabs.geppetto.junitresult.NegativeResult#getType()
 	 * @see #getNegativeResult()
 	 * @generated
 	 */
 	EAttribute getNegativeResult_Type();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.NegativeResult#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.NegativeResult#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.NegativeResult#getValue()
+	 * @see com.puppetlabs.geppetto.junitresult.NegativeResult#getValue()
 	 * @see #getNegativeResult()
 	 * @generated
 	 */
 	EAttribute getNegativeResult_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Property <em>Property</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.junitresult.Property <em>Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Property</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Property
+	 * @see com.puppetlabs.geppetto.junitresult.Property
 	 * @generated
 	 */
 	EClass getProperty();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Property#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Property#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Property#getName()
+	 * @see com.puppetlabs.geppetto.junitresult.Property#getName()
 	 * @see #getProperty()
 	 * @generated
 	 */
 	EAttribute getProperty_Name();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Property#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Property#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Property#getValue()
+	 * @see com.puppetlabs.geppetto.junitresult.Property#getValue()
 	 * @see #getProperty()
 	 * @generated
 	 */
 	EAttribute getProperty_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Skipped <em>Skipped</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.junitresult.Skipped <em>Skipped</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Skipped</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Skipped
+	 * @see com.puppetlabs.geppetto.junitresult.Skipped
 	 * @generated
 	 */
 	EClass getSkipped();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Testcase <em>Testcase</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.junitresult.Testcase <em>Testcase</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Testcase</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase
 	 * @generated
 	 */
 	EClass getTestcase();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testcase#getAssertions <em>Assertions</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testcase#getAssertions <em>Assertions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Assertions</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getAssertions()
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase#getAssertions()
 	 * @see #getTestcase()
 	 * @generated
 	 */
 	EAttribute getTestcase_Assertions();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testcase#getClassname <em>Classname</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testcase#getClassname <em>Classname</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Classname</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getClassname()
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase#getClassname()
 	 * @see #getTestcase()
 	 * @generated
 	 */
 	EAttribute getTestcase_Classname();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.junitresult.Testcase#getErrors <em>Errors</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.junitresult.Testcase#getErrors <em>Errors</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Errors</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getErrors()
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase#getErrors()
 	 * @see #getTestcase()
 	 * @generated
 	 */
 	EReference getTestcase_Errors();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.junitresult.Testcase#getFailures <em>Failures</em>}
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.junitresult.Testcase#getFailures <em>Failures</em>}
 	 * '.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Failures</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getFailures()
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase#getFailures()
 	 * @see #getTestcase()
 	 * @generated
 	 */
 	EReference getTestcase_Failures();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testcase#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testcase#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getName()
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase#getName()
 	 * @see #getTestcase()
 	 * @generated
 	 */
 	EAttribute getTestcase_Name();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.junitresult.Testcase#getSkipped <em>Skipped</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.junitresult.Testcase#getSkipped <em>Skipped</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Skipped</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getSkipped()
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase#getSkipped()
 	 * @see #getTestcase()
 	 * @generated
 	 */
 	EReference getTestcase_Skipped();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testcase#getStatus <em>Status</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testcase#getStatus <em>Status</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Status</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getStatus()
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase#getStatus()
 	 * @see #getTestcase()
 	 * @generated
 	 */
 	EAttribute getTestcase_Status();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.cloudsmith.geppetto.junitresult.Testcase#getSystem_err <em>System err</em>}'.
+	 * Returns the meta object for the attribute list '{@link com.puppetlabs.geppetto.junitresult.Testcase#getSystem_err <em>System err</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute list '<em>System err</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getSystem_err()
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase#getSystem_err()
 	 * @see #getTestcase()
 	 * @generated
 	 */
 	EAttribute getTestcase_System_err();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.cloudsmith.geppetto.junitresult.Testcase#getSystem_out <em>System out</em>}'.
+	 * Returns the meta object for the attribute list '{@link com.puppetlabs.geppetto.junitresult.Testcase#getSystem_out <em>System out</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute list '<em>System out</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getSystem_out()
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase#getSystem_out()
 	 * @see #getTestcase()
 	 * @generated
 	 */
 	EAttribute getTestcase_System_out();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testcase#getTime <em>Time</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testcase#getTime <em>Time</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Time</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testcase#getTime()
+	 * @see com.puppetlabs.geppetto.junitresult.Testcase#getTime()
 	 * @see #getTestcase()
 	 * @generated
 	 */
 	EAttribute getTestcase_Time();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Testrun <em>Testrun</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.junitresult.Testrun <em>Testrun</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Testrun</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testrun
+	 * @see com.puppetlabs.geppetto.junitresult.Testrun
 	 * @generated
 	 */
 	EClass getTestrun();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testrun#getIgnored <em>Ignored</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testrun#getIgnored <em>Ignored</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Ignored</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testrun#getIgnored()
+	 * @see com.puppetlabs.geppetto.junitresult.Testrun#getIgnored()
 	 * @see #getTestrun()
 	 * @generated
 	 */
 	EAttribute getTestrun_Ignored();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testrun#getProject <em>Project</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testrun#getProject <em>Project</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Project</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testrun#getProject()
+	 * @see com.puppetlabs.geppetto.junitresult.Testrun#getProject()
 	 * @see #getTestrun()
 	 * @generated
 	 */
 	EAttribute getTestrun_Project();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testrun#getStarted <em>Started</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testrun#getStarted <em>Started</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Started</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testrun#getStarted()
+	 * @see com.puppetlabs.geppetto.junitresult.Testrun#getStarted()
 	 * @see #getTestrun()
 	 * @generated
 	 */
 	EAttribute getTestrun_Started();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Testsuite <em>Testsuite</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.junitresult.Testsuite <em>Testsuite</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Testsuite</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite
 	 * @generated
 	 */
 	EClass getTestsuite();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getDisabled <em>Disabled</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getDisabled <em>Disabled</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Disabled</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getDisabled()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite#getDisabled()
 	 * @see #getTestsuite()
 	 * @generated
 	 */
 	EAttribute getTestsuite_Disabled();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getHostname <em>Hostname</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getHostname <em>Hostname</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Hostname</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getHostname()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite#getHostname()
 	 * @see #getTestsuite()
 	 * @generated
 	 */
 	EAttribute getTestsuite_Hostname();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getId <em>Id</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getId <em>Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Id</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getId()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite#getId()
 	 * @see #getTestsuite()
 	 * @generated
 	 */
 	EAttribute getTestsuite_Id();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getPackage <em>Package</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getPackage <em>Package</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Package</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getPackage()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite#getPackage()
 	 * @see #getTestsuite()
 	 * @generated
 	 */
 	EAttribute getTestsuite_Package();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getProperties
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getProperties
 	 * <em>Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Properties</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getProperties()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite#getProperties()
 	 * @see #getTestsuite()
 	 * @generated
 	 */
 	EReference getTestsuite_Properties();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSkipped <em>Skipped</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getSkipped <em>Skipped</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Skipped</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getSkipped()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite#getSkipped()
 	 * @see #getTestsuite()
 	 * @generated
 	 */
 	EAttribute getTestsuite_Skipped();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSystem_err <em>System err</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getSystem_err <em>System err</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>System err</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getSystem_err()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite#getSystem_err()
 	 * @see #getTestsuite()
 	 * @generated
 	 */
 	EAttribute getTestsuite_System_err();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getSystem_out <em>System out</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getSystem_out <em>System out</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>System out</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getSystem_out()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite#getSystem_out()
 	 * @see #getTestsuite()
 	 * @generated
 	 */
 	EAttribute getTestsuite_System_out();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTestcases
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getTestcases
 	 * <em>Testcases</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Testcases</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getTestcases()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite#getTestcases()
 	 * @see #getTestsuite()
 	 * @generated
 	 */
 	EReference getTestsuite_Testcases();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTime <em>Time</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getTime <em>Time</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Time</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getTime()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite#getTime()
 	 * @see #getTestsuite()
 	 * @generated
 	 */
 	EAttribute getTestsuite_Time();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuite#getTimestamp <em>Timestamp</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testsuite#getTimestamp <em>Timestamp</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Timestamp</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuite#getTimestamp()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuite#getTimestamp()
 	 * @see #getTestsuite()
 	 * @generated
 	 */
 	EAttribute getTestsuite_Timestamp();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.junitresult.Testsuites <em>Testsuites</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.junitresult.Testsuites <em>Testsuites</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Testsuites</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuites
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuites
 	 * @generated
 	 */
 	EClass getTestsuites();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuites#getDisabled <em>Disabled</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testsuites#getDisabled <em>Disabled</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Disabled</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuites#getDisabled()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuites#getDisabled()
 	 * @see #getTestsuites()
 	 * @generated
 	 */
 	EAttribute getTestsuites_Disabled();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.junitresult.Testsuites#getTime <em>Time</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.junitresult.Testsuites#getTime <em>Time</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Time</em>'.
-	 * @see org.cloudsmith.geppetto.junitresult.Testsuites#getTime()
+	 * @see com.puppetlabs.geppetto.junitresult.Testsuites#getTime()
 	 * @see #getTestsuites()
 	 * @generated
 	 */

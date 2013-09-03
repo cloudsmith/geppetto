@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.comments;
+package com.puppetlabs.xtext.dommodel.formatter.comments;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.nodemodel.ILeafNode;

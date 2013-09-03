@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.ruby.jrubyparser;
+package com.puppetlabs.geppetto.ruby.jrubyparser;
 
 import java.util.List;
 import java.util.Map;

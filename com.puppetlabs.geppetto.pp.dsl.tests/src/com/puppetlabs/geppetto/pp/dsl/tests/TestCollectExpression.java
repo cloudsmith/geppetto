@@ -8,17 +8,17 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
-import org.cloudsmith.geppetto.pp.AndExpression;
-import org.cloudsmith.geppetto.pp.AttributeOperations;
-import org.cloudsmith.geppetto.pp.CollectExpression;
-import org.cloudsmith.geppetto.pp.EqualityExpression;
-import org.cloudsmith.geppetto.pp.ExportedCollectQuery;
-import org.cloudsmith.geppetto.pp.OrExpression;
-import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.VirtualCollectQuery;
+import com.puppetlabs.geppetto.pp.AndExpression;
+import com.puppetlabs.geppetto.pp.AttributeOperations;
+import com.puppetlabs.geppetto.pp.CollectExpression;
+import com.puppetlabs.geppetto.pp.EqualityExpression;
+import com.puppetlabs.geppetto.pp.ExportedCollectQuery;
+import com.puppetlabs.geppetto.pp.OrExpression;
+import com.puppetlabs.geppetto.pp.ParenthesisedExpression;
+import com.puppetlabs.geppetto.pp.PuppetManifest;
+import com.puppetlabs.geppetto.pp.VirtualCollectQuery;
 import org.junit.Test;
 
 /**

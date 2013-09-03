@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.m2e;
+package com.puppetlabs.geppetto.m2e;
 
 import org.apache.maven.plugin.MojoExecution;
 import org.eclipse.core.runtime.CoreException;

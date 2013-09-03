@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,18 +20,18 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.ExprList#getExpressions <em>Expressions</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.ExprList#getExpressions <em>Expressions</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getExprList()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getExprList()
  * @model
  * @generated
  */
 public interface ExprList extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Expressions</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.Expression}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.Expression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Expressions</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -39,7 +39,7 @@ public interface ExprList extends Expression {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Expressions</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getExprList_Expressions()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getExprList_Expressions()
 	 * @model containment="true"
 	 * @generated
 	 */

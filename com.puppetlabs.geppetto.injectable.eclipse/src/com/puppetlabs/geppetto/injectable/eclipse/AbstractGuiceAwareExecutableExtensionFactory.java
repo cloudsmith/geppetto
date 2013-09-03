@@ -10,7 +10,7 @@
  *   Puppet Labs - moved to non ui package
  * 
  */
-package org.cloudsmith.geppetto.injectable.eclipse;
+package com.puppetlabs.geppetto.injectable.eclipse;
 
 import java.util.Map;
 

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -20,12 +20,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.HashEntry#getKey <em>Key</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.HashEntry#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.HashEntry#getKey <em>Key</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.HashEntry#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getHashEntry()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getHashEntry()
  * @model
  * @generated
  */
@@ -40,7 +40,7 @@ public interface HashEntry extends EObject {
 	 * 
 	 * @return the value of the '<em>Key</em>' containment reference.
 	 * @see #setKey(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getHashEntry_Key()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getHashEntry_Key()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -56,14 +56,14 @@ public interface HashEntry extends EObject {
 	 * 
 	 * @return the value of the '<em>Value</em>' containment reference.
 	 * @see #setValue(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getHashEntry_Value()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getHashEntry_Value()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getValue();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.HashEntry#getKey <em>Key</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.HashEntry#getKey <em>Key</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -75,7 +75,7 @@ public interface HashEntry extends EObject {
 	void setKey(Expression value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.HashEntry#getValue <em>Value</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.HashEntry#getValue <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

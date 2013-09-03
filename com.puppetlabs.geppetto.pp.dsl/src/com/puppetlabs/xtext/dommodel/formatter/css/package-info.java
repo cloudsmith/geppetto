@@ -9,8 +9,8 @@
  *   Puppet Labs
  */
 /**
- * This package contains a DOM CSS processor that is used when rendering {@link org.cloudsmith.xtext.dommodel.IDomNode} models.
+ * This package contains a DOM CSS processor that is used when rendering {@link com.puppetlabs.xtext.dommodel.IDomNode} models.
  * 
  * The classes in the package may be injected with Google Guice, but may also be instantiated manually.
  */
-package org.cloudsmith.xtext.dommodel.formatter.css;
+package com.puppetlabs.xtext.dommodel.formatter.css;

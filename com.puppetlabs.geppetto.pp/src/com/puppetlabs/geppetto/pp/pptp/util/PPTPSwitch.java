@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.util;
+package com.puppetlabs.geppetto.pp.pptp.util;
 
-import org.cloudsmith.geppetto.pp.pptp.*;
+import com.puppetlabs.geppetto.pp.pptp.*;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.util.Switch;
  * which is the result of the switch.
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage
  * @generated
  */
 public class PPTPSwitch<T> extends Switch<T> {

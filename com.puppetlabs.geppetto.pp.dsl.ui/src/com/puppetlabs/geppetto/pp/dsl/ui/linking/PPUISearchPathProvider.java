@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.linking;
+package com.puppetlabs.geppetto.pp.dsl.ui.linking;
 
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPathProvider;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPathProvider;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -40,7 +40,7 @@ public class PPUISearchPathProvider extends PPSearchPathProvider {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPathProvider#get(org.eclipse.emf.ecore.resource.Resource)
+	 * @see com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPathProvider#get(org.eclipse.emf.ecore.resource.Resource)
 	 */
 	@Override
 	public PPSearchPath get(Resource r) {

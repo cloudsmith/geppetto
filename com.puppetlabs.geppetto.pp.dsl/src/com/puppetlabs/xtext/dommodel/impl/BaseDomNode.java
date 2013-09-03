@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.impl;
+package com.puppetlabs.xtext.dommodel.impl;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 
@@ -44,7 +44,7 @@ public abstract class BaseDomNode extends AbstractDomNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#getGrammarElement()
+	 * @see com.puppetlabs.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#getGrammarElement()
 	 */
 	@Override
 	public EObject getGrammarElement() {
@@ -77,7 +77,7 @@ public abstract class BaseDomNode extends AbstractDomNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#getNode()
+	 * @see com.puppetlabs.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#getNode()
 	 */
 	@Override
 	public INode getNode() {
@@ -130,7 +130,7 @@ public abstract class BaseDomNode extends AbstractDomNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#getText()
+	 * @see com.puppetlabs.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#getText()
 	 */
 	@Override
 	public String getText() {

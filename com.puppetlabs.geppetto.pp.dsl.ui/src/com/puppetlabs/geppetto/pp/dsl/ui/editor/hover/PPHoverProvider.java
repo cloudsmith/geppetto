@@ -8,25 +8,25 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.hover;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.hover;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.AttributeOperation;
-import org.cloudsmith.geppetto.pp.Definition;
-import org.cloudsmith.geppetto.pp.ExpressionTE;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.NodeDefinition;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.VariableExpression;
-import org.cloudsmith.geppetto.pp.VariableTE;
-import org.cloudsmith.geppetto.pp.VerbatimTE;
-import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapter;
-import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
+import com.puppetlabs.geppetto.pp.AssignmentExpression;
+import com.puppetlabs.geppetto.pp.AttributeOperation;
+import com.puppetlabs.geppetto.pp.Definition;
+import com.puppetlabs.geppetto.pp.ExpressionTE;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.NodeDefinition;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.VariableExpression;
+import com.puppetlabs.geppetto.pp.VariableTE;
+import com.puppetlabs.geppetto.pp.VerbatimTE;
+import com.puppetlabs.geppetto.pp.dsl.adapters.CrossReferenceAdapter;
+import com.puppetlabs.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;

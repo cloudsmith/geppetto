@@ -1,12 +1,12 @@
-package org.cloudsmith.geppetto.forge.api.it;
+package com.puppetlabs.geppetto.forge.api.it;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
-import org.cloudsmith.geppetto.forge.client.GsonModule;
-import org.cloudsmith.geppetto.forge.client.OAuthModule;
-import org.cloudsmith.geppetto.forge.v2.ForgeAPI;
-import org.cloudsmith.geppetto.semver.Version;
+import com.puppetlabs.geppetto.forge.client.ForgeHttpModule;
+import com.puppetlabs.geppetto.forge.client.GsonModule;
+import com.puppetlabs.geppetto.forge.client.OAuthModule;
+import com.puppetlabs.geppetto.forge.v2.ForgeAPI;
+import com.puppetlabs.geppetto.semver.Version;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 

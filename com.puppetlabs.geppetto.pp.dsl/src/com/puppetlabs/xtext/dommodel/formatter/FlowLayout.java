@@ -8,24 +8,24 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter;
+package com.puppetlabs.xtext.dommodel.formatter;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.IDomNode.NodeClassifier;
-import org.cloudsmith.xtext.dommodel.RegionMatch;
-import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
-import org.cloudsmith.xtext.dommodel.formatter.css.IFunctionFactory;
-import org.cloudsmith.xtext.dommodel.formatter.css.LineBreaks;
-import org.cloudsmith.xtext.dommodel.formatter.css.Spacing;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.AlignedSeparatorIndex;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.AlignmentStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.LineBreakStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.SpacingStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.TokenTextStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.VerbatimStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.WidthStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.textflow.ITextFlow;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode.NodeClassifier;
+import com.puppetlabs.xtext.dommodel.RegionMatch;
+import com.puppetlabs.xtext.dommodel.formatter.css.Alignment;
+import com.puppetlabs.xtext.dommodel.formatter.css.IFunctionFactory;
+import com.puppetlabs.xtext.dommodel.formatter.css.LineBreaks;
+import com.puppetlabs.xtext.dommodel.formatter.css.Spacing;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.AlignedSeparatorIndex;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.AlignmentStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.LineBreakStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.SpacingStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.TokenTextStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.VerbatimStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.WidthStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.xtext.textflow.ITextFlow;
 
 import com.google.common.base.Preconditions;
 import com.google.inject.Inject;

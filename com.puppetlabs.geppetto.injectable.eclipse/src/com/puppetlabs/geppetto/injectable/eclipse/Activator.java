@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.cloudsmith.geppetto.injectable.eclipse;
+package com.puppetlabs.geppetto.injectable.eclipse;
 
 import org.eclipse.core.net.proxy.IProxyService;
 import org.osgi.framework.BundleActivator;

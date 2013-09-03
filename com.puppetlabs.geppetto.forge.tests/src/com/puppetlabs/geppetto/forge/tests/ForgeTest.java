@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.tests;
+package com.puppetlabs.geppetto.forge.tests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -18,10 +18,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
-import org.cloudsmith.geppetto.forge.v2.model.Module;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.ForgeService;
+import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
+import com.puppetlabs.geppetto.forge.v2.model.Module;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
 import org.junit.Before;
 import org.junit.Test;
 

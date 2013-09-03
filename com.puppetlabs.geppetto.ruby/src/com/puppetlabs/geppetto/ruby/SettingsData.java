@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby;
+package com.puppetlabs.geppetto.ruby;
 
 /**
  * Generates settings. TODO: Should not be part of the runtime PPTP package.

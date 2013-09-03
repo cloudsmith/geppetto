@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.impl;
+package com.puppetlabs.geppetto.forge.impl;
 
-import static org.cloudsmith.geppetto.diagnostic.Diagnostic.ERROR;
+import static com.puppetlabs.geppetto.diagnostic.Diagnostic.ERROR;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -38,20 +38,20 @@ import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
-import org.cloudsmith.geppetto.common.os.FileUtils;
-import org.cloudsmith.geppetto.common.os.StreamUtil;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.ERB;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.MetadataExtractor;
-import org.cloudsmith.geppetto.forge.util.Checksums;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
-import org.cloudsmith.geppetto.forge.util.TarUtils;
-import org.cloudsmith.geppetto.forge.util.TarUtils.FileCatcher;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.semver.Version;
+import com.puppetlabs.geppetto.common.os.FileUtils;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.ERB;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.ForgeService;
+import com.puppetlabs.geppetto.forge.MetadataExtractor;
+import com.puppetlabs.geppetto.forge.util.Checksums;
+import com.puppetlabs.geppetto.forge.util.ModuleUtils;
+import com.puppetlabs.geppetto.forge.util.TarUtils;
+import com.puppetlabs.geppetto.forge.util.TarUtils.FileCatcher;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.semver.Version;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;

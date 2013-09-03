@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.HostClassDefinition;
-import org.cloudsmith.geppetto.pp.LiteralExpression;
-import org.cloudsmith.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.HostClassDefinition;
+import com.puppetlabs.geppetto.pp.LiteralExpression;
+import com.puppetlabs.geppetto.pp.PPPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.HostClassDefinitionImpl#getParent <em>Parent</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.HostClassDefinitionImpl#getParent <em>Parent</em>}</li>
  * </ul>
  * </p>
  * 

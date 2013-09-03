@@ -8,19 +8,19 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.impl;
+package com.puppetlabs.geppetto.forge.impl;
 
-import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.METADATA_JSON_NAME;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import org.cloudsmith.geppetto.common.os.StreamUtil;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.util.StrictMetadataJsonParser;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.util.StrictMetadataJsonParser;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
 
 import com.google.inject.Singleton;
 

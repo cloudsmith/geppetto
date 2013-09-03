@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp;
+package com.puppetlabs.geppetto.pp.pptp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,12 +18,12 @@ package org.cloudsmith.geppetto.pp.pptp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.TPVariable#isAssignable <em>Assignable</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.TPVariable#getPattern <em>Pattern</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.TPVariable#isAssignable <em>Assignable</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.TPVariable#getPattern <em>Pattern</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTPVariable()
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getTPVariable()
  * @model
  * @generated
  */
@@ -38,7 +38,7 @@ public interface TPVariable extends TargetElement {
 	 * 
 	 * @return the value of the '<em>Pattern</em>' attribute.
 	 * @see #setPattern(String)
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTPVariable_Pattern()
+	 * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getTPVariable_Pattern()
 	 * @model
 	 * @generated
 	 */
@@ -54,14 +54,14 @@ public interface TPVariable extends TargetElement {
 	 * 
 	 * @return the value of the '<em>Assignable</em>' attribute.
 	 * @see #setAssignable(boolean)
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTPVariable_Assignable()
+	 * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getTPVariable_Assignable()
 	 * @model
 	 * @generated
 	 */
 	boolean isAssignable();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TPVariable#isAssignable <em>Assignable</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.pptp.TPVariable#isAssignable <em>Assignable</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -73,7 +73,7 @@ public interface TPVariable extends TargetElement {
 	void setAssignable(boolean value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TPVariable#getPattern <em>Pattern</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.pptp.TPVariable#getPattern <em>Pattern</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

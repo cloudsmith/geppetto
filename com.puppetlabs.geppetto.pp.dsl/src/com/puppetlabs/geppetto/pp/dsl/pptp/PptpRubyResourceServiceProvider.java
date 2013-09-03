@@ -1,6 +1,6 @@
-package org.cloudsmith.geppetto.pp.dsl.pptp;
+package com.puppetlabs.geppetto.pp.dsl.pptp;
 
-import org.cloudsmith.geppetto.ruby.resource.PptpRubyResource;
+import com.puppetlabs.geppetto.ruby.resource.PptpRubyResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.resource.generic.GenericResourceServiceProvider;
 

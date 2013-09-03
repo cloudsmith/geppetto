@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,18 +20,18 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.LiteralHash#getElements <em>Elements</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.LiteralHash#getElements <em>Elements</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getLiteralHash()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getLiteralHash()
  * @model
  * @generated
  */
 public interface LiteralHash extends LiteralExpression {
 	/**
 	 * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.HashEntry}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.HashEntry}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Elements</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -39,7 +39,7 @@ public interface LiteralHash extends LiteralExpression {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Elements</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getLiteralHash_Elements()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getLiteralHash_Elements()
 	 * @model containment="true"
 	 * @generated
 	 */

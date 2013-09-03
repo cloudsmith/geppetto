@@ -8,16 +8,16 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.tests;
+package com.puppetlabs.geppetto.ruby.tests;
 
 import static com.google.inject.Guice.createInjector;
-import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+import static com.puppetlabs.geppetto.injectable.CommonModuleProvider.getCommonModule;
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.common.util.BundleAccess;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
 import org.eclipse.core.runtime.IPath;
 
 public class TestDataProvider {

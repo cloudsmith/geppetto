@@ -8,78 +8,78 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.util;
+package com.puppetlabs.geppetto.pp.util;
 
-import org.cloudsmith.geppetto.pp.*;
-import org.cloudsmith.geppetto.pp.AdditiveExpression;
-import org.cloudsmith.geppetto.pp.AndExpression;
-import org.cloudsmith.geppetto.pp.AppendExpression;
-import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.AtExpression;
-import org.cloudsmith.geppetto.pp.AttributeOperation;
-import org.cloudsmith.geppetto.pp.AttributeOperations;
-import org.cloudsmith.geppetto.pp.BinaryExpression;
-import org.cloudsmith.geppetto.pp.BinaryOpExpression;
-import org.cloudsmith.geppetto.pp.Case;
-import org.cloudsmith.geppetto.pp.CaseExpression;
-import org.cloudsmith.geppetto.pp.CollectExpression;
-import org.cloudsmith.geppetto.pp.Definition;
-import org.cloudsmith.geppetto.pp.DefinitionArgument;
-import org.cloudsmith.geppetto.pp.DefinitionArgumentList;
-import org.cloudsmith.geppetto.pp.DoubleQuotedString;
-import org.cloudsmith.geppetto.pp.ElseExpression;
-import org.cloudsmith.geppetto.pp.ElseIfExpression;
-import org.cloudsmith.geppetto.pp.EqualityExpression;
-import org.cloudsmith.geppetto.pp.ExportedCollectQuery;
-import org.cloudsmith.geppetto.pp.ExprList;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.ExpressionBlock;
-import org.cloudsmith.geppetto.pp.ExpressionTE;
-import org.cloudsmith.geppetto.pp.FunctionCall;
-import org.cloudsmith.geppetto.pp.HashEntry;
-import org.cloudsmith.geppetto.pp.HostClassDefinition;
-import org.cloudsmith.geppetto.pp.ICollectQuery;
-import org.cloudsmith.geppetto.pp.IQuotedString;
-import org.cloudsmith.geppetto.pp.IfExpression;
-import org.cloudsmith.geppetto.pp.ImportExpression;
-import org.cloudsmith.geppetto.pp.InExpression;
-import org.cloudsmith.geppetto.pp.InterpolatedVariable;
-import org.cloudsmith.geppetto.pp.LiteralBoolean;
-import org.cloudsmith.geppetto.pp.LiteralDefault;
-import org.cloudsmith.geppetto.pp.LiteralExpression;
-import org.cloudsmith.geppetto.pp.LiteralHash;
-import org.cloudsmith.geppetto.pp.LiteralList;
-import org.cloudsmith.geppetto.pp.LiteralName;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.LiteralRegex;
-import org.cloudsmith.geppetto.pp.LiteralUndef;
-import org.cloudsmith.geppetto.pp.MatchingExpression;
-import org.cloudsmith.geppetto.pp.MultiplicativeExpression;
-import org.cloudsmith.geppetto.pp.NodeDefinition;
-import org.cloudsmith.geppetto.pp.OrExpression;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.ParameterizedExpression;
-import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.RelationalExpression;
-import org.cloudsmith.geppetto.pp.RelationshipExpression;
-import org.cloudsmith.geppetto.pp.ResourceBody;
-import org.cloudsmith.geppetto.pp.ResourceExpression;
-import org.cloudsmith.geppetto.pp.SelectorEntry;
-import org.cloudsmith.geppetto.pp.SelectorExpression;
-import org.cloudsmith.geppetto.pp.ShiftExpression;
-import org.cloudsmith.geppetto.pp.SingleQuotedString;
-import org.cloudsmith.geppetto.pp.StringExpression;
-import org.cloudsmith.geppetto.pp.TextExpression;
-import org.cloudsmith.geppetto.pp.UnaryExpression;
-import org.cloudsmith.geppetto.pp.UnaryMinusExpression;
-import org.cloudsmith.geppetto.pp.UnaryNotExpression;
-import org.cloudsmith.geppetto.pp.UnquotedString;
-import org.cloudsmith.geppetto.pp.VariableExpression;
-import org.cloudsmith.geppetto.pp.VariableTE;
-import org.cloudsmith.geppetto.pp.VerbatimTE;
-import org.cloudsmith.geppetto.pp.VirtualCollectQuery;
-import org.cloudsmith.geppetto.pp.VirtualNameOrReference;
+import com.puppetlabs.geppetto.pp.*;
+import com.puppetlabs.geppetto.pp.AdditiveExpression;
+import com.puppetlabs.geppetto.pp.AndExpression;
+import com.puppetlabs.geppetto.pp.AppendExpression;
+import com.puppetlabs.geppetto.pp.AssignmentExpression;
+import com.puppetlabs.geppetto.pp.AtExpression;
+import com.puppetlabs.geppetto.pp.AttributeOperation;
+import com.puppetlabs.geppetto.pp.AttributeOperations;
+import com.puppetlabs.geppetto.pp.BinaryExpression;
+import com.puppetlabs.geppetto.pp.BinaryOpExpression;
+import com.puppetlabs.geppetto.pp.Case;
+import com.puppetlabs.geppetto.pp.CaseExpression;
+import com.puppetlabs.geppetto.pp.CollectExpression;
+import com.puppetlabs.geppetto.pp.Definition;
+import com.puppetlabs.geppetto.pp.DefinitionArgument;
+import com.puppetlabs.geppetto.pp.DefinitionArgumentList;
+import com.puppetlabs.geppetto.pp.DoubleQuotedString;
+import com.puppetlabs.geppetto.pp.ElseExpression;
+import com.puppetlabs.geppetto.pp.ElseIfExpression;
+import com.puppetlabs.geppetto.pp.EqualityExpression;
+import com.puppetlabs.geppetto.pp.ExportedCollectQuery;
+import com.puppetlabs.geppetto.pp.ExprList;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.ExpressionBlock;
+import com.puppetlabs.geppetto.pp.ExpressionTE;
+import com.puppetlabs.geppetto.pp.FunctionCall;
+import com.puppetlabs.geppetto.pp.HashEntry;
+import com.puppetlabs.geppetto.pp.HostClassDefinition;
+import com.puppetlabs.geppetto.pp.ICollectQuery;
+import com.puppetlabs.geppetto.pp.IQuotedString;
+import com.puppetlabs.geppetto.pp.IfExpression;
+import com.puppetlabs.geppetto.pp.ImportExpression;
+import com.puppetlabs.geppetto.pp.InExpression;
+import com.puppetlabs.geppetto.pp.InterpolatedVariable;
+import com.puppetlabs.geppetto.pp.LiteralBoolean;
+import com.puppetlabs.geppetto.pp.LiteralDefault;
+import com.puppetlabs.geppetto.pp.LiteralExpression;
+import com.puppetlabs.geppetto.pp.LiteralHash;
+import com.puppetlabs.geppetto.pp.LiteralList;
+import com.puppetlabs.geppetto.pp.LiteralName;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.LiteralRegex;
+import com.puppetlabs.geppetto.pp.LiteralUndef;
+import com.puppetlabs.geppetto.pp.MatchingExpression;
+import com.puppetlabs.geppetto.pp.MultiplicativeExpression;
+import com.puppetlabs.geppetto.pp.NodeDefinition;
+import com.puppetlabs.geppetto.pp.OrExpression;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.ParameterizedExpression;
+import com.puppetlabs.geppetto.pp.ParenthesisedExpression;
+import com.puppetlabs.geppetto.pp.PuppetManifest;
+import com.puppetlabs.geppetto.pp.RelationalExpression;
+import com.puppetlabs.geppetto.pp.RelationshipExpression;
+import com.puppetlabs.geppetto.pp.ResourceBody;
+import com.puppetlabs.geppetto.pp.ResourceExpression;
+import com.puppetlabs.geppetto.pp.SelectorEntry;
+import com.puppetlabs.geppetto.pp.SelectorExpression;
+import com.puppetlabs.geppetto.pp.ShiftExpression;
+import com.puppetlabs.geppetto.pp.SingleQuotedString;
+import com.puppetlabs.geppetto.pp.StringExpression;
+import com.puppetlabs.geppetto.pp.TextExpression;
+import com.puppetlabs.geppetto.pp.UnaryExpression;
+import com.puppetlabs.geppetto.pp.UnaryMinusExpression;
+import com.puppetlabs.geppetto.pp.UnaryNotExpression;
+import com.puppetlabs.geppetto.pp.UnquotedString;
+import com.puppetlabs.geppetto.pp.VariableExpression;
+import com.puppetlabs.geppetto.pp.VariableTE;
+import com.puppetlabs.geppetto.pp.VerbatimTE;
+import com.puppetlabs.geppetto.pp.VirtualCollectQuery;
+import com.puppetlabs.geppetto.pp.VirtualNameOrReference;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
@@ -91,7 +91,7 @@ import org.eclipse.emf.ecore.EObject;
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage
+ * @see com.puppetlabs.geppetto.pp.PPPackage
  * @generated
  */
 public class PPAdapterFactory extends AdapterFactoryImpl {
@@ -532,14 +532,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.AdditiveExpression <em>Additive Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.AdditiveExpression <em>Additive Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.AdditiveExpression
+	 * @see com.puppetlabs.geppetto.pp.AdditiveExpression
 	 * @generated
 	 */
 	public Adapter createAdditiveExpressionAdapter() {
@@ -547,14 +547,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.AndExpression <em>And Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.AndExpression <em>And Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.AndExpression
+	 * @see com.puppetlabs.geppetto.pp.AndExpression
 	 * @generated
 	 */
 	public Adapter createAndExpressionAdapter() {
@@ -562,14 +562,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.AppendExpression <em>Append Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.AppendExpression <em>Append Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.AppendExpression
+	 * @see com.puppetlabs.geppetto.pp.AppendExpression
 	 * @generated
 	 */
 	public Adapter createAppendExpressionAdapter() {
@@ -577,14 +577,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.AssignmentExpression <em>Assignment Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.AssignmentExpression <em>Assignment Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.AssignmentExpression
+	 * @see com.puppetlabs.geppetto.pp.AssignmentExpression
 	 * @generated
 	 */
 	public Adapter createAssignmentExpressionAdapter() {
@@ -592,14 +592,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.AtExpression <em>At Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.AtExpression <em>At Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.AtExpression
+	 * @see com.puppetlabs.geppetto.pp.AtExpression
 	 * @generated
 	 */
 	public Adapter createAtExpressionAdapter() {
@@ -607,14 +607,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.AttributeOperation <em>Attribute Operation</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.AttributeOperation <em>Attribute Operation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.AttributeOperation
+	 * @see com.puppetlabs.geppetto.pp.AttributeOperation
 	 * @generated
 	 */
 	public Adapter createAttributeOperationAdapter() {
@@ -622,14 +622,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.AttributeOperations <em>Attribute Operations</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.AttributeOperations <em>Attribute Operations</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.AttributeOperations
+	 * @see com.puppetlabs.geppetto.pp.AttributeOperations
 	 * @generated
 	 */
 	public Adapter createAttributeOperationsAdapter() {
@@ -637,14 +637,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.BinaryExpression <em>Binary Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.BinaryExpression <em>Binary Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.BinaryExpression
+	 * @see com.puppetlabs.geppetto.pp.BinaryExpression
 	 * @generated
 	 */
 	public Adapter createBinaryExpressionAdapter() {
@@ -652,14 +652,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.BinaryOpExpression <em>Binary Op Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.BinaryOpExpression <em>Binary Op Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.BinaryOpExpression
+	 * @see com.puppetlabs.geppetto.pp.BinaryOpExpression
 	 * @generated
 	 */
 	public Adapter createBinaryOpExpressionAdapter() {
@@ -667,14 +667,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.Case <em>Case</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.Case <em>Case</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.Case
+	 * @see com.puppetlabs.geppetto.pp.Case
 	 * @generated
 	 */
 	public Adapter createCaseAdapter() {
@@ -682,14 +682,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.CaseExpression <em>Case Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.CaseExpression <em>Case Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.CaseExpression
+	 * @see com.puppetlabs.geppetto.pp.CaseExpression
 	 * @generated
 	 */
 	public Adapter createCaseExpressionAdapter() {
@@ -697,14 +697,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.CollectExpression <em>Collect Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.CollectExpression <em>Collect Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.CollectExpression
+	 * @see com.puppetlabs.geppetto.pp.CollectExpression
 	 * @generated
 	 */
 	public Adapter createCollectExpressionAdapter() {
@@ -712,14 +712,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.Definition <em>Definition</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.Definition <em>Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.Definition
+	 * @see com.puppetlabs.geppetto.pp.Definition
 	 * @generated
 	 */
 	public Adapter createDefinitionAdapter() {
@@ -727,14 +727,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.DefinitionArgument <em>Definition Argument</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.DefinitionArgument <em>Definition Argument</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.DefinitionArgument
+	 * @see com.puppetlabs.geppetto.pp.DefinitionArgument
 	 * @generated
 	 */
 	public Adapter createDefinitionArgumentAdapter() {
@@ -742,14 +742,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.DefinitionArgumentList <em>Definition Argument List</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.DefinitionArgumentList <em>Definition Argument List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.DefinitionArgumentList
+	 * @see com.puppetlabs.geppetto.pp.DefinitionArgumentList
 	 * @generated
 	 */
 	public Adapter createDefinitionArgumentListAdapter() {
@@ -757,14 +757,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.DoubleQuotedString <em>Double Quoted String</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.DoubleQuotedString <em>Double Quoted String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.DoubleQuotedString
+	 * @see com.puppetlabs.geppetto.pp.DoubleQuotedString
 	 * @generated
 	 */
 	public Adapter createDoubleQuotedStringAdapter() {
@@ -772,14 +772,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ElseExpression <em>Else Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ElseExpression <em>Else Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ElseExpression
+	 * @see com.puppetlabs.geppetto.pp.ElseExpression
 	 * @generated
 	 */
 	public Adapter createElseExpressionAdapter() {
@@ -787,14 +787,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ElseIfExpression <em>Else If Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ElseIfExpression <em>Else If Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ElseIfExpression
+	 * @see com.puppetlabs.geppetto.pp.ElseIfExpression
 	 * @generated
 	 */
 	public Adapter createElseIfExpressionAdapter() {
@@ -815,14 +815,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.EqualityExpression <em>Equality Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.EqualityExpression <em>Equality Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.EqualityExpression
+	 * @see com.puppetlabs.geppetto.pp.EqualityExpression
 	 * @generated
 	 */
 	public Adapter createEqualityExpressionAdapter() {
@@ -830,14 +830,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ExportedCollectQuery <em>Exported Collect Query</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ExportedCollectQuery <em>Exported Collect Query</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ExportedCollectQuery
+	 * @see com.puppetlabs.geppetto.pp.ExportedCollectQuery
 	 * @generated
 	 */
 	public Adapter createExportedCollectQueryAdapter() {
@@ -845,14 +845,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.Expression <em>Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.Expression <em>Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.Expression
+	 * @see com.puppetlabs.geppetto.pp.Expression
 	 * @generated
 	 */
 	public Adapter createExpressionAdapter() {
@@ -860,14 +860,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ExpressionBlock <em>Expression Block</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ExpressionBlock <em>Expression Block</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ExpressionBlock
+	 * @see com.puppetlabs.geppetto.pp.ExpressionBlock
 	 * @generated
 	 */
 	public Adapter createExpressionBlockAdapter() {
@@ -875,14 +875,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ExpressionTE <em>Expression TE</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ExpressionTE <em>Expression TE</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ExpressionTE
+	 * @see com.puppetlabs.geppetto.pp.ExpressionTE
 	 * @generated
 	 */
 	public Adapter createExpressionTEAdapter() {
@@ -890,14 +890,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ExprList <em>Expr List</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ExprList <em>Expr List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ExprList
+	 * @see com.puppetlabs.geppetto.pp.ExprList
 	 * @generated
 	 */
 	public Adapter createExprListAdapter() {
@@ -905,14 +905,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.FunctionCall <em>Function Call</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.FunctionCall <em>Function Call</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.FunctionCall
+	 * @see com.puppetlabs.geppetto.pp.FunctionCall
 	 * @generated
 	 */
 	public Adapter createFunctionCallAdapter() {
@@ -920,14 +920,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.HashEntry <em>Hash Entry</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.HashEntry <em>Hash Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.HashEntry
+	 * @see com.puppetlabs.geppetto.pp.HashEntry
 	 * @generated
 	 */
 	public Adapter createHashEntryAdapter() {
@@ -935,14 +935,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.HostClassDefinition <em>Host Class Definition</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.HostClassDefinition <em>Host Class Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.HostClassDefinition
+	 * @see com.puppetlabs.geppetto.pp.HostClassDefinition
 	 * @generated
 	 */
 	public Adapter createHostClassDefinitionAdapter() {
@@ -950,14 +950,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ICollectQuery <em>ICollect Query</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ICollectQuery <em>ICollect Query</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ICollectQuery
+	 * @see com.puppetlabs.geppetto.pp.ICollectQuery
 	 * @generated
 	 */
 	public Adapter createICollectQueryAdapter() {
@@ -965,14 +965,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.IfExpression <em>If Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.IfExpression <em>If Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.IfExpression
+	 * @see com.puppetlabs.geppetto.pp.IfExpression
 	 * @generated
 	 */
 	public Adapter createIfExpressionAdapter() {
@@ -980,14 +980,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ImportExpression <em>Import Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ImportExpression <em>Import Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ImportExpression
+	 * @see com.puppetlabs.geppetto.pp.ImportExpression
 	 * @generated
 	 */
 	public Adapter createImportExpressionAdapter() {
@@ -995,14 +995,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.InExpression <em>In Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.InExpression <em>In Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.InExpression
+	 * @see com.puppetlabs.geppetto.pp.InExpression
 	 * @generated
 	 */
 	public Adapter createInExpressionAdapter() {
@@ -1010,14 +1010,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.InterpolatedVariable <em>Interpolated Variable</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.InterpolatedVariable <em>Interpolated Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.InterpolatedVariable
+	 * @see com.puppetlabs.geppetto.pp.InterpolatedVariable
 	 * @generated
 	 */
 	public Adapter createInterpolatedVariableAdapter() {
@@ -1025,14 +1025,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.IQuotedString <em>IQuoted String</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.IQuotedString <em>IQuoted String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.IQuotedString
+	 * @see com.puppetlabs.geppetto.pp.IQuotedString
 	 * @generated
 	 */
 	public Adapter createIQuotedStringAdapter() {
@@ -1040,14 +1040,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.JavaLambda <em>Java Lambda</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.JavaLambda <em>Java Lambda</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.JavaLambda
+	 * @see com.puppetlabs.geppetto.pp.JavaLambda
 	 * @generated
 	 */
 	public Adapter createJavaLambdaAdapter() {
@@ -1055,14 +1055,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.Lambda <em>Lambda</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.Lambda <em>Lambda</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.Lambda
+	 * @see com.puppetlabs.geppetto.pp.Lambda
 	 * @generated
 	 */
 	public Adapter createLambdaAdapter() {
@@ -1070,14 +1070,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralBoolean <em>Literal Boolean</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.LiteralBoolean <em>Literal Boolean</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.LiteralBoolean
+	 * @see com.puppetlabs.geppetto.pp.LiteralBoolean
 	 * @generated
 	 */
 	public Adapter createLiteralBooleanAdapter() {
@@ -1085,14 +1085,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralClass <em>Literal Class</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.LiteralClass <em>Literal Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.LiteralClass
+	 * @see com.puppetlabs.geppetto.pp.LiteralClass
 	 * @generated
 	 */
 	public Adapter createLiteralClassAdapter() {
@@ -1100,14 +1100,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralDefault <em>Literal Default</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.LiteralDefault <em>Literal Default</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.LiteralDefault
+	 * @see com.puppetlabs.geppetto.pp.LiteralDefault
 	 * @generated
 	 */
 	public Adapter createLiteralDefaultAdapter() {
@@ -1115,14 +1115,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralExpression <em>Literal Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.LiteralExpression <em>Literal Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.LiteralExpression
+	 * @see com.puppetlabs.geppetto.pp.LiteralExpression
 	 * @generated
 	 */
 	public Adapter createLiteralExpressionAdapter() {
@@ -1130,14 +1130,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralHash <em>Literal Hash</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.LiteralHash <em>Literal Hash</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.LiteralHash
+	 * @see com.puppetlabs.geppetto.pp.LiteralHash
 	 * @generated
 	 */
 	public Adapter createLiteralHashAdapter() {
@@ -1145,14 +1145,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralList <em>Literal List</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.LiteralList <em>Literal List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.LiteralList
+	 * @see com.puppetlabs.geppetto.pp.LiteralList
 	 * @generated
 	 */
 	public Adapter createLiteralListAdapter() {
@@ -1160,14 +1160,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralName <em>Literal Name</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.LiteralName <em>Literal Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.LiteralName
+	 * @see com.puppetlabs.geppetto.pp.LiteralName
 	 * @generated
 	 */
 	public Adapter createLiteralNameAdapter() {
@@ -1175,14 +1175,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralNameOrReference <em>Literal Name Or Reference</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.LiteralNameOrReference <em>Literal Name Or Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.LiteralNameOrReference
+	 * @see com.puppetlabs.geppetto.pp.LiteralNameOrReference
 	 * @generated
 	 */
 	public Adapter createLiteralNameOrReferenceAdapter() {
@@ -1190,14 +1190,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralRegex <em>Literal Regex</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.LiteralRegex <em>Literal Regex</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.LiteralRegex
+	 * @see com.puppetlabs.geppetto.pp.LiteralRegex
 	 * @generated
 	 */
 	public Adapter createLiteralRegexAdapter() {
@@ -1205,14 +1205,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.LiteralUndef <em>Literal Undef</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.LiteralUndef <em>Literal Undef</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.LiteralUndef
+	 * @see com.puppetlabs.geppetto.pp.LiteralUndef
 	 * @generated
 	 */
 	public Adapter createLiteralUndefAdapter() {
@@ -1220,14 +1220,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.MatchingExpression <em>Matching Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.MatchingExpression <em>Matching Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.MatchingExpression
+	 * @see com.puppetlabs.geppetto.pp.MatchingExpression
 	 * @generated
 	 */
 	public Adapter createMatchingExpressionAdapter() {
@@ -1235,14 +1235,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.MethodCall <em>Method Call</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.MethodCall <em>Method Call</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.MethodCall
+	 * @see com.puppetlabs.geppetto.pp.MethodCall
 	 * @generated
 	 */
 	public Adapter createMethodCallAdapter() {
@@ -1250,14 +1250,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.MultiplicativeExpression <em>Multiplicative Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.MultiplicativeExpression <em>Multiplicative Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.MultiplicativeExpression
+	 * @see com.puppetlabs.geppetto.pp.MultiplicativeExpression
 	 * @generated
 	 */
 	public Adapter createMultiplicativeExpressionAdapter() {
@@ -1265,14 +1265,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.NamedAccessExpression <em>Named Access Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.NamedAccessExpression <em>Named Access Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.NamedAccessExpression
+	 * @see com.puppetlabs.geppetto.pp.NamedAccessExpression
 	 * @generated
 	 */
 	public Adapter createNamedAccessExpressionAdapter() {
@@ -1280,14 +1280,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.NodeDefinition <em>Node Definition</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.NodeDefinition <em>Node Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.NodeDefinition
+	 * @see com.puppetlabs.geppetto.pp.NodeDefinition
 	 * @generated
 	 */
 	public Adapter createNodeDefinitionAdapter() {
@@ -1295,14 +1295,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.OrExpression <em>Or Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.OrExpression <em>Or Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.OrExpression
+	 * @see com.puppetlabs.geppetto.pp.OrExpression
 	 * @generated
 	 */
 	public Adapter createOrExpressionAdapter() {
@@ -1310,14 +1310,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ParameterizedExpression <em>Parameterized Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ParameterizedExpression <em>Parameterized Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ParameterizedExpression
+	 * @see com.puppetlabs.geppetto.pp.ParameterizedExpression
 	 * @generated
 	 */
 	public Adapter createParameterizedExpressionAdapter() {
@@ -1325,14 +1325,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ParenthesisedExpression <em>Parenthesised Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ParenthesisedExpression <em>Parenthesised Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ParenthesisedExpression
+	 * @see com.puppetlabs.geppetto.pp.ParenthesisedExpression
 	 * @generated
 	 */
 	public Adapter createParenthesisedExpressionAdapter() {
@@ -1340,14 +1340,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.PuppetManifest <em>Puppet Manifest</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.PuppetManifest <em>Puppet Manifest</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.PuppetManifest
+	 * @see com.puppetlabs.geppetto.pp.PuppetManifest
 	 * @generated
 	 */
 	public Adapter createPuppetManifestAdapter() {
@@ -1355,14 +1355,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.RelationalExpression <em>Relational Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.RelationalExpression <em>Relational Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.RelationalExpression
+	 * @see com.puppetlabs.geppetto.pp.RelationalExpression
 	 * @generated
 	 */
 	public Adapter createRelationalExpressionAdapter() {
@@ -1370,14 +1370,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.RelationshipExpression <em>Relationship Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.RelationshipExpression <em>Relationship Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.RelationshipExpression
+	 * @see com.puppetlabs.geppetto.pp.RelationshipExpression
 	 * @generated
 	 */
 	public Adapter createRelationshipExpressionAdapter() {
@@ -1385,14 +1385,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ResourceBody <em>Resource Body</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ResourceBody <em>Resource Body</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ResourceBody
+	 * @see com.puppetlabs.geppetto.pp.ResourceBody
 	 * @generated
 	 */
 	public Adapter createResourceBodyAdapter() {
@@ -1400,14 +1400,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ResourceExpression <em>Resource Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ResourceExpression <em>Resource Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ResourceExpression
+	 * @see com.puppetlabs.geppetto.pp.ResourceExpression
 	 * @generated
 	 */
 	public Adapter createResourceExpressionAdapter() {
@@ -1415,14 +1415,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.RubyLambda <em>Ruby Lambda</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.RubyLambda <em>Ruby Lambda</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.RubyLambda
+	 * @see com.puppetlabs.geppetto.pp.RubyLambda
 	 * @generated
 	 */
 	public Adapter createRubyLambdaAdapter() {
@@ -1430,14 +1430,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.SelectorEntry <em>Selector Entry</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.SelectorEntry <em>Selector Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.SelectorEntry
+	 * @see com.puppetlabs.geppetto.pp.SelectorEntry
 	 * @generated
 	 */
 	public Adapter createSelectorEntryAdapter() {
@@ -1445,14 +1445,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.SelectorExpression <em>Selector Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.SelectorExpression <em>Selector Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.SelectorExpression
+	 * @see com.puppetlabs.geppetto.pp.SelectorExpression
 	 * @generated
 	 */
 	public Adapter createSelectorExpressionAdapter() {
@@ -1460,14 +1460,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.SeparatorExpression <em>Separator Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.SeparatorExpression <em>Separator Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.SeparatorExpression
+	 * @see com.puppetlabs.geppetto.pp.SeparatorExpression
 	 * @generated
 	 */
 	public Adapter createSeparatorExpressionAdapter() {
@@ -1475,14 +1475,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.ShiftExpression <em>Shift Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.ShiftExpression <em>Shift Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.ShiftExpression
+	 * @see com.puppetlabs.geppetto.pp.ShiftExpression
 	 * @generated
 	 */
 	public Adapter createShiftExpressionAdapter() {
@@ -1490,14 +1490,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.SingleQuotedString <em>Single Quoted String</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.SingleQuotedString <em>Single Quoted String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.SingleQuotedString
+	 * @see com.puppetlabs.geppetto.pp.SingleQuotedString
 	 * @generated
 	 */
 	public Adapter createSingleQuotedStringAdapter() {
@@ -1505,14 +1505,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.StringExpression <em>String Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.StringExpression <em>String Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.StringExpression
+	 * @see com.puppetlabs.geppetto.pp.StringExpression
 	 * @generated
 	 */
 	public Adapter createStringExpressionAdapter() {
@@ -1520,14 +1520,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.TextExpression <em>Text Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.TextExpression <em>Text Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.TextExpression
+	 * @see com.puppetlabs.geppetto.pp.TextExpression
 	 * @generated
 	 */
 	public Adapter createTextExpressionAdapter() {
@@ -1535,14 +1535,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.UnaryExpression <em>Unary Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.UnaryExpression <em>Unary Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.UnaryExpression
+	 * @see com.puppetlabs.geppetto.pp.UnaryExpression
 	 * @generated
 	 */
 	public Adapter createUnaryExpressionAdapter() {
@@ -1550,14 +1550,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.UnaryMinusExpression <em>Unary Minus Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.UnaryMinusExpression <em>Unary Minus Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.UnaryMinusExpression
+	 * @see com.puppetlabs.geppetto.pp.UnaryMinusExpression
 	 * @generated
 	 */
 	public Adapter createUnaryMinusExpressionAdapter() {
@@ -1565,14 +1565,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.UnaryNotExpression <em>Unary Not Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.UnaryNotExpression <em>Unary Not Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.UnaryNotExpression
+	 * @see com.puppetlabs.geppetto.pp.UnaryNotExpression
 	 * @generated
 	 */
 	public Adapter createUnaryNotExpressionAdapter() {
@@ -1580,14 +1580,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.UnlessExpression <em>Unless Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.UnlessExpression <em>Unless Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.UnlessExpression
+	 * @see com.puppetlabs.geppetto.pp.UnlessExpression
 	 * @generated
 	 */
 	public Adapter createUnlessExpressionAdapter() {
@@ -1595,14 +1595,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.UnquotedString <em>Unquoted String</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.UnquotedString <em>Unquoted String</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.UnquotedString
+	 * @see com.puppetlabs.geppetto.pp.UnquotedString
 	 * @generated
 	 */
 	public Adapter createUnquotedStringAdapter() {
@@ -1610,14 +1610,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.VariableExpression <em>Variable Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.VariableExpression <em>Variable Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.VariableExpression
+	 * @see com.puppetlabs.geppetto.pp.VariableExpression
 	 * @generated
 	 */
 	public Adapter createVariableExpressionAdapter() {
@@ -1625,14 +1625,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.VariableTE <em>Variable TE</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.VariableTE <em>Variable TE</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.VariableTE
+	 * @see com.puppetlabs.geppetto.pp.VariableTE
 	 * @generated
 	 */
 	public Adapter createVariableTEAdapter() {
@@ -1640,14 +1640,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.VerbatimTE <em>Verbatim TE</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.VerbatimTE <em>Verbatim TE</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.VerbatimTE
+	 * @see com.puppetlabs.geppetto.pp.VerbatimTE
 	 * @generated
 	 */
 	public Adapter createVerbatimTEAdapter() {
@@ -1655,14 +1655,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.VirtualCollectQuery <em>Virtual Collect Query</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.VirtualCollectQuery <em>Virtual Collect Query</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.VirtualCollectQuery
+	 * @see com.puppetlabs.geppetto.pp.VirtualCollectQuery
 	 * @generated
 	 */
 	public Adapter createVirtualCollectQueryAdapter() {
@@ -1670,14 +1670,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.VirtualNameOrReference <em>Virtual Name Or Reference</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.VirtualNameOrReference <em>Virtual Name Or Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.VirtualNameOrReference
+	 * @see com.puppetlabs.geppetto.pp.VirtualNameOrReference
 	 * @generated
 	 */
 	public Adapter createVirtualNameOrReferenceAdapter() {
@@ -1685,14 +1685,14 @@ public class PPAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.pp.WithLambdaExpression <em>With Lambda Expression</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.pp.WithLambdaExpression <em>With Lambda Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.pp.WithLambdaExpression
+	 * @see com.puppetlabs.geppetto.pp.WithLambdaExpression
 	 * @generated
 	 */
 	public Adapter createWithLambdaExpressionAdapter() {

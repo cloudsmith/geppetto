@@ -10,9 +10,9 @@
  *   Puppet Labs
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
+import com.puppetlabs.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.eclipse.jface.viewers.StyledCellLabelProvider;
 import org.eclipse.jface.viewers.StyledString;
 import org.eclipse.jface.viewers.ViewerCell;

@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.AttributeOperations;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.ResourceBody;
+import com.puppetlabs.geppetto.pp.AttributeOperations;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.ResourceBody;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -28,8 +28,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceBodyImpl#getAttributes <em>Attributes</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceBodyImpl#getNameExpr <em>Name Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.ResourceBodyImpl#getAttributes <em>Attributes</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.ResourceBodyImpl#getNameExpr <em>Name Expr</em>}</li>
  * </ul>
  * </p>
  * 

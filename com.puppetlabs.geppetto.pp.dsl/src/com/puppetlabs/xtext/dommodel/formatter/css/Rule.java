@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.css;
+package com.puppetlabs.xtext.dommodel.formatter.css;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode;
 
 /**
  * A DOM style rule contains a selector {@link Select.Selector} (which can be compound), and

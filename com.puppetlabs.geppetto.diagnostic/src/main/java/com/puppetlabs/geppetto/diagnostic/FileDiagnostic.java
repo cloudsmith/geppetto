@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.diagnostic;
+package com.puppetlabs.geppetto.diagnostic;
 
 import java.io.File;
 

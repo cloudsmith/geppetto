@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation.formatting;
+package com.puppetlabs.geppetto.validation.formatting;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -16,8 +16,8 @@ import java.io.PrintStream;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 
-import org.cloudsmith.geppetto.diagnostic.DetailedFileDiagnostic;
-import org.cloudsmith.geppetto.validation.runner.BuildResult;
+import com.puppetlabs.geppetto.diagnostic.DetailedFileDiagnostic;
+import com.puppetlabs.geppetto.validation.runner.BuildResult;
 
 /**
  * Formats diagnostics information as textual output. The general format is:<br/>

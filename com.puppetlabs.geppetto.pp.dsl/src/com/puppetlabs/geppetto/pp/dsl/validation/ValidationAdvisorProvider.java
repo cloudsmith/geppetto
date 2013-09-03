@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.validation;
+package com.puppetlabs.geppetto.pp.dsl.validation;
 
 import com.google.inject.Provider;
 
@@ -38,7 +38,7 @@ public class ValidationAdvisorProvider<T extends IValidationAdvisor> implements 
 
 	/**
 	 * Provides an IValidatioNAdvisor configured from the ComplianceLevel and (optional) ProblemsAdvisor
-	 * passed to {@link #create(org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel, IPotentialProblemsAdvisor)}.
+	 * passed to {@link #create(com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel, IPotentialProblemsAdvisor)}.
 	 * 
 	 * If the problems advisor is null, an instance of {@link DefaultPotentialProblemsAdvisor} is used.
 	 */

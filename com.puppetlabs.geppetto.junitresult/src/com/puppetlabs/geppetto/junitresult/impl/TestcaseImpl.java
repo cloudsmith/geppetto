@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.impl;
+package com.puppetlabs.geppetto.junitresult.impl;
 
 import java.util.Collection;
-import org.cloudsmith.geppetto.junitresult.Failure;
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
-import org.cloudsmith.geppetto.junitresult.Skipped;
-import org.cloudsmith.geppetto.junitresult.Testcase;
+import com.puppetlabs.geppetto.junitresult.Failure;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.Skipped;
+import com.puppetlabs.geppetto.junitresult.Testcase;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -36,16 +36,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl#getSkipped <em>Skipped</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl#getClassname <em>Classname</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl#getTime <em>Time</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl#getSystem_out <em>System out</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl#getSystem_err <em>System err</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl#getStatus <em>Status</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl#getAssertions <em>Assertions</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl#getFailures <em>Failures</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestcaseImpl#getErrors <em>Errors</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl#getSkipped <em>Skipped</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl#getName <em>Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl#getClassname <em>Classname</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl#getTime <em>Time</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl#getSystem_out <em>System out</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl#getSystem_err <em>System err</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl#getStatus <em>Status</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl#getAssertions <em>Assertions</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl#getFailures <em>Failures</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestcaseImpl#getErrors <em>Errors</em>}</li>
  * </ul>
  * </p>
  * 
@@ -215,7 +215,7 @@ public class TestcaseImpl extends EObjectImpl implements Testcase {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<org.cloudsmith.geppetto.junitresult.Error> errors;
+	protected EList<com.puppetlabs.geppetto.junitresult.Error> errors;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -382,7 +382,7 @@ public class TestcaseImpl extends EObjectImpl implements Testcase {
 				return;
 			case JunitresultPackage.TESTCASE__ERRORS:
 				getErrors().clear();
-				getErrors().addAll((Collection<? extends org.cloudsmith.geppetto.junitresult.Error>) newValue);
+				getErrors().addAll((Collection<? extends com.puppetlabs.geppetto.junitresult.Error>) newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -468,10 +468,10 @@ public class TestcaseImpl extends EObjectImpl implements Testcase {
 	 * 
 	 * @generated
 	 */
-	public EList<org.cloudsmith.geppetto.junitresult.Error> getErrors() {
+	public EList<com.puppetlabs.geppetto.junitresult.Error> getErrors() {
 		if(errors == null) {
-			errors = new EObjectContainmentEList<org.cloudsmith.geppetto.junitresult.Error>(
-				org.cloudsmith.geppetto.junitresult.Error.class, this, JunitresultPackage.TESTCASE__ERRORS);
+			errors = new EObjectContainmentEList<com.puppetlabs.geppetto.junitresult.Error>(
+				com.puppetlabs.geppetto.junitresult.Error.class, this, JunitresultPackage.TESTCASE__ERRORS);
 		}
 		return errors;
 	}

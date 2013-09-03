@@ -8,36 +8,36 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.eval;
+package com.puppetlabs.geppetto.pp.dsl.eval;
 
 import java.util.Collections;
 
-import org.cloudsmith.geppetto.pp.AdditiveExpression;
-import org.cloudsmith.geppetto.pp.AndExpression;
-import org.cloudsmith.geppetto.pp.AtExpression;
-import org.cloudsmith.geppetto.pp.DoubleQuotedString;
-import org.cloudsmith.geppetto.pp.EqualityExpression;
-import org.cloudsmith.geppetto.pp.FunctionCall;
-import org.cloudsmith.geppetto.pp.LiteralBoolean;
-import org.cloudsmith.geppetto.pp.LiteralHash;
-import org.cloudsmith.geppetto.pp.LiteralList;
-import org.cloudsmith.geppetto.pp.LiteralName;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.LiteralUndef;
-import org.cloudsmith.geppetto.pp.MatchingExpression;
-import org.cloudsmith.geppetto.pp.MultiplicativeExpression;
-import org.cloudsmith.geppetto.pp.OrExpression;
-import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
-import org.cloudsmith.geppetto.pp.RelationalExpression;
-import org.cloudsmith.geppetto.pp.SelectorExpression;
-import org.cloudsmith.geppetto.pp.ShiftExpression;
-import org.cloudsmith.geppetto.pp.SingleQuotedString;
-import org.cloudsmith.geppetto.pp.TextExpression;
-import org.cloudsmith.geppetto.pp.UnaryMinusExpression;
-import org.cloudsmith.geppetto.pp.UnaryNotExpression;
-import org.cloudsmith.geppetto.pp.VariableExpression;
-import org.cloudsmith.geppetto.pp.VerbatimTE;
-import org.cloudsmith.geppetto.pp.util.TextExpressionHelper;
+import com.puppetlabs.geppetto.pp.AdditiveExpression;
+import com.puppetlabs.geppetto.pp.AndExpression;
+import com.puppetlabs.geppetto.pp.AtExpression;
+import com.puppetlabs.geppetto.pp.DoubleQuotedString;
+import com.puppetlabs.geppetto.pp.EqualityExpression;
+import com.puppetlabs.geppetto.pp.FunctionCall;
+import com.puppetlabs.geppetto.pp.LiteralBoolean;
+import com.puppetlabs.geppetto.pp.LiteralHash;
+import com.puppetlabs.geppetto.pp.LiteralList;
+import com.puppetlabs.geppetto.pp.LiteralName;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.LiteralUndef;
+import com.puppetlabs.geppetto.pp.MatchingExpression;
+import com.puppetlabs.geppetto.pp.MultiplicativeExpression;
+import com.puppetlabs.geppetto.pp.OrExpression;
+import com.puppetlabs.geppetto.pp.ParenthesisedExpression;
+import com.puppetlabs.geppetto.pp.RelationalExpression;
+import com.puppetlabs.geppetto.pp.SelectorExpression;
+import com.puppetlabs.geppetto.pp.ShiftExpression;
+import com.puppetlabs.geppetto.pp.SingleQuotedString;
+import com.puppetlabs.geppetto.pp.TextExpression;
+import com.puppetlabs.geppetto.pp.UnaryMinusExpression;
+import com.puppetlabs.geppetto.pp.UnaryNotExpression;
+import com.puppetlabs.geppetto.pp.VariableExpression;
+import com.puppetlabs.geppetto.pp.VerbatimTE;
+import com.puppetlabs.geppetto.pp.util.TextExpressionHelper;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 

@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.editor;
+package com.puppetlabs.geppetto.ui.editor;
 
-import org.cloudsmith.geppetto.forge.util.Argument;
+import com.puppetlabs.geppetto.forge.util.Argument;
 import org.eclipse.jface.text.Position;
 
 class ArgSticker extends Position {

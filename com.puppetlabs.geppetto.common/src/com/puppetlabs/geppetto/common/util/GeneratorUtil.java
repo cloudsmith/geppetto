@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.common.util;
+package com.puppetlabs.geppetto.common.util;
 
 import java.io.IOException;
 import java.util.regex.Pattern;

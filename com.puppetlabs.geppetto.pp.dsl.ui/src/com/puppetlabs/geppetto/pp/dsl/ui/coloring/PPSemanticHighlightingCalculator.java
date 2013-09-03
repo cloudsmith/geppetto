@@ -8,32 +8,32 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.coloring;
+package com.puppetlabs.geppetto.pp.dsl.ui.coloring;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.pp.AttributeOperation;
-import org.cloudsmith.geppetto.pp.CollectExpression;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.ExpressionTE;
-import org.cloudsmith.geppetto.pp.LiteralList;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.ParenthesisedExpression;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.ResourceBody;
-import org.cloudsmith.geppetto.pp.ResourceExpression;
-import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPTask;
-import org.cloudsmith.geppetto.pp.dsl.ppdoc.PPDocumentationParser;
-import org.cloudsmith.geppetto.pp.dsl.ppdoc.PPDocumentationParser.DocNode;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.geppetto.pp.AttributeOperation;
+import com.puppetlabs.geppetto.pp.CollectExpression;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.ExpressionTE;
+import com.puppetlabs.geppetto.pp.LiteralList;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.ParenthesisedExpression;
+import com.puppetlabs.geppetto.pp.PuppetManifest;
+import com.puppetlabs.geppetto.pp.ResourceBody;
+import com.puppetlabs.geppetto.pp.ResourceExpression;
+import com.puppetlabs.geppetto.pp.dsl.PPDSLConstants;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourceDocumentationAdapter;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourceDocumentationAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPTask;
+import com.puppetlabs.geppetto.pp.dsl.ppdoc.PPDocumentationParser;
+import com.puppetlabs.geppetto.pp.dsl.ppdoc.PPDocumentationParser.DocNode;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;

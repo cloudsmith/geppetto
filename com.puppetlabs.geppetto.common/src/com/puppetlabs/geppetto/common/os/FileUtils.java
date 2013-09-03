@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.common.os;
+package com.puppetlabs.geppetto.common.os;
 
 import java.io.File;
 import java.io.FileFilter;

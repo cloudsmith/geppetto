@@ -8,16 +8,16 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.serializer;
+package com.puppetlabs.xtext.serializer;
 
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
-import org.cloudsmith.xtext.textflow.CharSequences;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentConfiguration;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
+import com.puppetlabs.xtext.textflow.CharSequences;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.Keyword;

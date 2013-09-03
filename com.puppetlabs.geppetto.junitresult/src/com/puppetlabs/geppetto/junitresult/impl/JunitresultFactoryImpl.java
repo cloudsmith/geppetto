@@ -8,17 +8,17 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.impl;
+package com.puppetlabs.geppetto.junitresult.impl;
 
-import org.cloudsmith.geppetto.junitresult.Failure;
-import org.cloudsmith.geppetto.junitresult.JunitresultFactory;
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
-import org.cloudsmith.geppetto.junitresult.Property;
-import org.cloudsmith.geppetto.junitresult.Skipped;
-import org.cloudsmith.geppetto.junitresult.Testcase;
-import org.cloudsmith.geppetto.junitresult.Testrun;
-import org.cloudsmith.geppetto.junitresult.Testsuite;
-import org.cloudsmith.geppetto.junitresult.Testsuites;
+import com.puppetlabs.geppetto.junitresult.Failure;
+import com.puppetlabs.geppetto.junitresult.JunitresultFactory;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.Property;
+import com.puppetlabs.geppetto.junitresult.Skipped;
+import com.puppetlabs.geppetto.junitresult.Testcase;
+import com.puppetlabs.geppetto.junitresult.Testrun;
+import com.puppetlabs.geppetto.junitresult.Testsuite;
+import com.puppetlabs.geppetto.junitresult.Testsuites;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -57,7 +57,7 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	 */
 	public static JunitresultFactory init() {
 		try {
-			JunitresultFactory theJunitresultFactory = (JunitresultFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.cloudsmith.org/geppetto/1.0.0/Junitresult");
+			JunitresultFactory theJunitresultFactory = (JunitresultFactory) EPackage.Registry.INSTANCE.getEFactory("http://www.puppetlabs.com/geppetto/1.0.0/Junitresult");
 			if(theJunitresultFactory != null) {
 				return theJunitresultFactory;
 			}
@@ -115,7 +115,7 @@ public class JunitresultFactoryImpl extends EFactoryImpl implements JunitresultF
 	 * 
 	 * @generated
 	 */
-	public org.cloudsmith.geppetto.junitresult.Error createError() {
+	public com.puppetlabs.geppetto.junitresult.Error createError() {
 		ErrorImpl error = new ErrorImpl();
 		return error;
 	}

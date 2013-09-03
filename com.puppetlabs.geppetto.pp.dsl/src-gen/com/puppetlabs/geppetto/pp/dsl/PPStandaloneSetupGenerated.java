@@ -1,5 +1,5 @@
 
-package org.cloudsmith.geppetto.pp.dsl;
+package com.puppetlabs.geppetto.pp.dsl;
 
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.xtext.ISetup;
@@ -31,7 +31,7 @@ public class PPStandaloneSetupGenerated implements ISetup {
 	}
 	
 	public Injector createInjector() {
-		return Guice.createInjector(new org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule());
+		return Guice.createInjector(new com.puppetlabs.geppetto.pp.dsl.PPRuntimeModule());
 	}
 	
 	public void register(Injector injector) {

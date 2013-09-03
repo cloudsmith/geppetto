@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph.dependency;
+package com.puppetlabs.geppetto.graph.dependency;
 
-import org.cloudsmith.geppetto.graph.DependencyGraphProducer;
-import org.cloudsmith.geppetto.graph.FixedSVGGraphModule;
-import org.cloudsmith.geppetto.graph.IHrefProducer;
+import com.puppetlabs.geppetto.graph.DependencyGraphProducer;
+import com.puppetlabs.geppetto.graph.FixedSVGGraphModule;
+import com.puppetlabs.geppetto.graph.IHrefProducer;
 
 /**
  * Configuration for DependencyGraph.

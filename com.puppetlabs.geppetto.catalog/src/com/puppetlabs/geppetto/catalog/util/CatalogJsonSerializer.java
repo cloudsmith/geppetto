@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog.util;
+package com.puppetlabs.geppetto.catalog.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,16 +19,16 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Iterator;
 
-import org.cloudsmith.geppetto.catalog.Catalog;
-import org.cloudsmith.geppetto.catalog.CatalogEdge;
-import org.cloudsmith.geppetto.catalog.CatalogResource;
-import org.cloudsmith.geppetto.catalog.CatalogResourceParameter;
-import org.cloudsmith.geppetto.catalog.impl.CatalogEdgeImpl;
-import org.cloudsmith.geppetto.catalog.impl.CatalogImpl;
-import org.cloudsmith.geppetto.catalog.impl.CatalogMetadataImpl;
-import org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl;
-import org.cloudsmith.geppetto.catalog.impl.CatalogResourceParameterImpl;
-import org.cloudsmith.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.catalog.Catalog;
+import com.puppetlabs.geppetto.catalog.CatalogEdge;
+import com.puppetlabs.geppetto.catalog.CatalogResource;
+import com.puppetlabs.geppetto.catalog.CatalogResourceParameter;
+import com.puppetlabs.geppetto.catalog.impl.CatalogEdgeImpl;
+import com.puppetlabs.geppetto.catalog.impl.CatalogImpl;
+import com.puppetlabs.geppetto.catalog.impl.CatalogMetadataImpl;
+import com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl;
+import com.puppetlabs.geppetto.catalog.impl.CatalogResourceParameterImpl;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
 import org.eclipse.emf.common.util.EList;
 
 import com.google.gson.Gson;

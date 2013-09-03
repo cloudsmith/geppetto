@@ -8,16 +8,16 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.comments;
+package com.puppetlabs.xtext.dommodel.formatter.comments;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
-import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
-import org.cloudsmith.xtext.textflow.CharSequences;
-import org.cloudsmith.xtext.textflow.TextFlow;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContext;
+import com.puppetlabs.xtext.dommodel.formatter.css.Alignment;
+import com.puppetlabs.xtext.textflow.CharSequences;
+import com.puppetlabs.xtext.textflow.TextFlow;
 
 import com.google.common.collect.Lists;
 

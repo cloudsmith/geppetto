@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.cloudsmith.geppetto.junitresult;singleton:=true
+Bundle-SymbolicName: com.puppetlabs.geppetto.junitresult;singleton:=true
 Bundle-Version: 4.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
@@ -12,5 +12,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.filesystem;bundle-version="1.3.100",
  com.google.guava;bundle-version="10.0.0"
 Bundle-ActivationPolicy: lazy
-Export-Package: org.cloudsmith.geppetto.junitresult,
- org.cloudsmith.geppetto.junitresult.util
+Export-Package: com.puppetlabs.geppetto.junitresult,
+ com.puppetlabs.geppetto.junitresult.util

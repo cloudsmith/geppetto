@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.ui.editor.formatting;
+package com.puppetlabs.xtext.ui.editor.formatting;
 
 import org.eclipse.xtext.formatting.ILineSeparatorInformation;
-import org.cloudsmith.xtext.ui.resource.PlatformResourceSpecificProvider;
+import com.puppetlabs.xtext.ui.resource.PlatformResourceSpecificProvider;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.Platform;

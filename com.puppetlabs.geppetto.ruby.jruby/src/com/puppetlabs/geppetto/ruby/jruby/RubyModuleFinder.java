@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.ruby.jruby;
+package com.puppetlabs.geppetto.ruby.jruby;
 
 import java.util.LinkedList;
 import java.util.List;

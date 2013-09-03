@@ -10,7 +10,7 @@
  *
  */
 
-package org.cloudsmith.geppetto.pp.dsl.ui.linked;
+package com.puppetlabs.geppetto.pp.dsl.ui.linked;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.IEditorInput;

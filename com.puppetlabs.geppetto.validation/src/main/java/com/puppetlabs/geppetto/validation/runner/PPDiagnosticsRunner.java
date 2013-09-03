@@ -10,7 +10,7 @@
  *   Puppet Labs - adpated for validation
  * 
  */
-package org.cloudsmith.geppetto.validation.runner;
+package com.puppetlabs.geppetto.validation.runner;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,20 +21,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
-import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.linking.DiagnosticConsumerBasedMessageAcceptor;
-import org.cloudsmith.geppetto.pp.dsl.linking.IMessageAcceptor;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceLinker;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.IConfigurableProvider;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
-import org.cloudsmith.geppetto.pp.dsl.parser.antlr.PPParser;
-import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.PPJavaValidator;
-import org.cloudsmith.geppetto.ruby.resource.PptpRubyResourceFactory;
+import com.puppetlabs.geppetto.pp.dsl.PPDSLConstants;
+import com.puppetlabs.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
+import com.puppetlabs.geppetto.pp.dsl.adapters.PPImportedNamesAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.linking.DiagnosticConsumerBasedMessageAcceptor;
+import com.puppetlabs.geppetto.pp.dsl.linking.IMessageAcceptor;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPResourceLinker;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath.IConfigurableProvider;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
+import com.puppetlabs.geppetto.pp.dsl.parser.antlr.PPParser;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.PPJavaValidator;
+import com.puppetlabs.geppetto.ruby.resource.PptpRubyResourceFactory;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
@@ -127,7 +127,7 @@ public class PPDiagnosticsRunner {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.IExportsPerModule.Export #getEClass()
+		 * @see com.puppetlabs.geppetto.validation.runner.IExportsPerModule.Export #getEClass()
 		 */
 		@Override
 		public EClass getEClass() {
@@ -137,7 +137,7 @@ public class PPDiagnosticsRunner {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export #getFile()
+		 * @see com.puppetlabs.geppetto.validation.runner.ExportsPerModule.Export #getFile()
 		 */
 		@Override
 		public File getFile() {
@@ -152,7 +152,7 @@ public class PPDiagnosticsRunner {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export #getLength()
+		 * @see com.puppetlabs.geppetto.validation.runner.ExportsPerModule.Export #getLength()
 		 */
 		@Override
 		public int getLength() {
@@ -162,7 +162,7 @@ public class PPDiagnosticsRunner {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export #getLine()
+		 * @see com.puppetlabs.geppetto.validation.runner.ExportsPerModule.Export #getLine()
 		 */
 		@Override
 		public int getLine() {
@@ -172,7 +172,7 @@ public class PPDiagnosticsRunner {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.IExportsPerModule.Export #getName()
+		 * @see com.puppetlabs.geppetto.validation.runner.IExportsPerModule.Export #getName()
 		 */
 		@Override
 		public String getName() {
@@ -187,7 +187,7 @@ public class PPDiagnosticsRunner {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.IExportsPerModule.Export #getParentName()
+		 * @see com.puppetlabs.geppetto.validation.runner.IExportsPerModule.Export #getParentName()
 		 */
 		@Override
 		public String getParentName() {
@@ -197,7 +197,7 @@ public class PPDiagnosticsRunner {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.validation.runner.ExportsPerModule.Export #getStart()
+		 * @see com.puppetlabs.geppetto.validation.runner.ExportsPerModule.Export #getStart()
 		 */
 		@Override
 		public int getStart() {

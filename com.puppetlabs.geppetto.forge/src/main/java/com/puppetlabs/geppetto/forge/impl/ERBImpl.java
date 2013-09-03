@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.impl;
+package com.puppetlabs.geppetto.forge.impl;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,9 +21,9 @@ import java.io.Writer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.cloudsmith.geppetto.common.os.StreamUtil;
-import org.cloudsmith.geppetto.forge.ERB;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.forge.ERB;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
 
 import com.google.inject.Singleton;
 

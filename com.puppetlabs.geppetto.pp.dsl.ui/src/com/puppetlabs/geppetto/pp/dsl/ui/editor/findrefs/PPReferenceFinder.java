@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 
 import static com.google.common.collect.Iterables.transform;
 import static com.google.common.collect.Sets.newHashSet;
@@ -20,9 +20,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPReferenceDescription;
-import org.cloudsmith.geppetto.pp.dsl.ui.internal.util.CancelablePredicate;
+import com.puppetlabs.geppetto.pp.dsl.adapters.CrossReferenceAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPReferenceDescription;
+import com.puppetlabs.geppetto.pp.dsl.ui.internal.util.CancelablePredicate;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.SubMonitor;

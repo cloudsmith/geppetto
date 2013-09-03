@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Geppetto Themes
-Bundle-SymbolicName: org.cloudsmith.geppetto.themes;singleton:=true
+Bundle-SymbolicName: com.puppetlabs.geppetto.themes;singleton:=true
 Bundle-Version: 4.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

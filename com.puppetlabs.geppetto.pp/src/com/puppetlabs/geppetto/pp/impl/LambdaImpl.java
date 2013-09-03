@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.DefinitionArgumentList;
-import org.cloudsmith.geppetto.pp.Lambda;
-import org.cloudsmith.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.DefinitionArgumentList;
+import com.puppetlabs.geppetto.pp.Lambda;
+import com.puppetlabs.geppetto.pp.PPPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.LambdaImpl#getArguments <em>Arguments</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.LambdaImpl#getArguments <em>Arguments</em>}</li>
  * </ul>
  * </p>
  * 

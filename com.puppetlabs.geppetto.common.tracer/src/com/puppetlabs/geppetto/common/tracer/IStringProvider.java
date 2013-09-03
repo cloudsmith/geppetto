@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.common.tracer;
+package com.puppetlabs.geppetto.common.tracer;
 
 import com.google.inject.ImplementedBy;
 

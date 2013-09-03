@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences;
 
 import org.eclipse.jface.preference.StringFieldEditor;
 
@@ -18,7 +18,7 @@ import org.eclipse.jface.preference.StringFieldEditor;
  * 
  */
 public class PPEnvironmentPreferencePage extends AbstractRebuildingPreferencePage {
-	private static final String PAGE_ID = "org.cloudsmith.geppetto.pp.dsl.PP.environment";
+	private static final String PAGE_ID = "com.puppetlabs.geppetto.pp.dsl.PP.environment";
 
 	@Override
 	protected void createFieldEditors() {

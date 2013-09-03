@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.impl;
+package com.puppetlabs.xtext.dommodel.impl;
 
 import java.util.Iterator;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.IDomNode;
 
 import com.google.common.collect.Iterators;
 

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.WithLambdaExpression#getLambda <em>Lambda</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.WithLambdaExpression#getLambda <em>Lambda</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getWithLambdaExpression()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getWithLambdaExpression()
  * @model
  * @generated
  */
@@ -37,14 +37,14 @@ public interface WithLambdaExpression extends ParameterizedExpression {
 	 * 
 	 * @return the value of the '<em>Lambda</em>' containment reference.
 	 * @see #setLambda(Lambda)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getWithLambdaExpression_Lambda()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getWithLambdaExpression_Lambda()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Lambda getLambda();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.WithLambdaExpression#getLambda <em>Lambda</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.WithLambdaExpression#getLambda <em>Lambda</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

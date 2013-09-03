@@ -1,42 +1,42 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.cloudsmith.geppetto.forge.api;singleton:=true
+Bundle-SymbolicName: com.puppetlabs.geppetto.forge.api;singleton:=true
 Bundle-Version: 4.0.0
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Export-Package: org.cloudsmith.geppetto.forge.client;
+Export-Package: com.puppetlabs.geppetto.forge.client;
   uses:="org.apache.http.client,
-   org.cloudsmith.geppetto.forge.model,
-   org.cloudsmith.geppetto.semver,
+   com.puppetlabs.geppetto.forge.model,
+   com.puppetlabs.geppetto.semver,
    com.google.gson,
    com.google.inject,
    org.apache.http.client.methods,
    org.apache.http",
- org.cloudsmith.geppetto.forge.model,
- org.cloudsmith.geppetto.forge.v1;
-  uses:="org.cloudsmith.geppetto.forge.v1.service,com.google.inject",
- org.cloudsmith.geppetto.forge.v1.model;
-  uses:="org.cloudsmith.geppetto.forge.model,
-   org.cloudsmith.geppetto.semver,
-   org.cloudsmith.geppetto.forge.v2.model",
- org.cloudsmith.geppetto.forge.v1.service,
- org.cloudsmith.geppetto.forge.v2;
-  uses:="org.cloudsmith.geppetto.semver,
-   org.cloudsmith.geppetto.forge.v2.model,
-   org.cloudsmith.geppetto.forge.v2.service,
+ com.puppetlabs.geppetto.forge.model,
+ com.puppetlabs.geppetto.forge.v1;
+  uses:="com.puppetlabs.geppetto.forge.v1.service,com.google.inject",
+ com.puppetlabs.geppetto.forge.v1.model;
+  uses:="com.puppetlabs.geppetto.forge.model,
+   com.puppetlabs.geppetto.semver,
+   com.puppetlabs.geppetto.forge.v2.model",
+ com.puppetlabs.geppetto.forge.v1.service,
+ com.puppetlabs.geppetto.forge.v2;
+  uses:="com.puppetlabs.geppetto.semver,
+   com.puppetlabs.geppetto.forge.v2.model,
+   com.puppetlabs.geppetto.forge.v2.service,
    com.google.gson,
    com.google.inject",
- org.cloudsmith.geppetto.forge.v2.model;
-  uses:="org.cloudsmith.geppetto.forge.model,
-   org.cloudsmith.geppetto.semver,
+ com.puppetlabs.geppetto.forge.v2.model;
+  uses:="com.puppetlabs.geppetto.forge.model,
+   com.puppetlabs.geppetto.semver,
    com.google.gson",
- org.cloudsmith.geppetto.forge.v2.service;
-  uses:="org.cloudsmith.geppetto.semver,
-   org.cloudsmith.geppetto.forge.v2.model,
-   org.cloudsmith.geppetto.forge.client"
+ com.puppetlabs.geppetto.forge.v2.service;
+  uses:="com.puppetlabs.geppetto.semver,
+   com.puppetlabs.geppetto.forge.v2.model,
+   com.puppetlabs.geppetto.forge.client"
 Import-Package: com.google.gson,
  com.google.gson.annotations,
  com.google.gson.reflect,
@@ -60,4 +60,4 @@ Import-Package: com.google.gson,
  org.apache.http.message,
  org.apache.http.params,
  org.apache.http.protocol,
- org.cloudsmith.geppetto.semver
+ com.puppetlabs.geppetto.semver

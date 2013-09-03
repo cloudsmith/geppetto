@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,12 +18,12 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.BinaryExpression#getLeftExpr <em>Left Expr</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.BinaryExpression#getRightExpr <em>Right Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.BinaryExpression#getLeftExpr <em>Left Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.BinaryExpression#getRightExpr <em>Right Expr</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getBinaryExpression()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getBinaryExpression()
  * @model abstract="true"
  * @generated
  */
@@ -38,7 +38,7 @@ public interface BinaryExpression extends Expression {
 	 * 
 	 * @return the value of the '<em>Left Expr</em>' containment reference.
 	 * @see #setLeftExpr(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getBinaryExpression_LeftExpr()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getBinaryExpression_LeftExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -54,14 +54,14 @@ public interface BinaryExpression extends Expression {
 	 * 
 	 * @return the value of the '<em>Right Expr</em>' containment reference.
 	 * @see #setRightExpr(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getBinaryExpression_RightExpr()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getBinaryExpression_RightExpr()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getRightExpr();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.BinaryExpression#getLeftExpr <em>Left Expr</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.BinaryExpression#getLeftExpr <em>Left Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -73,7 +73,7 @@ public interface BinaryExpression extends Expression {
 	void setLeftExpr(Expression value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.BinaryExpression#getRightExpr <em>Right Expr</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.BinaryExpression#getRightExpr <em>Right Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

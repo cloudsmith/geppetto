@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation;
+package com.puppetlabs.geppetto.validation;
 
 /**
  * Constants for ValidationService
  * 
  */
 public interface IValidationConstants {
-	String ISSUE_PREFIX = "org.cloudsmith.geppetto.validation.issue.";
+	String ISSUE_PREFIX = "com.puppetlabs.geppetto.validation.issue.";
 
 	String ISSUE__UNEXPECTED_SUBMODULE_DIRECTORY = ISSUE_PREFIX + "UnexpectedSubmoduleDirectory";
 

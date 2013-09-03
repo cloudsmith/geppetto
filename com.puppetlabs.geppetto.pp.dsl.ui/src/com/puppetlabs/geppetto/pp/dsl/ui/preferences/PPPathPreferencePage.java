@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences;
 
 //import org.eclipse.jface.preference.PathEditor;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.PathEditor;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.PromptDialog;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.PathEditor;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.PromptDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
@@ -62,7 +62,7 @@ public class PPPathPreferencePage extends AbstractRebuildingPreferencePage {
 		/*
 		 * (non-Javadoc)
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.ListEditor#getEditedInput(java.lang.String)
+		 * @see com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.ListEditor#getEditedInput(java.lang.String)
 		 */
 		@Override
 		protected String getEditedInput(String input) {
@@ -163,7 +163,7 @@ public class PPPathPreferencePage extends AbstractRebuildingPreferencePage {
 		}
 	}
 
-	private static final String PAGE_ID = "org.cloudsmith.geppetto.pp.dsl.PP.searchPath";
+	private static final String PAGE_ID = "com.puppetlabs.geppetto.pp.dsl.PP.searchPath";
 
 	@Override
 	protected void createFieldEditors() {
@@ -175,7 +175,7 @@ public class PPPathPreferencePage extends AbstractRebuildingPreferencePage {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.preferences.AbstractRebuildingPreferencePage#getPreferenceId()
+	 * @see com.puppetlabs.geppetto.pp.dsl.ui.preferences.AbstractRebuildingPreferencePage#getPreferenceId()
 	 */
 	@Override
 	protected String getPreferenceId() {

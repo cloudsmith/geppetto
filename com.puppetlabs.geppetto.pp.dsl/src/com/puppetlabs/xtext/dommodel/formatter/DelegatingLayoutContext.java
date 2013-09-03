@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter;
+package com.puppetlabs.xtext.dommodel.formatter;
 
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.css.DomCSS;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.formatting.ILineSeparatorInformation;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;

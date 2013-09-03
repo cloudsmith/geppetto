@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.wizard;
+package com.puppetlabs.geppetto.ui.wizard;
 
-import static org.cloudsmith.geppetto.common.Strings.trimToNull;
-import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
-import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
-import static org.cloudsmith.geppetto.ui.UIPlugin.getLocalString;
+import static com.puppetlabs.geppetto.common.Strings.trimToNull;
+import static com.puppetlabs.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.MODULEFILE_NAME;
+import static com.puppetlabs.geppetto.ui.UIPlugin.getLocalString;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -24,17 +24,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
-import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
-import org.cloudsmith.geppetto.forge.v1.service.ModuleService;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.semver.VersionRange;
-import org.cloudsmith.geppetto.ui.UIPlugin;
-import org.cloudsmith.geppetto.ui.dialog.ModuleListSelectionDialog;
-import org.cloudsmith.geppetto.ui.util.ResourceUtil;
-import org.cloudsmith.geppetto.ui.util.StringUtil;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.ForgeService;
+import com.puppetlabs.geppetto.forge.util.ModuleUtils;
+import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
+import com.puppetlabs.geppetto.forge.v1.service.ModuleService;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.ui.dialog.ModuleListSelectionDialog;
+import com.puppetlabs.geppetto.ui.util.ResourceUtil;
+import com.puppetlabs.geppetto.ui.util.StringUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;

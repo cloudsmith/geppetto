@@ -8,26 +8,26 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.formatting;
+package com.puppetlabs.geppetto.pp.dsl.formatting;
 
 import java.util.Iterator;
 import java.util.List;
 
-import org.cloudsmith.geppetto.common.stats.IntegerCluster;
-import org.cloudsmith.geppetto.pp.AppendExpression;
-import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.DelegatingLayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
-import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleFactory.WidthStyle;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.textflow.ITextFlow;
-import org.cloudsmith.xtext.textflow.TextFlow;
+import com.puppetlabs.geppetto.common.stats.IntegerCluster;
+import com.puppetlabs.geppetto.pp.AppendExpression;
+import com.puppetlabs.geppetto.pp.AssignmentExpression;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.DelegatingLayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.DomNodeLayoutFeeder;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.css.Alignment;
+import com.puppetlabs.xtext.dommodel.formatter.css.IStyleFactory;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleFactory.WidthStyle;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.xtext.textflow.ITextFlow;
+import com.puppetlabs.xtext.textflow.TextFlow;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Keyword;

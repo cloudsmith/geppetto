@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking.utils;
+package com.puppetlabs.geppetto.pp.dsl.linking.utils;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.xtext.resource.IEObjectDescription;

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ppformatting;
+package com.puppetlabs.geppetto.pp.dsl.ppformatting;
 
 import java.util.Collection;
 

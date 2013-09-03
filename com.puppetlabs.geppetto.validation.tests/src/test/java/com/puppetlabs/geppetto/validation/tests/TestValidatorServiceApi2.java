@@ -1,6 +1,6 @@
-package org.cloudsmith.geppetto.validation.tests;
+package com.puppetlabs.geppetto.validation.tests;
 
-import static org.cloudsmith.geppetto.forge.Forge.MODULEFILE_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
@@ -11,13 +11,13 @@ import java.io.File;
 import java.util.List;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
-import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
-import org.cloudsmith.geppetto.validation.FileType;
-import org.cloudsmith.geppetto.validation.IValidationConstants;
-import org.cloudsmith.geppetto.validation.ValidationOptions;
-import org.cloudsmith.geppetto.validation.ValidationService;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPPDiagnostics;
+import com.puppetlabs.geppetto.validation.FileType;
+import com.puppetlabs.geppetto.validation.IValidationConstants;
+import com.puppetlabs.geppetto.validation.ValidationOptions;
+import com.puppetlabs.geppetto.validation.ValidationService;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.junit.Test;

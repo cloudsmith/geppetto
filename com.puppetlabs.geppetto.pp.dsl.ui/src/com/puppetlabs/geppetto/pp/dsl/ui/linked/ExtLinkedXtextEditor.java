@@ -9,11 +9,11 @@
  *   Puppet Labs
  */
 
-package org.cloudsmith.geppetto.pp.dsl.ui.linked;
+package com.puppetlabs.geppetto.pp.dsl.ui.linked;
 
 import java.io.File;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
 import org.eclipse.core.filesystem.EFS;
 import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.filesystem.URIUtil;
@@ -80,7 +80,7 @@ public class ExtLinkedXtextEditor extends XtextEditor {
 	 * TODO: this should come from the customizer
 	 */
 	public static final QualifiedName LAST_SAVEAS_LOCATION = new QualifiedName(
-		"org.cloudsmith.geppetto.pp.dsl.ui", "lastSaveLocation");
+		"com.puppetlabs.geppetto.pp.dsl.ui", "lastSaveLocation");
 
 	@Inject
 	ISaveActions saveActions;

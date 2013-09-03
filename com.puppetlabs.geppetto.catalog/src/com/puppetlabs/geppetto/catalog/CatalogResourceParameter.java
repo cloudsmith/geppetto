@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog;
+package com.puppetlabs.geppetto.catalog;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogResourceParameter#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.CatalogResourceParameter#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogResourceParameter#getName <em>Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.CatalogResourceParameter#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResourceParameter()
+ * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogResourceParameter()
  * @model
  * @generated
  */
@@ -41,7 +41,7 @@ public interface CatalogResourceParameter extends EObject {
 	 * 
 	 * @return the value of the '<em>Name</em>' attribute.
 	 * @see #setName(String)
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResourceParameter_Name()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogResourceParameter_Name()
 	 * @model required="true"
 	 * @generated
 	 */
@@ -57,14 +57,14 @@ public interface CatalogResourceParameter extends EObject {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Value</em>' attribute list.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogPackage#getCatalogResourceParameter_Value()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogPackage#getCatalogResourceParameter_Value()
 	 * @model required="true"
 	 * @generated
 	 */
 	EList<String> getValue();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.catalog.CatalogResourceParameter#getName <em>Name</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.catalog.CatalogResourceParameter#getName <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

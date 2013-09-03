@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog;
+package com.puppetlabs.geppetto.catalog;
 
 import org.eclipse.emf.ecore.EFactory;
 
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EFactory;
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.catalog.CatalogPackage
+ * @see com.puppetlabs.geppetto.catalog.CatalogPackage
  * @generated
  */
 public interface CatalogFactory extends EFactory {
@@ -29,7 +29,7 @@ public interface CatalogFactory extends EFactory {
 	 * 
 	 * @generated
 	 */
-	CatalogFactory eINSTANCE = org.cloudsmith.geppetto.catalog.impl.CatalogFactoryImpl.init();
+	CatalogFactory eINSTANCE = com.puppetlabs.geppetto.catalog.impl.CatalogFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Catalog</em>'.

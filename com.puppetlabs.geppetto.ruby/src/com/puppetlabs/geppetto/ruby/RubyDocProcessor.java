@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby;
+package com.puppetlabs.geppetto.ruby;
 
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.common.CharSequences;
-import org.cloudsmith.geppetto.ruby.RubyDocProcessor.RubyDocLexer.HeadingToken;
-import org.cloudsmith.geppetto.ruby.RubyDocProcessor.RubyDocLexer.Token;
+import com.puppetlabs.geppetto.common.CharSequences;
+import com.puppetlabs.geppetto.ruby.RubyDocProcessor.RubyDocLexer.HeadingToken;
+import com.puppetlabs.geppetto.ruby.RubyDocProcessor.RubyDocLexer.Token;
 import org.eclipse.xtext.util.PolymorphicDispatcher;
 
 import com.google.common.base.Joiner;

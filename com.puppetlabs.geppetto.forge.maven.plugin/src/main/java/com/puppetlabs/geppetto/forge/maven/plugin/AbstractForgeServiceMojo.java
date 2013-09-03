@@ -8,17 +8,17 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.maven.plugin;
+package com.puppetlabs.geppetto.forge.maven.plugin;
 
 import java.util.List;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
-import org.cloudsmith.geppetto.forge.impl.ForgeServiceModule;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.ForgeService;
+import com.puppetlabs.geppetto.forge.client.ForgeHttpModule;
+import com.puppetlabs.geppetto.forge.impl.ForgeServiceModule;
 
 import com.google.inject.Module;
 

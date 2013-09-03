@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.pp.dsl.lexer;
+package com.puppetlabs.geppetto.pp.dsl.lexer;
 
 // Use our own Lexer superclass by means of import. 
 import org.eclipse.xtext.parser.antlr.Lexer;
@@ -288,15 +288,15 @@ public class PPLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g"; }
+    public String getGrammarFileName() { return "../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g"; }
 
     // $ANTLR start "KW_INHERITS"
     public final void mKW_INHERITS() throws RecognitionException {
         try {
             int _type = KW_INHERITS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:128:13: ({...}? => 'inherits' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:128:15: {...}? => 'inherits'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:128:13: ({...}? => 'inherits' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:128:15: {...}? => 'inherits'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -320,8 +320,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_DEFAULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:130:13: ({...}? => 'default' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:130:15: {...}? => 'default'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:130:13: ({...}? => 'default' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:130:15: {...}? => 'default'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -345,8 +345,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_DEFINE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:132:13: ({...}? => 'define' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:132:15: {...}? => 'define'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:132:13: ({...}? => 'define' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:132:15: {...}? => 'define'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -370,8 +370,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_IMPORT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:134:13: ({...}? => 'import' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:134:15: {...}? => 'import'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:134:13: ({...}? => 'import' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:134:15: {...}? => 'import'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -395,8 +395,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_UNLESS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:136:13: ({...}? => 'unless' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:136:15: {...}? => 'unless'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:136:13: ({...}? => 'unless' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:136:15: {...}? => 'unless'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -420,8 +420,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_CLASS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:138:13: ({...}? => 'class' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:138:15: {...}? => 'class'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:138:13: ({...}? => 'class' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:138:15: {...}? => 'class'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -445,8 +445,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_ELSIF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:140:13: ({...}? => 'elsif' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:140:15: {...}? => 'elsif'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:140:13: ({...}? => 'elsif' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:140:15: {...}? => 'elsif'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -470,8 +470,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:142:13: ({...}? => 'false' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:142:15: {...}? => 'false'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:142:13: ({...}? => 'false' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:142:15: {...}? => 'false'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -495,8 +495,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_UNDEF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:144:13: ({...}? => 'undef' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:144:15: {...}? => 'undef'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:144:13: ({...}? => 'undef' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:144:15: {...}? => 'undef'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -520,8 +520,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_CASE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:146:16: ({...}? => 'case' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:146:18: {...}? => 'case'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:146:16: ({...}? => 'case' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:146:18: {...}? => 'case'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -545,8 +545,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_ELSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:148:16: ({...}? => 'else' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:148:18: {...}? => 'else'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:148:16: ({...}? => 'else' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:148:18: {...}? => 'else'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -570,8 +570,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_NODE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:150:16: ({...}? => 'node' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:150:18: {...}? => 'node'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:150:16: ({...}? => 'node' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:150:18: {...}? => 'node'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -595,8 +595,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:152:16: ({...}? => 'true' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:152:18: {...}? => 'true'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:152:16: ({...}? => 'true' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:152:18: {...}? => 'true'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -620,8 +620,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_LLCOLLECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:154:16: ({...}? => '<<|' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:154:18: {...}? => '<<|'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:154:16: ({...}? => '<<|' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:154:18: {...}? => '<<|'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -645,8 +645,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_ESC_DLR_BRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:156:18: ( '\\\\${' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:156:20: '\\\\${'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:156:18: ( '\\\\${' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:156:20: '\\\\${'
             {
             match("\\${"); if (state.failed) return ;
 
@@ -666,8 +666,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:158:16: ({...}? => 'and' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:158:18: {...}? => 'and'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:158:16: ({...}? => 'and' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:158:18: {...}? => 'and'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -691,8 +691,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_RRCOLLECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:160:16: ({...}? => '|>>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:160:18: {...}? => '|>>'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:160:16: ({...}? => '|>>' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:160:18: {...}? => '|>>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -716,8 +716,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_NOT_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:162:16: ({...}? => '!=' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:162:18: {...}? => '!='
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:162:16: ({...}? => '!=' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:162:18: {...}? => '!='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -741,8 +741,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_NOT_MATCHES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:164:16: ({...}? => '!~' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:164:18: {...}? => '!~'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:164:16: ({...}? => '!~' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:164:18: {...}? => '!~'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -766,8 +766,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_DLR_BRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:166:14: ( '${' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:166:16: '${'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:166:14: ( '${' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:166:16: '${'
             {
             match("${"); if (state.failed) return ;
 
@@ -798,8 +798,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_PLUS_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:176:14: ({...}? => '+=' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:176:16: {...}? => '+='
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:176:14: ({...}? => '+=' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:176:16: {...}? => '+='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -823,8 +823,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_APPEND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:178:14: ({...}? => '+>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:178:16: {...}? => '+>'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:178:14: ({...}? => '+>' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:178:16: {...}? => '+>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -848,8 +848,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_RARR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:180:14: ({...}? => '->' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:180:16: {...}? => '->'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:180:14: ({...}? => '->' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:180:16: {...}? => '->'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -873,8 +873,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_IN_EDGE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:182:14: ({...}? => '<-' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:182:16: {...}? => '<-'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:182:14: ({...}? => '<-' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:182:16: {...}? => '<-'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -898,8 +898,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_LSHIFT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:184:14: ({...}? => '<<' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:184:16: {...}? => '<<'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:184:14: ({...}? => '<<' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:184:16: {...}? => '<<'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -923,8 +923,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_LT_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:186:15: ({...}? => '<=' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:186:17: {...}? => '<='
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:186:15: ({...}? => '<=' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:186:17: {...}? => '<='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -948,8 +948,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_LCOLLECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:188:14: ({...}? => '<|' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:188:16: {...}? => '<|'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:188:14: ({...}? => '<|' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:188:16: {...}? => '<|'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -973,8 +973,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_IN_EDGE_SUB;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:190:16: ({...}? => '<~' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:190:18: {...}? => '<~'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:190:16: ({...}? => '<~' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:190:18: {...}? => '<~'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -998,8 +998,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_EQUALS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:192:14: ({...}? => '==' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:192:16: {...}? => '=='
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:192:14: ({...}? => '==' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:192:16: {...}? => '=='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1023,8 +1023,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_FARROW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:194:14: ({...}? => '=>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:194:16: {...}? => '=>'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:194:14: ({...}? => '=>' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:194:16: {...}? => '=>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1048,8 +1048,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_MATCHES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:196:14: ({...}? => '=~' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:196:16: {...}? => '=~'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:196:14: ({...}? => '=~' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:196:16: {...}? => '=~'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1073,8 +1073,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_GT_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:198:15: ({...}? => '>=' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:198:17: {...}? => '>='
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:198:15: ({...}? => '>=' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:198:17: {...}? => '>='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1098,8 +1098,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_RSHIFT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:200:14: ({...}? => '>>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:200:16: {...}? => '>>'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:200:14: ({...}? => '>>' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:200:16: {...}? => '>>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1123,8 +1123,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_ESC_DQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:202:14: ( '\\\\\"' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:202:16: '\\\\\"'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:202:14: ( '\\\\\"' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:202:16: '\\\\\"'
             {
             match("\\\""); if (state.failed) return ;
 
@@ -1144,8 +1144,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_ESC_DLR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:204:14: ( '\\\\$' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:204:16: '\\\\$'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:204:14: ( '\\\\$' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:204:16: '\\\\$'
             {
             match("\\$"); if (state.failed) return ;
 
@@ -1165,8 +1165,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_ESC_SQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:206:14: ( '\\\\\\'' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:206:16: '\\\\\\''
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:206:14: ( '\\\\\\'' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:206:16: '\\\\\\''
             {
             match("\\'"); if (state.failed) return ;
 
@@ -1186,8 +1186,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_ESC_ESC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:208:14: ( '\\\\\\\\' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:208:16: '\\\\\\\\'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:208:14: ( '\\\\\\\\' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:208:16: '\\\\\\\\'
             {
             match("\\\\"); if (state.failed) return ;
 
@@ -1207,8 +1207,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:210:14: ({...}? => 'if' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:210:16: {...}? => 'if'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:210:14: ({...}? => 'if' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:210:16: {...}? => 'if'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1232,8 +1232,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_IN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:212:14: ({...}? => 'in' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:212:16: {...}? => 'in'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:212:14: ({...}? => 'in' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:212:16: {...}? => 'in'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1257,8 +1257,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:214:14: ({...}? => 'or' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:214:16: {...}? => 'or'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:214:14: ({...}? => 'or' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:214:16: {...}? => 'or'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1282,8 +1282,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_RCOLLECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:216:14: ({...}? => '|>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:216:16: {...}? => '|>'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:216:14: ({...}? => '|>' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:216:16: {...}? => '|>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1307,8 +1307,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_OUT_EDGE_SUB;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:218:17: ({...}? => '~>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:218:19: {...}? => '~>'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:218:17: ({...}? => '~>' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:218:19: {...}? => '~>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1332,8 +1332,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:220:14: ({...}? => '!' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:220:16: {...}? => '!'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:220:14: ({...}? => '!' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:220:16: {...}? => '!'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1356,8 +1356,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_DQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:222:14: ({...}? => '\"' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:222:16: {...}? => '\"'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:222:14: ({...}? => '\"' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:222:16: {...}? => '\"'
             {
             if ( !((!singleQuotedString)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1385,8 +1385,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_MODULO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:227:14: ({...}? => '%' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:227:16: {...}? => '%'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:227:14: ({...}? => '%' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:227:16: {...}? => '%'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1409,8 +1409,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_SQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:229:14: ({...}? => '\\'' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:229:16: {...}? => '\\''
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:229:14: ({...}? => '\\'' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:229:16: {...}? => '\\''
             {
             if ( !((!doubleQuotedString)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1438,8 +1438,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_LPAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:234:14: ({...}? => '(' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:234:16: {...}? => '('
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:234:14: ({...}? => '(' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:234:16: {...}? => '('
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1462,8 +1462,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_RPAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:236:14: ({...}? => ')' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:236:16: {...}? => ')'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:236:14: ({...}? => ')' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:236:16: {...}? => ')'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1486,8 +1486,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_MUL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:238:14: ({...}? => '*' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:238:16: {...}? => '*'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:238:14: ({...}? => '*' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:238:16: {...}? => '*'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1510,8 +1510,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:240:14: ({...}? => '+' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:240:16: {...}? => '+'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:240:14: ({...}? => '+' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:240:16: {...}? => '+'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1534,8 +1534,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:242:14: ({...}? => ',' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:242:16: {...}? => ','
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:242:14: ({...}? => ',' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:242:16: {...}? => ','
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1558,8 +1558,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_MINUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:244:14: ( '-' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:244:16: '-'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:244:14: ( '-' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:244:16: '-'
             {
             match('-'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
@@ -1584,8 +1584,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:249:14: ( '.' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:249:16: '.'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:249:14: ( '.' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:249:16: '.'
             {
             match('.'); if (state.failed) return ;
             if ( state.backtracking==0 ) {
@@ -1610,8 +1610,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_SLASH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:254:14: ({...}? => '/' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:254:16: {...}? => '/'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:254:14: ({...}? => '/' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:254:16: {...}? => '/'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1642,8 +1642,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:261:14: ({...}? => ':' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:261:16: {...}? => ':'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:261:14: ({...}? => ':' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:261:16: {...}? => ':'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1666,8 +1666,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_SEMI;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:263:14: ({...}? => ';' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:263:16: {...}? => ';'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:263:14: ({...}? => ';' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:263:16: {...}? => ';'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1690,8 +1690,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:265:14: ({...}? => '<' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:265:16: {...}? => '<'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:265:14: ({...}? => '<' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:265:16: {...}? => '<'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1714,8 +1714,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:267:14: ({...}? => '=' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:267:16: {...}? => '='
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:267:14: ({...}? => '=' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:267:16: {...}? => '='
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1738,8 +1738,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:269:14: ({...}? => '>' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:269:16: {...}? => '>'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:269:14: ({...}? => '>' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:269:16: {...}? => '>'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1762,8 +1762,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_QMARK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:271:14: ({...}? => '?' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:271:16: {...}? => '?'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:271:14: ({...}? => '?' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:271:16: {...}? => '?'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1786,8 +1786,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_AT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:273:14: ({...}? => '@' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:273:16: {...}? => '@'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:273:14: ({...}? => '@' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:273:16: {...}? => '@'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1810,8 +1810,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_LBRACK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:275:14: ({...}? => '[' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:275:16: {...}? => '['
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:275:14: ({...}? => '[' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:275:16: {...}? => '['
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1834,8 +1834,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_RBRACK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:277:14: ({...}? => ']' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:277:16: {...}? => ']'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:277:14: ({...}? => ']' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:277:16: {...}? => ']'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1858,8 +1858,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_LBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:14: ({...}? => '{' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:284:16: {...}? => '{'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:284:14: ({...}? => '{' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:284:16: {...}? => '{'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1898,8 +1898,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_PIPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:299:14: ({...}? => '|' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:299:16: {...}? => '|'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:299:14: ({...}? => '|' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:299:16: {...}? => '|'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1922,8 +1922,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = KW_RBRACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:14: ({...}? => '}' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:301:16: {...}? => '}'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:301:14: ({...}? => '}' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:301:16: {...}? => '}'
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -1949,22 +1949,22 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:17: ({...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:19: {...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:17: ({...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? ) )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:19: {...}? => ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "RULE_ML_COMMENT", "isNotInString()");
             }
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:40: ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:41: ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )?
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:40: ( ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )? )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:41: ( '/*' ( options {greedy=false; } : . )* '*/' ) ( ' ' | '\\u00A0' | '\\t' )* ( ( '\\r' )? '\\n' )?
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:41: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:42: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:41: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:42: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); if (state.failed) return ;
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:47: ( options {greedy=false; } : . )*
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:47: ( options {greedy=false; } : . )*
             loop1:
             do {
                 int alt1=2;
@@ -1989,7 +1989,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:75: .
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:75: .
             	    {
             	    matchAny(); if (state.failed) return ;
 
@@ -2006,7 +2006,7 @@ public class PPLexer extends Lexer {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:85: ( ' ' | '\\u00A0' | '\\t' )*
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:85: ( ' ' | '\\u00A0' | '\\t' )*
             loop2:
             do {
                 int alt2=2;
@@ -2019,7 +2019,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:
             	    {
             	    if ( input.LA(1)=='\t'||input.LA(1)==' '||input.LA(1)=='\u00A0' ) {
             	        input.consume();
@@ -2040,7 +2040,7 @@ public class PPLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:106: ( ( '\\r' )? '\\n' )?
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:106: ( ( '\\r' )? '\\n' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -2049,9 +2049,9 @@ public class PPLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:107: ( '\\r' )? '\\n'
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:107: ( '\\r' )? '\\n'
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:107: ( '\\r' )?
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:107: ( '\\r' )?
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -2060,7 +2060,7 @@ public class PPLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:305:107: '\\r'
+                            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:305:107: '\\r'
                             {
                             match('\r'); if (state.failed) return ;
 
@@ -2095,15 +2095,15 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:17: ({...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:19: {...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:307:17: ({...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:307:19: {...}? => '#' (~ ( ( '\\r' | '\\n' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
                 throw new FailedPredicateException(input, "RULE_SL_COMMENT", "isNotInString()");
             }
             match('#'); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:44: (~ ( ( '\\r' | '\\n' ) ) )*
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:307:44: (~ ( ( '\\r' | '\\n' ) ) )*
             loop5:
             do {
                 int alt5=2;
@@ -2116,7 +2116,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:44: ~ ( ( '\\r' | '\\n' ) )
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:307:44: ~ ( ( '\\r' | '\\n' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2137,7 +2137,7 @@ public class PPLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:60: ( ( '\\r' )? '\\n' )?
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:307:60: ( ( '\\r' )? '\\n' )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -2146,9 +2146,9 @@ public class PPLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:61: ( '\\r' )? '\\n'
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:307:61: ( '\\r' )? '\\n'
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:61: ( '\\r' )?
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:307:61: ( '\\r' )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -2157,7 +2157,7 @@ public class PPLexer extends Lexer {
                     }
                     switch (alt6) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:307:61: '\\r'
+                            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:307:61: '\\r'
                             {
                             match('\r'); if (state.failed) return ;
 
@@ -2189,10 +2189,10 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:309:9: ( ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:309:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:309:9: ( ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+ )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:309:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:309:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:309:11: ( ' ' | '\\u00A0' | '\\t' | '\\r' | '\\n' )+
             int cnt8=0;
             loop8:
             do {
@@ -2206,7 +2206,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:
             	    {
             	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' '||input.LA(1)=='\u00A0' ) {
             	        input.consume();
@@ -2255,8 +2255,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_LAMBDA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:13: ({...}? => '{' '|' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:318:15: {...}? => '{' '|'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:318:13: ({...}? => '{' '|' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:318:15: {...}? => '{' '|'
             {
             if ( !((false)) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -2280,11 +2280,11 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_DOLLAR_VAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:321:17: ( '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )* )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:321:19: '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:321:17: ( '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )* )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:321:19: '$' ( ( ':' ':' )=> RULE_NS )? ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
             {
             match('$'); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:2: ( ( ':' ':' )=> RULE_NS )?
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:322:2: ( ( ':' ':' )=> RULE_NS )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -2293,7 +2293,7 @@ public class PPLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:3: ( ':' ':' )=> RULE_NS
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:322:3: ( ':' ':' )=> RULE_NS
                     {
                     mRULE_NS(); if (state.failed) return ;
 
@@ -2302,7 +2302,7 @@ public class PPLexer extends Lexer {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:24: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:322:24: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
             int cnt10=0;
             loop10:
             do {
@@ -2316,7 +2316,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -2342,7 +2342,7 @@ public class PPLexer extends Lexer {
                 cnt10++;
             } while (true);
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:323:2: ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:323:2: ( ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )*
             loop12:
             do {
                 int alt12=2;
@@ -2355,10 +2355,10 @@ public class PPLexer extends Lexer {
 
                 switch (alt12) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:323:3: ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:323:3: ( ':' ':' )=> RULE_NS ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
             	    {
             	    mRULE_NS(); if (state.failed) return ;
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:323:22: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:323:22: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' )+
             	    int cnt11=0;
             	    loop11:
             	    do {
@@ -2372,7 +2372,7 @@ public class PPLexer extends Lexer {
 
             	        switch (alt11) {
             	    	case 1 :
-            	    	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:
+            	    	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:
             	    	    {
             	    	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	    	        input.consume();
@@ -2423,10 +2423,10 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_WORD_CHARS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:17: ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )* )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )*
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:17: ( ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )* )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS ) ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )*
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:19: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | ( ':' ':' )=> RULE_NS )
             int alt13=5;
             int LA13_0 = input.LA(1);
 
@@ -2454,35 +2454,35 @@ public class PPLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:20: '0' .. '9'
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:20: '0' .. '9'
                     {
                     matchRange('0','9'); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:29: 'a' .. 'z'
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:29: 'a' .. 'z'
                     {
                     matchRange('a','z'); if (state.failed) return ;
 
                     }
                     break;
                 case 3 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:38: 'A' .. 'Z'
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:38: 'A' .. 'Z'
                     {
                     matchRange('A','Z'); if (state.failed) return ;
 
                     }
                     break;
                 case 4 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:47: '_'
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:47: '_'
                     {
                     match('_'); if (state.failed) return ;
 
                     }
                     break;
                 case 5 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:51: ( ':' ':' )=> RULE_NS
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:51: ( ':' ':' )=> RULE_NS
                     {
                     mRULE_NS(); if (state.failed) return ;
 
@@ -2491,7 +2491,7 @@ public class PPLexer extends Lexer {
 
             }
 
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:71: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )*
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:71: ( '0' .. '9' | 'a' .. 'z' | 'A' .. 'Z' | '_' | '-' | ( ':' ':' )=> RULE_NS )*
             loop14:
             do {
                 int alt14=7;
@@ -2519,42 +2519,42 @@ public class PPLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:72: '0' .. '9'
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:72: '0' .. '9'
             	    {
             	    matchRange('0','9'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 2 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:81: 'a' .. 'z'
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:81: 'a' .. 'z'
             	    {
             	    matchRange('a','z'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 3 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:90: 'A' .. 'Z'
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:90: 'A' .. 'Z'
             	    {
             	    matchRange('A','Z'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 4 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:99: '_'
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:99: '_'
             	    {
             	    match('_'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 5 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:103: '-'
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:103: '-'
             	    {
             	    match('-'); if (state.failed) return ;
 
             	    }
             	    break;
             	case 6 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:107: ( ':' ':' )=> RULE_NS
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:107: ( ':' ':' )=> RULE_NS
             	    {
             	    mRULE_NS(); if (state.failed) return ;
 
@@ -2587,8 +2587,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:333:13: ({...}? => ( NUMERIC )=> NUMERIC )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:333:15: {...}? => ( NUMERIC )=> NUMERIC
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:333:13: ({...}? => ( NUMERIC )=> NUMERIC )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:333:15: {...}? => ( NUMERIC )=> NUMERIC
             {
             if ( !((isNotInString())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -2616,8 +2616,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_REGULAR_EXPRESSION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:337:25: ({...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )? )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:337:27: {...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )?
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:337:25: ({...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )? )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:337:27: {...}? => '/' RULE_RE_BODY '/' ( RULE_RE_FLAGS )?
             {
             if ( !((isReAcceptable())) ) {
                 if (state.backtracking>0) {state.failed=true; return ;}
@@ -2626,7 +2626,7 @@ public class PPLexer extends Lexer {
             match('/'); if (state.failed) return ;
             mRULE_RE_BODY(); if (state.failed) return ;
             match('/'); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:337:69: ( RULE_RE_FLAGS )?
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:337:69: ( RULE_RE_FLAGS )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -2635,7 +2635,7 @@ public class PPLexer extends Lexer {
             }
             switch (alt15) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:337:69: RULE_RE_FLAGS
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:337:69: RULE_RE_FLAGS
                     {
                     mRULE_RE_FLAGS(); if (state.failed) return ;
 
@@ -2658,7 +2658,7 @@ public class PPLexer extends Lexer {
     // $ANTLR start "NUMERIC"
     public final void mNUMERIC() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:3: ( ( '0' ( 'x' | 'X' ) )=> ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ ) | ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )? )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:340:3: ( ( '0' ( 'x' | 'X' ) )=> ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ ) | ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )? )
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -2683,10 +2683,10 @@ public class PPLexer extends Lexer {
             }
             switch (alt23) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:5: ( '0' ( 'x' | 'X' ) )=> ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ )
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:340:5: ( '0' ( 'x' | 'X' ) )=> ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ )
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:22: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ )
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:23: '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:340:22: ( '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ )
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:340:23: '0' ( 'x' | 'X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
                     {
                     match('0'); if (state.failed) return ;
                     if ( input.LA(1)=='X'||input.LA(1)=='x' ) {
@@ -2699,7 +2699,7 @@ public class PPLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:37: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:340:37: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
                     int cnt16=0;
                     loop16:
                     do {
@@ -2713,7 +2713,7 @@ public class PPLexer extends Lexer {
 
                         switch (alt16) {
                     	case 1 :
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:
+                    	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:
                     	    {
                     	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                     	        input.consume();
@@ -2746,9 +2746,9 @@ public class PPLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:4: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )?
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:4: ( '0' .. '9' )+ ( '.' ( '0' .. '9' )+ )? ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )?
                     {
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:4: ( '0' .. '9' )+
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:4: ( '0' .. '9' )+
                     int cnt17=0;
                     loop17:
                     do {
@@ -2762,7 +2762,7 @@ public class PPLexer extends Lexer {
 
                         switch (alt17) {
                     	case 1 :
-                    	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:5: '0' .. '9'
+                    	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:5: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); if (state.failed) return ;
 
@@ -2779,7 +2779,7 @@ public class PPLexer extends Lexer {
                         cnt17++;
                     } while (true);
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:16: ( '.' ( '0' .. '9' )+ )?
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:16: ( '.' ( '0' .. '9' )+ )?
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
@@ -2788,10 +2788,10 @@ public class PPLexer extends Lexer {
                     }
                     switch (alt19) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:17: '.' ( '0' .. '9' )+
+                            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:17: '.' ( '0' .. '9' )+
                             {
                             match('.'); if (state.failed) return ;
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:21: ( '0' .. '9' )+
+                            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:21: ( '0' .. '9' )+
                             int cnt18=0;
                             loop18:
                             do {
@@ -2805,7 +2805,7 @@ public class PPLexer extends Lexer {
 
                                 switch (alt18) {
                             	case 1 :
-                            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:22: '0' .. '9'
+                            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:22: '0' .. '9'
                             	    {
                             	    matchRange('0','9'); if (state.failed) return ;
 
@@ -2828,7 +2828,7 @@ public class PPLexer extends Lexer {
 
                     }
 
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:35: ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )?
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:35: ( ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+ )?
                     int alt22=2;
                     int LA22_0 = input.LA(1);
 
@@ -2837,7 +2837,7 @@ public class PPLexer extends Lexer {
                     }
                     switch (alt22) {
                         case 1 :
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:36: ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+
+                            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:36: ( 'e' | 'E' ) ( '-' )? ( '0' .. '9' )+
                             {
                             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                                 input.consume();
@@ -2849,7 +2849,7 @@ public class PPLexer extends Lexer {
                                 recover(mse);
                                 throw mse;}
 
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:46: ( '-' )?
+                            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:46: ( '-' )?
                             int alt20=2;
                             int LA20_0 = input.LA(1);
 
@@ -2858,7 +2858,7 @@ public class PPLexer extends Lexer {
                             }
                             switch (alt20) {
                                 case 1 :
-                                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:46: '-'
+                                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:46: '-'
                                     {
                                     match('-'); if (state.failed) return ;
 
@@ -2867,7 +2867,7 @@ public class PPLexer extends Lexer {
 
                             }
 
-                            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:51: ( '0' .. '9' )+
+                            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:51: ( '0' .. '9' )+
                             int cnt21=0;
                             loop21:
                             do {
@@ -2881,7 +2881,7 @@ public class PPLexer extends Lexer {
 
                                 switch (alt21) {
                             	case 1 :
-                            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:341:52: '0' .. '9'
+                            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:341:52: '0' .. '9'
                             	    {
                             	    matchRange('0','9'); if (state.failed) return ;
 
@@ -2918,8 +2918,8 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_NS"
     public final void mRULE_NS() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:344:18: ( '::' )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:344:20: '::'
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:344:18: ( '::' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:344:20: '::'
             {
             match("::"); if (state.failed) return ;
 
@@ -2935,14 +2935,14 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_BODY"
     public final void mRULE_RE_BODY() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:23: ( ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:346:23: ( ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* ) )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:346:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:26: RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )*
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:346:25: ( RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )* )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:346:26: RULE_RE_FIRST_CHAR ( RULE_RE_FOLLOW_CHAR )*
             {
             mRULE_RE_FIRST_CHAR(); if (state.failed) return ;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:45: ( RULE_RE_FOLLOW_CHAR )*
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:346:45: ( RULE_RE_FOLLOW_CHAR )*
             loop24:
             do {
                 int alt24=2;
@@ -2955,7 +2955,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt24) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:346:45: RULE_RE_FOLLOW_CHAR
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:346:45: RULE_RE_FOLLOW_CHAR
             	    {
             	    mRULE_RE_FOLLOW_CHAR(); if (state.failed) return ;
 
@@ -2982,10 +2982,10 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FIRST_CHAR"
     public final void mRULE_RE_FIRST_CHAR() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:348:29: ( (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:348:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:348:29: ( (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE ) )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:348:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:348:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:348:31: (~ ( ( '\\n' | '*' | '/' | '\\\\' ) ) | RULE_RE_BACKSLASH_SEQUENCE )
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -3004,7 +3004,7 @@ public class PPLexer extends Lexer {
             }
             switch (alt25) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:348:32: ~ ( ( '\\n' | '*' | '/' | '\\\\' ) )
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:348:32: ~ ( ( '\\n' | '*' | '/' | '\\\\' ) )
                     {
                     if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<=')')||(input.LA(1)>='+' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                         input.consume();
@@ -3020,7 +3020,7 @@ public class PPLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:348:55: RULE_RE_BACKSLASH_SEQUENCE
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:348:55: RULE_RE_BACKSLASH_SEQUENCE
                     {
                     mRULE_RE_BACKSLASH_SEQUENCE(); if (state.failed) return ;
 
@@ -3041,10 +3041,10 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FOLLOW_CHAR"
     public final void mRULE_RE_FOLLOW_CHAR() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:350:30: ( ( RULE_RE_FIRST_CHAR | '*' ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:350:32: ( RULE_RE_FIRST_CHAR | '*' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:350:30: ( ( RULE_RE_FIRST_CHAR | '*' ) )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:350:32: ( RULE_RE_FIRST_CHAR | '*' )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:350:32: ( RULE_RE_FIRST_CHAR | '*' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:350:32: ( RULE_RE_FIRST_CHAR | '*' )
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -3063,14 +3063,14 @@ public class PPLexer extends Lexer {
             }
             switch (alt26) {
                 case 1 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:350:33: RULE_RE_FIRST_CHAR
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:350:33: RULE_RE_FIRST_CHAR
                     {
                     mRULE_RE_FIRST_CHAR(); if (state.failed) return ;
 
                     }
                     break;
                 case 2 :
-                    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:350:52: '*'
+                    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:350:52: '*'
                     {
                     match('*'); if (state.failed) return ;
 
@@ -3091,11 +3091,11 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_BACKSLASH_SEQUENCE"
     public final void mRULE_RE_BACKSLASH_SEQUENCE() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:352:37: ( ( '\\\\' ~ ( '\\n' ) ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:352:39: ( '\\\\' ~ ( '\\n' ) )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:352:37: ( ( '\\\\' ~ ( '\\n' ) ) )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:352:39: ( '\\\\' ~ ( '\\n' ) )
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:352:39: ( '\\\\' ~ ( '\\n' ) )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:352:40: '\\\\' ~ ( '\\n' )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:352:39: ( '\\\\' ~ ( '\\n' ) )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:352:40: '\\\\' ~ ( '\\n' )
             {
             match('\\'); if (state.failed) return ;
             if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\uFFFF') ) {
@@ -3123,10 +3123,10 @@ public class PPLexer extends Lexer {
     // $ANTLR start "RULE_RE_FLAGS"
     public final void mRULE_RE_FLAGS() throws RecognitionException {
         try {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:354:24: ( ( 'a' .. 'z' )+ )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:354:26: ( 'a' .. 'z' )+
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:354:24: ( ( 'a' .. 'z' )+ )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:354:26: ( 'a' .. 'z' )+
             {
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:354:26: ( 'a' .. 'z' )+
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:354:26: ( 'a' .. 'z' )+
             int cnt27=0;
             loop27:
             do {
@@ -3140,7 +3140,7 @@ public class PPLexer extends Lexer {
 
                 switch (alt27) {
             	case 1 :
-            	    // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:354:27: 'a' .. 'z'
+            	    // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:354:27: 'a' .. 'z'
             	    {
             	    matchRange('a','z'); if (state.failed) return ;
 
@@ -3171,8 +3171,8 @@ public class PPLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:356:16: ( . )
-            // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:356:18: .
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:356:16: ( . )
+            // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:356:18: .
             {
             matchAny(); if (state.failed) return ;
 
@@ -3187,530 +3187,530 @@ public class PPLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:8: ( KW_INHERITS | KW_DEFAULT | KW_DEFINE | KW_IMPORT | KW_UNLESS | KW_CLASS | KW_ELSIF | KW_FALSE | KW_UNDEF | KW_CASE | KW_ELSE | KW_NODE | KW_TRUE | KW_LLCOLLECT | KW_ESC_DLR_BRACE | KW_AND | KW_RRCOLLECT | KW_NOT_EQ | KW_NOT_MATCHES | KW_DLR_BRACE | KW_PLUS_EQ | KW_APPEND | KW_RARR | KW_IN_EDGE | KW_LSHIFT | KW_LT_EQ | KW_LCOLLECT | KW_IN_EDGE_SUB | KW_EQUALS | KW_FARROW | KW_MATCHES | KW_GT_EQ | KW_RSHIFT | KW_ESC_DQ | KW_ESC_DLR | KW_ESC_SQ | KW_ESC_ESC | KW_IF | KW_IN | KW_OR | KW_RCOLLECT | KW_OUT_EDGE_SUB | KW_NOT | KW_DQ | KW_MODULO | KW_SQ | KW_LPAR | KW_RPAR | KW_MUL | KW_PLUS | KW_COMMA | KW_MINUS | KW_DOT | KW_SLASH | KW_COLON | KW_SEMI | KW_LT | KW_EQ | KW_GT | KW_QMARK | KW_AT | KW_LBRACK | KW_RBRACK | KW_LBRACE | KW_PIPE | KW_RBRACE | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_LAMBDA | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_NUMBER | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER )
+        // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:8: ( KW_INHERITS | KW_DEFAULT | KW_DEFINE | KW_IMPORT | KW_UNLESS | KW_CLASS | KW_ELSIF | KW_FALSE | KW_UNDEF | KW_CASE | KW_ELSE | KW_NODE | KW_TRUE | KW_LLCOLLECT | KW_ESC_DLR_BRACE | KW_AND | KW_RRCOLLECT | KW_NOT_EQ | KW_NOT_MATCHES | KW_DLR_BRACE | KW_PLUS_EQ | KW_APPEND | KW_RARR | KW_IN_EDGE | KW_LSHIFT | KW_LT_EQ | KW_LCOLLECT | KW_IN_EDGE_SUB | KW_EQUALS | KW_FARROW | KW_MATCHES | KW_GT_EQ | KW_RSHIFT | KW_ESC_DQ | KW_ESC_DLR | KW_ESC_SQ | KW_ESC_ESC | KW_IF | KW_IN | KW_OR | KW_RCOLLECT | KW_OUT_EDGE_SUB | KW_NOT | KW_DQ | KW_MODULO | KW_SQ | KW_LPAR | KW_RPAR | KW_MUL | KW_PLUS | KW_COMMA | KW_MINUS | KW_DOT | KW_SLASH | KW_COLON | KW_SEMI | KW_LT | KW_EQ | KW_GT | KW_QMARK | KW_AT | KW_LBRACK | KW_RBRACK | KW_LBRACE | KW_PIPE | KW_RBRACE | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_LAMBDA | RULE_DOLLAR_VAR | RULE_WORD_CHARS | RULE_NUMBER | RULE_REGULAR_EXPRESSION | RULE_ANY_OTHER )
         int alt28=75;
         alt28 = dfa28.predict(input);
         switch (alt28) {
             case 1 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:10: KW_INHERITS
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:10: KW_INHERITS
                 {
                 mKW_INHERITS(); if (state.failed) return ;
 
                 }
                 break;
             case 2 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:22: KW_DEFAULT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:22: KW_DEFAULT
                 {
                 mKW_DEFAULT(); if (state.failed) return ;
 
                 }
                 break;
             case 3 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:33: KW_DEFINE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:33: KW_DEFINE
                 {
                 mKW_DEFINE(); if (state.failed) return ;
 
                 }
                 break;
             case 4 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:43: KW_IMPORT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:43: KW_IMPORT
                 {
                 mKW_IMPORT(); if (state.failed) return ;
 
                 }
                 break;
             case 5 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:53: KW_UNLESS
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:53: KW_UNLESS
                 {
                 mKW_UNLESS(); if (state.failed) return ;
 
                 }
                 break;
             case 6 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:63: KW_CLASS
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:63: KW_CLASS
                 {
                 mKW_CLASS(); if (state.failed) return ;
 
                 }
                 break;
             case 7 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:72: KW_ELSIF
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:72: KW_ELSIF
                 {
                 mKW_ELSIF(); if (state.failed) return ;
 
                 }
                 break;
             case 8 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:81: KW_FALSE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:81: KW_FALSE
                 {
                 mKW_FALSE(); if (state.failed) return ;
 
                 }
                 break;
             case 9 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:90: KW_UNDEF
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:90: KW_UNDEF
                 {
                 mKW_UNDEF(); if (state.failed) return ;
 
                 }
                 break;
             case 10 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:99: KW_CASE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:99: KW_CASE
                 {
                 mKW_CASE(); if (state.failed) return ;
 
                 }
                 break;
             case 11 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:107: KW_ELSE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:107: KW_ELSE
                 {
                 mKW_ELSE(); if (state.failed) return ;
 
                 }
                 break;
             case 12 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:115: KW_NODE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:115: KW_NODE
                 {
                 mKW_NODE(); if (state.failed) return ;
 
                 }
                 break;
             case 13 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:123: KW_TRUE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:123: KW_TRUE
                 {
                 mKW_TRUE(); if (state.failed) return ;
 
                 }
                 break;
             case 14 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:131: KW_LLCOLLECT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:131: KW_LLCOLLECT
                 {
                 mKW_LLCOLLECT(); if (state.failed) return ;
 
                 }
                 break;
             case 15 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:144: KW_ESC_DLR_BRACE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:144: KW_ESC_DLR_BRACE
                 {
                 mKW_ESC_DLR_BRACE(); if (state.failed) return ;
 
                 }
                 break;
             case 16 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:161: KW_AND
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:161: KW_AND
                 {
                 mKW_AND(); if (state.failed) return ;
 
                 }
                 break;
             case 17 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:168: KW_RRCOLLECT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:168: KW_RRCOLLECT
                 {
                 mKW_RRCOLLECT(); if (state.failed) return ;
 
                 }
                 break;
             case 18 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:181: KW_NOT_EQ
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:181: KW_NOT_EQ
                 {
                 mKW_NOT_EQ(); if (state.failed) return ;
 
                 }
                 break;
             case 19 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:191: KW_NOT_MATCHES
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:191: KW_NOT_MATCHES
                 {
                 mKW_NOT_MATCHES(); if (state.failed) return ;
 
                 }
                 break;
             case 20 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:206: KW_DLR_BRACE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:206: KW_DLR_BRACE
                 {
                 mKW_DLR_BRACE(); if (state.failed) return ;
 
                 }
                 break;
             case 21 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:219: KW_PLUS_EQ
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:219: KW_PLUS_EQ
                 {
                 mKW_PLUS_EQ(); if (state.failed) return ;
 
                 }
                 break;
             case 22 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:230: KW_APPEND
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:230: KW_APPEND
                 {
                 mKW_APPEND(); if (state.failed) return ;
 
                 }
                 break;
             case 23 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:240: KW_RARR
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:240: KW_RARR
                 {
                 mKW_RARR(); if (state.failed) return ;
 
                 }
                 break;
             case 24 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:248: KW_IN_EDGE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:248: KW_IN_EDGE
                 {
                 mKW_IN_EDGE(); if (state.failed) return ;
 
                 }
                 break;
             case 25 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:259: KW_LSHIFT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:259: KW_LSHIFT
                 {
                 mKW_LSHIFT(); if (state.failed) return ;
 
                 }
                 break;
             case 26 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:269: KW_LT_EQ
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:269: KW_LT_EQ
                 {
                 mKW_LT_EQ(); if (state.failed) return ;
 
                 }
                 break;
             case 27 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:278: KW_LCOLLECT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:278: KW_LCOLLECT
                 {
                 mKW_LCOLLECT(); if (state.failed) return ;
 
                 }
                 break;
             case 28 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:290: KW_IN_EDGE_SUB
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:290: KW_IN_EDGE_SUB
                 {
                 mKW_IN_EDGE_SUB(); if (state.failed) return ;
 
                 }
                 break;
             case 29 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:305: KW_EQUALS
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:305: KW_EQUALS
                 {
                 mKW_EQUALS(); if (state.failed) return ;
 
                 }
                 break;
             case 30 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:315: KW_FARROW
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:315: KW_FARROW
                 {
                 mKW_FARROW(); if (state.failed) return ;
 
                 }
                 break;
             case 31 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:325: KW_MATCHES
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:325: KW_MATCHES
                 {
                 mKW_MATCHES(); if (state.failed) return ;
 
                 }
                 break;
             case 32 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:336: KW_GT_EQ
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:336: KW_GT_EQ
                 {
                 mKW_GT_EQ(); if (state.failed) return ;
 
                 }
                 break;
             case 33 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:345: KW_RSHIFT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:345: KW_RSHIFT
                 {
                 mKW_RSHIFT(); if (state.failed) return ;
 
                 }
                 break;
             case 34 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:355: KW_ESC_DQ
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:355: KW_ESC_DQ
                 {
                 mKW_ESC_DQ(); if (state.failed) return ;
 
                 }
                 break;
             case 35 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:365: KW_ESC_DLR
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:365: KW_ESC_DLR
                 {
                 mKW_ESC_DLR(); if (state.failed) return ;
 
                 }
                 break;
             case 36 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:376: KW_ESC_SQ
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:376: KW_ESC_SQ
                 {
                 mKW_ESC_SQ(); if (state.failed) return ;
 
                 }
                 break;
             case 37 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:386: KW_ESC_ESC
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:386: KW_ESC_ESC
                 {
                 mKW_ESC_ESC(); if (state.failed) return ;
 
                 }
                 break;
             case 38 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:397: KW_IF
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:397: KW_IF
                 {
                 mKW_IF(); if (state.failed) return ;
 
                 }
                 break;
             case 39 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:403: KW_IN
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:403: KW_IN
                 {
                 mKW_IN(); if (state.failed) return ;
 
                 }
                 break;
             case 40 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:409: KW_OR
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:409: KW_OR
                 {
                 mKW_OR(); if (state.failed) return ;
 
                 }
                 break;
             case 41 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:415: KW_RCOLLECT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:415: KW_RCOLLECT
                 {
                 mKW_RCOLLECT(); if (state.failed) return ;
 
                 }
                 break;
             case 42 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:427: KW_OUT_EDGE_SUB
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:427: KW_OUT_EDGE_SUB
                 {
                 mKW_OUT_EDGE_SUB(); if (state.failed) return ;
 
                 }
                 break;
             case 43 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:443: KW_NOT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:443: KW_NOT
                 {
                 mKW_NOT(); if (state.failed) return ;
 
                 }
                 break;
             case 44 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:450: KW_DQ
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:450: KW_DQ
                 {
                 mKW_DQ(); if (state.failed) return ;
 
                 }
                 break;
             case 45 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:456: KW_MODULO
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:456: KW_MODULO
                 {
                 mKW_MODULO(); if (state.failed) return ;
 
                 }
                 break;
             case 46 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:466: KW_SQ
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:466: KW_SQ
                 {
                 mKW_SQ(); if (state.failed) return ;
 
                 }
                 break;
             case 47 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:472: KW_LPAR
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:472: KW_LPAR
                 {
                 mKW_LPAR(); if (state.failed) return ;
 
                 }
                 break;
             case 48 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:480: KW_RPAR
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:480: KW_RPAR
                 {
                 mKW_RPAR(); if (state.failed) return ;
 
                 }
                 break;
             case 49 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:488: KW_MUL
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:488: KW_MUL
                 {
                 mKW_MUL(); if (state.failed) return ;
 
                 }
                 break;
             case 50 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:495: KW_PLUS
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:495: KW_PLUS
                 {
                 mKW_PLUS(); if (state.failed) return ;
 
                 }
                 break;
             case 51 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:503: KW_COMMA
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:503: KW_COMMA
                 {
                 mKW_COMMA(); if (state.failed) return ;
 
                 }
                 break;
             case 52 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:512: KW_MINUS
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:512: KW_MINUS
                 {
                 mKW_MINUS(); if (state.failed) return ;
 
                 }
                 break;
             case 53 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:521: KW_DOT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:521: KW_DOT
                 {
                 mKW_DOT(); if (state.failed) return ;
 
                 }
                 break;
             case 54 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:528: KW_SLASH
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:528: KW_SLASH
                 {
                 mKW_SLASH(); if (state.failed) return ;
 
                 }
                 break;
             case 55 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:537: KW_COLON
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:537: KW_COLON
                 {
                 mKW_COLON(); if (state.failed) return ;
 
                 }
                 break;
             case 56 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:546: KW_SEMI
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:546: KW_SEMI
                 {
                 mKW_SEMI(); if (state.failed) return ;
 
                 }
                 break;
             case 57 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:554: KW_LT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:554: KW_LT
                 {
                 mKW_LT(); if (state.failed) return ;
 
                 }
                 break;
             case 58 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:560: KW_EQ
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:560: KW_EQ
                 {
                 mKW_EQ(); if (state.failed) return ;
 
                 }
                 break;
             case 59 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:566: KW_GT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:566: KW_GT
                 {
                 mKW_GT(); if (state.failed) return ;
 
                 }
                 break;
             case 60 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:572: KW_QMARK
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:572: KW_QMARK
                 {
                 mKW_QMARK(); if (state.failed) return ;
 
                 }
                 break;
             case 61 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:581: KW_AT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:581: KW_AT
                 {
                 mKW_AT(); if (state.failed) return ;
 
                 }
                 break;
             case 62 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:587: KW_LBRACK
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:587: KW_LBRACK
                 {
                 mKW_LBRACK(); if (state.failed) return ;
 
                 }
                 break;
             case 63 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:597: KW_RBRACK
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:597: KW_RBRACK
                 {
                 mKW_RBRACK(); if (state.failed) return ;
 
                 }
                 break;
             case 64 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:607: KW_LBRACE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:607: KW_LBRACE
                 {
                 mKW_LBRACE(); if (state.failed) return ;
 
                 }
                 break;
             case 65 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:617: KW_PIPE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:617: KW_PIPE
                 {
                 mKW_PIPE(); if (state.failed) return ;
 
                 }
                 break;
             case 66 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:625: KW_RBRACE
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:625: KW_RBRACE
                 {
                 mKW_RBRACE(); if (state.failed) return ;
 
                 }
                 break;
             case 67 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:635: RULE_ML_COMMENT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:635: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); if (state.failed) return ;
 
                 }
                 break;
             case 68 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:651: RULE_SL_COMMENT
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:651: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); if (state.failed) return ;
 
                 }
                 break;
             case 69 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:667: RULE_WS
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:667: RULE_WS
                 {
                 mRULE_WS(); if (state.failed) return ;
 
                 }
                 break;
             case 70 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:675: RULE_LAMBDA
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:675: RULE_LAMBDA
                 {
                 mRULE_LAMBDA(); if (state.failed) return ;
 
                 }
                 break;
             case 71 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:687: RULE_DOLLAR_VAR
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:687: RULE_DOLLAR_VAR
                 {
                 mRULE_DOLLAR_VAR(); if (state.failed) return ;
 
                 }
                 break;
             case 72 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:703: RULE_WORD_CHARS
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:703: RULE_WORD_CHARS
                 {
                 mRULE_WORD_CHARS(); if (state.failed) return ;
 
                 }
                 break;
             case 73 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:719: RULE_NUMBER
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:719: RULE_NUMBER
                 {
                 mRULE_NUMBER(); if (state.failed) return ;
 
                 }
                 break;
             case 74 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:731: RULE_REGULAR_EXPRESSION
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:731: RULE_REGULAR_EXPRESSION
                 {
                 mRULE_REGULAR_EXPRESSION(); if (state.failed) return ;
 
                 }
                 break;
             case 75 :
-                // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:1:755: RULE_ANY_OTHER
+                // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:1:755: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); if (state.failed) return ;
 
@@ -3723,8 +3723,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred1_PPLexer
     public final void synpred1_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:3: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:322:4: ':' ':'
+        // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:322:3: ( ':' ':' )
+        // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:322:4: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3735,8 +3735,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred2_PPLexer
     public final void synpred2_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:323:3: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:323:4: ':' ':'
+        // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:323:3: ( ':' ':' )
+        // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:323:4: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3747,8 +3747,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred3_PPLexer
     public final void synpred3_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:51: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:52: ':' ':'
+        // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:51: ( ':' ':' )
+        // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:52: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3759,8 +3759,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred4_PPLexer
     public final void synpred4_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:107: ( ':' ':' )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:326:108: ':' ':'
+        // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:107: ( ':' ':' )
+        // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:326:108: ':' ':'
         {
         match(':'); if (state.failed) return ;
         match(':'); if (state.failed) return ;
@@ -3771,8 +3771,8 @@ public class PPLexer extends Lexer {
 
     // $ANTLR start synpred6_PPLexer
     public final void synpred6_PPLexer_fragment() throws RecognitionException {   
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:5: ( '0' ( 'x' | 'X' ) )
-        // ../org.cloudsmith.geppetto.pp.dsl/src/org/cloudsmith/geppetto/pp/dsl/lexer/PPLexer.g:340:6: '0' ( 'x' | 'X' )
+        // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:340:5: ( '0' ( 'x' | 'X' ) )
+        // ../com.puppetlabs.geppetto.pp.dsl/src/com/puppetlabs/geppetto/pp/dsl/lexer/PPLexer.g:340:6: '0' ( 'x' | 'X' )
         {
         match('0'); if (state.failed) return ;
         if ( input.LA(1)=='X'||input.LA(1)=='x' ) {

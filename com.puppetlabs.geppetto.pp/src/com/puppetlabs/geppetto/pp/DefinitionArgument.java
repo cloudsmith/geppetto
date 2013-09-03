@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -20,13 +20,13 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getArgName <em>Arg Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getValue <em>Value</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getOp <em>Op</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.DefinitionArgument#getArgName <em>Arg Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.DefinitionArgument#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.DefinitionArgument#getOp <em>Op</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinitionArgument()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getDefinitionArgument()
  * @model
  * @generated
  */
@@ -41,7 +41,7 @@ public interface DefinitionArgument extends EObject {
 	 * 
 	 * @return the value of the '<em>Arg Name</em>' attribute.
 	 * @see #setArgName(String)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinitionArgument_ArgName()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getDefinitionArgument_ArgName()
 	 * @model
 	 * @generated
 	 */
@@ -57,7 +57,7 @@ public interface DefinitionArgument extends EObject {
 	 * 
 	 * @return the value of the '<em>Op</em>' attribute.
 	 * @see #setOp(String)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinitionArgument_Op()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getDefinitionArgument_Op()
 	 * @model
 	 * @generated
 	 */
@@ -73,14 +73,14 @@ public interface DefinitionArgument extends EObject {
 	 * 
 	 * @return the value of the '<em>Value</em>' containment reference.
 	 * @see #setValue(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getDefinitionArgument_Value()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getDefinitionArgument_Value()
 	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getValue();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getArgName <em>Arg Name</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.DefinitionArgument#getArgName <em>Arg Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -92,7 +92,7 @@ public interface DefinitionArgument extends EObject {
 	void setArgName(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getOp <em>Op</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.DefinitionArgument#getOp <em>Op</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -104,7 +104,7 @@ public interface DefinitionArgument extends EObject {
 	void setOp(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.DefinitionArgument#getValue <em>Value</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.DefinitionArgument#getValue <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

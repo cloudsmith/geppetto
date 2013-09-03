@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.editor;
+package com.puppetlabs.geppetto.ui.editor;
 
-import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.checkName;
-import static org.cloudsmith.geppetto.forge.v2.model.ModuleName.checkOwner;
+import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.checkName;
+import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.checkOwner;
 
-import org.cloudsmith.geppetto.semver.Version;
-import org.cloudsmith.geppetto.semver.VersionRange;
-import org.cloudsmith.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.text.DocumentEvent;

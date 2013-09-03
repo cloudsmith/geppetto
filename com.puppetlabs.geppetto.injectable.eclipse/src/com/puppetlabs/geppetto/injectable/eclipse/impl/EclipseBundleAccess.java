@@ -1,11 +1,11 @@
-package org.cloudsmith.geppetto.injectable.eclipse.impl;
+package com.puppetlabs.geppetto.injectable.eclipse.impl;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import org.cloudsmith.geppetto.common.util.BundleAccess;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;

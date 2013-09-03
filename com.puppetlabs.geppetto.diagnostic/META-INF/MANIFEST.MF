@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.cloudsmith.geppetto.diagnostic
+Bundle-SymbolicName: com.puppetlabs.geppetto.diagnostic
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-Version: 4.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.cloudsmith.geppetto.diagnostic
+Export-Package: com.puppetlabs.geppetto.diagnostic

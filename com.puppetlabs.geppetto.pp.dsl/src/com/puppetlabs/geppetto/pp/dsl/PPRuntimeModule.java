@@ -8,44 +8,44 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl;
+package com.puppetlabs.geppetto.pp.dsl;
 
-import org.cloudsmith.geppetto.common.tracer.AbstractTracer.DefaultStringProvider;
-import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
-import org.cloudsmith.geppetto.common.tracer.IStringProvider;
-import org.cloudsmith.geppetto.common.tracer.ITracer;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPCommentConfiguration;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
-import org.cloudsmith.geppetto.pp.dsl.lexer.PPOverridingLexer;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPLinker;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPQualifiedNameProvider;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionManager;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPResourceDescriptionStrategy;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPSearchPathProvider;
-import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
-import org.cloudsmith.geppetto.pp.dsl.serialization.PPValueSerializer;
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.ValidationAdvisorProvider;
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.FlowLayout;
-import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.ILayout;
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
-import org.cloudsmith.xtext.dommodel.formatter.comments.MoveThenFoldCommentLayout;
-import org.cloudsmith.xtext.dommodel.formatter.context.DefaultFormattingContext;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
-import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
-import org.cloudsmith.xtext.dommodel.formatter.css.debug.FormattingTracer;
-import org.cloudsmith.xtext.resource.ResourceAccess;
-import org.cloudsmith.xtext.resource.ResourceAccessScope;
-import org.cloudsmith.xtext.serializer.DomBasedSerializer;
+import com.puppetlabs.geppetto.common.tracer.AbstractTracer.DefaultStringProvider;
+import com.puppetlabs.geppetto.common.tracer.DefaultTracer;
+import com.puppetlabs.geppetto.common.tracer.IStringProvider;
+import com.puppetlabs.geppetto.common.tracer.ITracer;
+import com.puppetlabs.geppetto.pp.dsl.formatting.PPCommentConfiguration;
+import com.puppetlabs.geppetto.pp.dsl.formatting.PPSemanticLayout;
+import com.puppetlabs.geppetto.pp.dsl.formatting.PPStylesheetProvider;
+import com.puppetlabs.geppetto.pp.dsl.lexer.PPOverridingLexer;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPLinker;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPQualifiedNameConverter;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPQualifiedNameProvider;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPResourceDescriptionManager;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPResourceDescriptionStrategy;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPath.ISearchPathProvider;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPSearchPathProvider;
+import com.puppetlabs.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
+import com.puppetlabs.geppetto.pp.dsl.serialization.PPValueSerializer;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.ValidationAdvisorProvider;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.formatter.CSSDomFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.FlowLayout;
+import com.puppetlabs.xtext.dommodel.formatter.IDomModelFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.ILayout;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentConfiguration;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentFormatterAdvice;
+import com.puppetlabs.xtext.dommodel.formatter.comments.MoveThenFoldCommentLayout;
+import com.puppetlabs.xtext.dommodel.formatter.context.DefaultFormattingContext;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import com.puppetlabs.xtext.dommodel.formatter.css.DomCSS;
+import com.puppetlabs.xtext.dommodel.formatter.css.debug.FormattingTracer;
+import com.puppetlabs.xtext.resource.ResourceAccess;
+import com.puppetlabs.xtext.resource.ResourceAccessScope;
+import com.puppetlabs.xtext.serializer.DomBasedSerializer;
 import org.eclipse.xtext.conversion.IValueConverterService;
 import org.eclipse.xtext.formatting.IIndentationInformation;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
@@ -63,7 +63,7 @@ import com.google.inject.name.Names;
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
-public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRuntimeModule {
+public class PPRuntimeModule extends com.puppetlabs.geppetto.pp.dsl.AbstractPPRuntimeModule {
 
 	/**
 	 * Binds resource description strategy that binds parent data for inheritance
@@ -97,7 +97,7 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	/**
 	 * Handles creation of QualifiedNames for referenceable PP model elements.
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.AbstractPPRuntimeModule#bindIQualifiedNameProvider()
+	 * @see com.puppetlabs.geppetto.pp.dsl.AbstractPPRuntimeModule#bindIQualifiedNameProvider()
 	 */
 	@Override
 	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
@@ -167,7 +167,7 @@ public class PPRuntimeModule extends org.cloudsmith.geppetto.pp.dsl.AbstractPPRu
 	public void configureFormatting(com.google.inject.Binder binder) {
 		binder.bind(IDomModelFormatter.class).to(CSSDomFormatter.class);
 		// Want serializer to insert empty WS even if there is no node model
-		binder.bind(IHiddenTokenSequencer.class).to(org.cloudsmith.xtext.serializer.acceptor.HiddenTokenSequencer.class);
+		binder.bind(IHiddenTokenSequencer.class).to(com.puppetlabs.xtext.serializer.acceptor.HiddenTokenSequencer.class);
 
 		// Bind the default style sheet (TODO: Not a nice way to bind impl class - use names)
 		binder.bind(DomCSS.class).toProvider(PPStylesheetProvider.class);

@@ -5,9 +5,9 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPPluginImages;
+import com.puppetlabs.geppetto.pp.dsl.ui.internal.PPPluginImages;
 import org.eclipse.jface.action.Action;
 
 /**

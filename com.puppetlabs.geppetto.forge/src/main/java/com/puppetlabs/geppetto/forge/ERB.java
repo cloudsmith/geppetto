@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge;
+package com.puppetlabs.geppetto.forge;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
 
 /**
  * Perform very basic ERB (Embedded Ruby) template processing on a file in context of a {@link Metadata} instance.

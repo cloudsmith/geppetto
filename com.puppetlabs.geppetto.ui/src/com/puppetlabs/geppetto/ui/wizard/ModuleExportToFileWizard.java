@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.wizard;
+package com.puppetlabs.geppetto.ui.wizard;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -17,13 +17,13 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cloudsmith.geppetto.common.Strings;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.ui.UIPlugin;
-import org.cloudsmith.geppetto.ui.wizard.ModuleExportOperation.ExportSpec;
-import org.cloudsmith.geppetto.ui.wizard.ModuleExportOperation.ResourceFileFilter;
+import com.puppetlabs.geppetto.common.Strings;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.ui.wizard.ModuleExportOperation.ExportSpec;
+import com.puppetlabs.geppetto.ui.wizard.ModuleExportOperation.ResourceFileFilter;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;

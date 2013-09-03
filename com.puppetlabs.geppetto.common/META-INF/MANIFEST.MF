@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.cloudsmith.geppetto.common
+Bundle-SymbolicName: com.puppetlabs.geppetto.common
 Bundle-Version: 4.0.0
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
@@ -10,8 +10,8 @@ Import-Package: com.google.common.base;version="[12.0.0,13.0.0)",
  com.google.common.collect;version="[12.0.0,13.0.0)",
  org.eclipse.core.runtime,
  org.osgi.framework
-Export-Package: org.cloudsmith.geppetto.common,
- org.cloudsmith.geppetto.common.os,
- org.cloudsmith.geppetto.common.score,
- org.cloudsmith.geppetto.common.stats,
- org.cloudsmith.geppetto.common.util
+Export-Package: com.puppetlabs.geppetto.common,
+ com.puppetlabs.geppetto.common.os,
+ com.puppetlabs.geppetto.common.score,
+ com.puppetlabs.geppetto.common.stats,
+ com.puppetlabs.geppetto.common.util

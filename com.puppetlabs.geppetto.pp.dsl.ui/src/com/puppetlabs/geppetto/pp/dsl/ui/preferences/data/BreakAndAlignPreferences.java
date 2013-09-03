@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences.data;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences.data;
 
-import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApply;
-import org.cloudsmith.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApplyForDefinition;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
+import com.puppetlabs.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApply;
+import com.puppetlabs.geppetto.pp.dsl.formatting.IBreakAndAlignAdvice.WhenToApplyForDefinition;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -21,7 +21,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * 
  */
 public class BreakAndAlignPreferences extends AbstractPreferenceData {
-	public static final String FORMATTER_ALIGN_ID = "org.cloudsmith.geppetto.pp.dsl.PP.formatter.align";
+	public static final String FORMATTER_ALIGN_ID = "com.puppetlabs.geppetto.pp.dsl.PP.formatter.align";
 
 	public static final String FORMATTER_ALIGN_USE_PROJECT_SETTINGS = FORMATTER_ALIGN_ID + "." +
 			PPPreferenceConstants.USE_PROJECT_SETTINGS;

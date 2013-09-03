@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature id="org.cloudsmith.geppetto" version="0.0.0">
+   <feature id="com.puppetlabs.geppetto" version="0.0.0">
       <category name="geppetto"/>
    </feature>
-   <feature id="org.cloudsmith.geppetto.product" version="0.0.0">
+   <feature id="com.puppetlabs.geppetto.product" version="0.0.0">
       <category name="products"/>
    </feature>
    <feature id="org.eclipse.cvs" version="0.0.0">

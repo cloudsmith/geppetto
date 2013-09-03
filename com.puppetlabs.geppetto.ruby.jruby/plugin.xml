@@ -2,9 +2,9 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.cloudsmith.geppetto.rubyservice">
+         point="com.puppetlabs.geppetto.rubyservice">
       <Service
-            serviceClass="org.cloudsmith.geppetto.ruby.jruby.JRubyServices">
+            serviceClass="com.puppetlabs.geppetto.ruby.jruby.JRubyServices">
       </Service>
    </extension>
 

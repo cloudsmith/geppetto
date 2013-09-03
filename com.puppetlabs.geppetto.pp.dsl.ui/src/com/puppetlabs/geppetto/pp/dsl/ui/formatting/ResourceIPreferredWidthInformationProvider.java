@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.formatting;
+package com.puppetlabs.geppetto.pp.dsl.ui.formatting;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
-import org.cloudsmith.xtext.formatting.IPreferredMaxWidthInformation;
-import org.cloudsmith.xtext.ui.resource.PlatformResourceSpecificProvider;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.data.FormatterGeneralPreferences;
+import com.puppetlabs.xtext.formatting.IPreferredMaxWidthInformation;
+import com.puppetlabs.xtext.ui.resource.PlatformResourceSpecificProvider;
 import org.eclipse.core.resources.IResource;
 
 import com.google.inject.Inject;

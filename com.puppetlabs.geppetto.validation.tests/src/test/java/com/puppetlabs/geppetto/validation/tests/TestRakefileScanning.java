@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.validation.tests;
+package com.puppetlabs.geppetto.validation.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -6,13 +6,13 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.util.List;
 
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.pp.dsl.validation.IPPDiagnostics;
-import org.cloudsmith.geppetto.validation.ValidationService;
-import org.cloudsmith.geppetto.validation.runner.BuildResult;
-import org.cloudsmith.geppetto.validation.runner.RakefileInfo;
-import org.cloudsmith.geppetto.validation.runner.RakefileInfo.Rakefile;
-import org.cloudsmith.geppetto.validation.runner.RakefileInfo.Raketask;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPPDiagnostics;
+import com.puppetlabs.geppetto.validation.ValidationService;
+import com.puppetlabs.geppetto.validation.runner.BuildResult;
+import com.puppetlabs.geppetto.validation.runner.RakefileInfo;
+import com.puppetlabs.geppetto.validation.runner.RakefileInfo.Rakefile;
+import com.puppetlabs.geppetto.validation.runner.RakefileInfo.Raketask;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
 import org.junit.Test;

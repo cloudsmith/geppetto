@@ -1,23 +1,22 @@
 /**
- * Copyright (c) 2011 Cloudsmith Inc. and other contributors, as listed below.
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *   Cloudsmith
- * 
+ *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.impl;
+package com.puppetlabs.geppetto.forge.impl;
 
-import static org.cloudsmith.geppetto.diagnostic.Diagnostic.ERROR;
-import static org.cloudsmith.geppetto.diagnostic.Diagnostic.INFO;
-import static org.cloudsmith.geppetto.diagnostic.Diagnostic.WARNING;
-import static org.cloudsmith.geppetto.forge.Forge.FORGE;
-import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
-import static org.cloudsmith.geppetto.forge.Forge.MODULE_FILE_FILTER;
-import static org.cloudsmith.geppetto.forge.Forge.PUBLISHER;
+import static com.puppetlabs.geppetto.diagnostic.Diagnostic.ERROR;
+import static com.puppetlabs.geppetto.diagnostic.Diagnostic.INFO;
+import static com.puppetlabs.geppetto.diagnostic.Diagnostic.WARNING;
+import static com.puppetlabs.geppetto.forge.Forge.FORGE;
+import static com.puppetlabs.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.MODULE_FILE_FILTER;
+import static com.puppetlabs.geppetto.forge.Forge.PUBLISHER;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -36,30 +35,30 @@ import java.util.zip.GZIPInputStream;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
-import org.cloudsmith.geppetto.common.os.FileUtils;
-import org.cloudsmith.geppetto.common.os.StreamUtil;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.ExceptionDiagnostic;
-import org.cloudsmith.geppetto.forge.AlreadyPublishedException;
-import org.cloudsmith.geppetto.forge.Cache;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.client.ForgeException;
-import org.cloudsmith.geppetto.forge.util.ModuleUtils;
-import org.cloudsmith.geppetto.forge.util.TarUtils;
-import org.cloudsmith.geppetto.forge.v1.model.ModuleInfo;
-import org.cloudsmith.geppetto.forge.v2.MetadataRepository;
-import org.cloudsmith.geppetto.forge.v2.model.Dependency;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.Module;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.forge.v2.model.Release;
-import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
-import org.cloudsmith.geppetto.forge.v2.service.ReleaseService;
-import org.cloudsmith.geppetto.semver.VersionRange;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.puppetlabs.geppetto.common.os.FileUtils;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.ExceptionDiagnostic;
+import com.puppetlabs.geppetto.forge.AlreadyPublishedException;
+import com.puppetlabs.geppetto.forge.Cache;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.ForgeService;
+import com.puppetlabs.geppetto.forge.client.ForgeException;
+import com.puppetlabs.geppetto.forge.util.ModuleUtils;
+import com.puppetlabs.geppetto.forge.util.TarUtils;
+import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
+import com.puppetlabs.geppetto.forge.v2.MetadataRepository;
+import com.puppetlabs.geppetto.forge.v2.model.Dependency;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.Module;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.v2.model.Release;
+import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
+import com.puppetlabs.geppetto.forge.v2.service.ReleaseService;
+import com.puppetlabs.geppetto.semver.VersionRange;
 
 class ForgeServiceImpl implements ForgeService {
 	@Inject
@@ -69,7 +68,7 @@ class ForgeServiceImpl implements ForgeService {
 	private ModuleService moduleService;
 
 	@Inject
-	private org.cloudsmith.geppetto.forge.v1.service.ModuleService moduleServiceV1;
+	private com.puppetlabs.geppetto.forge.v1.service.ModuleService moduleServiceV1;
 
 	@Inject
 	private ReleaseService releaseService;

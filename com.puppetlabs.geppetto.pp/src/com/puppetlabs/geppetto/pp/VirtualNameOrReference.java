@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,12 +18,12 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.VirtualNameOrReference#getValue <em>Value</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.VirtualNameOrReference#isExported <em>Exported</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.VirtualNameOrReference#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.VirtualNameOrReference#isExported <em>Exported</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getVirtualNameOrReference()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getVirtualNameOrReference()
  * @model
  * @generated
  */
@@ -38,7 +38,7 @@ public interface VirtualNameOrReference extends LiteralExpression {
 	 * 
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getVirtualNameOrReference_Value()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getVirtualNameOrReference_Value()
 	 * @model
 	 * @generated
 	 */
@@ -54,14 +54,14 @@ public interface VirtualNameOrReference extends LiteralExpression {
 	 * 
 	 * @return the value of the '<em>Exported</em>' attribute.
 	 * @see #setExported(boolean)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getVirtualNameOrReference_Exported()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getVirtualNameOrReference_Exported()
 	 * @model
 	 * @generated
 	 */
 	boolean isExported();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.VirtualNameOrReference#isExported <em>Exported</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.VirtualNameOrReference#isExported <em>Exported</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -73,7 +73,7 @@ public interface VirtualNameOrReference extends LiteralExpression {
 	void setExported(boolean value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.VirtualNameOrReference#getValue <em>Value</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.VirtualNameOrReference#getValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

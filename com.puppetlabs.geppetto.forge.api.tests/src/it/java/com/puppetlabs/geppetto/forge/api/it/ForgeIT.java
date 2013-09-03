@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.api.it;
+package com.puppetlabs.geppetto.forge.api.it;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

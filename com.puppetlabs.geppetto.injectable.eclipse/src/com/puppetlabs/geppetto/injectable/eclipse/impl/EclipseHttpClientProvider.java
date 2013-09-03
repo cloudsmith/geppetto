@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.injectable.eclipse.impl;
+package com.puppetlabs.geppetto.injectable.eclipse.impl;
 
 import javax.inject.Named;
 
@@ -13,7 +13,7 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.cloudsmith.geppetto.injectable.eclipse.Activator;
+import com.puppetlabs.geppetto.injectable.eclipse.Activator;
 import org.eclipse.core.net.proxy.IProxyData;
 
 import com.google.inject.Inject;

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp;
+package com.puppetlabs.geppetto.pp.pptp;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPFactory
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPFactory
  * @model kind="package"
  * @generated
  */
@@ -48,12 +48,12 @@ public interface PPTPPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl <em>Target Entry</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl <em>Target Entry</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTargetEntry()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getTargetEntry()
 		 * @generated
 		 */
 		EClass TARGET_ENTRY = eINSTANCE.getTargetEntry();
@@ -131,23 +131,23 @@ public interface PPTPPackage extends EPackage {
 		EReference TARGET_ENTRY__META_VARIABLES = eINSTANCE.getTargetEntry_MetaVariables();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.PuppetDistributionImpl <em>Puppet Distribution</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.PuppetDistributionImpl <em>Puppet Distribution</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PuppetDistributionImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getPuppetDistribution()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PuppetDistributionImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getPuppetDistribution()
 		 * @generated
 		 */
 		EClass PUPPET_DISTRIBUTION = eINSTANCE.getPuppetDistribution();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl <em>Function</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.FunctionImpl <em>Function</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getFunction()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.FunctionImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getFunction()
 		 * @generated
 		 */
 		EClass FUNCTION = eINSTANCE.getFunction();
@@ -162,12 +162,12 @@ public interface PPTPPackage extends EPackage {
 		EAttribute FUNCTION__RVALUE = eINSTANCE.getFunction_RValue();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.AbstractTypeImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getAbstractType()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.AbstractTypeImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getAbstractType()
 		 * @generated
 		 */
 		EClass ABSTRACT_TYPE = eINSTANCE.getAbstractType();
@@ -200,12 +200,12 @@ public interface PPTPPackage extends EPackage {
 		EReference ABSTRACT_TYPE__PARAMETERS = eINSTANCE.getAbstractType_Parameters();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeImpl <em>Type</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TypeImpl <em>Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.TypeImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getType()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.TypeImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getType()
 		 * @generated
 		 */
 		EClass TYPE = eINSTANCE.getType();
@@ -220,23 +220,23 @@ public interface PPTPPackage extends EPackage {
 		EAttribute TYPE__SUPER_TYPE = eINSTANCE.getType_SuperType();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.MetaTypeImpl <em>Meta Type</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.MetaTypeImpl <em>Meta Type</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.MetaTypeImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getMetaType()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.MetaTypeImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getMetaType()
 		 * @generated
 		 */
 		EClass META_TYPE = eINSTANCE.getMetaType();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeArgumentImpl <em>Type Argument</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TypeArgumentImpl <em>Type Argument</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.TypeArgumentImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTypeArgument()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.TypeArgumentImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getTypeArgument()
 		 * @generated
 		 */
 		EClass TYPE_ARGUMENT = eINSTANCE.getTypeArgument();
@@ -260,12 +260,12 @@ public interface PPTPPackage extends EPackage {
 		EAttribute TYPE_ARGUMENT__NAMEVAR = eINSTANCE.getTypeArgument_Namevar();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.NameSpaceImpl <em>Name Space</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.NameSpaceImpl <em>Name Space</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.NameSpaceImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getNameSpace()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.NameSpaceImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getNameSpace()
 		 * @generated
 		 */
 		EClass NAME_SPACE = eINSTANCE.getNameSpace();
@@ -280,12 +280,12 @@ public interface PPTPPackage extends EPackage {
 		EAttribute NAME_SPACE__RESERVED = eINSTANCE.getNameSpace_Reserved();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl <em>TP Variable</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TPVariableImpl <em>TP Variable</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTPVariable()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.TPVariableImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getTPVariable()
 		 * @generated
 		 */
 		EClass TP_VARIABLE = eINSTANCE.getTPVariable();
@@ -309,12 +309,12 @@ public interface PPTPPackage extends EPackage {
 		EAttribute TP_VARIABLE__PATTERN = eINSTANCE.getTPVariable_Pattern();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer <em>ITarget Element Container</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer <em>ITarget Element Container</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getITargetElementContainer()
+		 * @see com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getITargetElementContainer()
 		 * @generated
 		 */
 		EClass ITARGET_ELEMENT_CONTAINER = eINSTANCE.getITargetElementContainer();
@@ -329,23 +329,23 @@ public interface PPTPPackage extends EPackage {
 		EReference ITARGET_ELEMENT_CONTAINER__CONTENTS = eINSTANCE.getITargetElementContainer_Contents();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.MetaVariableImpl <em>Meta Variable</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.MetaVariableImpl <em>Meta Variable</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.MetaVariableImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getMetaVariable()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.MetaVariableImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getMetaVariable()
 		 * @generated
 		 */
 		EClass META_VARIABLE = eINSTANCE.getMetaVariable();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.IDocumented <em>IDocumented</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.IDocumented <em>IDocumented</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.IDocumented
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getIDocumented()
+		 * @see com.puppetlabs.geppetto.pp.pptp.IDocumented
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getIDocumented()
 		 * @generated
 		 */
 		EClass IDOCUMENTED = eINSTANCE.getIDocumented();
@@ -360,12 +360,12 @@ public interface PPTPPackage extends EPackage {
 		EAttribute IDOCUMENTED__DOCUMENTATION = eINSTANCE.getIDocumented_Documentation();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.INamed <em>INamed</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.INamed <em>INamed</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.INamed
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getINamed()
+		 * @see com.puppetlabs.geppetto.pp.pptp.INamed
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getINamed()
 		 * @generated
 		 */
 		EClass INAMED = eINSTANCE.getINamed();
@@ -380,12 +380,12 @@ public interface PPTPPackage extends EPackage {
 		EAttribute INAMED__NAME = eINSTANCE.getINamed_Name();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl <em>Target Element</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetElementImpl <em>Target Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTargetElement()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.TargetElementImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getTargetElement()
 		 * @generated
 		 */
 		EClass TARGET_ELEMENT = eINSTANCE.getTargetElement();
@@ -400,34 +400,34 @@ public interface PPTPPackage extends EPackage {
 		EAttribute TARGET_ELEMENT__DEPRECATED = eINSTANCE.getTargetElement_Deprecated();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.PropertyImpl <em>Property</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.PropertyImpl <em>Property</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PropertyImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getProperty()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PropertyImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getProperty()
 		 * @generated
 		 */
 		EClass PROPERTY = eINSTANCE.getProperty();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.ParameterImpl <em>Parameter</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.ParameterImpl <em>Parameter</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.ParameterImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getParameter()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.ParameterImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getParameter()
 		 * @generated
 		 */
 		EClass PARAMETER = eINSTANCE.getParameter();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeFragmentImpl <em>Type Fragment</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TypeFragmentImpl <em>Type Fragment</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.TypeFragmentImpl
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTypeFragment()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.TypeFragmentImpl
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getTypeFragment()
 		 * @generated
 		 */
 		EClass TYPE_FRAGMENT = eINSTANCE.getTypeFragment();
@@ -438,7 +438,7 @@ public interface PPTPPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * 
 		 * @see java.io.File
-		 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getFile()
+		 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getFile()
 		 * @generated
 		 */
 		EDataType FILE = eINSTANCE.getFile();
@@ -461,7 +461,7 @@ public interface PPTPPackage extends EPackage {
 	 * 
 	 * @generated
 	 */
-	String eNS_URI = "http://www.cloudsmith.org/geppetto/1.0.0/PPTP";
+	String eNS_URI = "http://www.puppetlabs.com/geppetto/1.0.0/PPTP";
 
 	/**
 	 * The package namespace name.
@@ -479,15 +479,15 @@ public interface PPTPPackage extends EPackage {
 	 * 
 	 * @generated
 	 */
-	PPTPPackage eINSTANCE = org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl.init();
+	PPTPPackage eINSTANCE = com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer <em>ITarget Element Container</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer <em>ITarget Element Container</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getITargetElementContainer()
+	 * @see com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getITargetElementContainer()
 	 * @generated
 	 */
 	int ITARGET_ELEMENT_CONTAINER = 15;
@@ -513,56 +513,56 @@ public interface PPTPPackage extends EPackage {
 	int ITARGET_ELEMENT_CONTAINER_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl <em>Target Entry</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl <em>Target Entry</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.TargetEntryImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTargetEntry()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.TargetEntryImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getTargetEntry()
 	 * @generated
 	 */
 	int TARGET_ENTRY = 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.PuppetDistributionImpl <em>Puppet Distribution</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.PuppetDistributionImpl <em>Puppet Distribution</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PuppetDistributionImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getPuppetDistribution()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PuppetDistributionImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getPuppetDistribution()
 	 * @generated
 	 */
 	int PUPPET_DISTRIBUTION = 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.IDocumented <em>IDocumented</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.IDocumented <em>IDocumented</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.IDocumented
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getIDocumented()
+	 * @see com.puppetlabs.geppetto.pp.pptp.IDocumented
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getIDocumented()
 	 * @generated
 	 */
 	int IDOCUMENTED = 4;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl <em>Function</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.FunctionImpl <em>Function</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.FunctionImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getFunction()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.FunctionImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getFunction()
 	 * @generated
 	 */
 	int FUNCTION = 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.INamed <em>INamed</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.INamed <em>INamed</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.INamed
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getINamed()
+	 * @see com.puppetlabs.geppetto.pp.pptp.INamed
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getINamed()
 	 * @generated
 	 */
 	int INAMED = 5;
@@ -858,12 +858,12 @@ public interface PPTPPackage extends EPackage {
 	int INAMED_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl <em>Target Element</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetElementImpl <em>Target Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTargetElement()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.TargetElementImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getTargetElement()
 	 * @generated
 	 */
 	int TARGET_ELEMENT = 6;
@@ -909,12 +909,12 @@ public interface PPTPPackage extends EPackage {
 	int TARGET_ELEMENT_FEATURE_COUNT = INAMED_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.AbstractTypeImpl <em>Abstract Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.AbstractTypeImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getAbstractType()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.AbstractTypeImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getAbstractType()
 	 * @generated
 	 */
 	int ABSTRACT_TYPE = 3;
@@ -990,12 +990,12 @@ public interface PPTPPackage extends EPackage {
 	int ABSTRACT_TYPE_FEATURE_COUNT = TARGET_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeArgumentImpl <em>Type Argument</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TypeArgumentImpl <em>Type Argument</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.TypeArgumentImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTypeArgument()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.TypeArgumentImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getTypeArgument()
 	 * @generated
 	 */
 	int TYPE_ARGUMENT = 12;
@@ -1061,23 +1061,23 @@ public interface PPTPPackage extends EPackage {
 	int TYPE_ARGUMENT_FEATURE_COUNT = TARGET_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeImpl <em>Type</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TypeImpl <em>Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.TypeImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getType()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.TypeImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getType()
 	 * @generated
 	 */
 	int TYPE = 10;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.PropertyImpl <em>Property</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.PropertyImpl <em>Property</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PropertyImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getProperty()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PropertyImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getProperty()
 	 * @generated
 	 */
 	int PROPERTY = 7;
@@ -1143,12 +1143,12 @@ public interface PPTPPackage extends EPackage {
 	int PROPERTY_FEATURE_COUNT = TYPE_ARGUMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.ParameterImpl <em>Parameter</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.ParameterImpl <em>Parameter</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.ParameterImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getParameter()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.ParameterImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getParameter()
 	 * @generated
 	 */
 	int PARAMETER = 8;
@@ -1214,12 +1214,12 @@ public interface PPTPPackage extends EPackage {
 	int PARAMETER_FEATURE_COUNT = TYPE_ARGUMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TypeFragmentImpl <em>Type Fragment</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TypeFragmentImpl <em>Type Fragment</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.TypeFragmentImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTypeFragment()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.TypeFragmentImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getTypeFragment()
 	 * @generated
 	 */
 	int TYPE_FRAGMENT = 9;
@@ -1375,12 +1375,12 @@ public interface PPTPPackage extends EPackage {
 	int TYPE_FEATURE_COUNT = ABSTRACT_TYPE_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.MetaTypeImpl <em>Meta Type</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.MetaTypeImpl <em>Meta Type</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.MetaTypeImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getMetaType()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.MetaTypeImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getMetaType()
 	 * @generated
 	 */
 	int META_TYPE = 11;
@@ -1456,12 +1456,12 @@ public interface PPTPPackage extends EPackage {
 	int META_TYPE_FEATURE_COUNT = ABSTRACT_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.NameSpaceImpl <em>Name Space</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.NameSpaceImpl <em>Name Space</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.NameSpaceImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getNameSpace()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.NameSpaceImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getNameSpace()
 	 * @generated
 	 */
 	int NAME_SPACE = 13;
@@ -1527,12 +1527,12 @@ public interface PPTPPackage extends EPackage {
 	int NAME_SPACE_FEATURE_COUNT = TARGET_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl <em>TP Variable</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.TPVariableImpl <em>TP Variable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getTPVariable()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.TPVariableImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getTPVariable()
 	 * @generated
 	 */
 	int TP_VARIABLE = 14;
@@ -1598,12 +1598,12 @@ public interface PPTPPackage extends EPackage {
 	int TP_VARIABLE_FEATURE_COUNT = TARGET_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.pp.pptp.impl.MetaVariableImpl <em>Meta Variable</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.pp.pptp.impl.MetaVariableImpl <em>Meta Variable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.MetaVariableImpl
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getMetaVariable()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.MetaVariableImpl
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getMetaVariable()
 	 * @generated
 	 */
 	int META_VARIABLE = 16;
@@ -1654,55 +1654,55 @@ public interface PPTPPackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @see java.io.File
-	 * @see org.cloudsmith.geppetto.pp.pptp.impl.PPTPPackageImpl#getFile()
+	 * @see com.puppetlabs.geppetto.pp.pptp.impl.PPTPPackageImpl#getFile()
 	 * @generated
 	 */
 	int FILE = 17;
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.AbstractType <em>Abstract Type</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.AbstractType <em>Abstract Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Abstract Type</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.AbstractType
+	 * @see com.puppetlabs.geppetto.pp.pptp.AbstractType
 	 * @generated
 	 */
 	EClass getAbstractType();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.cloudsmith.geppetto.pp.pptp.AbstractType#getEReference0 <em>EReference0</em>}'.
+	 * Returns the meta object for the reference '{@link com.puppetlabs.geppetto.pp.pptp.AbstractType#getEReference0 <em>EReference0</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the reference '<em>EReference0</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.AbstractType#getEReference0()
+	 * @see com.puppetlabs.geppetto.pp.pptp.AbstractType#getEReference0()
 	 * @see #getAbstractType()
 	 * @generated
 	 */
 	EReference getAbstractType_EReference0();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.pptp.AbstractType#getParameters
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.pptp.AbstractType#getParameters
 	 * <em>Parameters</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.AbstractType#getParameters()
+	 * @see com.puppetlabs.geppetto.pp.pptp.AbstractType#getParameters()
 	 * @see #getAbstractType()
 	 * @generated
 	 */
 	EReference getAbstractType_Parameters();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.pptp.AbstractType#getProperties
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.pptp.AbstractType#getProperties
 	 * <em>Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Properties</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.AbstractType#getProperties()
+	 * @see com.puppetlabs.geppetto.pp.pptp.AbstractType#getProperties()
 	 * @see #getAbstractType()
 	 * @generated
 	 */
@@ -1721,150 +1721,150 @@ public interface PPTPPackage extends EPackage {
 	EDataType getFile();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.Function <em>Function</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.Function <em>Function</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Function</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.Function
+	 * @see com.puppetlabs.geppetto.pp.pptp.Function
 	 * @generated
 	 */
 	EClass getFunction();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.Function#isRValue <em>RValue</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.Function#isRValue <em>RValue</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>RValue</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.Function#isRValue()
+	 * @see com.puppetlabs.geppetto.pp.pptp.Function#isRValue()
 	 * @see #getFunction()
 	 * @generated
 	 */
 	EAttribute getFunction_RValue();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.IDocumented <em>IDocumented</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.IDocumented <em>IDocumented</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>IDocumented</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.IDocumented
+	 * @see com.puppetlabs.geppetto.pp.pptp.IDocumented
 	 * @generated
 	 */
 	EClass getIDocumented();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.IDocumented#getDocumentation <em>Documentation</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.IDocumented#getDocumentation <em>Documentation</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Documentation</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.IDocumented#getDocumentation()
+	 * @see com.puppetlabs.geppetto.pp.pptp.IDocumented#getDocumentation()
 	 * @see #getIDocumented()
 	 * @generated
 	 */
 	EAttribute getIDocumented_Documentation();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.INamed <em>INamed</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.INamed <em>INamed</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>INamed</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.INamed
+	 * @see com.puppetlabs.geppetto.pp.pptp.INamed
 	 * @generated
 	 */
 	EClass getINamed();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.INamed#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.INamed#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.INamed#getName()
+	 * @see com.puppetlabs.geppetto.pp.pptp.INamed#getName()
 	 * @see #getINamed()
 	 * @generated
 	 */
 	EAttribute getINamed_Name();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer <em>ITarget Element Container</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer <em>ITarget Element Container</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>ITarget Element Container</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer
+	 * @see com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer
 	 * @generated
 	 */
 	EClass getITargetElementContainer();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer#getContents
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer#getContents
 	 * <em>Contents</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Contents</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.ITargetElementContainer#getContents()
+	 * @see com.puppetlabs.geppetto.pp.pptp.ITargetElementContainer#getContents()
 	 * @see #getITargetElementContainer()
 	 * @generated
 	 */
 	EReference getITargetElementContainer_Contents();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.MetaType <em>Meta Type</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.MetaType <em>Meta Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Meta Type</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.MetaType
+	 * @see com.puppetlabs.geppetto.pp.pptp.MetaType
 	 * @generated
 	 */
 	EClass getMetaType();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.MetaVariable <em>Meta Variable</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.MetaVariable <em>Meta Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Meta Variable</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.MetaVariable
+	 * @see com.puppetlabs.geppetto.pp.pptp.MetaVariable
 	 * @generated
 	 */
 	EClass getMetaVariable();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.NameSpace <em>Name Space</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.NameSpace <em>Name Space</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Name Space</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.NameSpace
+	 * @see com.puppetlabs.geppetto.pp.pptp.NameSpace
 	 * @generated
 	 */
 	EClass getNameSpace();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.NameSpace#isReserved <em>Reserved</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.NameSpace#isReserved <em>Reserved</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Reserved</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.NameSpace#isReserved()
+	 * @see com.puppetlabs.geppetto.pp.pptp.NameSpace#isReserved()
 	 * @see #getNameSpace()
 	 * @generated
 	 */
 	EAttribute getNameSpace_Reserved();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.Parameter <em>Parameter</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.Parameter <em>Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Parameter</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.Parameter
+	 * @see com.puppetlabs.geppetto.pp.pptp.Parameter
 	 * @generated
 	 */
 	EClass getParameter();
@@ -1880,260 +1880,260 @@ public interface PPTPPackage extends EPackage {
 	PPTPFactory getPPTPFactory();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.Property <em>Property</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.Property <em>Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Property</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.Property
+	 * @see com.puppetlabs.geppetto.pp.pptp.Property
 	 * @generated
 	 */
 	EClass getProperty();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.PuppetDistribution <em>Puppet Distribution</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.PuppetDistribution <em>Puppet Distribution</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Puppet Distribution</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.PuppetDistribution
+	 * @see com.puppetlabs.geppetto.pp.pptp.PuppetDistribution
 	 * @generated
 	 */
 	EClass getPuppetDistribution();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.TargetElement <em>Target Element</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.TargetElement <em>Target Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Target Element</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetElement
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetElement
 	 * @generated
 	 */
 	EClass getTargetElement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TargetElement#isDeprecated <em>Deprecated</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.TargetElement#isDeprecated <em>Deprecated</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Deprecated</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetElement#isDeprecated()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetElement#isDeprecated()
 	 * @see #getTargetElement()
 	 * @generated
 	 */
 	EAttribute getTargetElement_Deprecated();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry <em>Target Entry</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.TargetEntry <em>Target Entry</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Target Entry</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetEntry
 	 * @generated
 	 */
 	EClass getTargetEntry();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getDescription <em>Description</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.TargetEntry#getDescription <em>Description</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Description</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry#getDescription()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetEntry#getDescription()
 	 * @see #getTargetEntry()
 	 * @generated
 	 */
 	EAttribute getTargetEntry_Description();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getFunctions <em>Functions</em>}
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.pptp.TargetEntry#getFunctions <em>Functions</em>}
 	 * '.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Functions</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry#getFunctions()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetEntry#getFunctions()
 	 * @see #getTargetEntry()
 	 * @generated
 	 */
 	EReference getTargetEntry_Functions();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getLabel <em>Label</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.TargetEntry#getLabel <em>Label</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Label</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry#getLabel()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetEntry#getLabel()
 	 * @see #getTargetEntry()
 	 * @generated
 	 */
 	EAttribute getTargetEntry_Label();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaType <em>Meta Type</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.pp.pptp.TargetEntry#getMetaType <em>Meta Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Meta Type</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaType()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetEntry#getMetaType()
 	 * @see #getTargetEntry()
 	 * @generated
 	 */
 	EReference getTargetEntry_MetaType();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaVariables
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.pptp.TargetEntry#getMetaVariables
 	 * <em>Meta Variables</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Meta Variables</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry#getMetaVariables()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetEntry#getMetaVariables()
 	 * @see #getTargetEntry()
 	 * @generated
 	 */
 	EReference getTargetEntry_MetaVariables();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getTypeFragments
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.pptp.TargetEntry#getTypeFragments
 	 * <em>Type Fragments</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Type Fragments</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry#getTypeFragments()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetEntry#getTypeFragments()
 	 * @see #getTargetEntry()
 	 * @generated
 	 */
 	EReference getTargetEntry_TypeFragments();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getTypes <em>Types</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.pp.pptp.TargetEntry#getTypes <em>Types</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Types</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry#getTypes()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetEntry#getTypes()
 	 * @see #getTargetEntry()
 	 * @generated
 	 */
 	EReference getTargetEntry_Types();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TargetEntry#getVersion <em>Version</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.TargetEntry#getVersion <em>Version</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Version</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TargetEntry#getVersion()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TargetEntry#getVersion()
 	 * @see #getTargetEntry()
 	 * @generated
 	 */
 	EAttribute getTargetEntry_Version();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.TPVariable <em>TP Variable</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.TPVariable <em>TP Variable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>TP Variable</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TPVariable
+	 * @see com.puppetlabs.geppetto.pp.pptp.TPVariable
 	 * @generated
 	 */
 	EClass getTPVariable();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TPVariable#isAssignable <em>Assignable</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.TPVariable#isAssignable <em>Assignable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Assignable</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TPVariable#isAssignable()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TPVariable#isAssignable()
 	 * @see #getTPVariable()
 	 * @generated
 	 */
 	EAttribute getTPVariable_Assignable();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TPVariable#getPattern <em>Pattern</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.TPVariable#getPattern <em>Pattern</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Pattern</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TPVariable#getPattern()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TPVariable#getPattern()
 	 * @see #getTPVariable()
 	 * @generated
 	 */
 	EAttribute getTPVariable_Pattern();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.Type <em>Type</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.Type <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Type</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.Type
+	 * @see com.puppetlabs.geppetto.pp.pptp.Type
 	 * @generated
 	 */
 	EClass getType();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.Type#getSuperType <em>Super Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Super Type</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.Type#getSuperType()
+	 * @see com.puppetlabs.geppetto.pp.pptp.Type#getSuperType()
 	 * @see #getType()
 	 * @generated
 	 */
 	EAttribute getType_SuperType();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument <em>Type Argument</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.TypeArgument <em>Type Argument</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Type Argument</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TypeArgument
+	 * @see com.puppetlabs.geppetto.pp.pptp.TypeArgument
 	 * @generated
 	 */
 	EClass getTypeArgument();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isNamevar <em>Namevar</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.TypeArgument#isNamevar <em>Namevar</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Namevar</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TypeArgument#isNamevar()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TypeArgument#isNamevar()
 	 * @see #getTypeArgument()
 	 * @generated
 	 */
 	EAttribute getTypeArgument_Namevar();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.pp.pptp.TypeArgument#isRequired <em>Required</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.pp.pptp.TypeArgument#isRequired <em>Required</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Required</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TypeArgument#isRequired()
+	 * @see com.puppetlabs.geppetto.pp.pptp.TypeArgument#isRequired()
 	 * @see #getTypeArgument()
 	 * @generated
 	 */
 	EAttribute getTypeArgument_Required();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.pp.pptp.TypeFragment <em>Type Fragment</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.pp.pptp.TypeFragment <em>Type Fragment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Type Fragment</em>'.
-	 * @see org.cloudsmith.geppetto.pp.pptp.TypeFragment
+	 * @see com.puppetlabs.geppetto.pp.pptp.TypeFragment
 	 * @generated
 	 */
 	EClass getTypeFragment();

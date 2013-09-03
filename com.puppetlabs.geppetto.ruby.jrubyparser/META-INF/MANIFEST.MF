@@ -3,17 +3,17 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-SymbolicName: org.cloudsmith.geppetto.ruby.jrubyparser;singleton:=true
+Bundle-SymbolicName: com.puppetlabs.geppetto.ruby.jrubyparser;singleton:=true
 Bundle-Version: 4.0.0
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: org.cloudsmith.geppetto.ruby.jrubyparser;
- x-friends:="org.cloudsmith.geppetto.ruby.tests"
+Export-Package: com.puppetlabs.geppetto.ruby.jrubyparser;
+ x-friends:="com.puppetlabs.geppetto.ruby.tests"
 Import-Package: com.google.common.base;version="[12.0.0,13.0.0)",
  com.google.common.collect;version="[12.0.0,13.0.0)",
  com.google.common.io;version="[12.0.0,13.0.0)",
- org.cloudsmith.geppetto.common.os,
- org.cloudsmith.geppetto.ruby,
- org.cloudsmith.geppetto.ruby.spi,
+ com.puppetlabs.geppetto.common.os,
+ com.puppetlabs.geppetto.ruby,
+ com.puppetlabs.geppetto.ruby.spi,
  org.eclipse.core.runtime,
  org.jrubyparser,
  org.jrubyparser.ast,

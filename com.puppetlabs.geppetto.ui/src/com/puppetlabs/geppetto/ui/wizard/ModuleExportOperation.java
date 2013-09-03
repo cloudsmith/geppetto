@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui.wizard;
+package com.puppetlabs.geppetto.ui.wizard;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;

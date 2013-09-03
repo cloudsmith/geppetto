@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult;
+package com.puppetlabs.geppetto.junitresult;
 
 import org.eclipse.emf.ecore.EFactory;
 
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.EFactory;
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage
  * @generated
  */
 public interface JunitresultFactory extends EFactory {
@@ -29,7 +29,7 @@ public interface JunitresultFactory extends EFactory {
 	 * 
 	 * @generated
 	 */
-	JunitresultFactory eINSTANCE = org.cloudsmith.geppetto.junitresult.impl.JunitresultFactoryImpl.init();
+	JunitresultFactory eINSTANCE = com.puppetlabs.geppetto.junitresult.impl.JunitresultFactoryImpl.init();
 
 	/**
 	 * Returns a new object of class '<em>Error</em>'.

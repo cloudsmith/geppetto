@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation.runner;
+package com.puppetlabs.geppetto.validation.runner;
 
 import org.eclipse.emf.common.util.URI;
 

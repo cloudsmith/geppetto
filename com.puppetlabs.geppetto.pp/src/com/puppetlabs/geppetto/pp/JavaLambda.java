@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.JavaLambda#isFarrow <em>Farrow</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.JavaLambda#isFarrow <em>Farrow</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getJavaLambda()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getJavaLambda()
  * @model
  * @generated
  */
@@ -37,14 +37,14 @@ public interface JavaLambda extends Lambda {
 	 * 
 	 * @return the value of the '<em>Farrow</em>' attribute.
 	 * @see #setFarrow(boolean)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getJavaLambda_Farrow()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getJavaLambda_Farrow()
 	 * @model
 	 * @generated
 	 */
 	boolean isFarrow();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.JavaLambda#isFarrow <em>Farrow</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.JavaLambda#isFarrow <em>Farrow</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

@@ -9,12 +9,12 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.injectable.standalone.impl;
+package com.puppetlabs.geppetto.injectable.standalone.impl;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
-import org.cloudsmith.geppetto.common.util.BundleAccess;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;

@@ -10,12 +10,12 @@
  *   Puppet Labs - specialization to puppet
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.search;
+package com.puppetlabs.geppetto.pp.dsl.ui.search;
 
 import java.util.Collection;
 
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.ui.dialogs.SearchPattern;

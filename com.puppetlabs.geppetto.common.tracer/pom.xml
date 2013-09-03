@@ -2,12 +2,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.cloudsmith.geppetto</groupId>
+		<groupId>com.puppetlabs.geppetto</groupId>
 		<artifactId>parent</artifactId>
 		<version>4.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>org.cloudsmith.geppetto.common.tracer</artifactId>
+	<artifactId>com.puppetlabs.geppetto.common.tracer</artifactId>
 	<packaging>jar</packaging>
 
 	<name>Geppetto Tracer Component</name>
@@ -17,8 +17,8 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>org.cloudsmith.geppetto</groupId>
-			<artifactId>org.cloudsmith.geppetto.common</artifactId>
+			<groupId>com.puppetlabs.geppetto</groupId>
+			<artifactId>com.puppetlabs.geppetto.common</artifactId>
 			<version>4.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>

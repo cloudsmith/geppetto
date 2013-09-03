@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby;
+package com.puppetlabs.geppetto.ruby;
 
-import org.cloudsmith.geppetto.common.CharSequences;
+import com.puppetlabs.geppetto.common.CharSequences;
 
 /**
  * Processes documentation text found in ruby code. The main problem is determining the "natural margin" as it is ambiguous.

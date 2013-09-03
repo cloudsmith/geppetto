@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.jruby;
+package com.puppetlabs.geppetto.ruby.jruby;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,12 +17,12 @@ import java.io.Reader;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
-import org.cloudsmith.geppetto.ruby.PPTypeInfo;
-import org.cloudsmith.geppetto.ruby.RubySyntaxException;
-import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
-import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
-import org.cloudsmith.geppetto.ruby.spi.IRubyServices;
+import com.puppetlabs.geppetto.ruby.PPFunctionInfo;
+import com.puppetlabs.geppetto.ruby.PPTypeInfo;
+import com.puppetlabs.geppetto.ruby.RubySyntaxException;
+import com.puppetlabs.geppetto.ruby.spi.IRubyIssue;
+import com.puppetlabs.geppetto.ruby.spi.IRubyParseResult;
+import com.puppetlabs.geppetto.ruby.spi.IRubyServices;
 import org.jruby.CompatVersion;
 import org.jruby.Ruby;
 import org.jruby.RubyInstanceConfig;

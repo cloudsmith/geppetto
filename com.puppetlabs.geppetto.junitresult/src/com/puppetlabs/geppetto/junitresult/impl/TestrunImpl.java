@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.impl;
+package com.puppetlabs.geppetto.junitresult.impl;
 
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
-import org.cloudsmith.geppetto.junitresult.Testrun;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.Testrun;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -23,9 +23,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getProject <em>Project</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getStarted <em>Started</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.TestrunImpl#getIgnored <em>Ignored</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestrunImpl#getProject <em>Project</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestrunImpl#getStarted <em>Started</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.TestrunImpl#getIgnored <em>Ignored</em>}</li>
  * </ul>
  * </p>
  * 

@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.formatter.css;
+package com.puppetlabs.xtext.dommodel.formatter.css;
 
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager;
 
 /**
  * A visitor for IStyle

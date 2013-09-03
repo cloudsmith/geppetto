@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.lexer;
+package com.puppetlabs.geppetto.pp.dsl.lexer;
 
-import org.cloudsmith.geppetto.pp.dsl.parser.antlr.lexer.InternalPPLexer;
+import com.puppetlabs.geppetto.pp.dsl.parser.antlr.lexer.InternalPPLexer;
 
 public class PPLexerProvider extends org.eclipse.xtext.parser.antlr.LexerProvider<InternalPPLexer> {
 

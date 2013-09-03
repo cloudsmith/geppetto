@@ -11,7 +11,7 @@
  *   
  * 
  */
-package org.cloudsmith.xtext.dommodel;
+package com.puppetlabs.xtext.dommodel;
 
 import java.util.Collections;
 import java.util.EnumSet;
@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 

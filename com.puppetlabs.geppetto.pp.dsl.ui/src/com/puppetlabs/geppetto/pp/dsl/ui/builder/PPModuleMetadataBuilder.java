@@ -9,9 +9,9 @@
  *   Puppet Labs
  */
 
-package org.cloudsmith.geppetto.pp.dsl.ui.builder;
+package com.puppetlabs.geppetto.pp.dsl.ui.builder;
 
-import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.METADATA_JSON_NAME;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,21 +19,21 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.common.tracer.DefaultTracer;
-import org.cloudsmith.geppetto.common.tracer.ITracer;
-import org.cloudsmith.geppetto.common.tracer.NullTracer;
-import org.cloudsmith.geppetto.diagnostic.Diagnostic;
-import org.cloudsmith.geppetto.diagnostic.FileDiagnostic;
-import org.cloudsmith.geppetto.forge.FilePosition;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.v2.model.Dependency;
-import org.cloudsmith.geppetto.forge.v2.model.Metadata;
-import org.cloudsmith.geppetto.forge.v2.model.ModuleName;
-import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
-import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPDSLActivator;
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
-import org.cloudsmith.geppetto.semver.Version;
-import org.cloudsmith.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.common.tracer.DefaultTracer;
+import com.puppetlabs.geppetto.common.tracer.ITracer;
+import com.puppetlabs.geppetto.common.tracer.NullTracer;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
+import com.puppetlabs.geppetto.forge.FilePosition;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.v2.model.Dependency;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.pp.dsl.ui.PPUiConstants;
+import com.puppetlabs.geppetto.pp.dsl.ui.internal.PPDSLActivator;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;

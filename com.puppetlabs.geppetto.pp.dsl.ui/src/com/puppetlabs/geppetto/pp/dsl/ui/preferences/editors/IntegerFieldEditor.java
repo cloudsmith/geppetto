@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors;
 
 /*******************************************************************************
  * Copyright (c) 2000, 2012 IBM Corporation and others.

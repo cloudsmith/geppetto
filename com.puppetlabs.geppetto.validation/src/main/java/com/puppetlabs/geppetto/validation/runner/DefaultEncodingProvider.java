@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation.runner;
+package com.puppetlabs.geppetto.validation.runner;
 
 import org.eclipse.emf.common.util.URI;
 
@@ -22,7 +22,7 @@ public class DefaultEncodingProvider implements IEncodingProvider {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.cloudsmith.geppetto.validation.runner.IEncodingProvider#getEncoding
+	 * com.puppetlabs.geppetto.validation.runner.IEncodingProvider#getEncoding
 	 * (java.io.File)
 	 */
 	@Override

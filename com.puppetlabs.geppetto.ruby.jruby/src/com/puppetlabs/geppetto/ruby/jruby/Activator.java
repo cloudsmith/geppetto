@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.jruby;
+package com.puppetlabs.geppetto.ruby.jruby;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

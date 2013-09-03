@@ -5,7 +5,7 @@
          point="org.eclipse.e4.ui.css.swt.theme">
       <theme
             basestylesheeturi="css/geppettoclassic.css"
-            id="org.cloudsmith.geppetto.themes.classic"
+            id="com.puppetlabs.geppetto.themes.classic"
             label="Geppetto Classic">
       </theme>
    </extension>

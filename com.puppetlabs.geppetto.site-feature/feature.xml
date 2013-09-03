@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.cloudsmith.geppetto.site"
+      id="com.puppetlabs.geppetto.site"
       label="Puppet Labs Geppetto Update Site"
       version="4.0.0.qualifier">
 
@@ -17,11 +17,11 @@
    </license>
 
    <includes
-         id="org.cloudsmith.geppetto"
+         id="com.puppetlabs.geppetto"
          version="0.0.0"/>
 
    <includes
-         id="org.cloudsmith.geppetto.product"
+         id="com.puppetlabs.geppetto.product"
          version="0.0.0"/>
 
    <includes
@@ -198,7 +198,7 @@
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.jrubyparser"
+         id="com.puppetlabs.jrubyparser"
          download-size="0"
          install-size="0"
          version="0.0.0"

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.common;
+package com.puppetlabs.geppetto.common;
 
 public class Strings {
 	/**

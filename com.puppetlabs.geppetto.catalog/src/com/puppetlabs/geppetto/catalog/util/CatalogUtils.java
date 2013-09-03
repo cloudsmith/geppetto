@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog.util;
+package com.puppetlabs.geppetto.catalog.util;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.catalog.Catalog;
+import com.puppetlabs.geppetto.catalog.Catalog;
 
 /**
  * Performs various services for catalogs.

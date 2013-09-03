@@ -17,9 +17,9 @@
    <extension
          point="org.eclipse.emf.ecore.generated_package">
       <package
-            class="org.cloudsmith.geppetto.catalog.CatalogPackage"
+            class="com.puppetlabs.geppetto.catalog.CatalogPackage"
             genModel="model/Catalog.genmodel"
-            uri="http://www.cloudsmith.org/geppetto/1.0.0/Catalog">
+            uri="http://www.puppetlabs.com/geppetto/1.0.0/Catalog">
       </package>
    </extension>
 

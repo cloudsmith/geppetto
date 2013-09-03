@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation.formatting;
+package com.puppetlabs.geppetto.validation.formatting;
 
 import java.io.OutputStream;
 
-import org.cloudsmith.geppetto.validation.runner.BuildResult;
+import com.puppetlabs.geppetto.validation.runner.BuildResult;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 
 /**

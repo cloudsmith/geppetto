@@ -8,15 +8,15 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph.tests;
+package com.puppetlabs.geppetto.graph.tests;
 
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.common.util.BundleAccess;
-import org.cloudsmith.geppetto.injectable.CommonModuleProvider;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
+import com.puppetlabs.geppetto.injectable.CommonModuleProvider;
 import org.eclipse.core.runtime.IPath;
 
 import com.google.inject.Guice;

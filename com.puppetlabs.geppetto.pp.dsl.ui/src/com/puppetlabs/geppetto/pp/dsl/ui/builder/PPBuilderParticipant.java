@@ -8,16 +8,16 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.builder;
+package com.puppetlabs.geppetto.pp.dsl.ui.builder;
 
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.dsl.PPDSLConstants;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.linking.PPTask;
-import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
+import com.puppetlabs.geppetto.pp.dsl.PPDSLConstants;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourcePropertiesAdapter;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourcePropertiesAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.linking.PPTask;
+import com.puppetlabs.geppetto.pp.dsl.ui.PPUiConstants;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;

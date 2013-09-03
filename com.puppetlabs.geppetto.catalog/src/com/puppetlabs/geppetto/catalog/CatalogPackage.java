@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog;
+package com.puppetlabs.geppetto.catalog;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.EReference;
  * </ul>
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.catalog.CatalogFactory
+ * @see com.puppetlabs.geppetto.catalog.CatalogFactory
  * @model kind="package"
  * @generated
  */
@@ -47,12 +47,12 @@ public interface CatalogPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.catalog.impl.CatalogImpl <em>Catalog</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.catalog.impl.CatalogImpl <em>Catalog</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.catalog.impl.CatalogImpl
-		 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getCatalog()
+		 * @see com.puppetlabs.geppetto.catalog.impl.CatalogImpl
+		 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getCatalog()
 		 * @generated
 		 */
 		EClass CATALOG = eINSTANCE.getCatalog();
@@ -112,12 +112,12 @@ public interface CatalogPackage extends EPackage {
 		EReference CATALOG__EDGES = eINSTANCE.getCatalog_Edges();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl <em>Resource</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl <em>Resource</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl
-		 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getCatalogResource()
+		 * @see com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl
+		 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getCatalogResource()
 		 * @generated
 		 */
 		EClass CATALOG_RESOURCE = eINSTANCE.getCatalogResource();
@@ -186,12 +186,12 @@ public interface CatalogPackage extends EPackage {
 		EAttribute CATALOG_RESOURCE__EXPORTED = eINSTANCE.getCatalogResource_Exported();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.catalog.impl.CatalogMetadataImpl <em>Metadata</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.catalog.impl.CatalogMetadataImpl <em>Metadata</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.catalog.impl.CatalogMetadataImpl
-		 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getCatalogMetadata()
+		 * @see com.puppetlabs.geppetto.catalog.impl.CatalogMetadataImpl
+		 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getCatalogMetadata()
 		 * @generated
 		 */
 		EClass CATALOG_METADATA = eINSTANCE.getCatalogMetadata();
@@ -206,12 +206,12 @@ public interface CatalogPackage extends EPackage {
 		EAttribute CATALOG_METADATA__API_VERSION = eINSTANCE.getCatalogMetadata_Api_version();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.catalog.impl.CatalogEdgeImpl <em>Edge</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.catalog.impl.CatalogEdgeImpl <em>Edge</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.catalog.impl.CatalogEdgeImpl
-		 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getCatalogEdge()
+		 * @see com.puppetlabs.geppetto.catalog.impl.CatalogEdgeImpl
+		 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getCatalogEdge()
 		 * @generated
 		 */
 		EClass CATALOG_EDGE = eINSTANCE.getCatalogEdge();
@@ -235,13 +235,13 @@ public interface CatalogPackage extends EPackage {
 		EAttribute CATALOG_EDGE__SOURCE = eINSTANCE.getCatalogEdge_Source();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceParameterImpl <em>Resource Parameter</em>}'
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceParameterImpl <em>Resource Parameter</em>}'
 		 * class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.catalog.impl.CatalogResourceParameterImpl
-		 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getCatalogResourceParameter()
+		 * @see com.puppetlabs.geppetto.catalog.impl.CatalogResourceParameterImpl
+		 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getCatalogResourceParameter()
 		 * @generated
 		 */
 		EClass CATALOG_RESOURCE_PARAMETER = eINSTANCE.getCatalogResourceParameter();
@@ -265,12 +265,12 @@ public interface CatalogPackage extends EPackage {
 		EAttribute CATALOG_RESOURCE_PARAMETER__VALUE = eINSTANCE.getCatalogResourceParameter_Value();
 
 		/**
-		 * The meta object literal for the '{@link org.cloudsmith.geppetto.catalog.impl.TaggableImpl <em>Taggable</em>}' class.
+		 * The meta object literal for the '{@link com.puppetlabs.geppetto.catalog.impl.TaggableImpl <em>Taggable</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * 
-		 * @see org.cloudsmith.geppetto.catalog.impl.TaggableImpl
-		 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getTaggable()
+		 * @see com.puppetlabs.geppetto.catalog.impl.TaggableImpl
+		 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getTaggable()
 		 * @generated
 		 */
 		EClass TAGGABLE = eINSTANCE.getTaggable();
@@ -302,7 +302,7 @@ public interface CatalogPackage extends EPackage {
 	 * 
 	 * @generated
 	 */
-	String eNS_URI = "http://www.cloudsmith.org/geppetto/1.0.0/Catalog";
+	String eNS_URI = "http://www.puppetlabs.com/geppetto/1.0.0/Catalog";
 
 	/**
 	 * The package namespace name.
@@ -320,15 +320,15 @@ public interface CatalogPackage extends EPackage {
 	 * 
 	 * @generated
 	 */
-	CatalogPackage eINSTANCE = org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl.init();
+	CatalogPackage eINSTANCE = com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.catalog.impl.TaggableImpl <em>Taggable</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.catalog.impl.TaggableImpl <em>Taggable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.catalog.impl.TaggableImpl
-	 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getTaggable()
+	 * @see com.puppetlabs.geppetto.catalog.impl.TaggableImpl
+	 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getTaggable()
 	 * @generated
 	 */
 	int TAGGABLE = 5;
@@ -354,12 +354,12 @@ public interface CatalogPackage extends EPackage {
 	int TAGGABLE_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.catalog.impl.CatalogImpl <em>Catalog</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.catalog.impl.CatalogImpl <em>Catalog</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.catalog.impl.CatalogImpl
-	 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getCatalog()
+	 * @see com.puppetlabs.geppetto.catalog.impl.CatalogImpl
+	 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getCatalog()
 	 * @generated
 	 */
 	int CATALOG = 0;
@@ -445,12 +445,12 @@ public interface CatalogPackage extends EPackage {
 	int CATALOG_FEATURE_COUNT = TAGGABLE_FEATURE_COUNT + 6;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl <em>Resource</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl <em>Resource</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.catalog.impl.CatalogResourceImpl
-	 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getCatalogResource()
+	 * @see com.puppetlabs.geppetto.catalog.impl.CatalogResourceImpl
+	 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getCatalogResource()
 	 * @generated
 	 */
 	int CATALOG_RESOURCE = 1;
@@ -546,12 +546,12 @@ public interface CatalogPackage extends EPackage {
 	int CATALOG_RESOURCE_FEATURE_COUNT = TAGGABLE_FEATURE_COUNT + 7;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.catalog.impl.CatalogMetadataImpl <em>Metadata</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.catalog.impl.CatalogMetadataImpl <em>Metadata</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.catalog.impl.CatalogMetadataImpl
-	 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getCatalogMetadata()
+	 * @see com.puppetlabs.geppetto.catalog.impl.CatalogMetadataImpl
+	 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getCatalogMetadata()
 	 * @generated
 	 */
 	int CATALOG_METADATA = 2;
@@ -577,12 +577,12 @@ public interface CatalogPackage extends EPackage {
 	int CATALOG_METADATA_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.catalog.impl.CatalogEdgeImpl <em>Edge</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.catalog.impl.CatalogEdgeImpl <em>Edge</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.catalog.impl.CatalogEdgeImpl
-	 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getCatalogEdge()
+	 * @see com.puppetlabs.geppetto.catalog.impl.CatalogEdgeImpl
+	 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getCatalogEdge()
 	 * @generated
 	 */
 	int CATALOG_EDGE = 3;
@@ -618,12 +618,12 @@ public interface CatalogPackage extends EPackage {
 	int CATALOG_EDGE_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link org.cloudsmith.geppetto.catalog.impl.CatalogResourceParameterImpl <em>Resource Parameter</em>}' class.
+	 * The meta object id for the '{@link com.puppetlabs.geppetto.catalog.impl.CatalogResourceParameterImpl <em>Resource Parameter</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
-	 * @see org.cloudsmith.geppetto.catalog.impl.CatalogResourceParameterImpl
-	 * @see org.cloudsmith.geppetto.catalog.impl.CatalogPackageImpl#getCatalogResourceParameter()
+	 * @see com.puppetlabs.geppetto.catalog.impl.CatalogResourceParameterImpl
+	 * @see com.puppetlabs.geppetto.catalog.impl.CatalogPackageImpl#getCatalogResourceParameter()
 	 * @generated
 	 */
 	int CATALOG_RESOURCE_PARAMETER = 4;
@@ -659,118 +659,118 @@ public interface CatalogPackage extends EPackage {
 	int CATALOG_RESOURCE_PARAMETER_FEATURE_COUNT = 2;
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.catalog.Catalog <em>Catalog</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.catalog.Catalog <em>Catalog</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Catalog</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.Catalog
+	 * @see com.puppetlabs.geppetto.catalog.Catalog
 	 * @generated
 	 */
 	EClass getCatalog();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.cloudsmith.geppetto.catalog.Catalog#getClasses <em>Classes</em>}'.
+	 * Returns the meta object for the attribute list '{@link com.puppetlabs.geppetto.catalog.Catalog#getClasses <em>Classes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute list '<em>Classes</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.Catalog#getClasses()
+	 * @see com.puppetlabs.geppetto.catalog.Catalog#getClasses()
 	 * @see #getCatalog()
 	 * @generated
 	 */
 	EAttribute getCatalog_Classes();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.catalog.Catalog#getEdges <em>Edges</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.catalog.Catalog#getEdges <em>Edges</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Edges</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.Catalog#getEdges()
+	 * @see com.puppetlabs.geppetto.catalog.Catalog#getEdges()
 	 * @see #getCatalog()
 	 * @generated
 	 */
 	EReference getCatalog_Edges();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.cloudsmith.geppetto.catalog.Catalog#getMetadata <em>Metadata</em>}'.
+	 * Returns the meta object for the containment reference '{@link com.puppetlabs.geppetto.catalog.Catalog#getMetadata <em>Metadata</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference '<em>Metadata</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.Catalog#getMetadata()
+	 * @see com.puppetlabs.geppetto.catalog.Catalog#getMetadata()
 	 * @see #getCatalog()
 	 * @generated
 	 */
 	EReference getCatalog_Metadata();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.Catalog#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.Catalog#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.Catalog#getName()
+	 * @see com.puppetlabs.geppetto.catalog.Catalog#getName()
 	 * @see #getCatalog()
 	 * @generated
 	 */
 	EAttribute getCatalog_Name();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.catalog.Catalog#getResources <em>Resources</em>}'.
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.catalog.Catalog#getResources <em>Resources</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Resources</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.Catalog#getResources()
+	 * @see com.puppetlabs.geppetto.catalog.Catalog#getResources()
 	 * @see #getCatalog()
 	 * @generated
 	 */
 	EReference getCatalog_Resources();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.Catalog#getVersion <em>Version</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.Catalog#getVersion <em>Version</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Version</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.Catalog#getVersion()
+	 * @see com.puppetlabs.geppetto.catalog.Catalog#getVersion()
 	 * @see #getCatalog()
 	 * @generated
 	 */
 	EAttribute getCatalog_Version();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.catalog.CatalogEdge <em>Edge</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.catalog.CatalogEdge <em>Edge</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Edge</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogEdge
+	 * @see com.puppetlabs.geppetto.catalog.CatalogEdge
 	 * @generated
 	 */
 	EClass getCatalogEdge();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.CatalogEdge#getSource <em>Source</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.CatalogEdge#getSource <em>Source</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Source</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogEdge#getSource()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogEdge#getSource()
 	 * @see #getCatalogEdge()
 	 * @generated
 	 */
 	EAttribute getCatalogEdge_Source();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.CatalogEdge#getTarget <em>Target</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.CatalogEdge#getTarget <em>Target</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Target</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogEdge#getTarget()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogEdge#getTarget()
 	 * @see #getCatalogEdge()
 	 * @generated
 	 */
@@ -787,177 +787,177 @@ public interface CatalogPackage extends EPackage {
 	CatalogFactory getCatalogFactory();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.catalog.CatalogMetadata <em>Metadata</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.catalog.CatalogMetadata <em>Metadata</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Metadata</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogMetadata
+	 * @see com.puppetlabs.geppetto.catalog.CatalogMetadata
 	 * @generated
 	 */
 	EClass getCatalogMetadata();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.CatalogMetadata#getApi_version <em>Api version</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.CatalogMetadata#getApi_version <em>Api version</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Api version</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogMetadata#getApi_version()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogMetadata#getApi_version()
 	 * @see #getCatalogMetadata()
 	 * @generated
 	 */
 	EAttribute getCatalogMetadata_Api_version();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.catalog.CatalogResource <em>Resource</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.catalog.CatalogResource <em>Resource</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Resource</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResource
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResource
 	 * @generated
 	 */
 	EClass getCatalogResource();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.CatalogResource#isExported <em>Exported</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.CatalogResource#isExported <em>Exported</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Exported</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResource#isExported()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResource#isExported()
 	 * @see #getCatalogResource()
 	 * @generated
 	 */
 	EAttribute getCatalogResource_Exported();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.CatalogResource#getFile <em>File</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.CatalogResource#getFile <em>File</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>File</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResource#getFile()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResource#getFile()
 	 * @see #getCatalogResource()
 	 * @generated
 	 */
 	EAttribute getCatalogResource_File();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.CatalogResource#getLine <em>Line</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.CatalogResource#getLine <em>Line</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Line</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResource#getLine()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResource#getLine()
 	 * @see #getCatalogResource()
 	 * @generated
 	 */
 	EAttribute getCatalogResource_Line();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.cloudsmith.geppetto.catalog.CatalogResource#getParameters
+	 * Returns the meta object for the containment reference list '{@link com.puppetlabs.geppetto.catalog.CatalogResource#getParameters
 	 * <em>Parameters</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the containment reference list '<em>Parameters</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResource#getParameters()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResource#getParameters()
 	 * @see #getCatalogResource()
 	 * @generated
 	 */
 	EReference getCatalogResource_Parameters();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.CatalogResource#getTitle <em>Title</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.CatalogResource#getTitle <em>Title</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Title</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResource#getTitle()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResource#getTitle()
 	 * @see #getCatalogResource()
 	 * @generated
 	 */
 	EAttribute getCatalogResource_Title();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.CatalogResource#getType <em>Type</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.CatalogResource#getType <em>Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResource#getType()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResource#getType()
 	 * @see #getCatalogResource()
 	 * @generated
 	 */
 	EAttribute getCatalogResource_Type();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.CatalogResource#isVirtual <em>Virtual</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.CatalogResource#isVirtual <em>Virtual</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Virtual</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResource#isVirtual()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResource#isVirtual()
 	 * @see #getCatalogResource()
 	 * @generated
 	 */
 	EAttribute getCatalogResource_Virtual();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.catalog.CatalogResourceParameter <em>Resource Parameter</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.catalog.CatalogResourceParameter <em>Resource Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Resource Parameter</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResourceParameter
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResourceParameter
 	 * @generated
 	 */
 	EClass getCatalogResourceParameter();
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.cloudsmith.geppetto.catalog.CatalogResourceParameter#getName <em>Name</em>}'.
+	 * Returns the meta object for the attribute '{@link com.puppetlabs.geppetto.catalog.CatalogResourceParameter#getName <em>Name</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResourceParameter#getName()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResourceParameter#getName()
 	 * @see #getCatalogResourceParameter()
 	 * @generated
 	 */
 	EAttribute getCatalogResourceParameter_Name();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.cloudsmith.geppetto.catalog.CatalogResourceParameter#getValue <em>Value</em>}'.
+	 * Returns the meta object for the attribute list '{@link com.puppetlabs.geppetto.catalog.CatalogResourceParameter#getValue <em>Value</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute list '<em>Value</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResourceParameter#getValue()
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResourceParameter#getValue()
 	 * @see #getCatalogResourceParameter()
 	 * @generated
 	 */
 	EAttribute getCatalogResourceParameter_Value();
 
 	/**
-	 * Returns the meta object for class '{@link org.cloudsmith.geppetto.catalog.Taggable <em>Taggable</em>}'.
+	 * Returns the meta object for class '{@link com.puppetlabs.geppetto.catalog.Taggable <em>Taggable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for class '<em>Taggable</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.Taggable
+	 * @see com.puppetlabs.geppetto.catalog.Taggable
 	 * @generated
 	 */
 	EClass getTaggable();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.cloudsmith.geppetto.catalog.Taggable#getTags <em>Tags</em>}'.
+	 * Returns the meta object for the attribute list '{@link com.puppetlabs.geppetto.catalog.Taggable#getTags <em>Tags</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the meta object for the attribute list '<em>Tags</em>'.
-	 * @see org.cloudsmith.geppetto.catalog.Taggable#getTags()
+	 * @see com.puppetlabs.geppetto.catalog.Taggable#getTags()
 	 * @see #getTaggable()
 	 * @generated
 	 */

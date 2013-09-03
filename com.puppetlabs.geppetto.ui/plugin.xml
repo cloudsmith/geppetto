@@ -3,13 +3,13 @@
 <plugin>
    <extension point="org.eclipse.ui.newWizards">
       <category
-            id="org.cloudsmith.geppetto.ui.newWizardCategory"
+            id="com.puppetlabs.geppetto.ui.newWizardCategory"
             name="%_UI_Wizard_Category"/>
       <wizard
-            category="org.cloudsmith.geppetto.ui.newWizardCategory"
-            class="org.cloudsmith.geppetto.ui.GeppettoExecutableExtensionFactory:org.cloudsmith.geppetto.ui.wizard.NewPuppetProjectWizard"
+            category="com.puppetlabs.geppetto.ui.newWizardCategory"
+            class="com.puppetlabs.geppetto.ui.GeppettoExecutableExtensionFactory:com.puppetlabs.geppetto.ui.wizard.NewPuppetProjectWizard"
             icon="icons/full/etool16/NewPuppetProject.gif"
-            id="org.cloudsmith.geppetto.ui.NewPuppetProjectWizard"
+            id="com.puppetlabs.geppetto.ui.NewPuppetProjectWizard"
             name="%_UI_PuppetProject_title"
             project="true">
          <description>
@@ -20,30 +20,30 @@
          </selection>
       </wizard>
       <wizard
-            id="org.cloudsmith.geppetto.ui.NewPuppetModuleProjectWizard"
+            id="com.puppetlabs.geppetto.ui.NewPuppetModuleProjectWizard"
             name="%_UI_PuppetModuleProject_title"
-            class="org.cloudsmith.geppetto.ui.GeppettoExecutableExtensionFactory:org.cloudsmith.geppetto.ui.wizard.NewPuppetModuleProjectWizard"
-            category="org.cloudsmith.geppetto.ui.newWizardCategory"
+            class="com.puppetlabs.geppetto.ui.GeppettoExecutableExtensionFactory:com.puppetlabs.geppetto.ui.wizard.NewPuppetModuleProjectWizard"
+            category="com.puppetlabs.geppetto.ui.newWizardCategory"
             project="true"
             icon="icons/full/etool16/NewPuppetProject.gif">
          <description>%_UI_PuppetModuleProject_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
       <wizard
-            id="org.cloudsmith.geppetto.ui.NewPuppetProjectFromForgeWizard"
+            id="com.puppetlabs.geppetto.ui.NewPuppetProjectFromForgeWizard"
             name="%_UI_PuppetProjectFromForge_title"
-            class="org.cloudsmith.geppetto.ui.GeppettoExecutableExtensionFactory:org.cloudsmith.geppetto.ui.wizard.NewPuppetProjectFromForgeWizard"
-            category="org.cloudsmith.geppetto.ui.newWizardCategory"
+            class="com.puppetlabs.geppetto.ui.GeppettoExecutableExtensionFactory:com.puppetlabs.geppetto.ui.wizard.NewPuppetProjectFromForgeWizard"
+            category="com.puppetlabs.geppetto.ui.newWizardCategory"
             project="true"
             icon="icons/full/etool16/NewPuppetProject.gif">
          <description>%_UI_PuppetProjectFromForge_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
       </wizard>
       <wizard
-            category="org.cloudsmith.geppetto.ui.newWizardCategory"
-            class="org.cloudsmith.geppetto.ui.wizard.NewManifestWizard"
+            category="com.puppetlabs.geppetto.ui.newWizardCategory"
+            class="com.puppetlabs.geppetto.ui.wizard.NewManifestWizard"
             icon="icons/obj16/new_pp.png"
-            id="org.cloudsmith.geppetto.ui.NewManifestWizard"
+            id="com.puppetlabs.geppetto.ui.NewManifestWizard"
             name="New Puppet Manifest">
          <selection
                class="org.eclipse.core.resources.IResource">
@@ -53,10 +53,10 @@
          </description>
       </wizard>
       <wizard
-            category="org.cloudsmith.geppetto.ui.newWizardCategory"
-            class="org.cloudsmith.geppetto.ui.wizard.NewModulefileWizard"
+            category="com.puppetlabs.geppetto.ui.newWizardCategory"
+            class="com.puppetlabs.geppetto.ui.wizard.NewModulefileWizard"
             icon="icons/obj16/puppet-16.png"
-            id="org.cloudsmith.geppetto.ui.NewModulefileWizard"
+            id="com.puppetlabs.geppetto.ui.NewModulefileWizard"
             name="New Puppet Modulefile">
          <selection
                class="org.eclipse.core.resources.IResource">
@@ -69,44 +69,44 @@
    <!--
    <extension point="org.eclipse.ui.popupMenus">
       <viewerContribution
-            id="org.cloudsmith.geppetto.ui.importModulesFromForgeViewerContribution"
+            id="com.puppetlabs.geppetto.ui.importModulesFromForgeViewerContribution"
             targetID="org.eclipse.ui.navigator.ProjectExplorer#PopupMenu">
          <action
-               id="org.cloudsmith.geppetto.ui.importModulesFromForgeActionDelegate"
+               id="com.puppetlabs.geppetto.ui.importModulesFromForgeActionDelegate"
                label="%_UI_ImportModulesFromForge_label"
                menubarPath="group.port"
-               class="org.cloudsmith.geppetto.ui.action.ImportModulesFromForgeActionDelegate"/>
+               class="com.puppetlabs.geppetto.ui.action.ImportModulesFromForgeActionDelegate"/>
       </viewerContribution>
    </extension>
    -->
    <extension point="org.eclipse.ui.editors">
       <editor
-            class="org.cloudsmith.geppetto.ui.GeppettoExecutableExtensionFactory:org.cloudsmith.geppetto.ui.editor.ModuleMetadataEditor"
+            class="com.puppetlabs.geppetto.ui.GeppettoExecutableExtensionFactory:com.puppetlabs.geppetto.ui.editor.ModuleMetadataEditor"
             default="true"
             filenames="Modulefile,metadata.json"
-			matchingStrategy="org.cloudsmith.geppetto.ui.editor.ModuleMetadataEditorMatchingStrategy"
+			matchingStrategy="com.puppetlabs.geppetto.ui.editor.ModuleMetadataEditorMatchingStrategy"
             icon="icons/obj16/puppet-16.png"
-            id="org.cloudsmith.geppetto.ui.moduleMetadataEditor"
+            id="com.puppetlabs.geppetto.ui.moduleMetadataEditor"
             name="%_UI_ModuleMetadataEditor_title"/>
    </extension>
    <extension
          point="org.eclipse.ui.exportWizards">
       <category
-            id="org.cloudsmith.geppetto.ui.exportWizardCategory"
+            id="com.puppetlabs.geppetto.ui.exportWizardCategory"
             name="%_UI_Wizard_Category">
       </category>
       <wizard
-            category="org.cloudsmith.geppetto.ui.exportWizardCategory"
-            class="org.cloudsmith.geppetto.ui.GeppettoExecutableExtensionFactory:org.cloudsmith.geppetto.ui.wizard.ModuleExportToForgeWizard"
+            category="com.puppetlabs.geppetto.ui.exportWizardCategory"
+            class="com.puppetlabs.geppetto.ui.GeppettoExecutableExtensionFactory:com.puppetlabs.geppetto.ui.wizard.ModuleExportToForgeWizard"
             icon="icons/obj16/puppet-16.png"
-            id="org.cloudsmith.geppetto.ui.ModuleExportToForgeWizard"
+            id="com.puppetlabs.geppetto.ui.ModuleExportToForgeWizard"
             name="%_UI_ExportModulesToForge">
       </wizard>
       <wizard
-            category="org.cloudsmith.geppetto.ui.exportWizardCategory"
-            class="org.cloudsmith.geppetto.ui.GeppettoExecutableExtensionFactory:org.cloudsmith.geppetto.ui.wizard.ModuleExportToFileWizard"
+            category="com.puppetlabs.geppetto.ui.exportWizardCategory"
+            class="com.puppetlabs.geppetto.ui.GeppettoExecutableExtensionFactory:com.puppetlabs.geppetto.ui.wizard.ModuleExportToFileWizard"
             icon="icons/obj16/puppet-16.png"
-            id="org.cloudsmith.geppetto.ui.ModuleExportToFileWizard"
+            id="com.puppetlabs.geppetto.ui.ModuleExportToFileWizard"
             name="%_UI_ExportModulesToFileSystem">
       </wizard>
    </extension>

@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.impl;
+package com.puppetlabs.geppetto.junitresult.impl;
 
 import java.util.Collection;
-import org.cloudsmith.geppetto.junitresult.AbstractAggregatedTest;
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.AbstractAggregatedTest;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
 
-import org.cloudsmith.geppetto.junitresult.Testsuite;
+import com.puppetlabs.geppetto.junitresult.Testsuite;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -34,11 +34,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getTests <em>Tests</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getFailures <em>Failures</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getErrors <em>Errors</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getTestsuites <em>Testsuites</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getName <em>Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getTests <em>Tests</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getFailures <em>Failures</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getErrors <em>Errors</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.AbstractAggregatedTestImpl#getTestsuites <em>Testsuites</em>}</li>
  * </ul>
  * </p>
  * 

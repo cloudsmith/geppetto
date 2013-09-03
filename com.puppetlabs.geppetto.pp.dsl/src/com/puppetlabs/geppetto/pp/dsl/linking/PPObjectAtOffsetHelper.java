@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package com.puppetlabs.geppetto.pp.dsl.linking;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.adapters.CrossReferenceAdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.EcoreUtil2;

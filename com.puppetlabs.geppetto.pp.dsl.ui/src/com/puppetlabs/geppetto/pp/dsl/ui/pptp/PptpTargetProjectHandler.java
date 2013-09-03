@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.pptp;
+package com.puppetlabs.geppetto.pp.dsl.ui.pptp;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,11 +17,11 @@ import java.io.InputStream;
 import java.net.URL;
 
 import org.apache.log4j.Logger;
-import org.cloudsmith.geppetto.common.util.BundleAccess;
-import org.cloudsmith.geppetto.pp.dsl.target.PptpResourceUtil;
-import org.cloudsmith.geppetto.pp.dsl.target.PuppetTarget;
-import org.cloudsmith.geppetto.pp.dsl.ui.PPUiConstants;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
+import com.puppetlabs.geppetto.pp.dsl.target.PptpResourceUtil;
+import com.puppetlabs.geppetto.pp.dsl.target.PuppetTarget;
+import com.puppetlabs.geppetto.pp.dsl.ui.PPUiConstants;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;

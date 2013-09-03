@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.xtext.dommodel.impl;
+package com.puppetlabs.xtext.dommodel.impl;
 
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
@@ -178,7 +178,7 @@ public class CompositeDomNode extends BaseDomNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#hasChildren()
+	 * @see com.puppetlabs.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#hasChildren()
 	 */
 	@Override
 	public boolean hasChildren() {
@@ -188,7 +188,7 @@ public class CompositeDomNode extends BaseDomNode {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#isLeaf()
+	 * @see com.puppetlabs.geppetto.pp.dsl.xt.dommodel.impl.AbstractDomNode#isLeaf()
 	 */
 	@Override
 	public boolean isLeaf() {

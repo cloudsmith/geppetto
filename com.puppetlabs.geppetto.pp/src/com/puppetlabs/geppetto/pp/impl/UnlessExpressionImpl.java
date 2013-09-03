@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
 import java.util.Collection;
 
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.UnlessExpression;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.UnlessExpression;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -31,9 +31,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl#getCondExpr <em>Cond Expr</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl#getThenStatements <em>Then Statements</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.UnlessExpressionImpl#getElseStatement <em>Else Statement</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.UnlessExpressionImpl#getCondExpr <em>Cond Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.UnlessExpressionImpl#getThenStatements <em>Then Statements</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.UnlessExpressionImpl#getElseStatement <em>Else Statement</em>}</li>
  * </ul>
  * </p>
  * 

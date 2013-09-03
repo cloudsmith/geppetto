@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences.data;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences.data;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.BannerAdvice;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.CommentTextAdvice;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferenceConstants;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.BannerAdvice;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentFormatterAdvice.CommentTextAdvice;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.preference.IPreferenceStore;
 
@@ -21,7 +21,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
  * 
  */
 public class CommentPreferences extends AbstractPreferenceData {
-	public static final String FORMATTER_COMMENTS_ID = "org.cloudsmith.geppetto.pp.dsl.PP.formatter.comments";
+	public static final String FORMATTER_COMMENTS_ID = "com.puppetlabs.geppetto.pp.dsl.PP.formatter.comments";
 
 	public static final String FORMATTER_COMMENTS_USE_PROJECT_SETTINGS = FORMATTER_COMMENTS_ID + "." +
 			PPPreferenceConstants.USE_PROJECT_SETTINGS;

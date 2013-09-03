@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult;
+package com.puppetlabs.geppetto.junitresult;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,7 +16,7 @@ package org.cloudsmith.geppetto.junitresult;
  * <!-- end-user-doc -->
  * 
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getFailure()
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getFailure()
  * @model
  * @generated
  */

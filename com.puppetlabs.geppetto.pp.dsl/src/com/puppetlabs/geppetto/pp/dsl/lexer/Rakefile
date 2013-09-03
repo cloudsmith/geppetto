@@ -95,7 +95,7 @@ end
 
 task :parser_output => 'parser.output'
 
-file 'parser.tokens' => '../../../../../../../src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.tokens' do
- cp '../../../../../../../src-gen/org/cloudsmith/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.tokens', 'parser.tokens'
+file 'parser.tokens' => '../../../../../../../src-gen/com/puppetlabs/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.tokens' do
+ cp '../../../../../../../src-gen/com/puppetlabs/geppetto/pp/dsl/parser/antlr/internal/InternalPPParser.tokens', 'parser.tokens'
 end 
 

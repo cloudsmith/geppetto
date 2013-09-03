@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.spi;
+package com.puppetlabs.geppetto.ruby.spi;
 
 /**
  * A factory capable of creating an IRubyServices instance

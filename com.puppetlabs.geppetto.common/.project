@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.cloudsmith.geppetto.common</name>
+	<name>com.puppetlabs.geppetto.common</name>
 	<comment></comment>
 	<projects>
 	</projects>

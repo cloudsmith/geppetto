@@ -8,13 +8,13 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.validation.runner;
+package com.puppetlabs.geppetto.validation.runner;
 
-import org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule;
-import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
-import org.cloudsmith.geppetto.pp.dsl.validation.ValidationAdvisorProvider;
+import com.puppetlabs.geppetto.pp.dsl.PPRuntimeModule;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
+import com.puppetlabs.geppetto.pp.dsl.validation.ValidationAdvisorProvider;
 import org.eclipse.emf.ecore.EValidator;
 import org.eclipse.emf.ecore.impl.EValidatorRegistryImpl;
 import org.eclipse.xtext.linking.ILinker;

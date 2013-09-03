@@ -8,15 +8,15 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.api.it;
+package com.puppetlabs.geppetto.forge.api.it;
 
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.forge.v2.model.Module;
-import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
-import org.cloudsmith.geppetto.forge.v2.service.ModuleTemplate;
+import com.puppetlabs.geppetto.forge.v2.model.Module;
+import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
+import com.puppetlabs.geppetto.forge.v2.service.ModuleTemplate;
 import org.junit.Test;
 
 /**

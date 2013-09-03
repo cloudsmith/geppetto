@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.semver;
+package com.puppetlabs.geppetto.semver;
 
 import java.io.Serializable;
 import java.util.regex.Matcher;

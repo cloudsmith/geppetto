@@ -8,23 +8,23 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.tests;
+package com.puppetlabs.geppetto.forge.tests;
 
 import static com.google.inject.name.Names.named;
-import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+import static com.puppetlabs.geppetto.injectable.CommonModuleProvider.getCommonModule;
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.common.util.BundleAccess;
-import org.cloudsmith.geppetto.forge.Cache;
-import org.cloudsmith.geppetto.forge.Forge;
-import org.cloudsmith.geppetto.forge.ForgeService;
-import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
-import org.cloudsmith.geppetto.forge.client.GsonModule;
-import org.cloudsmith.geppetto.forge.impl.ForgeModule;
-import org.cloudsmith.geppetto.forge.impl.ForgeServiceModule;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
+import com.puppetlabs.geppetto.forge.Cache;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.ForgeService;
+import com.puppetlabs.geppetto.forge.client.ForgeHttpModule;
+import com.puppetlabs.geppetto.forge.client.GsonModule;
+import com.puppetlabs.geppetto.forge.impl.ForgeModule;
+import com.puppetlabs.geppetto.forge.impl.ForgeServiceModule;
 
 import com.google.gson.Gson;
 import com.google.inject.AbstractModule;

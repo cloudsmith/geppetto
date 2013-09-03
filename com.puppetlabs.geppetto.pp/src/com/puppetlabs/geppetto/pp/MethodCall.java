@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,12 +18,12 @@ package org.cloudsmith.geppetto.pp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.MethodCall#isParenthesized <em>Parenthesized</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.MethodCall#getMethodExpr <em>Method Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.MethodCall#isParenthesized <em>Parenthesized</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.MethodCall#getMethodExpr <em>Method Expr</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getMethodCall()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getMethodCall()
  * @model
  * @generated
  */
@@ -39,7 +39,7 @@ public interface MethodCall extends WithLambdaExpression {
 	 * 
 	 * @return the value of the '<em>Method Expr</em>' containment reference.
 	 * @see #setMethodExpr(Expression)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getMethodCall_MethodExpr()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getMethodCall_MethodExpr()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
@@ -55,14 +55,14 @@ public interface MethodCall extends WithLambdaExpression {
 	 * 
 	 * @return the value of the '<em>Parenthesized</em>' attribute.
 	 * @see #setParenthesized(boolean)
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getMethodCall_Parenthesized()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getMethodCall_Parenthesized()
 	 * @model
 	 * @generated
 	 */
 	boolean isParenthesized();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.MethodCall#getMethodExpr <em>Method Expr</em>}' containment reference.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.MethodCall#getMethodExpr <em>Method Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -74,7 +74,7 @@ public interface MethodCall extends WithLambdaExpression {
 	void setMethodExpr(Expression value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.MethodCall#isParenthesized <em>Parenthesized</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.MethodCall#isParenthesized <em>Parenthesized</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

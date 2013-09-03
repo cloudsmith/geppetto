@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby;
+package com.puppetlabs.geppetto.ruby;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
+import com.puppetlabs.geppetto.ruby.spi.IRubyIssue;
 
 /**
  * A simplified RubySyntaxException that should be thrown in operations where it

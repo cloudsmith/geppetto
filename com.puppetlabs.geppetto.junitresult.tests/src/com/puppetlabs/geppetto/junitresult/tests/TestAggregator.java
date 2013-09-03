@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.tests;
+package com.puppetlabs.geppetto.junitresult.tests;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -22,12 +22,12 @@ import javax.xml.transform.TransformerException;
 
 import junit.framework.TestCase;
 
-import org.cloudsmith.geppetto.common.os.FileUtils;
-import org.cloudsmith.geppetto.junitresult.JunitResult;
-import org.cloudsmith.geppetto.junitresult.Testsuite;
-import org.cloudsmith.geppetto.junitresult.Testsuites;
-import org.cloudsmith.geppetto.junitresult.util.JunitresultAggregator;
-import org.cloudsmith.geppetto.junitresult.util.JunitresultDomSerializer;
+import com.puppetlabs.geppetto.common.os.FileUtils;
+import com.puppetlabs.geppetto.junitresult.JunitResult;
+import com.puppetlabs.geppetto.junitresult.Testsuite;
+import com.puppetlabs.geppetto.junitresult.Testsuites;
+import com.puppetlabs.geppetto.junitresult.util.JunitresultAggregator;
+import com.puppetlabs.geppetto.junitresult.util.JunitresultDomSerializer;
 import org.eclipse.core.runtime.Path;
 
 /**

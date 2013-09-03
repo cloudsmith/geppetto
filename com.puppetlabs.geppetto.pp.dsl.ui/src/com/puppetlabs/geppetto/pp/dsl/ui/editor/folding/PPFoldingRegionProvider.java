@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.folding;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.folding;
 
 import java.util.List;
 import java.util.regex.Matcher;

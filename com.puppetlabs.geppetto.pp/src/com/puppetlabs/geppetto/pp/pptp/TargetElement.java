@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp;
+package com.puppetlabs.geppetto.pp.pptp;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,11 +18,11 @@ package org.cloudsmith.geppetto.pp.pptp;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.TargetElement#isDeprecated <em>Deprecated</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.TargetElement#isDeprecated <em>Deprecated</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTargetElement()
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getTargetElement()
  * @model abstract="true"
  * @generated
  */
@@ -38,14 +38,14 @@ public interface TargetElement extends INamed, IDocumented {
 	 * 
 	 * @return the value of the '<em>Deprecated</em>' attribute.
 	 * @see #setDeprecated(boolean)
-	 * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getTargetElement_Deprecated()
+	 * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getTargetElement_Deprecated()
 	 * @model
 	 * @generated
 	 */
 	boolean isDeprecated();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.pp.pptp.TargetElement#isDeprecated <em>Deprecated</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.pp.pptp.TargetElement#isDeprecated <em>Deprecated</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

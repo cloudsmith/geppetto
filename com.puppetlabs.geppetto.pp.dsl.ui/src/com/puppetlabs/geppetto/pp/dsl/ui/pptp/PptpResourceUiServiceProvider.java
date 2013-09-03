@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.pptp;
+package com.puppetlabs.geppetto.pp.dsl.ui.pptp;
 
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.ui.resource.DefaultResourceUIServiceProvider;

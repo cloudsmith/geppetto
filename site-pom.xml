@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.cloudsmith.geppetto</groupId>
+	<groupId>com.puppetlabs.geppetto</groupId>
 	<artifactId>parent</artifactId>
 	<version>3.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
@@ -242,7 +242,7 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.cloudsmith.jruby</groupId>
+				<groupId>com.puppetlabs.jruby</groupId>
 				<artifactId>jrubyparser</artifactId>
 				<version>0.3-alpha</version>
 			</dependency>
@@ -256,11 +256,11 @@
 	</dependencyManagement>
 
 	<modules>
-		<module>org.cloudsmith.geppetto.forge</module>
-		<module>org.cloudsmith.geppetto.forge.api</module>
-		<module>org.cloudsmith.geppetto.puppetlint</module>
-		<module>org.cloudsmith.geppetto.forge.maven.plugin</module>
-		<module>org.cloudsmith.geppetto.semver</module>
+		<module>com.puppetlabs.geppetto.forge</module>
+		<module>com.puppetlabs.geppetto.forge.api</module>
+		<module>com.puppetlabs.geppetto.puppetlint</module>
+		<module>com.puppetlabs.geppetto.forge.maven.plugin</module>
+		<module>com.puppetlabs.geppetto.semver</module>
 	</modules>
 
 	<build>

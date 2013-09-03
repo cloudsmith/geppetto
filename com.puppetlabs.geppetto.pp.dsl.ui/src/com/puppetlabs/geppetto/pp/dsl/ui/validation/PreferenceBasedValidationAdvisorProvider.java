@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.validation;
+package com.puppetlabs.geppetto.pp.dsl.ui.validation;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
-import org.cloudsmith.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.IValidationAdvisor;
-import org.cloudsmith.geppetto.pp.dsl.validation.ValidationAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import com.puppetlabs.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor;
+import com.puppetlabs.geppetto.pp.dsl.validation.ValidationAdvisor;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;

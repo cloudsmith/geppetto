@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.injectable.standalone.impl;
+package com.puppetlabs.geppetto.injectable.standalone.impl;
 
 import javax.inject.Named;
 

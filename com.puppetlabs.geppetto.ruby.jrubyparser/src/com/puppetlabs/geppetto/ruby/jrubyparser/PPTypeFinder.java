@@ -8,12 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.jrubyparser;
+package com.puppetlabs.geppetto.ruby.jrubyparser;
 
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.ruby.PPTypeInfo;
+import com.puppetlabs.geppetto.ruby.PPTypeInfo;
 import org.jrubyparser.ast.BlockAcceptingNode;
 import org.jrubyparser.ast.BlockNode;
 import org.jrubyparser.ast.BlockPassNode;

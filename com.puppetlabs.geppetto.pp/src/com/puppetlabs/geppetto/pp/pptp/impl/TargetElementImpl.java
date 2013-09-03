@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.impl;
+package com.puppetlabs.geppetto.pp.pptp.impl;
 
-import org.cloudsmith.geppetto.pp.pptp.IDocumented;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
-import org.cloudsmith.geppetto.pp.pptp.TargetElement;
+import com.puppetlabs.geppetto.pp.pptp.IDocumented;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.pptp.TargetElement;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -25,9 +25,9 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#getDocumentation <em>Documentation</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TargetElementImpl#isDeprecated <em>Deprecated</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetElementImpl#getName <em>Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetElementImpl#getDocumentation <em>Documentation</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TargetElementImpl#isDeprecated <em>Deprecated</em>}</li>
  * </ul>
  * </p>
  * 

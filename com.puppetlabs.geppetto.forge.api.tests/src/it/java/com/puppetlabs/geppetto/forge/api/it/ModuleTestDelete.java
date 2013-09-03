@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.api.it;
+package com.puppetlabs.geppetto.forge.api.it;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -16,7 +16,7 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 
 import org.apache.http.client.HttpResponseException;
-import org.cloudsmith.geppetto.forge.v2.service.ModuleService;
+import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
 import org.junit.Test;
 
 /**

@@ -8,29 +8,29 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.hover;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.hover;
 
 import java.util.Collections;
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.Definition;
-import org.cloudsmith.geppetto.pp.HostClassDefinition;
-import org.cloudsmith.geppetto.pp.NodeDefinition;
-import org.cloudsmith.geppetto.pp.VerbatimTE;
-import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.ResourceDocumentationAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPCommentConfiguration;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
-import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
-import org.cloudsmith.geppetto.pp.dsl.ui.labeling.PPLabelProvider;
-import org.cloudsmith.geppetto.pp.pptp.IDocumented;
-import org.cloudsmith.geppetto.ruby.RubyDocProcessor;
-import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor;
-import org.cloudsmith.xtext.dommodel.formatter.comments.CommentProcessor.CommentText;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
-import org.cloudsmith.xtext.dommodel.formatter.comments.ICommentContainerInformation;
-import org.cloudsmith.xtext.textflow.CharSequences;
+import com.puppetlabs.geppetto.pp.Definition;
+import com.puppetlabs.geppetto.pp.HostClassDefinition;
+import com.puppetlabs.geppetto.pp.NodeDefinition;
+import com.puppetlabs.geppetto.pp.VerbatimTE;
+import com.puppetlabs.geppetto.pp.dsl.adapters.CrossReferenceAdapter;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourceDocumentationAdapter;
+import com.puppetlabs.geppetto.pp.dsl.adapters.ResourceDocumentationAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.formatting.PPCommentConfiguration;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
+import com.puppetlabs.geppetto.pp.dsl.ui.labeling.PPLabelProvider;
+import com.puppetlabs.geppetto.pp.pptp.IDocumented;
+import com.puppetlabs.geppetto.ruby.RubyDocProcessor;
+import com.puppetlabs.xtext.dommodel.formatter.comments.CommentProcessor;
+import com.puppetlabs.xtext.dommodel.formatter.comments.CommentProcessor.CommentText;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentConfiguration.CommentType;
+import com.puppetlabs.xtext.dommodel.formatter.comments.ICommentContainerInformation;
+import com.puppetlabs.xtext.textflow.CharSequences;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.graphics.Image;

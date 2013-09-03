@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.impl;
+package com.puppetlabs.geppetto.junitresult.impl;
 
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
-import org.cloudsmith.geppetto.junitresult.Property;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.Property;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -27,8 +27,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.PropertyImpl#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.PropertyImpl#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.PropertyImpl#getName <em>Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.PropertyImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  * 

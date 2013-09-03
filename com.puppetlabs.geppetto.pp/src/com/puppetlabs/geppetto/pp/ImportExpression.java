@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 import org.eclipse.emf.common.util.EList;
 
@@ -20,18 +20,18 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.ImportExpression#getValues <em>Values</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.ImportExpression#getValues <em>Values</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getImportExpression()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getImportExpression()
  * @model
  * @generated
  */
 public interface ImportExpression extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Values</b></em>' containment reference list.
-	 * The list contents are of type {@link org.cloudsmith.geppetto.pp.IQuotedString}.
+	 * The list contents are of type {@link com.puppetlabs.geppetto.pp.IQuotedString}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Values</em>' containment reference list isn't clear, there really should be more of a description here...
@@ -39,7 +39,7 @@ public interface ImportExpression extends Expression {
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the value of the '<em>Values</em>' containment reference list.
-	 * @see org.cloudsmith.geppetto.pp.PPPackage#getImportExpression_Values()
+	 * @see com.puppetlabs.geppetto.pp.PPPackage#getImportExpression_Values()
 	 * @model containment="true"
 	 * @generated
 	 */

@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.validation.runner;
+package com.puppetlabs.geppetto.validation.runner;
 
 public class ValidationAssertionError extends AssertionError {
 	private static final long serialVersionUID = 1L;

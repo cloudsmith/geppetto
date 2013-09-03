@@ -8,15 +8,15 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.impl;
+package com.puppetlabs.geppetto.pp.pptp.impl;
 
 import java.util.Collection;
 
-import org.cloudsmith.geppetto.pp.pptp.AbstractType;
-import org.cloudsmith.geppetto.pp.pptp.IDocumented;
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
-import org.cloudsmith.geppetto.pp.pptp.Parameter;
-import org.cloudsmith.geppetto.pp.pptp.Property;
+import com.puppetlabs.geppetto.pp.pptp.AbstractType;
+import com.puppetlabs.geppetto.pp.pptp.IDocumented;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.pptp.Parameter;
+import com.puppetlabs.geppetto.pp.pptp.Property;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -38,9 +38,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.AbstractTypeImpl#getEReference0 <em>EReference0</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.AbstractTypeImpl#getProperties <em>Properties</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.AbstractTypeImpl#getParameters <em>Parameters</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.AbstractTypeImpl#getEReference0 <em>EReference0</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.AbstractTypeImpl#getProperties <em>Properties</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.AbstractTypeImpl#getParameters <em>Parameters</em>}</li>
  * </ul>
  * </p>
  * 

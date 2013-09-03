@@ -8,17 +8,17 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog.impl;
+package com.puppetlabs.geppetto.catalog.impl;
 
 import java.util.Collection;
 
-import org.cloudsmith.geppetto.catalog.Catalog;
-import org.cloudsmith.geppetto.catalog.CatalogEdge;
-import org.cloudsmith.geppetto.catalog.CatalogFactory;
-import org.cloudsmith.geppetto.catalog.CatalogMetadata;
-import org.cloudsmith.geppetto.catalog.CatalogPackage;
-import org.cloudsmith.geppetto.catalog.CatalogResource;
-import org.cloudsmith.geppetto.catalog.util.CatalogJsonSerializer;
+import com.puppetlabs.geppetto.catalog.Catalog;
+import com.puppetlabs.geppetto.catalog.CatalogEdge;
+import com.puppetlabs.geppetto.catalog.CatalogFactory;
+import com.puppetlabs.geppetto.catalog.CatalogMetadata;
+import com.puppetlabs.geppetto.catalog.CatalogPackage;
+import com.puppetlabs.geppetto.catalog.CatalogResource;
+import com.puppetlabs.geppetto.catalog.util.CatalogJsonSerializer;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -44,12 +44,12 @@ import com.google.gson.reflect.TypeToken;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogImpl#getName <em>Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogImpl#getVersion <em>Version</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogImpl#getResources <em>Resources</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogImpl#getClasses <em>Classes</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogImpl#getMetadata <em>Metadata</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.catalog.impl.CatalogImpl#getEdges <em>Edges</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogImpl#getName <em>Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogImpl#getVersion <em>Version</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogImpl#getResources <em>Resources</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogImpl#getClasses <em>Classes</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogImpl#getMetadata <em>Metadata</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.catalog.impl.CatalogImpl#getEdges <em>Edges</em>}</li>
  * </ul>
  * </p>
  * 

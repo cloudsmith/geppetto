@@ -8,21 +8,21 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.actions;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.actions;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
-import org.cloudsmith.geppetto.pp.dsl.validation.PPValidationUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
-import org.cloudsmith.xtext.resource.ResourceAccessScope;
-import org.cloudsmith.xtext.serializer.DomBasedSerializer;
-import org.cloudsmith.xtext.ui.editor.formatting.DummyReadOnly;
+import com.puppetlabs.geppetto.pp.dsl.ui.linked.ISaveActions;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import com.puppetlabs.geppetto.pp.dsl.validation.PPValidationUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.IDomModelFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContextFactory;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContextFactory.FormattingOption;
+import com.puppetlabs.xtext.resource.ResourceAccessScope;
+import com.puppetlabs.xtext.serializer.DomBasedSerializer;
+import com.puppetlabs.xtext.ui.editor.formatting.DummyReadOnly;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.xtext.resource.XtextResource;
@@ -101,7 +101,7 @@ public class SaveActions implements ISaveActions {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.linked.ISaveActions#perform(org.eclipse.core.resources.IResource,
+	 * @see com.puppetlabs.geppetto.pp.dsl.ui.linked.ISaveActions#perform(org.eclipse.core.resources.IResource,
 	 * org.eclipse.xtext.ui.editor.model.IXtextDocument)
 	 */
 	@Override

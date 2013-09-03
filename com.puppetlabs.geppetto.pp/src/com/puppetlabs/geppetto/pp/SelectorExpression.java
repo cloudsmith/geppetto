@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp;
+package com.puppetlabs.geppetto.pp;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,7 +16,7 @@ package org.cloudsmith.geppetto.pp;
  * <!-- end-user-doc -->
  * 
  * 
- * @see org.cloudsmith.geppetto.pp.PPPackage#getSelectorExpression()
+ * @see com.puppetlabs.geppetto.pp.PPPackage#getSelectorExpression()
  * @model
  * @generated
  */

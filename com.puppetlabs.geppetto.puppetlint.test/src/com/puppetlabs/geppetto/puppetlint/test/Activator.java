@@ -1,4 +1,4 @@
-package org.cloudsmith.geppetto.puppetlint.test;
+package com.puppetlabs.geppetto.puppetlint.test;
 
 import java.io.File;
 import java.io.IOException;

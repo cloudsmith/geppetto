@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp.impl;
+package com.puppetlabs.geppetto.pp.pptp.impl;
 
-import org.cloudsmith.geppetto.pp.pptp.PPTPPackage;
-import org.cloudsmith.geppetto.pp.pptp.TPVariable;
+import com.puppetlabs.geppetto.pp.pptp.PPTPPackage;
+import com.puppetlabs.geppetto.pp.pptp.TPVariable;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -26,8 +26,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl#isAssignable <em>Assignable</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.pptp.impl.TPVariableImpl#getPattern <em>Pattern</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TPVariableImpl#isAssignable <em>Assignable</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.pptp.impl.TPVariableImpl#getPattern <em>Pattern</em>}</li>
  * </ul>
  * </p>
  * 

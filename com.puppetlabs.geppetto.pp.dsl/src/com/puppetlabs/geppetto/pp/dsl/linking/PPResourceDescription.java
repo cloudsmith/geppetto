@@ -8,15 +8,15 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.linking;
+package com.puppetlabs.geppetto.pp.dsl.linking;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.pp.dsl.adapters.CrossReferenceAdapterFactory;
-import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
-import org.cloudsmith.geppetto.pp.dsl.adapters.PPImportedNamesAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.adapters.CrossReferenceAdapterFactory;
+import com.puppetlabs.geppetto.pp.dsl.adapters.PPImportedNamesAdapter;
+import com.puppetlabs.geppetto.pp.dsl.adapters.PPImportedNamesAdapterFactory;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;

@@ -8,23 +8,23 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.formatting;
+package com.puppetlabs.geppetto.pp.dsl.formatting;
 
 import java.util.List;
 
-import org.cloudsmith.geppetto.common.stats.IntegerCluster;
-import org.cloudsmith.geppetto.pp.SelectorExpression;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.DelegatingLayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
-import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.textflow.ITextFlow;
-import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
-import org.cloudsmith.xtext.textflow.TextFlow;
+import com.puppetlabs.geppetto.common.stats.IntegerCluster;
+import com.puppetlabs.geppetto.pp.SelectorExpression;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.DelegatingLayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.DomNodeLayoutFeeder;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager.ILayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.css.Alignment;
+import com.puppetlabs.xtext.dommodel.formatter.css.IStyleFactory;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.xtext.textflow.ITextFlow;
+import com.puppetlabs.xtext.textflow.MeasuredTextFlow;
+import com.puppetlabs.xtext.textflow.TextFlow;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.RuleCall;
 

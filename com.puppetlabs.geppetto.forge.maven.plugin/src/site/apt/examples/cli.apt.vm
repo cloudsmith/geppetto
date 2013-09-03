@@ -35,7 +35,7 @@ Using the plug-in from the command line
   
 +-----
 cd <your modules root>
-mvn org.cloudsmith.geppetto:forge-maven-plugin:validate
+mvn com.puppetlabs.geppetto:forge-maven-plugin:validate
 +-----
 
 * Making Maven aware of the <<<forge>>> short name
@@ -46,7 +46,7 @@ mvn org.cloudsmith.geppetto:forge-maven-plugin:validate
 +-----
 <settings>
     <pluginGroups>
-        <pluginGroup>org.cloudsmith.geppetto</pluginGroup>
+        <pluginGroup>com.puppetlabs.geppetto</pluginGroup>
         ...
         </pluginGroups>
     ...
@@ -59,7 +59,7 @@ mvn org.cloudsmith.geppetto:forge-maven-plugin:validate
 mvn forge:validate
 +-----
 
-  Maven will now scan the org.cloudsmith.geppetto namespace for plug-ins named 'forge' and find the forge-maven-plugin.
+  Maven will now scan the com.puppetlabs.geppetto namespace for plug-ins named 'forge' and find the forge-maven-plugin.
 
 * A parameterized example
 
@@ -111,7 +111,7 @@ mvn -Dforge.modules.root=<your modules root> forge:validate
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.cloudsmith.geppetto</groupId>
+				<groupId>com.puppetlabs.geppetto</groupId>
 				<artifactId>forge-maven-plugin</artifactId>
 				<version>${geppettoVersion}</version>
 				<extensions>true</extensions>

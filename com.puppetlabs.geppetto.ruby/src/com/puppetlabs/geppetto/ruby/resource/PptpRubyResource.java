@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.resource;
+package com.puppetlabs.geppetto.ruby.resource;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,19 +16,19 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.pp.pptp.Function;
-import org.cloudsmith.geppetto.pp.pptp.MetaType;
-import org.cloudsmith.geppetto.pp.pptp.PPTPFactory;
-import org.cloudsmith.geppetto.pp.pptp.Parameter;
-import org.cloudsmith.geppetto.pp.pptp.Property;
-import org.cloudsmith.geppetto.pp.pptp.Type;
-import org.cloudsmith.geppetto.pp.pptp.TypeFragment;
-import org.cloudsmith.geppetto.ruby.PPFunctionInfo;
-import org.cloudsmith.geppetto.ruby.PPTypeInfo;
-import org.cloudsmith.geppetto.ruby.RubyHelper;
-import org.cloudsmith.geppetto.ruby.RubySyntaxException;
-import org.cloudsmith.geppetto.ruby.spi.IRubyIssue;
-import org.cloudsmith.geppetto.ruby.spi.IRubyParseResult;
+import com.puppetlabs.geppetto.pp.pptp.Function;
+import com.puppetlabs.geppetto.pp.pptp.MetaType;
+import com.puppetlabs.geppetto.pp.pptp.PPTPFactory;
+import com.puppetlabs.geppetto.pp.pptp.Parameter;
+import com.puppetlabs.geppetto.pp.pptp.Property;
+import com.puppetlabs.geppetto.pp.pptp.Type;
+import com.puppetlabs.geppetto.pp.pptp.TypeFragment;
+import com.puppetlabs.geppetto.ruby.PPFunctionInfo;
+import com.puppetlabs.geppetto.ruby.PPTypeInfo;
+import com.puppetlabs.geppetto.ruby.RubyHelper;
+import com.puppetlabs.geppetto.ruby.RubySyntaxException;
+import com.puppetlabs.geppetto.ruby.spi.IRubyIssue;
+import com.puppetlabs.geppetto.ruby.spi.IRubyParseResult;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 

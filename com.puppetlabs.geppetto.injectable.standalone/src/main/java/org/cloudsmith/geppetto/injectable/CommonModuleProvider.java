@@ -9,9 +9,9 @@
  *   Cloudsmith
  * 
  */
-package org.cloudsmith.geppetto.injectable;
+package com.puppetlabs.geppetto.injectable;
 
-import org.cloudsmith.geppetto.injectable.standalone.impl.StandaloneCommonModule;
+import com.puppetlabs.geppetto.injectable.standalone.impl.StandaloneCommonModule;
 
 import com.google.inject.Module;
 

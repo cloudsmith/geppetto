@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.v2.model;
+package com.puppetlabs.geppetto.forge.v2.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,8 +16,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.cloudsmith.geppetto.forge.model.Entity;
-import org.cloudsmith.geppetto.semver.Version;
+import com.puppetlabs.geppetto.forge.model.Entity;
+import com.puppetlabs.geppetto.semver.Version;
 
 import com.google.gson.annotations.Expose;
 

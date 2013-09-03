@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.catalog.util;
+package com.puppetlabs.geppetto.catalog.util;
 
-import org.cloudsmith.geppetto.catalog.*;
+import com.puppetlabs.geppetto.catalog.*;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
@@ -25,7 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  * It provides an adapter <code>createXXX</code> method for each class of the model.
  * <!-- end-user-doc -->
  * 
- * @see org.cloudsmith.geppetto.catalog.CatalogPackage
+ * @see com.puppetlabs.geppetto.catalog.CatalogPackage
  * @generated
  */
 public class CatalogAdapterFactory extends AdapterFactoryImpl {
@@ -111,14 +111,14 @@ public class CatalogAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.catalog.Catalog <em>Catalog</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.catalog.Catalog <em>Catalog</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.catalog.Catalog
+	 * @see com.puppetlabs.geppetto.catalog.Catalog
 	 * @generated
 	 */
 	public Adapter createCatalogAdapter() {
@@ -126,14 +126,14 @@ public class CatalogAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.catalog.CatalogEdge <em>Edge</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.catalog.CatalogEdge <em>Edge</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogEdge
+	 * @see com.puppetlabs.geppetto.catalog.CatalogEdge
 	 * @generated
 	 */
 	public Adapter createCatalogEdgeAdapter() {
@@ -141,14 +141,14 @@ public class CatalogAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.catalog.CatalogMetadata <em>Metadata</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.catalog.CatalogMetadata <em>Metadata</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogMetadata
+	 * @see com.puppetlabs.geppetto.catalog.CatalogMetadata
 	 * @generated
 	 */
 	public Adapter createCatalogMetadataAdapter() {
@@ -156,14 +156,14 @@ public class CatalogAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.catalog.CatalogResource <em>Resource</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.catalog.CatalogResource <em>Resource</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResource
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResource
 	 * @generated
 	 */
 	public Adapter createCatalogResourceAdapter() {
@@ -171,14 +171,14 @@ public class CatalogAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.catalog.CatalogResourceParameter <em>Resource Parameter</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.catalog.CatalogResourceParameter <em>Resource Parameter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.catalog.CatalogResourceParameter
+	 * @see com.puppetlabs.geppetto.catalog.CatalogResourceParameter
 	 * @generated
 	 */
 	public Adapter createCatalogResourceParameterAdapter() {
@@ -199,14 +199,14 @@ public class CatalogAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link org.cloudsmith.geppetto.catalog.Taggable <em>Taggable</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.puppetlabs.geppetto.catalog.Taggable <em>Taggable</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * 
 	 * @return the new adapter.
-	 * @see org.cloudsmith.geppetto.catalog.Taggable
+	 * @see com.puppetlabs.geppetto.catalog.Taggable
 	 * @generated
 	 */
 	public Adapter createTaggableAdapter() {

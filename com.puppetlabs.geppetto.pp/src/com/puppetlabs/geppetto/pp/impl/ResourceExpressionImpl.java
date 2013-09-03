@@ -8,14 +8,14 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
 import java.util.Collection;
 
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.ResourceBody;
-import org.cloudsmith.geppetto.pp.ResourceExpression;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.ResourceBody;
+import com.puppetlabs.geppetto.pp.ResourceExpression;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -32,8 +32,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceExpressionImpl#getResourceExpr <em>Resource Expr</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.ResourceExpressionImpl#getResourceData <em>Resource Data</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.ResourceExpressionImpl#getResourceExpr <em>Resource Expr</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.ResourceExpressionImpl#getResourceData <em>Resource Data</em>}</li>
  * </ul>
  * </p>
  * 

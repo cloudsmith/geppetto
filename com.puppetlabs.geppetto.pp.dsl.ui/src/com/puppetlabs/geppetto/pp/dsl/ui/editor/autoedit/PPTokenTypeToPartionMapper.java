@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.autoedit;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.autoedit;
 
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.xtext.ui.editor.model.ITokenTypeToPartitionTypeMapper;

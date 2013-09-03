@@ -8,30 +8,30 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.tests;
+package com.puppetlabs.geppetto.pp.dsl.tests;
 
 import static com.google.inject.util.Modules.override;
-import static org.cloudsmith.geppetto.injectable.CommonModuleProvider.getCommonModule;
+import static com.puppetlabs.geppetto.injectable.CommonModuleProvider.getCommonModule;
 
 import java.util.Iterator;
 import java.util.List;
 
-import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.LiteralList;
-import org.cloudsmith.geppetto.pp.PPFactory;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.dsl.PPRuntimeModule;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout;
-import org.cloudsmith.geppetto.pp.dsl.formatting.PPStylesheetProvider;
-import org.cloudsmith.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.formatter.CSSDomFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
-import org.cloudsmith.xtext.dommodel.formatter.IDomModelFormatter;
-import org.cloudsmith.xtext.dommodel.formatter.ILayoutManager;
-import org.cloudsmith.xtext.dommodel.formatter.context.IFormattingContext;
-import org.cloudsmith.xtext.dommodel.formatter.css.DomCSS;
-import org.cloudsmith.xtext.serializer.DomBasedSerializer;
+import com.puppetlabs.geppetto.pp.AssignmentExpression;
+import com.puppetlabs.geppetto.pp.LiteralList;
+import com.puppetlabs.geppetto.pp.PPFactory;
+import com.puppetlabs.geppetto.pp.PuppetManifest;
+import com.puppetlabs.geppetto.pp.dsl.PPRuntimeModule;
+import com.puppetlabs.geppetto.pp.dsl.formatting.PPSemanticLayout;
+import com.puppetlabs.geppetto.pp.dsl.formatting.PPStylesheetProvider;
+import com.puppetlabs.geppetto.pp.dsl.ppformatting.PPIndentationInformation;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.formatter.CSSDomFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.DomNodeLayoutFeeder;
+import com.puppetlabs.xtext.dommodel.formatter.IDomModelFormatter;
+import com.puppetlabs.xtext.dommodel.formatter.ILayoutManager;
+import com.puppetlabs.xtext.dommodel.formatter.context.IFormattingContext;
+import com.puppetlabs.xtext.dommodel.formatter.css.DomCSS;
+import com.puppetlabs.xtext.serializer.DomBasedSerializer;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -88,7 +88,7 @@ public class TestPPFormatting extends AbstractPuppetTests {
 				binder.bind(IDomModelFormatter.class).to(DebugFormatter.class);
 				// Want serializer to insert empty WS even if there is no node model
 				binder.bind(IHiddenTokenSequencer.class).to(
-					org.cloudsmith.xtext.serializer.acceptor.HiddenTokenSequencer.class);
+					com.puppetlabs.xtext.serializer.acceptor.HiddenTokenSequencer.class);
 
 				// Bind the default style sheet (TODO: should use a test specific sheet)
 				binder.bind(DomCSS.class).toProvider(PPStylesheetProvider.class);

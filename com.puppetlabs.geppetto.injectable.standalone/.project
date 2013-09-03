@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>org.cloudsmith.geppetto.injectable.standalone</name>
+	<name>com.puppetlabs.geppetto.injectable.standalone</name>
 	<comment></comment>
 	<projects>
 	</projects>

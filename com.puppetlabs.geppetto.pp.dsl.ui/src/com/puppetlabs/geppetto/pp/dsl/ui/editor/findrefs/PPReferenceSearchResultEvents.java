@@ -10,7 +10,7 @@
  *   Puppet Labs
  * 
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 
 /**
  * Adaption of class with similar name from Xtext. This implementation is based on IEObjectDescription

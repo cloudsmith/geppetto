@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.scoping;
+package com.puppetlabs.geppetto.pp.dsl.scoping;
 
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 

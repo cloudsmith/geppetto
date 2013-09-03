@@ -8,9 +8,9 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.util;
+package com.puppetlabs.geppetto.forge.util;
 
-import static org.cloudsmith.geppetto.forge.Forge.METADATA_JSON_NAME;
+import static com.puppetlabs.geppetto.forge.Forge.METADATA_JSON_NAME;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -25,8 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.cloudsmith.geppetto.common.os.FileUtils;
-import org.cloudsmith.geppetto.common.os.StreamUtil;
+import com.puppetlabs.geppetto.common.os.FileUtils;
+import com.puppetlabs.geppetto.common.os.StreamUtil;
 
 /**
  * Utilities for computing MD5 checksums on files.

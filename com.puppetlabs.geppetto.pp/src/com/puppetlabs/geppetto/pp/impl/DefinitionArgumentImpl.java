@@ -8,11 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.impl;
+package com.puppetlabs.geppetto.pp.impl;
 
-import org.cloudsmith.geppetto.pp.DefinitionArgument;
-import org.cloudsmith.geppetto.pp.Expression;
-import org.cloudsmith.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.DefinitionArgument;
+import com.puppetlabs.geppetto.pp.Expression;
+import com.puppetlabs.geppetto.pp.PPPackage;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
@@ -27,9 +27,9 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getArgName <em>Arg Name</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getValue <em>Value</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.pp.impl.DefinitionArgumentImpl#getOp <em>Op</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.DefinitionArgumentImpl#getArgName <em>Arg Name</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.DefinitionArgumentImpl#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.pp.impl.DefinitionArgumentImpl#getOp <em>Op</em>}</li>
  * </ul>
  * </p>
  * 

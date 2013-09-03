@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.graph.catalog;
+package com.puppetlabs.geppetto.graph.catalog;
 
-import org.cloudsmith.geppetto.graph.FixedSVGGraphModule;
-import org.cloudsmith.geppetto.graph.IHrefProducer;
+import com.puppetlabs.geppetto.graph.FixedSVGGraphModule;
+import com.puppetlabs.geppetto.graph.IHrefProducer;
 
 /**
  * Configuration for CatalogGraph.

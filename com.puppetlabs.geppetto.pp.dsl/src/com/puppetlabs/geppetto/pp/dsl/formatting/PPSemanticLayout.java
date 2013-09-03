@@ -8,52 +8,52 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.formatting;
+package com.puppetlabs.geppetto.pp.dsl.formatting;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.cloudsmith.geppetto.pp.AppendExpression;
-import org.cloudsmith.geppetto.pp.AssignmentExpression;
-import org.cloudsmith.geppetto.pp.AttributeOperations;
-import org.cloudsmith.geppetto.pp.Case;
-import org.cloudsmith.geppetto.pp.CaseExpression;
-import org.cloudsmith.geppetto.pp.Definition;
-import org.cloudsmith.geppetto.pp.DefinitionArgumentList;
-import org.cloudsmith.geppetto.pp.ElseExpression;
-import org.cloudsmith.geppetto.pp.ElseIfExpression;
-import org.cloudsmith.geppetto.pp.HostClassDefinition;
-import org.cloudsmith.geppetto.pp.IfExpression;
-import org.cloudsmith.geppetto.pp.JavaLambda;
-import org.cloudsmith.geppetto.pp.LiteralHash;
-import org.cloudsmith.geppetto.pp.LiteralList;
-import org.cloudsmith.geppetto.pp.LiteralNameOrReference;
-import org.cloudsmith.geppetto.pp.NodeDefinition;
-import org.cloudsmith.geppetto.pp.PPPackage;
-import org.cloudsmith.geppetto.pp.PuppetManifest;
-import org.cloudsmith.geppetto.pp.ResourceBody;
-import org.cloudsmith.geppetto.pp.ResourceExpression;
-import org.cloudsmith.geppetto.pp.RubyLambda;
-import org.cloudsmith.geppetto.pp.SelectorExpression;
-import org.cloudsmith.geppetto.pp.SeparatorExpression;
-import org.cloudsmith.geppetto.pp.SingleQuotedString;
-import org.cloudsmith.geppetto.pp.UnlessExpression;
-import org.cloudsmith.geppetto.pp.VerbatimTE;
-import org.cloudsmith.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
-import org.cloudsmith.geppetto.pp.dsl.services.PPGrammarAccess;
-import org.cloudsmith.xtext.dommodel.DomModelUtils;
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.dommodel.RegionMatch;
-import org.cloudsmith.xtext.dommodel.formatter.DeclarativeSemanticFlowLayout;
-import org.cloudsmith.xtext.dommodel.formatter.DelegatingLayoutContext;
-import org.cloudsmith.xtext.dommodel.formatter.DomNodeLayoutFeeder;
-import org.cloudsmith.xtext.dommodel.formatter.LayoutUtils;
-import org.cloudsmith.xtext.dommodel.formatter.css.Alignment;
-import org.cloudsmith.xtext.dommodel.formatter.css.IStyleFactory;
-import org.cloudsmith.xtext.dommodel.formatter.css.StyleSet;
-import org.cloudsmith.xtext.textflow.ITextFlow;
-import org.cloudsmith.xtext.textflow.MeasuredTextFlow;
+import com.puppetlabs.geppetto.pp.AppendExpression;
+import com.puppetlabs.geppetto.pp.AssignmentExpression;
+import com.puppetlabs.geppetto.pp.AttributeOperations;
+import com.puppetlabs.geppetto.pp.Case;
+import com.puppetlabs.geppetto.pp.CaseExpression;
+import com.puppetlabs.geppetto.pp.Definition;
+import com.puppetlabs.geppetto.pp.DefinitionArgumentList;
+import com.puppetlabs.geppetto.pp.ElseExpression;
+import com.puppetlabs.geppetto.pp.ElseIfExpression;
+import com.puppetlabs.geppetto.pp.HostClassDefinition;
+import com.puppetlabs.geppetto.pp.IfExpression;
+import com.puppetlabs.geppetto.pp.JavaLambda;
+import com.puppetlabs.geppetto.pp.LiteralHash;
+import com.puppetlabs.geppetto.pp.LiteralList;
+import com.puppetlabs.geppetto.pp.LiteralNameOrReference;
+import com.puppetlabs.geppetto.pp.NodeDefinition;
+import com.puppetlabs.geppetto.pp.PPPackage;
+import com.puppetlabs.geppetto.pp.PuppetManifest;
+import com.puppetlabs.geppetto.pp.ResourceBody;
+import com.puppetlabs.geppetto.pp.ResourceExpression;
+import com.puppetlabs.geppetto.pp.RubyLambda;
+import com.puppetlabs.geppetto.pp.SelectorExpression;
+import com.puppetlabs.geppetto.pp.SeparatorExpression;
+import com.puppetlabs.geppetto.pp.SingleQuotedString;
+import com.puppetlabs.geppetto.pp.UnlessExpression;
+import com.puppetlabs.geppetto.pp.VerbatimTE;
+import com.puppetlabs.geppetto.pp.dsl.ppdoc.DocumentationAssociator;
+import com.puppetlabs.geppetto.pp.dsl.services.PPGrammarAccess;
+import com.puppetlabs.xtext.dommodel.DomModelUtils;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.dommodel.RegionMatch;
+import com.puppetlabs.xtext.dommodel.formatter.DeclarativeSemanticFlowLayout;
+import com.puppetlabs.xtext.dommodel.formatter.DelegatingLayoutContext;
+import com.puppetlabs.xtext.dommodel.formatter.DomNodeLayoutFeeder;
+import com.puppetlabs.xtext.dommodel.formatter.LayoutUtils;
+import com.puppetlabs.xtext.dommodel.formatter.css.Alignment;
+import com.puppetlabs.xtext.dommodel.formatter.css.IStyleFactory;
+import com.puppetlabs.xtext.dommodel.formatter.css.StyleSet;
+import com.puppetlabs.xtext.textflow.ITextFlow;
+import com.puppetlabs.xtext.textflow.MeasuredTextFlow;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractElement;
 import org.eclipse.xtext.nodemodel.INode;
@@ -156,7 +156,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 	LayoutUtils layoutUtils;
 
 	/**
-	 * array of classifiers that represent {@code org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle.BLOCK} - used for fast
+	 * array of classifiers that represent {@code com.puppetlabs.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle.BLOCK} - used for fast
 	 * lookup (faster
 	 * that Xtext polymorph and EMF Switch)
 	 */
@@ -506,7 +506,7 @@ public class PPSemanticLayout extends DeclarativeSemanticFlowLayout {
 
 	/**
 	 * Returns true if the semantic object represents a block statement (one that should be
-	 * marked with {@link org.cloudsmith.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle.BLOCK}.)
+	 * marked with {@link com.puppetlabs.geppetto.pp.dsl.formatting.PPSemanticLayout.StatementStyle.BLOCK}.)
 	 * 
 	 * @param semantic
 	 * @return

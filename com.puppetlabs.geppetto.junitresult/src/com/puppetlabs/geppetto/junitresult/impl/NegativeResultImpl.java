@@ -8,10 +8,10 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.impl;
+package com.puppetlabs.geppetto.junitresult.impl;
 
-import org.cloudsmith.geppetto.junitresult.JunitresultPackage;
-import org.cloudsmith.geppetto.junitresult.NegativeResult;
+import com.puppetlabs.geppetto.junitresult.JunitresultPackage;
+import com.puppetlabs.geppetto.junitresult.NegativeResult;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -27,9 +27,9 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl#getMessage <em>Message</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl#getType <em>Type</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.impl.NegativeResultImpl#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.NegativeResultImpl#getMessage <em>Message</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.NegativeResultImpl#getType <em>Type</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.impl.NegativeResultImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  * 

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.toggleComments;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.toggleComments;
 
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.xtext.ui.editor.toggleComments.ISingleLineCommentHelper;

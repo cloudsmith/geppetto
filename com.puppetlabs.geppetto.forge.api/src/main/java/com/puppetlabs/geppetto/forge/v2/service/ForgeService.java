@@ -8,15 +8,15 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.v2.service;
+package com.puppetlabs.geppetto.forge.v2.service;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.client.HttpResponseException;
-import org.cloudsmith.geppetto.forge.client.ForgeClient;
-import org.cloudsmith.geppetto.forge.v2.model.HalLink;
+import com.puppetlabs.geppetto.forge.client.ForgeClient;
+import com.puppetlabs.geppetto.forge.v2.model.HalLink;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;

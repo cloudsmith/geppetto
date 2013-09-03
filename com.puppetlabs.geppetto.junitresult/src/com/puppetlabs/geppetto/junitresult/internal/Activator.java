@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult.internal;
+package com.puppetlabs.geppetto.junitresult.internal;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

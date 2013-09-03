@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     Puppet Labs - edit capability
  *******************************************************************************/
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class PathEditor extends ListEditor {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors.ListEditor#getEditedInput(java.lang.String)
+	 * @see com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.ListEditor#getEditedInput(java.lang.String)
 	 */
 	@Override
 	protected String getEditedInput(String input) {

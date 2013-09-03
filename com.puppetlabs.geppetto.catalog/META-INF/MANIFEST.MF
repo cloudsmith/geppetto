@@ -1,39 +1,39 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.cloudsmith.geppetto.catalog;singleton:=true
+Bundle-SymbolicName: com.puppetlabs.geppetto.catalog;singleton:=true
 Bundle-Version: 4.0.0
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
-Export-Package: org.cloudsmith.geppetto.catalog;
+Export-Package: com.puppetlabs.geppetto.catalog;
   uses:="org.eclipse.emf.ecore,org.eclipse.emf.common.util",
- org.cloudsmith.geppetto.catalog.impl;
+ com.puppetlabs.geppetto.catalog.impl;
   uses:="org.eclipse.emf.ecore,
    org.eclipse.emf.common.util,
-   org.cloudsmith.geppetto.catalog,
+   com.puppetlabs.geppetto.catalog,
    org.eclipse.emf.common.notify,
    org.eclipse.emf.ecore.impl,
    com.google.gson,
-   org.cloudsmith.geppetto.catalog.util",
- org.cloudsmith.geppetto.catalog.util;
+   com.puppetlabs.geppetto.catalog.util",
+ com.puppetlabs.geppetto.catalog.util;
   uses:="org.eclipse.emf.ecore.util,
    org.eclipse.emf.ecore,
    org.eclipse.emf.common.util,
    org.eclipse.emf.common.notify.impl,
-   org.cloudsmith.geppetto.catalog,
+   com.puppetlabs.geppetto.catalog,
    org.eclipse.emf.common.notify,
    com.google.gson"
 Import-Package: com.google.common.base;version="[12.0.0,13.0.0)",
  com.google.common.collect;version="[12.0.0,13.0.0)",
  com.google.gson,
  com.google.gson.reflect,
- org.cloudsmith.geppetto.common,
- org.cloudsmith.geppetto.common.os,
- org.cloudsmith.geppetto.common.stats,
- org.cloudsmith.geppetto.common.util,
+ com.puppetlabs.geppetto.common,
+ com.puppetlabs.geppetto.common.os,
+ com.puppetlabs.geppetto.common.stats,
+ com.puppetlabs.geppetto.common.util,
  org.eclipse.emf.common,
  org.eclipse.emf.common.notify,
  org.eclipse.emf.common.notify.impl,

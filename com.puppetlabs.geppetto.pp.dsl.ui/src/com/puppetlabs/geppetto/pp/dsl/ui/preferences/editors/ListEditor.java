@@ -9,7 +9,7 @@
  *     IBM Corporation - initial API and implementation
  *     Puppet Labs, Inc  - edit button
  *******************************************************************************/
-package org.cloudsmith.geppetto.pp.dsl.ui.preferences.editors;
+package com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.dialogs.IDialogConstants;

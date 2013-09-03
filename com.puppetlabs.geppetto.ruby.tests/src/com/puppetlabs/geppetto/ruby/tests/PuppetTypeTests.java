@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ruby.tests;
+package com.puppetlabs.geppetto.ruby.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -16,8 +16,8 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.util.List;
 
-import org.cloudsmith.geppetto.ruby.PPTypeInfo;
-import org.cloudsmith.geppetto.ruby.RubyHelper;
+import com.puppetlabs.geppetto.ruby.PPTypeInfo;
+import com.puppetlabs.geppetto.ruby.RubyHelper;
 import org.eclipse.core.runtime.Path;
 import org.junit.Test;
 

@@ -8,18 +8,18 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.ui;
+package com.puppetlabs.geppetto.ui;
 
-import static org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator.ORG_CLOUDSMITH_GEPPETTO_PP_DSL_PP;
+import static com.puppetlabs.geppetto.pp.dsl.ui.internal.PPActivator.COM_PUPPETLABS_GEPPETTO_PP_DSL_PP;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.cloudsmith.geppetto.forge.client.ForgeHttpModule;
-import org.cloudsmith.geppetto.forge.impl.ForgeServiceModule;
-import org.cloudsmith.geppetto.pp.dsl.ui.internal.PPActivator;
-import org.cloudsmith.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import com.puppetlabs.geppetto.forge.client.ForgeHttpModule;
+import com.puppetlabs.geppetto.forge.impl.ForgeServiceModule;
+import com.puppetlabs.geppetto.pp.dsl.ui.internal.PPActivator;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
@@ -89,7 +89,7 @@ public final class UIPlugin extends EMFPlugin implements BundleActivator {
 	}
 
 	public Injector createInjector(Module... modules) {
-		final Injector ppInjector = PPActivator.getInstance().getInjector(ORG_CLOUDSMITH_GEPPETTO_PP_DSL_PP);
+		final Injector ppInjector = PPActivator.getInstance().getInjector(COM_PUPPETLABS_GEPPETTO_PP_DSL_PP);
 		List<Module> forgeModules = new ArrayList<Module>();
 		for(Module module : modules)
 			forgeModules.add(module);

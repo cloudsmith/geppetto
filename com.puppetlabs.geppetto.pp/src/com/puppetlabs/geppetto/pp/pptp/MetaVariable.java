@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.pp.pptp;
+package com.puppetlabs.geppetto.pp.pptp;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,7 +20,7 @@ package org.cloudsmith.geppetto.pp.pptp;
  * <!-- end-model-doc -->
  * 
  * 
- * @see org.cloudsmith.geppetto.pp.pptp.PPTPPackage#getMetaVariable()
+ * @see com.puppetlabs.geppetto.pp.pptp.PPTPPackage#getMetaVariable()
  * @model
  * @generated
  */

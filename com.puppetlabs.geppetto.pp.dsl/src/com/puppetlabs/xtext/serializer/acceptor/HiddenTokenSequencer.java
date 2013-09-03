@@ -10,15 +10,15 @@
  *   Puppet Labs - adaption to DomModel and Contextual formatter
  * 
  */
-package org.cloudsmith.xtext.serializer.acceptor;
+package com.puppetlabs.xtext.serializer.acceptor;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Set;
 
-import org.cloudsmith.xtext.dommodel.IDomNode;
-import org.cloudsmith.xtext.serializer.ICommentReconcilement;
+import com.puppetlabs.xtext.dommodel.IDomNode;
+import com.puppetlabs.xtext.serializer.ICommentReconcilement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.AbstractRule;
 import org.eclipse.xtext.Action;

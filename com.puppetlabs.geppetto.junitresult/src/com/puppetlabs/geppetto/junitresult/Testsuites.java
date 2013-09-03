@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult;
+package com.puppetlabs.geppetto.junitresult;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,12 +22,12 @@ package org.cloudsmith.geppetto.junitresult;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuites#getTime <em>Time</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.Testsuites#getDisabled <em>Disabled</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuites#getTime <em>Time</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.Testsuites#getDisabled <em>Disabled</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuites()
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuites()
  * @model
  * @generated
  */
@@ -42,7 +42,7 @@ public interface Testsuites extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Disabled</em>' attribute.
 	 * @see #setDisabled(int)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuites_Disabled()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuites_Disabled()
 	 * @model
 	 * @generated
 	 */
@@ -58,14 +58,14 @@ public interface Testsuites extends AbstractAggregatedTest {
 	 * 
 	 * @return the value of the '<em>Time</em>' attribute.
 	 * @see #setTime(double)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getTestsuites_Time()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getTestsuites_Time()
 	 * @model
 	 * @generated
 	 */
 	double getTime();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuites#getDisabled <em>Disabled</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testsuites#getDisabled <em>Disabled</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -77,7 +77,7 @@ public interface Testsuites extends AbstractAggregatedTest {
 	void setDisabled(int value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.Testsuites#getTime <em>Time</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.Testsuites#getTime <em>Time</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

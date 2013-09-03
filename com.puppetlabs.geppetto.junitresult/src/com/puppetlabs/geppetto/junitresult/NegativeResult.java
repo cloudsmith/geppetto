@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.junitresult;
+package com.puppetlabs.geppetto.junitresult;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -20,13 +20,13 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.cloudsmith.geppetto.junitresult.NegativeResult#getMessage <em>Message</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.NegativeResult#getType <em>Type</em>}</li>
- * <li>{@link org.cloudsmith.geppetto.junitresult.NegativeResult#getValue <em>Value</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.NegativeResult#getMessage <em>Message</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.NegativeResult#getType <em>Type</em>}</li>
+ * <li>{@link com.puppetlabs.geppetto.junitresult.NegativeResult#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  * 
- * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getNegativeResult()
+ * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getNegativeResult()
  * @model abstract="true"
  * @generated
  */
@@ -41,7 +41,7 @@ public interface NegativeResult extends EObject {
 	 * 
 	 * @return the value of the '<em>Message</em>' attribute.
 	 * @see #setMessage(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getNegativeResult_Message()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getNegativeResult_Message()
 	 * @model
 	 * @generated
 	 */
@@ -57,7 +57,7 @@ public interface NegativeResult extends EObject {
 	 * 
 	 * @return the value of the '<em>Type</em>' attribute.
 	 * @see #setType(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getNegativeResult_Type()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getNegativeResult_Type()
 	 * @model
 	 * @generated
 	 */
@@ -73,14 +73,14 @@ public interface NegativeResult extends EObject {
 	 * 
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)
-	 * @see org.cloudsmith.geppetto.junitresult.JunitresultPackage#getNegativeResult_Value()
+	 * @see com.puppetlabs.geppetto.junitresult.JunitresultPackage#getNegativeResult_Value()
 	 * @model
 	 * @generated
 	 */
 	String getValue();
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.NegativeResult#getMessage <em>Message</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.NegativeResult#getMessage <em>Message</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -92,7 +92,7 @@ public interface NegativeResult extends EObject {
 	void setMessage(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.NegativeResult#getType <em>Type</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.NegativeResult#getType <em>Type</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 
@@ -104,7 +104,7 @@ public interface NegativeResult extends EObject {
 	void setType(String value);
 
 	/**
-	 * Sets the value of the '{@link org.cloudsmith.geppetto.junitresult.NegativeResult#getValue <em>Value</em>}' attribute.
+	 * Sets the value of the '{@link com.puppetlabs.geppetto.junitresult.NegativeResult#getValue <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * 

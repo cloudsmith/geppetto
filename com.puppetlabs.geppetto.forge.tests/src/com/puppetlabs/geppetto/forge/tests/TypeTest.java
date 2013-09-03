@@ -8,15 +8,15 @@
  * Contributors:
  *   Puppet Labs
  */
-package org.cloudsmith.geppetto.forge.tests;
+package com.puppetlabs.geppetto.forge.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
-import org.cloudsmith.geppetto.forge.util.Types;
-import org.cloudsmith.geppetto.forge.v2.model.Type;
+import com.puppetlabs.geppetto.forge.util.Types;
+import com.puppetlabs.geppetto.forge.v2.model.Type;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,11 +1,11 @@
-package org.cloudsmith.geppetto.graph.tests;
+package com.puppetlabs.geppetto.graph.tests;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
-import org.cloudsmith.geppetto.graph.catalog.CatalogServices;
+import com.puppetlabs.geppetto.graph.catalog.CatalogServices;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;

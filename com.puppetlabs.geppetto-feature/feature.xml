@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.cloudsmith.geppetto"
+      id="com.puppetlabs.geppetto"
       label="%featureName"
       version="4.0.0"
       provider-name="%providerName"
@@ -23,105 +23,105 @@ http://www.eclipse.org/legal/epl-v10.html
    </license>
 
    <plugin
-         id="org.cloudsmith.geppetto"
+         id="com.puppetlabs.geppetto"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.common"
+         id="com.puppetlabs.geppetto.common"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.common.tracer"
+         id="com.puppetlabs.geppetto.common.tracer"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.injectable.eclipse"
+         id="com.puppetlabs.geppetto.injectable.eclipse"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.diagnostic"
+         id="com.puppetlabs.geppetto.diagnostic"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.forge"
+         id="com.puppetlabs.geppetto.forge"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.forge.api"
+         id="com.puppetlabs.geppetto.forge.api"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.pp"
+         id="com.puppetlabs.geppetto.pp"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.pp.dsl"
+         id="com.puppetlabs.geppetto.pp.dsl"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.pp.dsl.ui"
+         id="com.puppetlabs.geppetto.pp.dsl.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.ruby"
+         id="com.puppetlabs.geppetto.ruby"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.ui"
+         id="com.puppetlabs.geppetto.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.ruby.jrubyparser"
+         id="com.puppetlabs.geppetto.ruby.jrubyparser"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.semver"
+         id="com.puppetlabs.geppetto.semver"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.cloudsmith.geppetto.themes"
+         id="com.puppetlabs.geppetto.themes"
          download-size="0"
          install-size="0"
          version="0.0.0"

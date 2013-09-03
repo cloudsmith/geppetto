@@ -9,7 +9,7 @@
  *    itemis AG - implementation
  *    Puppet Labs - adaption to Geppetto/PP
  *******************************************************************************/
-package org.cloudsmith.geppetto.pp.dsl.ui.editor.findrefs;
+package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.OpenEvent;

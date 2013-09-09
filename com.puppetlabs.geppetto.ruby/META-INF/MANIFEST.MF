@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-SymbolicName: com.puppetlabs.geppetto.ruby;singleton:=true
-Bundle-Version: 4.0.0
+Bundle-Version: 4.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.puppetlabs.geppetto.ruby;
   uses:="com.puppetlabs.geppetto.pp.pptp,

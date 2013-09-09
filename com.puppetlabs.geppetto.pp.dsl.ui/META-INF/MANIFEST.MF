@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Version: 4.0.0
+Bundle-Version: 4.0.0.qualifier
 Bundle-SymbolicName: com.puppetlabs.geppetto.pp.dsl.ui;singleton:=true
 Bundle-ActivationPolicy: lazy
 Import-Package: com.google.common.base;version="[12.0.0,13.0.0)",

@@ -2,7 +2,7 @@
 <feature
       id="com.puppetlabs.geppetto"
       label="%featureName"
-      version="4.0.0"
+      version="4.0.0.qualifier"
       provider-name="%providerName"
       image="geppetto_update_120.jpg">
 

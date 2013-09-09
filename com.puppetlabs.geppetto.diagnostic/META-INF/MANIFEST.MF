@@ -4,6 +4,6 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: com.puppetlabs.geppetto.diagnostic
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-Version: 4.0.0
+Bundle-Version: 4.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: com.puppetlabs.geppetto.diagnostic

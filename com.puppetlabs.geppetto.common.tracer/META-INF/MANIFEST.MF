@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Geppetto Tracer Bundle
 Bundle-SymbolicName: com.puppetlabs.geppetto.common.tracer
-Bundle-Version: 4.0.0
+Bundle-Version: 4.0.0.qualifier
 Bundle-Vendor: Puppet Labs, Inc.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy

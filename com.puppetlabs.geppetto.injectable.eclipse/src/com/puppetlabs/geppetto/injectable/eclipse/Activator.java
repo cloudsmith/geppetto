@@ -1,5 +1,12 @@
 /**
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
  * 
+ * Contributors:
+ *   Puppet Labs - initial API and implementation
  */
 package com.puppetlabs.geppetto.injectable.eclipse;
 
@@ -47,7 +54,8 @@ public class Activator implements BundleActivator {
 	//
 	private static void renameCloudsmithPrefs(Bundle bundle) {
 		try {
-			IPath bundleStateRoot = Platform.getLocation().append(".metadata").append(".plugins");
+			IPath wsRoot = Platform.getLocation();
+			IPath bundleStateRoot = wsRoot.append(".metadata").append(".plugins");
 			File[] bundleDirs = bundleStateRoot.toFile().listFiles();
 			if(bundleDirs == null) {
 				System.out.format("%s is not a directory\n", bundleStateRoot.toOSString());
@@ -109,6 +117,12 @@ public class Activator implements BundleActivator {
 				System.out.format("Renamed %s to %s%s\n", prefsFile.getAbsolutePath(), newName, changed);
 				prefsFile.delete();
 			}
+
+			File oldTP = wsRoot.append(".org_cloudsmith_geppetto_pptp_target").toFile();
+			File newTP = wsRoot.append(".com_puppetlabs_geppetto_pptp_target").toFile();
+			if(oldTP.exists() && !newTP.exists() && oldTP.renameTo(newTP))
+				System.out.format("Renamed %s to %s\n", oldTP.getAbsolutePath(), newTP.getName());
+
 		}
 		catch(Exception e) {
 			e.printStackTrace();

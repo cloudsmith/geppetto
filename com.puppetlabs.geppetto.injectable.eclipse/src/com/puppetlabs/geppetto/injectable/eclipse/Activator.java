@@ -13,6 +13,7 @@ package com.puppetlabs.geppetto.injectable.eclipse;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 
@@ -38,6 +39,42 @@ public class Activator implements BundleActivator {
 		return a;
 	}
 
+	private static String renameCloudsmithContent(File oldFile, File newFile) throws IOException {
+		String changed = "";
+		StringBuilder bld = new StringBuilder();
+		Reader reader = new FileReader(oldFile);
+		try {
+			char[] buf = new char[1024];
+			int count;
+			while((count = reader.read(buf)) > 0)
+				bld.append(buf, 0, count);
+		}
+		finally {
+			reader.close();
+		}
+
+		int nxt = bld.indexOf(ORG_CLOUDSMITH);
+		while(nxt >= 0) {
+			bld.replace(nxt, nxt + ORG_CLOUDSMITH.length(), COM_PUPPETLABS);
+			nxt = bld.indexOf(ORG_CLOUDSMITH, nxt + ORG_CLOUDSMITH.length());
+			changed = " and perfomed file substitutions";
+		}
+		nxt = bld.indexOf(WWW_CLOUDSMITH_ORG);
+		while(nxt >= 0) {
+			bld.replace(nxt, nxt + WWW_CLOUDSMITH_ORG.length(), WWW_PUPPETLABS_COM);
+			nxt = bld.indexOf(WWW_CLOUDSMITH_ORG, nxt + WWW_CLOUDSMITH_ORG.length());
+			changed = " and perfomed file substitutions";
+		}
+		Writer writer = new FileWriter(newFile);
+		try {
+			writer.write(bld.toString());
+		}
+		finally {
+			writer.close();
+		}
+		return changed;
+	}
+
 	private BundleContext context;
 
 	private ServiceReference<IProxyService> proxyServiceReference;
@@ -46,7 +83,11 @@ public class Activator implements BundleActivator {
 
 	private static final String ORG_CLOUDSMITH = "org.cloudsmith.";
 
+	private static final String WWW_CLOUDSMITH_ORG = "www.cloudsmith.org";
+
 	private static final String COM_PUPPETLABS = "com.puppetlabs.";
+
+	private static final String WWW_PUPPETLABS_COM = "www.puppetlabs.com";
 
 	// This is a hack to preserve workspaces created with a Geppetto that used the 'org.cloudsmith.'
 	// package and bundle naming. It ensures that the bundle states and workspace preferences are
@@ -90,38 +131,19 @@ public class Activator implements BundleActivator {
 				String changed = "";
 				String newName = COM_PUPPETLABS + name.substring(ORG_CLOUDSMITH.length());
 				File newFile = new File(prefsFile.getParentFile(), newName);
-				Reader reader = new FileReader(prefsFile);
-				try {
-					StringBuilder bld = new StringBuilder();
-					char[] buf = new char[1024];
-					int count;
-					while((count = reader.read(buf)) > 0)
-						bld.append(buf, 0, count);
-					int nxt = bld.indexOf(ORG_CLOUDSMITH);
-					while(nxt >= 0) {
-						bld.replace(nxt, nxt + ORG_CLOUDSMITH.length(), COM_PUPPETLABS);
-						nxt = bld.indexOf(ORG_CLOUDSMITH, nxt + ORG_CLOUDSMITH.length());
-						changed = " and perfomed file substitutions";
-					}
-					Writer writer = new FileWriter(newFile);
-					try {
-						writer.write(bld.toString());
-					}
-					finally {
-						writer.close();
-					}
-				}
-				finally {
-					reader.close();
-				}
+				changed = renameCloudsmithContent(prefsFile, newFile);
 				System.out.format("Renamed %s to %s%s\n", prefsFile.getAbsolutePath(), newName, changed);
 				prefsFile.delete();
 			}
 
 			File oldTP = wsRoot.append(".org_cloudsmith_geppetto_pptp_target").toFile();
 			File newTP = wsRoot.append(".com_puppetlabs_geppetto_pptp_target").toFile();
-			if(oldTP.exists() && !newTP.exists() && oldTP.renameTo(newTP))
+			if(oldTP.exists() && !newTP.exists() && oldTP.renameTo(newTP)) {
+				for(File f : newTP.listFiles())
+					if(f.getName().endsWith(".pptp"))
+						renameCloudsmithContent(f, f);
 				System.out.format("Renamed %s to %s\n", oldTP.getAbsolutePath(), newTP.getName());
+			}
 
 		}
 		catch(Exception e) {

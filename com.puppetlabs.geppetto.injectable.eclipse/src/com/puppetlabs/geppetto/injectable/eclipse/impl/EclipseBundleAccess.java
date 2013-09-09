@@ -1,3 +1,13 @@
+/**
+ * Copyright (c) 2013 Puppet Labs, Inc. and other contributors, as listed below.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ * 
+ * Contributors:
+ *   Puppet Labs - initial API and implementation
+ */
 package com.puppetlabs.geppetto.injectable.eclipse.impl;
 
 import java.io.File;
@@ -5,13 +15,14 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import com.puppetlabs.geppetto.common.util.BundleAccess;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.URIUtil;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleReference;
+
+import com.puppetlabs.geppetto.common.util.BundleAccess;
 
 public class EclipseBundleAccess implements BundleAccess {
 	private static Bundle getBundleForClass(Class<?> clazz) {

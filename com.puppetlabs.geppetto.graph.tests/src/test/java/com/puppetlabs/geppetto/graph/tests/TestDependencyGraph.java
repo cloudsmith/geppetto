@@ -222,7 +222,7 @@ public class TestDependencyGraph extends AbstractValidationTest {
 	@Test
 	public void githubHrefProducer() {
 		Injector injector = Guice.createInjector(new DependencyGraphModule(
-			GraphHrefType.GITHUB.getHrefProducerClass(), "https://github.com/cloudsmith/geppetto/master"));
+			GraphHrefType.GITHUB.getHrefProducerClass(), "https://github.com/puppetlabs/geppetto/master"));
 		IHrefProducer producer = injector.getInstance(IHrefProducer.class);
 
 		Export fakeExport = new Export() {
@@ -281,7 +281,7 @@ public class TestDependencyGraph extends AbstractValidationTest {
 
 		};
 		String result = producer.href(fakeExport, new File("/foo/bar/"));
-		assertEquals("https://github.com/cloudsmith/geppetto/master/about.html#L23", result);
+		assertEquals("https://github.com/puppetlabs/geppetto/master/about.html#L23", result);
 
 	}
 

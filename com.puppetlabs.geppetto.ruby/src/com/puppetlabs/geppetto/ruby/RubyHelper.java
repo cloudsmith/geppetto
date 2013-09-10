@@ -550,7 +550,7 @@ public class RubyHelper {
 			type.getParameters().add(parameter);
 		}
 		// TODO: Scan the puppet source for providers for the type
-		// This is a CHEAT - https://github.com/cloudsmith/geppetto/issues/37
+		// This is a CHEAT - https://github.com/puppetlabs/geppetto/issues/37
 		Parameter p = PPTPFactory.eINSTANCE.createParameter();
 		p.setName("provider");
 		p.setDocumentation("");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rm:rmap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0" xmlns:maven="http://www.eclipse.org/buckminster/MavenProvider-1.0" xmlns:rm="http://www.eclipse.org/buckminster/RMap-1.0">
-  <rm:property key="cloudsmith.github.prefix" value="git://github.com/cloudsmith"/>
+  <rm:property key="puppetlabs.github.prefix" value="git://github.com/puppetlabs"/>
   <rm:property key="git.clones.root" value="${user.home}/git"/>
   <rm:property key="svn.connectors.repository.url" value="http://community.polarion.com/projects/subversive/download/eclipse/3.0/kepler-site/"/>
   <rm:property key="eclipse.download" value="http://download.eclipse.org"/>
@@ -17,7 +17,7 @@
   <rm:locator searchPathRef="kepler" failOnError="false"/>
   <rm:searchPath name="geppetto-parent">
     <rm:provider componentTypes="buckminster" readerType="git">
-      <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/geppetto.git"/>
+      <rm:property key="git.remote.uri" value="${puppetlabs.github.prefix}/geppetto.git"/>
       <rm:uri format="{0}/{1}">
         <bc:propertyRef key="git.clones.root"/>
         <bc:propertyRef key="geppetto.clone"/>
@@ -26,7 +26,7 @@
   </rm:searchPath>
   <rm:searchPath name="geppetto">
     <rm:provider componentTypes="osgi.bundle,buckminster" readerType="git">
-      <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/geppetto.git"/>
+      <rm:property key="git.remote.uri" value="${puppetlabs.github.prefix}/geppetto.git"/>
       <rm:uri format="{0}/{1},{2}">
         <bc:propertyRef key="git.clones.root"/>
         <bc:propertyRef key="geppetto.clone"/>
@@ -34,7 +34,7 @@
       </rm:uri>
     </rm:provider>
     <rm:provider componentTypes="eclipse.feature" readerType="git">
-      <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/geppetto.git"/>
+      <rm:property key="git.remote.uri" value="${puppetlabs.github.prefix}/geppetto.git"/>
       <rm:uri format="{0}/{1},{2}-feature">
         <bc:propertyRef key="git.clones.root"/>
         <bc:propertyRef key="geppetto.clone"/>
@@ -42,7 +42,7 @@
       </rm:uri>
     </rm:provider>
     <rm:provider componentTypes="maven" readerType="git">
-      <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/geppetto.git"/>
+      <rm:property key="git.remote.uri" value="${puppetlabs.github.prefix}/geppetto.git"/>
       <rm:uri format="{0}/{1}">
         <bc:propertyRef key="git.clones.root"/>
         <bc:propertyRef key="geppetto.clone"/>
@@ -51,7 +51,7 @@
   </rm:searchPath>
   <rm:searchPath name="jrubyparser">
     <rm:provider componentTypes="osgi.bundle" readerType="git">
-      <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/jruby-parser.git"/>
+      <rm:property key="git.remote.uri" value="${puppetlabs.github.prefix}/jruby-parser.git"/>
       <rm:uri format="{0}/jruby-parser">
         <bc:propertyRef key="git.clones.root"/>
       </rm:uri>
@@ -59,7 +59,7 @@
   </rm:searchPath>
   <rm:searchPath name="graph">
     <rm:provider componentTypes="osgi.bundle" readerType="git">
-      <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/graph.git"/>
+      <rm:property key="git.remote.uri" value="${puppetlabs.github.prefix}/graph.git"/>
       <rm:uri format="{0}/graph,{1}">
         <bc:propertyRef key="git.clones.root"/>
         <bc:propertyRef key="buckminster.component"/>
@@ -68,7 +68,7 @@
   </rm:searchPath>
   <rm:searchPath name="commons-compress">
     <rm:provider componentTypes="osgi.bundle" readerType="git">
-      <rm:property key="git.remote.uri" value="${cloudsmith.github.prefix}/commons-compress.git"/>
+      <rm:property key="git.remote.uri" value="${puppetlabs.github.prefix}/commons-compress.git"/>
       <rm:uri format="{0}/commons-compress">
         <bc:propertyRef key="git.clones.root"/>
       </rm:uri>

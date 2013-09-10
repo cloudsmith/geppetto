@@ -466,7 +466,7 @@ public class PPProposalProvider extends AbstractPPProposalProvider {
 				// Create proposals
 				for(IEObjectDescription d : r.getAdjusted()) {
 					// Filter out bad name(s)
-					// https://github.com/cloudsmith/geppetto/issues/263
+					// https://github.com/puppetlabs/geppetto/issues/263
 					if("*".equals(d.getQualifiedName().getLastSegment()))
 						continue;
 

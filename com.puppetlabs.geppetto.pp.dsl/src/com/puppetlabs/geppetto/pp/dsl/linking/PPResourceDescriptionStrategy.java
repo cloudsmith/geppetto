@@ -213,7 +213,7 @@ public class PPResourceDescriptionStrategy extends DefaultResourceDescriptionStr
 			}
 		}
 		// TODO: pp: node x inherits [name | stringexpr | regexp | default]
-		// TODO: https://github.com/cloudsmith/geppetto/issues/67
+		// TODO: https://github.com/puppetlabs/geppetto/issues/67
 
 		return Collections.<String, String> emptyMap();
 	}

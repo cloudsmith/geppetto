@@ -35,8 +35,8 @@
 	<url>${parentSiteURL}</url>
 
 	<scm>
-		<connection>scm:git:git://github.com/cloudsmith/geppetto.git</connection>
-		<url>https://github.com/cloudsmith/geppetto</url>
+		<connection>scm:git:git://github.com/puppetlabs/geppetto.git</connection>
+		<url>https://github.com/puppetlabs/geppetto</url>
 		<developerConnection>scm:git:git@github.com:cloudsmith/geppetto.git</developerConnection>
 	</scm>
 
@@ -106,7 +106,7 @@
 
 	<issueManagement>
 		<system>GitHub</system>
-		<url>https://github.com/cloudsmith/geppetto/issues</url>
+		<url>https://github.com/puppetlabs/geppetto/issues</url>
 	</issueManagement>
 
 	<licenses>
@@ -458,8 +458,8 @@
 				</reportSets>
 				<configuration>
 					<!-- Hardcode here to avoid Maven guessing and appending submodule path -->
-					<anonymousConnection>scm:git:git://github.com/cloudsmith/geppetto.git</anonymousConnection>
-					<webAccessUrl>https://github.com/cloudsmith/geppetto</webAccessUrl>
+					<anonymousConnection>scm:git:git://github.com/puppetlabs/geppetto.git</anonymousConnection>
+					<webAccessUrl>https://github.com/puppetlabs/geppetto</webAccessUrl>
 					<developerConnection>scm:git:git@github.com:cloudsmith/geppetto.git</developerConnection>
 				</configuration>
 			</plugin>

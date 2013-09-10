@@ -3,7 +3,7 @@
     <cq:rootRequest name="com.puppetlabs.geppetto.releng" componentType="buckminster"/>
     <cq:property key="buckminster.convert.source" value="true"/>
     <cq:property key="buckminster.download.source" value="true"/>
-    <cq:property key="cloudsmith.github.prefix" value="git@github.com:cloudsmith"/>
+    <cq:property key="puppetlabs.github.prefix" value="git@github.com:puppetlabs"/>
     <cq:property key="target.arch" value="*"/>
     <cq:property key="target.os" value="*"/>
     <cq:property key="target.ws" value="*"/>

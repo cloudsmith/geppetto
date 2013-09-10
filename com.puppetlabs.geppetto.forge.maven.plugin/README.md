@@ -4,7 +4,7 @@ forge-publisher
 The GitHub Publisher for Puppet Forge modules
 
 The publisher is in the form of a Maven plug-in that in turn executes code from
-the [Geppetto](http://cloudsmith.github.com/geppetto/) code-base. The plug-in
+the [Geppetto](http://puppetlabs.github.com/geppetto/) code-base. The plug-in
 can execute two goals, ___validate___ and ___publish___.
 
 ## General Operation
@@ -59,7 +59,7 @@ puppet-lint program is not embedded in the plug-in.
 
 The puppet-lint validation can be controlled by using the parameter
 _puppetLintOptions_. Look at the enum _Option_
-[in this source](https://github.com/cloudsmith/geppetto/blob/master/com.puppetlabs.geppetto.puppetlint/src/com/puppetlabs/geppetto/puppetlint/PuppetLintRunner.java)
+[in this source](https://github.com/puppetlabs/geppetto/blob/master/com.puppetlabs.geppetto.puppetlint/src/com/puppetlabs/geppetto/puppetlint/PuppetLintRunner.java)
 for a complete list of options.
 
 The puppet-lint validation can be enabled using the boolean parameter

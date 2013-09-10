@@ -72,7 +72,7 @@ public class TestIssues extends AbstractPuppetTests {
 
 	/**
 	 * [11] Geppetto does not yet know about parameterized classes
-	 * https://github.com/cloudsmith/geppetto/issues#issue/11
+	 * https://github.com/puppetlabs/geppetto/issues#issue/11
 	 * 
 	 * @throws Exception
 	 */
@@ -87,7 +87,7 @@ public class TestIssues extends AbstractPuppetTests {
 
 	/**
 	 * [4] Parser does not understand realize on multiple lines
-	 * https://github.com/cloudsmith/geppetto/issues#issue/4
+	 * https://github.com/puppetlabs/geppetto/issues#issue/4
 	 * 
 	 * @throws Exception
 	 */

@@ -18,7 +18,13 @@ import java.io.Reader;
 import java.io.Writer;
 
 import org.eclipse.core.net.proxy.IProxyService;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
@@ -39,8 +45,7 @@ public class Activator implements BundleActivator {
 		return a;
 	}
 
-	private static String renameCloudsmithContent(File oldFile, File newFile) throws IOException {
-		String changed = "";
+	private static boolean renameCloudsmithContent(File oldFile, File newFile) throws IOException {
 		StringBuilder bld = new StringBuilder();
 		Reader reader = new FileReader(oldFile);
 		try {
@@ -53,17 +58,18 @@ public class Activator implements BundleActivator {
 			reader.close();
 		}
 
+		boolean changed = false;
 		int nxt = bld.indexOf(ORG_CLOUDSMITH);
 		while(nxt >= 0) {
 			bld.replace(nxt, nxt + ORG_CLOUDSMITH.length(), COM_PUPPETLABS);
 			nxt = bld.indexOf(ORG_CLOUDSMITH, nxt + ORG_CLOUDSMITH.length());
-			changed = " and perfomed file substitutions";
+			changed = true;
 		}
 		nxt = bld.indexOf(WWW_CLOUDSMITH_ORG);
 		while(nxt >= 0) {
 			bld.replace(nxt, nxt + WWW_CLOUDSMITH_ORG.length(), WWW_PUPPETLABS_COM);
 			nxt = bld.indexOf(WWW_CLOUDSMITH_ORG, nxt + WWW_CLOUDSMITH_ORG.length());
-			changed = " and perfomed file substitutions";
+			changed = true;
 		}
 		Writer writer = new FileWriter(newFile);
 		try {
@@ -117,38 +123,67 @@ public class Activator implements BundleActivator {
 			}
 
 			IPath settingsRoot = bundleStateRoot.append("org.eclipse.core.runtime").append(".settings");
-			File[] prefsFiles = settingsRoot.toFile().listFiles();
-			if(prefsFiles == null) {
-				System.out.format("%s is not a directory\n", settingsRoot.toOSString());
-				return;
+			renameCloudsmithSettings(settingsRoot);
+
+			IWorkspaceRoot workspace = ResourcesPlugin.getWorkspace().getRoot();
+			boolean changed = false;
+			for(IProject project : workspace.getProjects()) {
+				IPath location = project.getLocation();
+				if(".org_cloudsmith_geppetto_pptp_target".equals(project.getName())) {
+					IPath destination = location.removeLastSegments(1).append(".com_puppetlabs_geppetto_pptp_target");
+					File destDir = destination.toFile();
+					if(!destDir.exists()) {
+						project.move(Path.fromPortableString(destination.lastSegment()), true, new NullProgressMonitor());
+						System.out.format("Renamed %s to %s\n", location.toOSString(), destination.lastSegment());
+						for(File f : destDir.listFiles())
+							if(f.getName().endsWith(".pptp"))
+								renameCloudsmithContent(f, f);
+						location = destination;
+						changed = true;
+					}
+				}
+
+				File projectFile = location.append(".project").toFile();
+				if(projectFile.exists())
+					if(renameCloudsmithContent(projectFile, projectFile))
+						changed = true;
+
+				settingsRoot = location.append(".settings");
+				if(settingsRoot.toFile().isDirectory())
+					if(renameCloudsmithSettings(settingsRoot))
+						changed = true;
 			}
-
-			for(File prefsFile : prefsFiles) {
-				String name = prefsFile.getName();
-				if(!name.startsWith(ORG_CLOUDSMITH))
-					continue;
-
-				String changed = "";
-				String newName = COM_PUPPETLABS + name.substring(ORG_CLOUDSMITH.length());
-				File newFile = new File(prefsFile.getParentFile(), newName);
-				changed = renameCloudsmithContent(prefsFile, newFile);
-				System.out.format("Renamed %s to %s%s\n", prefsFile.getAbsolutePath(), newName, changed);
-				prefsFile.delete();
-			}
-
-			File oldTP = wsRoot.append(".org_cloudsmith_geppetto_pptp_target").toFile();
-			File newTP = wsRoot.append(".com_puppetlabs_geppetto_pptp_target").toFile();
-			if(oldTP.exists() && !newTP.exists() && oldTP.renameTo(newTP)) {
-				for(File f : newTP.listFiles())
-					if(f.getName().endsWith(".pptp"))
-						renameCloudsmithContent(f, f);
-				System.out.format("Renamed %s to %s\n", oldTP.getAbsolutePath(), newTP.getName());
-			}
-
+			if(changed)
+				workspace.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static boolean renameCloudsmithSettings(IPath settingsRoot) throws IOException {
+		File[] prefsFiles = settingsRoot.toFile().listFiles();
+		if(prefsFiles == null) {
+			System.out.format("%s is not a directory\n", settingsRoot.toOSString());
+			return false;
+		}
+
+		boolean changed = false;
+		for(File prefsFile : prefsFiles) {
+			String name = prefsFile.getName();
+			if(!name.startsWith(ORG_CLOUDSMITH))
+				continue;
+
+			String newName = COM_PUPPETLABS + name.substring(ORG_CLOUDSMITH.length());
+			File newFile = new File(prefsFile.getParentFile(), newName);
+			if(renameCloudsmithContent(prefsFile, newFile))
+				System.out.format("Renamed %s to %s and altered its content%n", prefsFile.getAbsolutePath(), newName);
+			else
+				System.out.format("Renamed %s to %s%n", prefsFile.getAbsolutePath(), newName);
+			prefsFile.delete();
+			changed = true;
+		}
+		return changed;
 	}
 
 	public synchronized IProxyService getProxyService() {

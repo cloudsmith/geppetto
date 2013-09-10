@@ -20,17 +20,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import com.puppetlabs.geppetto.diagnostic.Diagnostic;
-import com.puppetlabs.geppetto.forge.Forge;
-import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
-import com.puppetlabs.geppetto.semver.Version;
-import com.puppetlabs.geppetto.semver.VersionRange;
-import com.puppetlabs.geppetto.ui.UIPlugin;
-import com.puppetlabs.geppetto.ui.dialog.ModuleListSelectionDialog;
-import com.puppetlabs.geppetto.ui.editor.MetadataModel.Dependency;
-import com.puppetlabs.geppetto.ui.util.StringUtil;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -65,7 +54,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
@@ -78,6 +69,18 @@ import org.eclipse.ui.forms.IMessageManager;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
 import org.eclipse.xtext.ui.XtextProjectHelper;
+
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
+import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.ui.dialog.ModuleListSelectionDialog;
+import com.puppetlabs.geppetto.ui.editor.MetadataModel.Dependency;
+import com.puppetlabs.geppetto.ui.util.StringUtil;
 
 class ModuleDependenciesPage extends GuardedModulePage {
 	protected class DependenciesSectionPart extends ModuleSectionPart {
@@ -653,6 +656,12 @@ class ModuleDependenciesPage extends GuardedModulePage {
 
 		FormToolkit toolkit = managedForm.getToolkit();
 		managedForm.addPart(new DependenciesSectionPart(body, toolkit));
+		body.addListener(SWT.Paint, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				managedForm.getMessageManager().update();
+			}
+		});
 	}
 
 	@Override

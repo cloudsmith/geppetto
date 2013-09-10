@@ -13,9 +13,6 @@ package com.puppetlabs.geppetto.ui.editor;
 import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.checkName;
 import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.checkOwner;
 
-import com.puppetlabs.geppetto.semver.Version;
-import com.puppetlabs.geppetto.semver.VersionRange;
-import com.puppetlabs.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.text.DocumentEvent;
@@ -36,6 +33,10 @@ import org.eclipse.ui.forms.editor.FormPage;
 import org.eclipse.ui.forms.widgets.Form;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.ScrolledForm;
+
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.ui.UIPlugin;
 
 abstract class GuardedModulePage extends FormPage {
 
@@ -82,24 +83,6 @@ abstract class GuardedModulePage extends FormPage {
 					}
 				}
 			}
-		}
-
-		void showDependenciesError(boolean show) {
-			showGeneralError(show, "_UI_Unresolved_dependencies");
-		}
-
-		void showGeneralError(boolean show, String msgKey) {
-			IMessageManager msgManager = getManagedForm().getMessageManager();
-			if(show) {
-				String msg = UIPlugin.getLocalString(msgKey);
-				msgManager.addMessage(GENERAL_ERROR_MESSAGE_KEY, msg, null, IMessageProvider.ERROR);
-			}
-			else
-				msgManager.removeMessage(GENERAL_ERROR_MESSAGE_KEY);
-		}
-
-		void showSyntaxError(boolean show) {
-			showGeneralError(show, "_UI_Syntax_Error");
 		}
 
 		int validateModuleName(String name, String key, Control control) {
@@ -221,8 +204,6 @@ abstract class GuardedModulePage extends FormPage {
 		}
 	}
 
-	private static final String GENERAL_ERROR_MESSAGE_KEY = "general";
-
 	VerifyListener defaultVerifier = new ValidateInputListener();
 
 	private static final String DEFAULT_MESSAGE_KEY = "default"; //$NON-NLS-1$
@@ -296,5 +277,24 @@ abstract class GuardedModulePage extends FormPage {
 		super.setActive(flag);
 		if(isActive())
 			markStale();
+	}
+
+	void showDependenciesError(boolean show) {
+		showGeneralError(show, "_UI_Unresolved_dependencies");
+	}
+
+	void showGeneralError(boolean show, String msgKey) {
+		IMessageManager msgManager = getManagedForm().getMessageManager();
+		if(show) {
+			String msg = UIPlugin.getLocalString(msgKey);
+			msgManager.addMessage(msgKey, msg, null, IMessageProvider.ERROR);
+		}
+		else
+			msgManager.removeMessage(msgKey);
+		msgManager.update();
+	}
+
+	void showSyntaxError(boolean show) {
+		showGeneralError(show, "_UI_Syntax_Error");
 	}
 }

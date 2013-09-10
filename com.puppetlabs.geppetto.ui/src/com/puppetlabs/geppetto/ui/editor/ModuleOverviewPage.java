@@ -14,8 +14,6 @@ import static com.puppetlabs.geppetto.common.Strings.trimToNull;
 import static com.puppetlabs.geppetto.forge.Forge.MODULEFILE_NAME;
 import static org.eclipse.xtext.util.Strings.emptyIfNull;
 
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
-import com.puppetlabs.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
@@ -25,12 +23,17 @@ import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.forms.IManagedForm;
 import org.eclipse.ui.forms.SectionPart;
 import org.eclipse.ui.forms.widgets.ExpandableComposite;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.eclipse.ui.forms.widgets.Section;
+
+import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.ui.UIPlugin;
 
 class ModuleOverviewPage extends GuardedModulePage {
 
@@ -348,5 +351,11 @@ class ModuleOverviewPage extends GuardedModulePage {
 		FormToolkit toolkit = managedForm.getToolkit();
 		managedForm.addPart(new GeneralInformationSectionPart(body, toolkit));
 		managedForm.addPart(new DetailsSectionPart(body, toolkit));
+		body.addListener(SWT.Paint, new Listener() {
+			@Override
+			public void handleEvent(Event event) {
+				managedForm.getMessageManager().update();
+			}
+		});
 	}
 }

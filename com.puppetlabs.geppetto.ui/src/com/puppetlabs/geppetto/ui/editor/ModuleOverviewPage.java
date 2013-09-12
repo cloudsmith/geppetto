@@ -187,7 +187,7 @@ class ModuleOverviewPage extends GuardedModulePage {
 			toolkit.createLabel(client, UIPlugin.getLocalString("_UI_Name_label")); //$NON-NLS-1$
 
 			userText = toolkit.createText(client, null);
-			userText.addVerifyListener(nameCharsVerifier);
+			userText.addVerifyListener(ownerCharsVerifier);
 			userText.addModifyListener(nameAndUserListener);
 			textGDFactory.applyTo(userText);
 
@@ -299,10 +299,21 @@ class ModuleOverviewPage extends GuardedModulePage {
 		public void verifyText(VerifyEvent ev) {
 			super.verifyText(ev);
 			if(ev.doit) {
-				// Verify that the typed character is valid in a module name. This does not include the owner/name separator
-				// since owner and name are typed in separate fields
+				// Verify that the typed character is valid as a 'name' in the 'owner/name' combination
 				char c = ev.character;
 				ev.doit = c < 0x20 || c == '_' || c >= '0' && c <= '9' || c >= 'a' && c <= 'z';
+			}
+		}
+	};
+
+	private VerifyListener ownerCharsVerifier = new ValidateInputListener() {
+		@Override
+		public void verifyText(VerifyEvent ev) {
+			super.verifyText(ev);
+			if(ev.doit) {
+				// Verify that the typed character is valid as an 'owner' in the 'owner/name' combination
+				char c = ev.character;
+				ev.doit = c < 0x20 || c >= '0' && c <= '9' || c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z';
 			}
 		}
 	};
@@ -312,8 +323,6 @@ class ModuleOverviewPage extends GuardedModulePage {
 		public void verifyText(VerifyEvent ev) {
 			super.verifyText(ev);
 			if(ev.doit) {
-				// Verify that the typed character is valid in a module name. This does not include the owner/name separator
-				// since owner and name are typed in separate fields
 				char c = ev.character;
 				// @fmtOff
 				ev.doit =

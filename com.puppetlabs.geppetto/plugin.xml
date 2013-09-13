@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-	<extension id="ide2" point="org.eclipse.core.runtime.products">
+	<extension id="ide" point="org.eclipse.core.runtime.products">
 		<product name="Geppetto" application="org.eclipse.ui.ide.workbench"
 			description="%productBlurb">
 			<property name="windowImages" value="geppetto.gif,geppetto32.gif,geppetto48.gif" />

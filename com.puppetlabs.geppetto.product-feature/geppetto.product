@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="Geppetto" uid="com.puppetlabs.geppetto.ide2" id="com.puppetlabs.geppetto.ide2" application="org.eclipse.ui.ide.workbench" version="0.0.0" useFeatures="true" includeLaunchers="true">
+<product name="Geppetto" uid="com.puppetlabs.geppetto.ide" id="com.puppetlabs.geppetto.ide" application="org.eclipse.ui.ide.workbench" version="0.0.0" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="geppetto_lg.gif"/>
@@ -20,7 +20,7 @@
       <vmArgsMac>-Xdock:icon=../Resources/geppetto.icns -XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts</vmArgsMac>
    </launcherArgs>
 
-   <windowImages i16="geppetto.gif" i32="geppetto32.gif" i48="geppetto48.gif"/>
+   <windowImages i16="geppetto.gif" i32="geppetto32.gif" i48="geppetto48.gif" i64="geppetto64.gif" i128="geppetto128.gif"/>
 
    <splash
       location="com.puppetlabs.geppetto"
@@ -41,6 +41,10 @@
 
    <vm>
    </vm>
+
+   <license>
+        <url>%licenseURL</url>
+   </license>
 
    <plugins>
    </plugins>

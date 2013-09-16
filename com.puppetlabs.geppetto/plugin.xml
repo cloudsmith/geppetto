@@ -10,10 +10,10 @@
 			<property name="aboutText" value="%productBlurb" />
 			<property name="appName" value="Geppetto" />
 			<property name="preferenceCustomization" value="plugin_customization.ini" />
-			<property name="startupForegroundColor" value="9C99B3" />
-			<property name="startupMessageRect" value="7,254,441,20" />
-			<property name="startupProgressRect" value="3,277,449,15" />
-			<property name="buildIdLocation" value="290,135" />
+			<property name="startupForegroundColor" value="FFFFFF" />
+			<property name="startupMessageRect" value="48,280,352,18" />
+			<property name="startupProgressRect" value="48,266,130,14" />
+			<property name="buildIdLocation" value="292,225" />
 			<property name="introTitle" value="%productIntroTitle" />
 			<property name="introBrandingImage" value="product:intro-geppetto.png" />
 			<property name="introBrandingImageText" value="%productIntroBrandingText" />

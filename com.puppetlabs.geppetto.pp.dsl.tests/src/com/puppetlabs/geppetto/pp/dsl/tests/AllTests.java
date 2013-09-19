@@ -10,8 +10,6 @@
  */
 package com.puppetlabs.geppetto.pp.dsl.tests;
 
-import junit.framework.TestSuite;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -41,5 +39,5 @@ import org.junit.runners.Suite.SuiteClasses;
 // @fmtOn
 })
 @RunWith(Suite.class)
-public class AllTests extends TestSuite {
+public class AllTests {
 }

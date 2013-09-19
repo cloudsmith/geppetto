@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="ASCII"?>
-<aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:aggregator="http://www.eclipse.org/b3/2011/aggregator/1.1.0" label="Xtext to Maven" buildRoot="target/xtext-maven-repo" packedStrategy="UNPACK_AS_SIBLING" mavenResult="true">
+<aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aggregator="http://www.eclipse.org/b3/2011/aggregator/1.1.0" label="Xtext to Maven" buildRoot="target/xtext-maven-repo" packedStrategy="UNPACK_AS_SIBLING" mavenResult="true">
   <validationSets label="main">
-    <contributions label="Xpand">
-      <repositories location="http://download.eclipse.org/modeling/m2t/xpand/updates/releases/R201306110406">
-        <features name="org.eclipse.xpand.sdk.feature.group"/>
-      </repositories>
-      <mavenMappings namePattern="^([^.]+(?:\.[^.]+(?:\.[^.]+)?)?)(?:\.[^.]+)*$" groupId="org.eclipse.xpand" artifactId="$0"/>
-    </contributions>
-    <contributions label="Xtext MWE">
+    <contributions label="Xtext">
       <repositories location="http://download.eclipse.org/releases/maintenance">
-        <features name="org.eclipse.emf.mwe.sdk.feature.group"/>
-        <features name="org.eclipse.xtext.sdk.feature.group"/>
-        <features name="org.eclipse.emf.mwe2.language.sdk.feature.group"/>
-      </repositories>
-      <repositories enabled="false" location="http://download.eclipse.org/modeling/emft/mwe/updates/releases/R201309030840/mwe2lang">
-        <features name="org.eclipse.emf.mwe2.language.sdk.feature.group"/>
-      </repositories>
-      <repositories enabled="false" location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/head/R201309030823">
-        <features name="org.eclipse.xtext.sdk.feature.group"/>
+        <bundles name="org.eclipse.xtext"/>
+        <bundles name="org.eclipse.xtext.junit4"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.jdt.annotation"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.jdt.core"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.jdt.launching"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.ui.ide"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.xtext.ui"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.core.resources"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.emf.codegen"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.emf.codegen.ecore"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.emf.mwe.core"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.emf.mwe.utils"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.xtend"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.xtend.typesystem.emf"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.xtext.smap"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="org.objectweb.asm"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="javax.inject"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="com.google.inject"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="com.google.guava"/>
+        <mapRules xsi:type="aggregator:ExclusionRule" name="javax.xml"/>
       </repositories>
     </contributions>
-    <validationRepositories enabled="false" location="http://download.eclipse.org/releases/kepler"/>
   </validationSets>
   <configurations operatingSystem="macosx" windowSystem="cocoa"/>
 </aggregator:Aggregation>

@@ -16,11 +16,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
-import junit.framework.ComparisonFailure;
-
 import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.validation.AbstractValidationDiagnostic;
+import org.junit.ComparisonFailure;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Predicate;

@@ -14,7 +14,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mavenVersion>3.0.5</mavenVersion>
 		<geppettoVersion>3.2.0-SNAPSHOT</geppettoVersion>
-		<parentSiteURL>https://am0.cloudsmith.com/nexus/content/sites/geppetto-site</parentSiteURL>
+		<parentSiteURL>http://nexus.delivery.puppetlabs.net/content/sites/geppetto-site</parentSiteURL>
 
 		<!-- We use property injection. But instead of '${' and '}' we use '.qual' 
 			or '-qua' as the start delimiter and 'r' as end delimiter. Hence when the 
@@ -46,14 +46,14 @@
 
 	<distributionManagement>
 		<repository>
-			<id>cloudsmith</id>
-			<name>Cloudsmith Release Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/releases/</url>
+			<id>puppetlabs</id>
+			<name>Puppet Labs Release Repository</name>
+			<url>http://nexus.delivery.puppetlabs.net/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>cloudsmith-snapshots</id>
-			<name>Cloudsmith Snapshot Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots/</url>
+			<id>puppetlabs</id>
+			<name>Puppet Labs Snapshot Repository</name>
+			<url>http://nexus.delivery.puppetlabs.net/content/repositories/snapshots/</url>
 		</snapshotRepository>
 		<site>
 			<id>geppetto-site</id>
@@ -64,25 +64,25 @@
 
 	<repositories>
 		<repository>
-			<id>cloudsmith-xtext</id>
-			<name>Eclipse Xtext Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/xtext</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>cloudsmith-snapshots</id>
-			<name>Cloudsmith Snapshot Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots</url>
+			<id>puppetlabs-snapshots</id>
+			<name>Puppet Labs Snapshot Repository</name>
+			<url>http://nexus.delivery.puppetlabs.net/content/repositories/snapshots/</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 		<repository>
-			<id>cloudsmith-releases</id>
-			<name>Cloudsmith Releases</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/releases</url>
+			<id>puppetlabs-releases</id>
+			<name>Puppet Labs Release Repository</name>
+			<url>http://nexus.delivery.puppetlabs.net/content/repositories/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>puppetlabs-xtext</id>
+			<name>Puppet Labs Eclipse xtext</name>
+			<url>http://nexus.delivery.puppetlabs.net/content/repositories/eclipse.xtext/</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -91,17 +91,9 @@
 
 	<pluginRepositories>
 		<pluginRepository>
-			<id>cloudsmith-xtext</id>
-			<name>Eclipse Xtext Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/xtext</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>cloudsmith-snapshots</id>
-			<name>Cloudsmith Snapshot Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots</url>
+			<id>puppetlabs-snapshots</id>
+			<name>Puppet Labs Snapshot Repository</name>
+			<url>http://nexus.delivery.puppetlabs.net/content/repositories/snapshots/</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -243,12 +235,11 @@
 				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>org.eclipse.xtext.junit4</artifactId>
 				<version>[2.4.0,2.5.0)</version>
-				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>com.puppetlabs.jruby</groupId>
 				<artifactId>jrubyparser</artifactId>
-				<version>0.3-alpha</version>
+				<version>0.3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sonatype.aether</groupId>

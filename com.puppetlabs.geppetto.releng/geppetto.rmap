@@ -7,6 +7,7 @@
   <rm:property key="geppetto.clone" value="geppetto"/>
   <rm:locator pattern="^com\.puppetlabs\.geppetto\.parent$" searchPathRef="geppetto-parent"/>
   <rm:locator pattern="^com\.puppetlabs\.geppetto(\..+)?$" searchPathRef="geppetto"/>
+  <rm:locator pattern="^com\.puppetlabs\.puppetdb\.javaclient(\..+)?$" searchPathRef="puppetdb-javaclient"/>
   <rm:locator pattern="^com\.puppetlabs\.graph(\..+)?$" searchPathRef="graph"/>
   <rm:locator pattern="^com\.puppetlabs\.jrubyparser(\..+)?$" searchPathRef="jrubyparser"/>
   <rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(\..+)?$" searchPathRef="svn.connectors"/>
@@ -119,6 +120,14 @@
       <rm:uri format="{0}/tools/orbit/downloads/drops/R20130517111416/repository">
         <bc:propertyRef key="eclipse.download"/>
       </rm:uri>
+    </rm:provider>
+  </rm:searchPath>
+  <rm:searchPath name="puppetdb-javaclient">
+    <rm:provider xsi:type="maven:MavenProvider" componentTypes="osgi.bundle" readerType="maven2" source="false" mutable="false">
+      <rm:uri format="http://nexus.delivery.puppetlabs.net/content/repositories/releases"/>
+      <maven:mappings>
+        <maven:entry artifactId="com.puppetlabs.puppetdb.javaclient" groupId="com.puppetlabs.puppetdb" name="com.puppetlabs.puppetdb.javaclient"/>
+       </maven:mappings>
     </rm:provider>
   </rm:searchPath>
 </rm:rmap>

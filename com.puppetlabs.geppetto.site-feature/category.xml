@@ -3,6 +3,9 @@
    <feature id="com.puppetlabs.geppetto" version="0.0.0">
       <category name="geppetto"/>
    </feature>
+   <feature id="com.puppetlabs.geppetto.puppetdb" version="0.0.0">
+      <category name="geppetto"/>
+   </feature>
    <feature id="com.puppetlabs.geppetto.product" version="0.0.0">
       <category name="products"/>
    </feature>

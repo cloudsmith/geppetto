@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension point="org.eclipse.ui.newWizards">
+		<wizard
+			class="com.puppetlabs.geppetto.puppetdb.ui.ExecutableExtensionFactory:com.puppetlabs.geppetto.puppetdb.ui.views.NewPuppetDBClientWizard"
+			id="com.puppetlabs.geppetto.puppetdb.NewPuppetDBWizard" category="com.puppetlabs.geppetto.ui.newWizardCategory"
+			name="%_UI_New_PuppetDB_Connection">
+		</wizard>
+	</extension>
+	<extension point="org.eclipse.ui.views">
+		<category id="com.puppetlabs.geppetto" name="%_UI_Geppetto_category">
+		</category>
+		<view id="com.puppetlabs.geppetto.puppetdb.PuppetDBsView"
+			name="%_UI_PuppetResourceEvents_view" icon="icons/database.png"
+			category="com.puppetlabs.geppetto"
+			class="com.puppetlabs.geppetto.puppetdb.ui.ExecutableExtensionFactory:com.puppetlabs.geppetto.puppetdb.ui.views.PuppetResourceEventsView">
+		</view>
+	</extension>
+</plugin>

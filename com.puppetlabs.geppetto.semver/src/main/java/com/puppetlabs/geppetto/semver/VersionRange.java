@@ -436,6 +436,28 @@ public class VersionRange implements Serializable {
 		return best;
 	}
 
+	/**
+	 * Returns the upper bound of the match. Whether or not this upper bound is included
+	 * in the match is determined by {@link #isMaxIncluded()}.
+	 * 
+	 * @return The upper bound. Might be equal to {@link Version#MAX} but will never be <code>null</code>.
+	 * @see #isMaxIncluded()
+	 */
+	public Version getMaxVersion() {
+		return maxVersion;
+	}
+
+	/**
+	 * Returns the lower bound of the match. Whether or not this lower bound is included
+	 * in the match is determined by {@link #isMinIncluded()}.
+	 * 
+	 * @return The lower bound. Might be equal to {@link Version#MIN} but will never be <code>null</code>.
+	 * @see #isMinIncluded()
+	 */
+	public Version getMinVersion() {
+		return minVersion;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -539,6 +561,26 @@ public class VersionRange implements Serializable {
 				? 0
 				: 1;
 		return minVersion.compareTo(version) <= minCheck && maxVersion.compareTo(version) >= maxCheck;
+	}
+
+	/**
+	 * Returns true if the maximum version is included in the match and
+	 * false if a match must be less than the maximum version.
+	 * 
+	 * @return <code>true</code> to indicate that a version equal to the maximum version will be considered a match
+	 */
+	public boolean isMaxIncluded() {
+		return includeMax;
+	}
+
+	/**
+	 * Returns true if the minimum version is included in the match and
+	 * false if a match must be greater than the minimum version.
+	 * 
+	 * @return <code>true</code> to indicate that a version equal to the minimum version will be considered a match
+	 */
+	public boolean isMinIncluded() {
+		return includeMin;
 	}
 
 	@Override

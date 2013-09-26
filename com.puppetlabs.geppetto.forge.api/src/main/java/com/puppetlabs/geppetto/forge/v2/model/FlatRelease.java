@@ -10,8 +10,8 @@
  */
 package com.puppetlabs.geppetto.forge.v2.model;
 
+import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.semver.Version;
-
 import com.google.gson.annotations.Expose;
 
 /**

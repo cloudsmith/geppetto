@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Set;
 
-import com.puppetlabs.geppetto.forge.v2.model.Dependency;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.semver.Version;
 

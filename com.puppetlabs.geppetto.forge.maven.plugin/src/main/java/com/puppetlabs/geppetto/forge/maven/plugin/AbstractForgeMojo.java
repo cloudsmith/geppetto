@@ -32,23 +32,22 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import com.puppetlabs.geppetto.diagnostic.Diagnostic;
-import com.puppetlabs.geppetto.forge.Forge;
-import com.puppetlabs.geppetto.forge.util.ModuleUtils;
-import com.puppetlabs.geppetto.forge.v2.MetadataRepository;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-import com.puppetlabs.geppetto.forge.v2.service.ReleaseService;
-import com.puppetlabs.geppetto.validation.ValidationService;
-import com.puppetlabs.geppetto.validation.impl.ValidationModule;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.google.inject.Module;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.util.ModuleUtils;
+import com.puppetlabs.geppetto.validation.ValidationService;
+import com.puppetlabs.geppetto.validation.impl.ValidationModule;
 
 /**
  * Goal which performs basic validation.
@@ -203,6 +202,10 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		return injector.getInstance(Forge.class);
 	}
 
+	protected Gson getGson() {
+		return injector.getInstance(Gson.class);
+	}
+
 	protected Injector getInjector() {
 		return injector;
 	}
@@ -212,10 +215,6 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 			log = LoggerFactory.getLogger(getClass());
 		}
 		return log;
-	}
-
-	protected MetadataRepository getMetadataRepository() {
-		return injector.getInstance(MetadataRepository.class);
 	}
 
 	protected Metadata getModuleMetadata(File moduleDirectory, Diagnostic diag) throws IOException {
@@ -245,10 +244,6 @@ public abstract class AbstractForgeMojo extends AbstractMojo {
 		IPath path = Path.fromOSString(file.getAbsolutePath());
 		IPath relative = path.makeRelativeTo(rootPath);
 		return relative.toPortableString();
-	}
-
-	protected ReleaseService getReleaseService() {
-		return injector.getInstance(ReleaseService.class);
 	}
 
 	protected ValidationService getValidationService() {

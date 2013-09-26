@@ -8,9 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package com.puppetlabs.geppetto.forge.v2.model;
-
-import com.puppetlabs.geppetto.forge.model.Entity;
+package com.puppetlabs.geppetto.forge.model;
 
 import com.google.gson.annotations.Expose;
 

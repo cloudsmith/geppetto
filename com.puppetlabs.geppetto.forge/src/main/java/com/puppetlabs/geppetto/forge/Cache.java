@@ -13,7 +13,7 @@ package com.puppetlabs.geppetto.forge;
 import java.io.File;
 import java.io.IOException;
 
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
 
 /**

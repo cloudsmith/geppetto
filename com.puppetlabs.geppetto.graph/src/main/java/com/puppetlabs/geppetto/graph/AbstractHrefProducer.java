@@ -12,9 +12,10 @@ package com.puppetlabs.geppetto.graph;
 
 import java.io.File;
 
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.validation.runner.AllModuleReferences.Export;
 import com.puppetlabs.geppetto.validation.runner.MetadataInfo;
+
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 

@@ -20,17 +20,17 @@ import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException
 import org.apache.maven.artifact.versioning.Restriction;
 import org.apache.maven.model.Scm;
 import org.apache.maven.project.MavenProject;
+
+import com.google.inject.Inject;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
 import com.puppetlabs.geppetto.forge.impl.AbstractMetadataExtractor;
-import com.puppetlabs.geppetto.forge.v2.model.Dependency;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
 import com.puppetlabs.geppetto.validation.ValidationService;
-
-import com.google.inject.Inject;
 
 public class PomMetadataExtractor extends AbstractMetadataExtractor {
 

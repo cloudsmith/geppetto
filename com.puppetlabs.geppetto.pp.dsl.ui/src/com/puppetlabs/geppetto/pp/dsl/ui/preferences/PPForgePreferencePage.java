@@ -10,9 +10,10 @@
  */
 package com.puppetlabs.geppetto.pp.dsl.ui.preferences;
 
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName.BadOwnerCharactersException;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.ModuleName.BadOwnerCharactersException;
 import com.puppetlabs.geppetto.pp.dsl.ui.preferences.editors.AbstractPreferencePage;
+
 import org.eclipse.jface.preference.StringFieldEditor;
 
 /**

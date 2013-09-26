@@ -20,12 +20,11 @@ import java.io.OutputStream;
 
 import com.puppetlabs.geppetto.common.os.StreamUtil;
 import com.puppetlabs.geppetto.forge.Cache;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.util.Checksums;
 import com.puppetlabs.geppetto.forge.util.ModuleUtils;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
 import com.puppetlabs.geppetto.forge.v2.service.ReleaseService;
 import com.puppetlabs.geppetto.semver.Version;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;

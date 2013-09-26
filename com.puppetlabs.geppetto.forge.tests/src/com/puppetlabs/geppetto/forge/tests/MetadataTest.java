@@ -27,11 +27,11 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.Type;
 import com.puppetlabs.geppetto.forge.util.Checksums;
 import com.puppetlabs.geppetto.forge.util.ModuleUtils;
 import com.puppetlabs.geppetto.forge.util.Types;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-import com.puppetlabs.geppetto.forge.v2.model.Type;
 
 public class MetadataTest extends AbstractForgeTest {
 

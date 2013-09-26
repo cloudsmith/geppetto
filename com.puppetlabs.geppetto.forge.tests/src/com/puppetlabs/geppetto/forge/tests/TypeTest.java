@@ -15,8 +15,9 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
+import com.puppetlabs.geppetto.forge.model.Type;
 import com.puppetlabs.geppetto.forge.util.Types;
-import com.puppetlabs.geppetto.forge.v2.model.Type;
+
 import org.junit.Before;
 import org.junit.Test;
 

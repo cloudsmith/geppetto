@@ -16,10 +16,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import com.puppetlabs.geppetto.forge.v2.model.Dependency;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.semver.VersionRange;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 

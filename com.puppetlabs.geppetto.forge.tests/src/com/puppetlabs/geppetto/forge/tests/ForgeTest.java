@@ -19,9 +19,10 @@ import java.io.IOException;
 import java.util.List;
 
 import com.puppetlabs.geppetto.forge.ForgeService;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+
 import org.junit.Before;
 import org.junit.Test;
 

@@ -16,9 +16,8 @@ import java.io.File;
 import java.io.IOException;
 
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.forge.util.ModuleUtils;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-
 import com.google.inject.Singleton;
 
 @Singleton

@@ -8,12 +8,11 @@
  * Contributors:
  *   Puppet Labs
  */
-package com.puppetlabs.geppetto.forge.v2.model;
+package com.puppetlabs.geppetto.forge.model;
 
-import com.puppetlabs.geppetto.forge.model.Entity;
+import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
-
 import com.google.gson.annotations.Expose;
 
 /**

@@ -13,8 +13,9 @@ package com.puppetlabs.geppetto.forge.util;
 import java.util.List;
 
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
+
 import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.RootNode;
 

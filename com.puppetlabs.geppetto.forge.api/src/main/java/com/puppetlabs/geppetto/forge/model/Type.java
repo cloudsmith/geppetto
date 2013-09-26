@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package com.puppetlabs.geppetto.forge.v2.model;
+package com.puppetlabs.geppetto.forge.model;
 
 import java.util.ArrayList;
 import java.util.Collections;

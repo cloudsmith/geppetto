@@ -14,11 +14,12 @@ import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import com.puppetlabs.geppetto.forge.model.Constants;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.pp.dsl.ui.builder.PPBuildJob;
 import com.puppetlabs.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
 import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor;
 import com.puppetlabs.geppetto.pp.dsl.validation.ValidationPreference;
+
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.runtime.IProgressMonitor;

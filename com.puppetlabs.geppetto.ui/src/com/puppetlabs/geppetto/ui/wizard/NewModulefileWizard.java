@@ -10,8 +10,9 @@ import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
 import com.puppetlabs.geppetto.common.os.StreamUtil.OpenBAStream;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.ui.UIPlugin;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;

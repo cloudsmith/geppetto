@@ -18,8 +18,9 @@ import java.io.File;
 import java.io.IOException;
 
 import com.puppetlabs.geppetto.forge.Cache;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

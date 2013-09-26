@@ -13,10 +13,11 @@ package com.puppetlabs.geppetto.forge.api.tests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.puppetlabs.geppetto.forge.v2.model.Dependency;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
+
 import org.junit.Test;
 
 public class DependencyTest {

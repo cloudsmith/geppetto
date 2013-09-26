@@ -21,14 +21,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.puppetlabs.geppetto.forge.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.v2.MetadataRepository;
-import com.puppetlabs.geppetto.forge.v2.model.Dependency;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
 import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 

@@ -19,12 +19,13 @@ import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.forge.Forge;
 import com.puppetlabs.geppetto.forge.ForgeService;
 import com.puppetlabs.geppetto.forge.client.OAuthModule;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.util.Checksums;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
 import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import com.puppetlabs.geppetto.ui.UIPlugin;
 import com.puppetlabs.geppetto.ui.wizard.ModuleExportOperation.ExportSpec;
+
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;

@@ -15,7 +15,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.Metadata;
 
 /**
  * The default implementation of this class will extract metadata from a file named <tt>Modulefile</tt> which is

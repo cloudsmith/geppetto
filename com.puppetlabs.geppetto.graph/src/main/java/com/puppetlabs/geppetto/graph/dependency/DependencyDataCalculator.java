@@ -12,8 +12,8 @@ package com.puppetlabs.geppetto.graph.dependency;
 
 import static com.puppetlabs.geppetto.forge.Forge.METADATA_JSON_NAME;
 import static com.puppetlabs.geppetto.forge.Forge.MODULEFILE_NAME;
-import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.safeName;
-import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.safeOwner;
+import static com.puppetlabs.geppetto.forge.model.ModuleName.safeName;
+import static com.puppetlabs.geppetto.forge.model.ModuleName.safeOwner;
 
 import java.io.File;
 import java.io.OutputStream;
@@ -28,9 +28,9 @@ import java.util.Set;
 
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
-import com.puppetlabs.geppetto.forge.v2.model.Dependency;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.graph.DependencyGraphProducer;
 import com.puppetlabs.geppetto.graph.IHrefProducer;
 import com.puppetlabs.geppetto.pp.PPPackage;
@@ -55,6 +55,7 @@ import com.puppetlabs.graph.graphcss.StyleSet;
 import com.puppetlabs.graph.style.IStyle;
 import com.puppetlabs.graph.style.IStyleFactory;
 import com.puppetlabs.graph.style.labels.LabelRow;
+
 import org.eclipse.emf.ecore.EClass;
 
 import com.google.common.collect.ArrayListMultimap;

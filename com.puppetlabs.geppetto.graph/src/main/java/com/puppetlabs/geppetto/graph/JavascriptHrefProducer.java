@@ -10,7 +10,7 @@
  */
 package com.puppetlabs.geppetto.graph;
 
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.validation.runner.AllModuleReferences.Export;
 
 /**

@@ -14,12 +14,11 @@ import java.io.File;
 import java.io.OutputStream;
 
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.validation.runner.AllModuleReferences;
 import com.puppetlabs.geppetto.validation.runner.BuildResult;
 import com.puppetlabs.geppetto.validation.runner.MetadataInfo;
 import com.puppetlabs.graph.ICancel;
-
 import com.google.common.collect.Multimap;
 
 /**

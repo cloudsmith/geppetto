@@ -49,12 +49,12 @@ import com.puppetlabs.geppetto.forge.ERB;
 import com.puppetlabs.geppetto.forge.Forge;
 import com.puppetlabs.geppetto.forge.ForgeService;
 import com.puppetlabs.geppetto.forge.MetadataExtractor;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.util.Checksums;
 import com.puppetlabs.geppetto.forge.util.ModuleUtils;
 import com.puppetlabs.geppetto.forge.util.TarUtils;
 import com.puppetlabs.geppetto.forge.util.TarUtils.FileCatcher;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
 
 @Singleton

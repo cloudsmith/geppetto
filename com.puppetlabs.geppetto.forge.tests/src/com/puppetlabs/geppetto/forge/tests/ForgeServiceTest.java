@@ -15,8 +15,9 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
+
 import org.junit.Test;
 
 public class ForgeServiceTest extends AbstractForgeTest {

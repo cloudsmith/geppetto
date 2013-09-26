@@ -20,10 +20,11 @@ import java.util.List;
 import com.puppetlabs.geppetto.common.Strings;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.forge.Forge;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.ui.UIPlugin;
 import com.puppetlabs.geppetto.ui.wizard.ModuleExportOperation.ExportSpec;
 import com.puppetlabs.geppetto.ui.wizard.ModuleExportOperation.ResourceFileFilter;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;

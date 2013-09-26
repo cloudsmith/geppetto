@@ -11,6 +11,7 @@
 package com.puppetlabs.geppetto.forge.v2.model;
 
 import com.google.gson.annotations.Expose;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 
 /**
  * Describes a module release

@@ -10,8 +10,8 @@
  */
 package com.puppetlabs.geppetto.ui.editor;
 
-import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.checkName;
-import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.checkOwner;
+import static com.puppetlabs.geppetto.forge.model.ModuleName.checkName;
+import static com.puppetlabs.geppetto.forge.model.ModuleName.checkOwner;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.dialogs.IMessageProvider;

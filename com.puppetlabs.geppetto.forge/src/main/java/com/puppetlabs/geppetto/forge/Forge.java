@@ -18,7 +18,7 @@ import java.util.Collection;
 import com.google.inject.name.Named;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.Metadata;
 
 /**
  * This class basically mimics the PMT (Puppet Module Tool)

@@ -23,8 +23,7 @@ import java.util.regex.Pattern;
 
 import com.puppetlabs.geppetto.common.os.StreamUtil;
 import com.puppetlabs.geppetto.forge.ERB;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-
+import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.google.inject.Singleton;
 
 @Singleton

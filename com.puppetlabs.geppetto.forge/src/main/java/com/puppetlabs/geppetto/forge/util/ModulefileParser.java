@@ -22,10 +22,11 @@ import java.util.List;
 
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
-import com.puppetlabs.geppetto.forge.v2.model.Dependency;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
+
 import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.FCallNode;
 import org.jrubyparser.ast.FixnumNode;

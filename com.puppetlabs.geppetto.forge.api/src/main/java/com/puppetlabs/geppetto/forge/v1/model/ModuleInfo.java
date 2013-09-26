@@ -14,9 +14,8 @@ import java.util.Collections;
 import java.util.List;
 
 import com.puppetlabs.geppetto.forge.model.Entity;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
-
 import com.google.gson.annotations.Expose;
 
 public class ModuleInfo extends Entity {

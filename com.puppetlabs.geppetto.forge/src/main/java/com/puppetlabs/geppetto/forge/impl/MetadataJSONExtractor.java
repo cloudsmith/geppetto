@@ -19,9 +19,8 @@ import java.io.StringWriter;
 
 import com.puppetlabs.geppetto.common.os.StreamUtil;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.forge.util.StrictMetadataJsonParser;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-
 import com.google.inject.Singleton;
 
 @Singleton

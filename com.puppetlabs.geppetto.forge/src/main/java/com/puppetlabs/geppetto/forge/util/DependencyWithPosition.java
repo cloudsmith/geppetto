@@ -13,7 +13,7 @@ package com.puppetlabs.geppetto.forge.util;
 import java.io.File;
 
 import com.puppetlabs.geppetto.forge.FilePosition;
-import com.puppetlabs.geppetto.forge.v2.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.Dependency;
 
 public class DependencyWithPosition extends Dependency implements FilePosition {
 	private final int offset;

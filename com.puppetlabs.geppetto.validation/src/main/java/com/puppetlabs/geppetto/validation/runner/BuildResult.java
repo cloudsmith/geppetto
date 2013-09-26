@@ -10,8 +10,7 @@
  */
 package com.puppetlabs.geppetto.validation.runner;
 
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
-
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.google.common.collect.Multimap;
 
 /**

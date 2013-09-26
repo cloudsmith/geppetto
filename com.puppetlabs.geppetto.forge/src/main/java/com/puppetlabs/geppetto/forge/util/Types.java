@@ -17,8 +17,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.puppetlabs.geppetto.forge.v2.model.NamedTypeItem;
-import com.puppetlabs.geppetto.forge.v2.model.Type;
+import com.puppetlabs.geppetto.forge.model.NamedTypeItem;
+import com.puppetlabs.geppetto.forge.model.Type;
+
 import org.jrubyparser.ast.BlockAcceptingNode;
 import org.jrubyparser.ast.CallNode;
 import org.jrubyparser.ast.Colon2ConstNode;

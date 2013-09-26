@@ -10,8 +10,8 @@
  */
 package com.puppetlabs.geppetto.ui.util;
 
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
 
 public class StringUtil {
 

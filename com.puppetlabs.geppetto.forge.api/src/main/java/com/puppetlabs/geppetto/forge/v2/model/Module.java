@@ -10,14 +10,15 @@
  */
 package com.puppetlabs.geppetto.forge.v2.model;
 
-import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.safeName;
-import static com.puppetlabs.geppetto.forge.v2.model.ModuleName.safeOwner;
+import static com.puppetlabs.geppetto.forge.model.ModuleName.safeName;
+import static com.puppetlabs.geppetto.forge.model.ModuleName.safeOwner;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 
 /**
  */

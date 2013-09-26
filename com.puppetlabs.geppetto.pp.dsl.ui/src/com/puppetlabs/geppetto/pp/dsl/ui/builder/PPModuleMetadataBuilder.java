@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+
 import com.puppetlabs.geppetto.common.tracer.DefaultTracer;
 import com.puppetlabs.geppetto.common.tracer.ITracer;
 import com.puppetlabs.geppetto.common.tracer.NullTracer;
@@ -26,14 +27,15 @@ import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
 import com.puppetlabs.geppetto.forge.FilePosition;
 import com.puppetlabs.geppetto.forge.Forge;
-import com.puppetlabs.geppetto.forge.v2.model.Dependency;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.pp.dsl.ui.PPUiConstants;
 import com.puppetlabs.geppetto.pp.dsl.ui.internal.PPDSLActivator;
 import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;

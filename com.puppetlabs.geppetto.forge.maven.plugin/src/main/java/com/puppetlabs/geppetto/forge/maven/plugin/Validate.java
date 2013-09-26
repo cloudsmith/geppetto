@@ -23,10 +23,16 @@ import java.util.List;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.common.util.URI;
+
+import com.google.inject.AbstractModule;
+import com.google.inject.Module;
+import com.google.inject.name.Names;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
 import com.puppetlabs.geppetto.forge.Forge;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.pp.dsl.target.PuppetTarget;
 import com.puppetlabs.geppetto.pp.dsl.validation.IPotentialProblemsAdvisor;
 import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
@@ -41,12 +47,6 @@ import com.puppetlabs.geppetto.validation.ValidationOptions;
 import com.puppetlabs.geppetto.validation.ValidationService;
 import com.puppetlabs.geppetto.validation.runner.IEncodingProvider;
 import com.puppetlabs.geppetto.validation.runner.PPDiagnosticsSetup;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.URI;
-
-import com.google.inject.AbstractModule;
-import com.google.inject.Module;
-import com.google.inject.name.Names;
 
 /**
  * The <tt>validate</tt> goal can perform a very elaborate analyzis of the module using the Geppetto platform. It is

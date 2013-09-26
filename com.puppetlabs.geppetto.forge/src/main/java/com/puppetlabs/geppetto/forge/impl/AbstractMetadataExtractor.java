@@ -17,9 +17,9 @@ import java.io.IOException;
 
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.forge.MetadataExtractor;
+import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.forge.util.Checksums;
 import com.puppetlabs.geppetto.forge.util.Types;
-import com.puppetlabs.geppetto.forge.v2.model.Metadata;
 
 public abstract class AbstractMetadataExtractor implements MetadataExtractor {
 	@Override

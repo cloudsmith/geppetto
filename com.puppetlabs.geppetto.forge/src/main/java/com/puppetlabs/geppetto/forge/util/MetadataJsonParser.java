@@ -22,9 +22,10 @@ import java.util.List;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
 import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
-import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
+
 import org.codehaus.jackson.JsonLocation;
 import org.codehaus.jackson.JsonParseException;
 

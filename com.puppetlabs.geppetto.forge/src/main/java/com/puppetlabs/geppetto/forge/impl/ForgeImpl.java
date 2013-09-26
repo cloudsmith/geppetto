@@ -38,6 +38,10 @@ import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import com.google.gson.Gson;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import com.puppetlabs.geppetto.common.os.FileUtils;
 import com.puppetlabs.geppetto.common.os.StreamUtil;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
@@ -52,11 +56,6 @@ import com.puppetlabs.geppetto.forge.util.TarUtils.FileCatcher;
 import com.puppetlabs.geppetto.forge.v2.model.Metadata;
 import com.puppetlabs.geppetto.forge.v2.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
-
-import com.google.gson.Gson;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.google.inject.name.Named;
 
 @Singleton
 class ForgeImpl implements Forge {
@@ -82,7 +81,7 @@ class ForgeImpl implements Forge {
 
 	@Override
 	public File build(File moduleSource, File destination, FileFilter fileFilter, Metadata[] resultingMetadata,
-			Diagnostic result) throws IOException {
+			File[] resultingMetadataFile, Diagnostic result) throws IOException {
 		if(fileFilter == null)
 			fileFilter = moduleFileFilter;
 
@@ -133,7 +132,10 @@ class ForgeImpl implements Forge {
 
 		File metadataJSON = new File(destModuleDir, METADATA_JSON_NAME);
 		if(!extractedFrom[0].getName().equals(METADATA_JSON_NAME))
-			saveJSONMetadata(md, metadataJSON);
+			internalSaveJSONMetadata(md, metadataJSON);
+
+		if(resultingMetadataFile != null)
+			resultingMetadataFile[0] = metadataJSON;
 
 		final File moduleArchive = new File(destination, zipArchiveName);
 		OutputStream out = new GZIPOutputStream(new FileOutputStream(moduleArchive));
@@ -278,6 +280,16 @@ class ForgeImpl implements Forge {
 		}
 	}
 
+	private void internalSaveJSONMetadata(Metadata md, File jsonFile) throws IOException {
+		Writer writer = new BufferedWriter(new FileWriter(jsonFile));
+		try {
+			gson.toJson(md, writer);
+		}
+		finally {
+			StreamUtil.close(writer);
+		}
+	}
+
 	@Override
 	public boolean isMetadataFile(String source) {
 		if(source != null) {
@@ -307,13 +319,7 @@ class ForgeImpl implements Forge {
 	}
 
 	public void saveJSONMetadata(Metadata md, File jsonFile) throws IOException {
-		Writer writer = new BufferedWriter(new FileWriter(jsonFile));
-		try {
-			gson.toJson(new Metadata(md), writer);
-		}
-		finally {
-			StreamUtil.close(writer);
-		}
+		internalSaveJSONMetadata(new Metadata(md), jsonFile);
 	}
 
 	@Override

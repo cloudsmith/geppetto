@@ -17,6 +17,7 @@
 							<package>
 								com.puppetlabs.geppetto:forge-maven-plugin:package
 							</package>
+							<install>org.apache.maven.plugins:maven-install-plugin:install</install>
 							<deploy>
 								com.puppetlabs.geppetto:forge-maven-plugin:publish
 							</deploy>

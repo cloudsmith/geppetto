@@ -23,15 +23,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Test;
+
+import com.google.gson.Gson;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.forge.util.Checksums;
 import com.puppetlabs.geppetto.forge.util.ModuleUtils;
 import com.puppetlabs.geppetto.forge.util.Types;
 import com.puppetlabs.geppetto.forge.v2.model.Metadata;
 import com.puppetlabs.geppetto.forge.v2.model.Type;
-import org.junit.Test;
-
-import com.google.gson.Gson;
 
 public class MetadataTest extends AbstractForgeTest {
 
@@ -125,7 +125,7 @@ public class MetadataTest extends AbstractForgeTest {
 	public void testLoadChecksums__File() {
 		try {
 			Map<String, byte[]> checksums = Checksums.loadChecksums(getTestData("puppetlabs-apache"), null);
-			assertEquals("Incorrect number of checksums", checksums.size(), 18);
+			assertEquals("Incorrect number of checksums", 18, checksums.size());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());

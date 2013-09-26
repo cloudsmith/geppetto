@@ -17,8 +17,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.puppetlabs.geppetto.forge.Forge;
-import com.puppetlabs.geppetto.ui.UIPlugin;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -29,6 +27,9 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.dialogs.IOverwriteQuery;
 import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
+
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.ui.UIPlugin;
 
 public abstract class ModuleExportOperation implements IRunnableWithProgress {
 	static class ExportSpec {
@@ -64,7 +65,21 @@ public abstract class ModuleExportOperation implements IRunnableWithProgress {
 
 		@Override
 		public boolean accept(File file) {
-			return defaultFilter.accept(file) && acceptedFiles.contains(file);
+			if(defaultFilter.accept(file)) {
+				if(file.isDirectory())
+					// Directories are always accepted unless the default filter rejects
+					return true;
+
+				// Check if the file or a parent directory of the file is among the
+				// accepted files.
+				File f = file;
+				while(f != null) {
+					if(acceptedFiles.contains(f))
+						return true;
+					f = f.getParentFile();
+				}
+			}
+			return false;
 		}
 	}
 
@@ -107,7 +122,8 @@ public abstract class ModuleExportOperation implements IRunnableWithProgress {
 				if(monitor.isCanceled())
 					throw new OperationCanceledException();
 				try {
-					getForge().build(spec.getModuleRoot(), destination, spec.getFileFilter(), null, diagWithProgress);
+					getForge().build(
+						spec.getModuleRoot(), destination, spec.getFileFilter(), null, null, diagWithProgress);
 					diagWithProgress.taskDone();
 				}
 				catch(IOException e) {

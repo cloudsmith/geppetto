@@ -15,6 +15,7 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.util.Collection;
 
+import com.google.inject.name.Named;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
 import com.puppetlabs.geppetto.forge.v2.model.Metadata;
@@ -59,6 +60,8 @@ public interface Forge {
 	 *            filter annotated by {@link Named @Named}({@link ForgeConstants#MODULE_FILE_FILTER}) will be used.
 	 * @param resultingMetadata
 	 *            A one element array that will receive the resulting metadata. Can be <tt>null</tt>.
+	 * @param resultingMetadataFile
+	 *            A one element array that will receive the resulting metadata file. Can be <tt>null</tt>.
 	 * @param result
 	 *            diagnostics generated during extraction
 	 * @return The resulting gzipped tar file or <code>null</code> if extraction could not be performed. When that
@@ -66,8 +69,8 @@ public interface Forge {
 	 *         the reason.
 	 * @throws IOException
 	 */
-	File build(File moduleSource, File destination, FileFilter filter, Metadata[] resultingMetadata, Diagnostic result)
-			throws IOException;
+	File build(File moduleSource, File destination, FileFilter filter, Metadata[] resultingMetadata,
+			File[] resultingMetadataFile, Diagnostic result) throws IOException;
 
 	/**
 	 * List modified files in an installed module

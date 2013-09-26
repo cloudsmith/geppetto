@@ -17,8 +17,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.repository.RepositorySystem;
+
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 
 /**
@@ -26,8 +31,12 @@ import com.puppetlabs.geppetto.diagnostic.Diagnostic;
  */
 @Mojo(name = "package", requiresProject = false, defaultPhase = LifecyclePhase.PACKAGE)
 public class Package extends AbstractForgeMojo {
-	private File buildForge(File moduleSource, File destination, Diagnostic result) throws IOException {
-		return getForgeUtil().build(moduleSource, destination, null, null, result);
+	@Component
+	private RepositorySystem repositorySystem;
+
+	private File buildForge(File moduleSource, File destination, File[] resultingMetadataFile, Diagnostic result)
+			throws IOException {
+		return getForgeUtil().build(moduleSource, destination, null, null, resultingMetadataFile, result);
 	}
 
 	@Override
@@ -45,8 +54,19 @@ public class Package extends AbstractForgeMojo {
 
 		File buildDir = getBuildDir();
 		buildDir.mkdirs();
-		if(moduleRoots.size() == 1)
-			getProject().getArtifact().setFile(buildForge(moduleRoots.iterator().next(), buildDir, result));
+		if(moduleRoots.size() == 1) {
+			MavenProject project = getProject();
+			File moduleRoot = moduleRoots.iterator().next();
+			File[] resultingMetadataFile = new File[1];
+			project.getArtifact().setFile(buildForge(moduleRoot, buildDir, resultingMetadataFile, result));
+
+			Artifact metadata = repositorySystem.createArtifact(
+				project.getGroupId(), project.getArtifactId(), project.getVersion(), "compile", "metadata.json");
+
+			metadata.setFile(resultingMetadataFile[0]);
+			metadata.setResolved(true);
+			project.addAttachedArtifact(metadata);
+		}
 		else {
 			File builtModules = new File(buildDir, "builtModules");
 			if(!(builtModules.mkdir() || builtModules.isDirectory())) {
@@ -54,7 +74,7 @@ public class Package extends AbstractForgeMojo {
 				return;
 			}
 			for(File moduleRoot : moduleRoots)
-				buildForge(moduleRoot, builtModules, result);
+				buildForge(moduleRoot, builtModules, null, result);
 		}
 	}
 }

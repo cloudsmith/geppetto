@@ -56,7 +56,7 @@ public class ForgeUtilTest extends AbstractForgeTest {
 			File resultFolder = getTestOutputFolder("apache-build-result", true);
 			FileUtils.cpR(getTestData("puppetlabs-apache"), installFolder, ModuleUtils.DEFAULT_FILE_FILTER, false, true);
 			Metadata[] mdHandle = new Metadata[1];
-			fixture.build(installFolder, resultFolder, null, mdHandle, new Diagnostic());
+			fixture.build(installFolder, resultFolder, null, mdHandle, null, new Diagnostic());
 			Metadata md = mdHandle[0];
 			String archiveName = md.getName().toString() + '-' + md.getVersion();
 			File builtArchive = new File(resultFolder, archiveName + ".tar.gz");
@@ -83,7 +83,7 @@ public class ForgeUtilTest extends AbstractForgeTest {
 			File installFolder = getTestOutputFolder("test-changes", true);
 			File resultFolder = getTestOutputFolder("test-changes-result", true);
 			FileUtils.cpR(getTestData("puppetlabs-apache"), installFolder, ModuleUtils.DEFAULT_FILE_FILTER, false, true);
-			fixture.build(installFolder, resultFolder, null, null, new Diagnostic());
+			fixture.build(installFolder, resultFolder, null, null, null, new Diagnostic());
 			Collection<File> changes = fixture.changes(installFolder, null);
 			assertTrue("Unexpected changes", changes.isEmpty());
 		}

@@ -15,7 +15,6 @@ import static com.puppetlabs.geppetto.forge.Forge.PACKAGE;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -39,23 +38,6 @@ import com.puppetlabs.geppetto.forge.model.Metadata;
  */
 @Mojo(name = "package", requiresProject = false, defaultPhase = LifecyclePhase.PACKAGE)
 public class Package extends AbstractForgeMojo {
-	private static final String[] readmeFiles = {
-			"README.markdown", "README.md", "README.txt", "README", "README.mkdn", "README.mkd" };
-
-	private static final String[] changeLogFiles = { "Changes", "Changes.md", "Changelog", "Changelog.md" };
-
-	private static final String[] licenseFiles = { "LICENSE", "COPYING" };
-
-	private static File findOneOf(File[] children, String[] fileNames) {
-		for(File file : children) {
-			String n = file.getName();
-			for(String fileName : fileNames)
-				if(n.equalsIgnoreCase(fileName))
-					return file;
-		}
-		return null;
-	}
-
 	@Component
 	private RepositorySystem repositorySystem;
 
@@ -89,11 +71,8 @@ public class Package extends AbstractForgeMojo {
 				project.getGroupId(), project.getArtifactId(), project.getVersion(), "compile", "pmri");
 
 			PuppetModuleReleaseInfo pmri = new PuppetModuleReleaseInfo();
-			File[] children = moduleRoot.listFiles();
 			pmri.setMetadata(resultingMetadata[0]);
-			pmri.setLicense(readLicense(children));
-			pmri.setChangelog(readChangelog(children));
-			pmri.setReadme(readReadme(children));
+			pmri.populate(moduleRoot);
 
 			File pmriFile = new File(buildDir, "release.pmri");
 			OutputStream out = new FileOutputStream(pmriFile);
@@ -118,32 +97,5 @@ public class Package extends AbstractForgeMojo {
 			for(File moduleRoot : moduleRoots)
 				buildForge(moduleRoot, builtModules, null, result);
 		}
-	}
-
-	private String readChangelog(File[] children) throws IOException {
-		return readContent(children, changeLogFiles);
-	}
-
-	private String readContent(File[] children, String[] fileNames) throws IOException {
-		File file = findOneOf(children, fileNames);
-		if(file == null)
-			return null;
-		byte[] buf = new byte[(int) file.length()];
-		FileInputStream in = new FileInputStream(file);
-		try {
-			in.read(buf);
-			return new String(buf, Charsets.UTF_8);
-		}
-		finally {
-			in.close();
-		}
-	}
-
-	private String readLicense(File[] children) throws IOException {
-		return readContent(children, licenseFiles);
-	}
-
-	private String readReadme(File[] children) throws IOException {
-		return readContent(children, readmeFiles);
 	}
 }

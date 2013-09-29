@@ -27,6 +27,7 @@ import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveOutputStream;
 import org.apache.commons.compress.archivers.tar.TarConstants;
+
 import com.puppetlabs.geppetto.common.os.FileUtils;
 import com.puppetlabs.geppetto.common.os.OsUtil;
 import com.puppetlabs.geppetto.common.os.StreamUtil;
@@ -54,10 +55,11 @@ public class TarUtils {
 		 *            The name of the accepted file
 		 * @param fileData
 		 *            A stream from which the file data can be read.
-		 * @return <tt>false</tt> to indicate that processing should continue or <tt>true</tt> to indicate that further processing is of no interest
+		 * @return <tt>false</tt> to indicate that processing should continue or <tt>true</tt> to indicate that further
+		 *         processing is of no interest
 		 *         (i.e. the read terminates here).
 		 */
-		boolean catchData(String fileName, InputStream fileData);
+		boolean catchData(String fileName, InputStream fileData) throws IOException;
 	}
 
 	private static final int MAX_FILES_PER_COMMAND = 20;
@@ -179,7 +181,8 @@ public class TarUtils {
 	 *            of the archive. The archive must consist of one single folder and nothing else
 	 *            in order for this to work.
 	 * @param fileCatcher
-	 *            Used when specific files should be picked from the archive without writing them to disk. Can be <tt>null</tt>.
+	 *            Used when specific files should be picked from the archive without writing them to disk. Can be
+	 *            <tt>null</tt>.
 	 * @throws IOException
 	 */
 	public static void unpack(InputStream source, File targetFolder, boolean skipTopFolder, FileCatcher fileCatcher)

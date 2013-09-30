@@ -20,9 +20,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.semver.Version;
-import com.puppetlabs.geppetto.semver.VersionRange;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonDeserializationContext;
@@ -36,6 +33,9 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
 
 /**
  */
@@ -115,10 +115,7 @@ public class GsonModule extends AbstractModule {
 			return target;
 		}
 
-		@Override
-		public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-				throws JsonParseException {
-			String source = json.getAsString();
+		public static Date stringToDate(String source) {
 			Matcher m = ISO_8601_PTRN.matcher(source);
 			if(m.matches()) {
 				String tz = m.group(2);
@@ -133,9 +130,20 @@ public class GsonModule extends AbstractModule {
 					return ISO_8601_TZ.parse(source);
 				}
 				catch(ParseException e) {
-					throw new JsonParseException(e);
+					try {
+						return HR_8601_TZ.parse(source);
+					}
+					catch(ParseException e2) {
+						throw new JsonParseException(e);
+					}
 				}
 			}
+		}
+
+		@Override
+		public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+				throws JsonParseException {
+			return stringToDate(json.getAsString());
 		}
 
 		@Override
@@ -185,6 +193,8 @@ public class GsonModule extends AbstractModule {
 	private static final Pattern RFC_822_PTRN = Pattern.compile("^(\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d)([+-]\\d\\d\\d\\d)$");
 
 	private static final SimpleDateFormat ISO_8601_TZ = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+
+	private static final SimpleDateFormat HR_8601_TZ = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z");
 
 	private static char[] hexChars = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 

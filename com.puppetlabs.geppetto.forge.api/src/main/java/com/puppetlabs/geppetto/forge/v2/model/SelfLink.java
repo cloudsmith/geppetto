@@ -10,9 +10,8 @@
  */
 package com.puppetlabs.geppetto.forge.v2.model;
 
-import com.puppetlabs.geppetto.forge.model.Entity;
-
 import com.google.gson.annotations.Expose;
+import com.puppetlabs.geppetto.forge.model.Entity;
 
 /**
  * This is a simply entity for self referring URL representation.
@@ -26,5 +25,13 @@ public class SelfLink extends Entity {
 	 */
 	public HalLink getSelf() {
 		return self;
+	}
+
+	/**
+	 * @param self
+	 *            the self to set
+	 */
+	public void setSelf(HalLink self) {
+		this.self = self;
 	}
 }

@@ -12,9 +12,8 @@ package com.puppetlabs.geppetto.forge.v2.model;
 
 import java.util.Date;
 
-import com.puppetlabs.geppetto.forge.model.Entity;
-
 import com.google.gson.annotations.Expose;
+import com.puppetlabs.geppetto.forge.model.Entity;
 
 /**
  */
@@ -50,10 +49,26 @@ public class TimestampedEntity extends Entity {
 	}
 
 	/**
+	 * @param createdAt
+	 *            the createdAt to set
+	 */
+	public void setCreatedAt(Date createdAt) {
+		this.created_at = createdAt;
+	}
+
+	/**
 	 * @param id
 	 *            the id to set
 	 */
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	/**
+	 * @param updatedAt
+	 *            the updatedAt to set
+	 */
+	public void setUpdatedAt(Date updatedAt) {
+		this.updated_at = updatedAt;
 	}
 }

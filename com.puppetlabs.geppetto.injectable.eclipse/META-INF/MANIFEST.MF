@@ -37,3 +37,4 @@ Export-Package: com.puppetlabs.geppetto.injectable;uses:="com.google.inject",
    com.google.inject"
 Bundle-Activator: com.puppetlabs.geppetto.injectable.eclipse.Activator
 Bundle-ActivationPolicy: lazy
+Require-Bundle: findbugsAnnotations

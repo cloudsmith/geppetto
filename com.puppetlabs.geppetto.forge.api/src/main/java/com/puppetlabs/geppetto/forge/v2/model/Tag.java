@@ -37,6 +37,14 @@ public class Tag extends TimestampedEntity {
 	}
 
 	/**
+	 * @param moduleCount
+	 *            the moduleCount to set
+	 */
+	public void setModuleCount(Integer moduleCount) {
+		this.module_count = moduleCount;
+	}
+
+	/**
 	 * @param name
 	 *            Name of tag
 	 */

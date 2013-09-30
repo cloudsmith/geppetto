@@ -68,7 +68,7 @@ public abstract class ForgeService {
 		if(!href.startsWith("/v2/"))
 			throw new HttpResponseException(404, "Not found: " + href);
 
-		return getClient(false).get(href.substring(4), null, type);
+		return getClient(false).getV2(href.substring(4), null, type);
 	}
 
 	/**

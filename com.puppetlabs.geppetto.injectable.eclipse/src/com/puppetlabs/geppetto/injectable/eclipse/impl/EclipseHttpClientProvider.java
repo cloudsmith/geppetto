@@ -10,6 +10,7 @@
  */
 package com.puppetlabs.geppetto.injectable.eclipse.impl;
 
+import javax.annotation.Nullable;
 import javax.inject.Named;
 
 import org.apache.http.auth.AuthScope;
@@ -32,14 +33,17 @@ import com.puppetlabs.geppetto.injectable.eclipse.Activator;
 public class EclipseHttpClientProvider implements Provider<HttpClient> {
 
 	@Inject(optional = true)
+	@Nullable
 	@Named(CoreConnectionPNames.CONNECTION_TIMEOUT)
 	private Integer connectonTimeout;
 
 	@Inject(optional = true)
+	@Nullable
 	@Named(CoreConnectionPNames.SO_TIMEOUT)
 	private Integer soTimeout;
 
 	@Inject(optional = true)
+	@Nullable
 	private SSLSocketFactory sslSocketFactory;
 
 	@Override

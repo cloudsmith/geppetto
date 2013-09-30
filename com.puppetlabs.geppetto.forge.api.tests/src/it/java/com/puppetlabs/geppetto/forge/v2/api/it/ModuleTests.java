@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package com.puppetlabs.geppetto.forge.api.it;
+package com.puppetlabs.geppetto.forge.v2.api.it;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -18,11 +18,13 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.List;
 
+import com.puppetlabs.geppetto.forge.api.it.ForgeAPITestBase;
 import com.puppetlabs.geppetto.forge.v2.model.AnnotatedLink;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
 import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.forge.v2.service.ListPreferences;
 import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
+
 import org.junit.Test;
 
 /**

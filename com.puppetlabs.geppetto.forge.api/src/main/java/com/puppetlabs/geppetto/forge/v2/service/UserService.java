@@ -37,7 +37,7 @@ public class UserService extends ForgeService {
 	 * @throws IOException
 	 */
 	public User get(String name) throws IOException {
-		return getClient(false).get(getUserPath(name), null, User.class);
+		return getClient(false).getV2(getUserPath(name), null, User.class);
 	}
 
 	/**
@@ -51,7 +51,7 @@ public class UserService extends ForgeService {
 	public List<Module> getModules(String name, ListPreferences listPreferences) throws IOException {
 		List<Module> modules = null;
 		try {
-			modules = getClient(false).get(
+			modules = getClient(false).getV2(
 				getUserPath(name) + "/modules", toQueryMap(listPreferences), Constants.LIST_MODULE);
 		}
 		catch(HttpResponseException e) {
@@ -74,7 +74,7 @@ public class UserService extends ForgeService {
 	public List<Release> getReleases(String name, ListPreferences listPreferences) throws IOException {
 		List<Release> releases = null;
 		try {
-			releases = getClient(false).get(
+			releases = getClient(false).getV2(
 				getUserPath(name) + "/releases", toQueryMap(listPreferences), Constants.LIST_RELEASE);
 		}
 		catch(HttpResponseException e) {
@@ -94,7 +94,7 @@ public class UserService extends ForgeService {
 	public List<User> list(ListPreferences listPreferences) throws IOException {
 		List<User> users = null;
 		try {
-			users = getClient(false).get(
+			users = getClient(false).getV2(
 				Constants.COMMAND_GROUP_USERS, toQueryMap(listPreferences), Constants.LIST_USER);
 		}
 		catch(HttpResponseException e) {

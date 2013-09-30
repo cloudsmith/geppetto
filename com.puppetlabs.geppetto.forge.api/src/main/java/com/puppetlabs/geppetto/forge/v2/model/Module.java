@@ -45,7 +45,7 @@ public class Module extends TimestampedEntity {
 	private User owner;
 
 	@Expose
-	private List<String> tagarray = Collections.emptyList();
+	private List<String> tags = Collections.emptyList();
 
 	@Expose
 	private FlatRelease current_release;
@@ -132,7 +132,7 @@ public class Module extends TimestampedEntity {
 	 * @return List of tag names
 	 */
 	public List<String> getTags() {
-		return new ArrayList<String>(tagarray);
+		return new ArrayList<String>(tags);
 	}
 
 	/**
@@ -192,6 +192,14 @@ public class Module extends TimestampedEntity {
 	}
 
 	/**
+	 * @param releases
+	 *            the releases to set
+	 */
+	public void setReleases(List<AnnotatedLink> releases) {
+		this.releases = releases;
+	}
+
+	/**
 	 * @param sourceURL
 	 *            Source URL
 	 */
@@ -204,7 +212,7 @@ public class Module extends TimestampedEntity {
 	 *            Tag names
 	 */
 	public void setTags(List<String> tags) {
-		this.tagarray = tags == null
+		this.tags = tags == null
 				? Collections.<String> emptyList()
 				: tags;
 	}

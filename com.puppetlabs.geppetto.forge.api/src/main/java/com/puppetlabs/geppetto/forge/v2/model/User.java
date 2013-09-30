@@ -80,6 +80,22 @@ public class User extends TimestampedEntity {
 	}
 
 	/**
+	 * @param moduleCount
+	 *            the moduleCount to set
+	 */
+	public void setModuleCount(Integer moduleCount) {
+		this.module_count = moduleCount;
+	}
+
+	/**
+	 * @param releaseCount
+	 *            the releaseCount to set
+	 */
+	public void setReleaseCount(Integer releaseCount) {
+		this.release_count = releaseCount;
+	}
+
+	/**
 	 * @param username
 	 *            Username
 	 */

@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package com.puppetlabs.geppetto.forge.api.it;
+package com.puppetlabs.geppetto.forge.v2.api.it;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -16,20 +16,23 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 
 import org.apache.http.client.HttpResponseException;
-import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
+
+import com.puppetlabs.geppetto.forge.api.it.ForgeAPITestBase;
+import com.puppetlabs.geppetto.forge.v2.service.ReleaseService;
+
 import org.junit.Test;
 
 /**
  * @author thhal
  * 
  */
-public class ModuleTestDelete extends ForgeAPITestBase {
+public class ReleaseTestDelete extends ForgeAPITestBase {
 	@Test
-	public void testDeleteModule() throws IOException {
-		ModuleService service = getTestUserForge().createModuleService();
-		service.delete(TEST_USER, TEST_MODULE);
+	public void testDeleteRelease() throws IOException {
+		ReleaseService service = getTestUserForge().createReleaseService();
+		service.delete(TEST_USER, TEST_MODULE, TEST_RELEASE_VERSION);
 		try {
-			service.get(TEST_USER, TEST_MODULE);
+			service.get(TEST_USER, TEST_MODULE, TEST_RELEASE_VERSION);
 			fail("Expected 404");
 		}
 		catch(HttpResponseException e) {

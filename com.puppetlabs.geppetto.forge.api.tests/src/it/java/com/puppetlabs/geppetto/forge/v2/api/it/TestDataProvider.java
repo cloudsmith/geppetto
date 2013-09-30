@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package com.puppetlabs.geppetto.forge.api.it;
+package com.puppetlabs.geppetto.forge.v2.api.it;
 
 import static com.google.inject.Guice.createInjector;
 import static com.puppetlabs.geppetto.injectable.CommonModuleProvider.getCommonModule;

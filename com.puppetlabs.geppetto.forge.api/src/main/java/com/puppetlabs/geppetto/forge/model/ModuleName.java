@@ -72,8 +72,11 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 				JsonDeserializationContext context) throws JsonParseException {
 			String name = json.getAsString();
 			String owner = null;
+			char sep = '-';
 			int sepIdx = name.indexOf('/');
-			if(sepIdx < 0)
+			if(sepIdx >= 0)
+				sep = '/';
+			else
 				sepIdx = name.indexOf('-');
 
 			if(sepIdx >= 0) {
@@ -83,7 +86,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 			else {
 				name = ModuleName.safeName(name, false);
 			}
-			return new ModuleName(owner, name, false);
+			return new ModuleName(owner, sep, name, false);
 		}
 
 		@Override
@@ -286,6 +289,13 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	private final String semanticName;
 
 	private static final Pattern STRICT_NAME_PATTERN = Pattern.compile("^[a-z][a-z0-9_]*$");
+
+	protected ModuleName(ModuleName m) {
+		this.separator = m.separator;
+		this.owner = m.owner;
+		this.name = m.name;
+		this.semanticName = m.semanticName;
+	}
 
 	private ModuleName(ModuleName m, char separator) {
 		this.separator = separator;

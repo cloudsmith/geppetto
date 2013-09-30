@@ -14,13 +14,12 @@ import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import com.google.gson.reflect.TypeToken;
 import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
 import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.forge.v2.model.Tag;
 import com.puppetlabs.geppetto.forge.v2.model.User;
-
-import com.google.gson.reflect.TypeToken;
 
 /**
  * Constants pertaining to the ForgeAPI v2 API
@@ -55,6 +54,11 @@ public interface Constants {
 	 * Binding name for URL used by the Forge v2 API
 	 */
 	String API_V2_URL_NAME = "forge.api.v2.url";
+
+	/**
+	 * Binding name for URL used by the Forge v3 API
+	 */
+	String API_V3_URL_NAME = "forge.api.v3.url";
 
 	/**
 	 * Binding name for URL used by the Forge OAuth API

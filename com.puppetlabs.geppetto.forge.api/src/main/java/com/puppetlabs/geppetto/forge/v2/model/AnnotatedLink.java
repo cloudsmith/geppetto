@@ -10,9 +10,8 @@
  */
 package com.puppetlabs.geppetto.forge.v2.model;
 
-import com.puppetlabs.geppetto.forge.model.Entity;
-
 import com.google.gson.annotations.Expose;
+import com.puppetlabs.geppetto.forge.model.Entity;
 
 /**
  * Represents a short list of collection references, whereby each item is
@@ -50,5 +49,29 @@ public class AnnotatedLink extends Entity {
 	 */
 	public String getSlug() {
 		return slug;
+	}
+
+	/**
+	 * @param key
+	 *            the key to set
+	 */
+	public void setKey(String key) {
+		this.key = key;
+	}
+
+	/**
+	 * @param links
+	 *            the links to set
+	 */
+	public void setLinks(SelfLink links) {
+		this._links = links;
+	}
+
+	/**
+	 * @param slug
+	 *            the slug to set
+	 */
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 }

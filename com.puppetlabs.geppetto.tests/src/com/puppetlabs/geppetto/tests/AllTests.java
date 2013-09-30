@@ -11,7 +11,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	// @fmtOff
 	com.puppetlabs.geppetto.semver.tests.AllTests.class,
 	com.puppetlabs.geppetto.forge.api.tests.AllTests.class,
-	com.puppetlabs.geppetto.forge.api.it.ForgeIT.class,
+	com.puppetlabs.geppetto.forge.v2.api.it.ForgeIT.class,
 	com.puppetlabs.geppetto.forge.tests.ForgeTests.class,
 	com.puppetlabs.geppetto.ruby.tests.AllTests.class,
 	com.puppetlabs.geppetto.pp.dsl.tests.AllTests.class,

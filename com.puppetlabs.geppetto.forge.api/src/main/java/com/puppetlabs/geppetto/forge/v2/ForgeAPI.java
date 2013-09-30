@@ -13,11 +13,11 @@ package com.puppetlabs.geppetto.forge.v2;
 import com.puppetlabs.geppetto.forge.client.ForgeHttpModule;
 import com.puppetlabs.geppetto.forge.client.GsonModule;
 import com.puppetlabs.geppetto.forge.model.Constants;
+import com.puppetlabs.geppetto.forge.model.MetadataRepository;
 import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
 import com.puppetlabs.geppetto.forge.v2.service.ReleaseService;
 import com.puppetlabs.geppetto.forge.v2.service.TagService;
 import com.puppetlabs.geppetto.forge.v2.service.UserService;
-
 import com.google.gson.Gson;
 import com.google.inject.Guice;
 import com.google.inject.Injector;

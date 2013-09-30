@@ -65,7 +65,7 @@ public class ModuleService extends ForgeService {
 	 * @throws IOException
 	 */
 	public Module get(String owner, String name) throws IOException {
-		return getClient(false).get(getModulePath(owner, name), null, Module.class);
+		return getClient(false).getV2(getModulePath(owner, name), null, Module.class);
 	}
 
 	/**
@@ -81,7 +81,7 @@ public class ModuleService extends ForgeService {
 	public List<Release> getReleases(String owner, String name, ListPreferences listPreferences) throws IOException {
 		List<Release> releases = null;
 		try {
-			releases = getClient(false).get(
+			releases = getClient(false).getV2(
 				getModulePath(owner, name) + "/releases", toQueryMap(listPreferences), Constants.LIST_RELEASE);
 		}
 		catch(HttpResponseException e) {
@@ -106,7 +106,7 @@ public class ModuleService extends ForgeService {
 	public List<Tag> getTags(String owner, String name, ListPreferences listPreferences) throws IOException {
 		List<Tag> tags = null;
 		try {
-			tags = getClient(false).get(
+			tags = getClient(false).getV2(
 				getModulePath(owner, name) + "/tags", toQueryMap(listPreferences), Constants.LIST_TAG);
 		}
 		catch(HttpResponseException e) {
@@ -136,7 +136,7 @@ public class ModuleService extends ForgeService {
 			map.put("keyword", keyword);
 		List<Module> modules = null;
 		try {
-			modules = getClient(false).get(Constants.COMMAND_GROUP_MODULES, map, Constants.LIST_MODULE);
+			modules = getClient(false).getV2(Constants.COMMAND_GROUP_MODULES, map, Constants.LIST_MODULE);
 		}
 		catch(HttpResponseException e) {
 			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)

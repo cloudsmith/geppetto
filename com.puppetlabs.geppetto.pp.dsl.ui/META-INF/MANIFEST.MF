@@ -230,3 +230,4 @@ Export-Package: com.puppetlabs.geppetto.pp.dsl.ui;
    org.eclipse.core.resources,
    org.eclipse.jface.util,
    org.eclipse.xtext.ui.editor.preferences"
+Require-Bundle: findbugsAnnotations

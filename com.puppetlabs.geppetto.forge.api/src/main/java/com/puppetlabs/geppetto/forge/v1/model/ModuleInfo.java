@@ -13,10 +13,10 @@ package com.puppetlabs.geppetto.forge.v1.model;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
 import com.puppetlabs.geppetto.forge.model.Entity;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
-import com.google.gson.annotations.Expose;
 
 public class ModuleInfo extends Entity {
 	@Expose
@@ -89,5 +89,69 @@ public class ModuleInfo extends Entity {
 
 	public Version getVersion() {
 		return version;
+	}
+
+	/**
+	 * @param author
+	 *            the author to set
+	 */
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	/**
+	 * @param desc
+	 *            the desc to set
+	 */
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+
+	/**
+	 * @param fullName
+	 *            the full_name to set
+	 */
+	public void setFulName(ModuleName fullName) {
+		this.full_name = fullName;
+	}
+
+	/**
+	 * @param name
+	 *            the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * @param projectUrl
+	 *            the projectUrl to set
+	 */
+	public void setProjectUrl(String projectUrl) {
+		this.project_url = projectUrl;
+	}
+
+	/**
+	 * @param releases
+	 *            the releases to set
+	 */
+	public void setReleases(List<Release> releases) {
+		this.releases = releases;
+	}
+
+	/**
+	 * @param tagList
+	 *            the tagList to set
+	 */
+	public void setTagList(List<String> tagList) {
+		this.tag_list = tagList;
+	}
+
+	/**
+	 * @param version
+	 *            the version to set
+	 */
+	public void setVersion(Version version) {
+		this.version = version;
 	}
 }

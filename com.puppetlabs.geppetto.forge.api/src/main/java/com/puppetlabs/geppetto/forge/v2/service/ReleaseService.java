@@ -92,7 +92,7 @@ public class ReleaseService extends ForgeService {
 	 */
 	public void download(String owner, String name, Version version, OutputStream output) throws IOException {
 		String path = Constants.COMMAND_GROUP_FILES + '/' + owner + '-' + name + '-' + version + ".tar.gz";
-		getClient(false).download(path, null, output);
+		getClient(false).downloadV2(path, null, output);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class ReleaseService extends ForgeService {
 	 * @throws IOException
 	 */
 	public Release get(String owner, String name, Version version) throws IOException {
-		return getClient(false).get(getReleasePath(owner, name, version), null, Release.class);
+		return getClient(false).getV2(getReleasePath(owner, name, version), null, Release.class);
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class ReleaseService extends ForgeService {
 	public List<Release> list(ListPreferences listPreferences) throws IOException {
 		List<Release> releases = null;
 		try {
-			releases = getClient(false).get(Constants.COMMAND_GROUP_RELEASES, null, Constants.LIST_RELEASE);
+			releases = getClient(false).getV2(Constants.COMMAND_GROUP_RELEASES, null, Constants.LIST_RELEASE);
 		}
 		catch(HttpResponseException e) {
 			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)

@@ -13,13 +13,13 @@ package com.puppetlabs.geppetto.forge.client;
 import static com.puppetlabs.geppetto.forge.model.Constants.API_OAUTH_URL_NAME;
 import static com.puppetlabs.geppetto.forge.model.Constants.API_V1_URL_NAME;
 import static com.puppetlabs.geppetto.forge.model.Constants.API_V2_URL_NAME;
-
-import com.puppetlabs.geppetto.forge.v2.MetadataRepository;
-import com.puppetlabs.geppetto.forge.v2.repository.MetadataRepositoryImpl;
+import static com.puppetlabs.geppetto.forge.model.Constants.API_V3_URL_NAME;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
+import com.puppetlabs.geppetto.forge.model.MetadataRepository;
+import com.puppetlabs.geppetto.forge.v3.repository.MetadataRepositoryImpl;
 
 /**
  * This is the default HTTP Guice module
@@ -62,5 +62,11 @@ public abstract class ForgeHttpModule extends AbstractModule {
 	@Named(API_V2_URL_NAME)
 	public String provideV2URL() {
 		return appendURLSegment(getBaseURL(), "/v2/");
+	}
+
+	@Provides
+	@Named(API_V3_URL_NAME)
+	public String provideV3URL() {
+		return appendURLSegment(getBaseURL(), "/v3/");
 	}
 }

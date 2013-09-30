@@ -49,11 +49,11 @@ import com.puppetlabs.geppetto.forge.ForgeService;
 import com.puppetlabs.geppetto.forge.client.ForgeException;
 import com.puppetlabs.geppetto.forge.model.Dependency;
 import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.MetadataRepository;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.util.ModuleUtils;
 import com.puppetlabs.geppetto.forge.util.TarUtils;
 import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
-import com.puppetlabs.geppetto.forge.v2.MetadataRepository;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
 import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
@@ -87,7 +87,7 @@ class ForgeServiceImpl implements ForgeService {
 	public Collection<File> downloadDependencies(Iterable<Metadata> metadatas, File importedModulesDir,
 			Diagnostic result) throws IOException {
 		Set<Dependency> unresolvedCollector = new HashSet<Dependency>();
-		Set<Release> releasesToDownload = resolveDependencies(metadatas, unresolvedCollector);
+		Set<Metadata> releasesToDownload = resolveDependencies(metadatas, unresolvedCollector);
 		for(Dependency unresolved : unresolvedCollector)
 			result.addChild(new Diagnostic(WARNING, FORGE, String.format(
 				"Unable to resolve dependency: %s:%s", unresolved.getName(),
@@ -97,11 +97,17 @@ class ForgeServiceImpl implements ForgeService {
 			importedModulesDir.mkdirs();
 			List<File> importedModuleLocations = new ArrayList<File>();
 
-			for(Release release : releasesToDownload) {
-				result.addChild(new Diagnostic(INFO, FORGE, "Installing dependent module " + release.getFullName() +
-						':' + release.getVersion()));
-				StringBuilder bld = new StringBuilder();
-				ModuleUtils.buildFileName(release.getFullName(), release.getVersion(), bld);
+			StringBuilder bld = new StringBuilder("Installing dependent module ");
+			int pfxLen = bld.length();
+			for(Metadata release : releasesToDownload) {
+				bld.setLength(pfxLen);
+				release.getName().withSeparator('-').toString(bld);
+				bld.append(':');
+				release.getVersion().toString(bld);
+				result.addChild(new Diagnostic(INFO, FORGE, bld.toString()));
+
+				bld.setLength(0);
+				ModuleUtils.buildFileName(release.getName(), release.getVersion(), bld);
 				File moduleDir = new File(importedModulesDir, bld.toString());
 				install(release, moduleDir, true, false);
 				importedModuleLocations.add(moduleDir);
@@ -112,6 +118,14 @@ class ForgeServiceImpl implements ForgeService {
 		if(unresolvedCollector.isEmpty())
 			result.addChild(new Diagnostic(INFO, FORGE, "No additional dependencies were detected"));
 		return Collections.emptyList();
+	}
+
+	@Override
+	public Metadata install(Metadata release, File destination, boolean destinationIncludesTopFolder, boolean force)
+			throws IOException {
+		return install(
+			release.getName(), VersionRange.exact(release.getVersion()), destination, destinationIncludesTopFolder,
+			force);
 	}
 
 	@Override
@@ -152,14 +166,6 @@ class ForgeServiceImpl implements ForgeService {
 		// Unpack closes its input.
 		TarUtils.unpack(new GZIPInputStream(new FileInputStream(moduleFile)), destination, true, null);
 		return forgeUtil.loadJSONMetadata(new File(destination, METADATA_JSON_NAME));
-	}
-
-	@Override
-	public Metadata install(Release release, File destination, boolean destinationIncludesTopFolder, boolean force)
-			throws IOException {
-		return install(
-			release.getFullName(), VersionRange.exact(release.getVersion()), destination, destinationIncludesTopFolder,
-			force);
 	}
 
 	@Override
@@ -243,7 +249,7 @@ class ForgeServiceImpl implements ForgeService {
 	}
 
 	@Override
-	public Set<Release> resolveDependencies(Iterable<Metadata> metadatas, Set<Dependency> unresolvedCollector)
+	public Set<Metadata> resolveDependencies(Iterable<Metadata> metadatas, Set<Dependency> unresolvedCollector)
 			throws IOException {
 		// Resolve missing dependencies
 		Set<Dependency> deps = new HashSet<Dependency>();
@@ -263,7 +269,7 @@ class ForgeServiceImpl implements ForgeService {
 		}
 
 		// Resolve remaining dependencies
-		Set<Release> releasesToDownload = new HashSet<Release>();
+		Set<Metadata> releasesToDownload = new HashSet<Metadata>();
 		if(!deps.isEmpty()) {
 			if(metadataRepo == null)
 				throw new UnsupportedOperationException(

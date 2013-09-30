@@ -10,6 +10,8 @@
  */
 package com.puppetlabs.geppetto.graph;
 
+import javax.annotation.Nullable;
+
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -20,6 +22,7 @@ import com.google.inject.name.Named;
  */
 public class GithubURLHrefProducer extends RelativeFileHrefProducer {
 	@Inject(optional = true)
+	@Nullable
 	@Named(AbstractHrefProducer.URL_PREFIX_NAME)
 	private String URLprefix;
 

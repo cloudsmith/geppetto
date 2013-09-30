@@ -15,6 +15,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.common.base.Charsets;
@@ -83,8 +84,15 @@ public class PuppetModuleReleaseInfo extends Entity {
 	@Expose
 	private List<String> tags;
 
+	@Expose
+	private Integer downloadCount;
+
 	public String getChangelog() {
 		return changelog;
+	}
+
+	public Integer getDownloadCount() {
+		return downloadCount;
 	}
 
 	public String getLicense() {
@@ -100,7 +108,9 @@ public class PuppetModuleReleaseInfo extends Entity {
 	}
 
 	public List<String> getTags() {
-		return tags;
+		return tags == null
+				? Collections.<String> emptyList()
+				: Collections.unmodifiableList(tags);
 	}
 
 	/**
@@ -117,6 +127,7 @@ public class PuppetModuleReleaseInfo extends Entity {
 		setChangelog(readChangelog(children));
 		setLicense(readLicense(children));
 		setReadme(readReadme(children));
+		setDownloadCount(0);
 	}
 
 	private String readChangelog(File[] children) throws IOException {
@@ -146,6 +157,10 @@ public class PuppetModuleReleaseInfo extends Entity {
 
 	public void setChangelog(String changelog) {
 		this.changelog = changelog;
+	}
+
+	public void setDownloadCount(Integer downloadCount) {
+		this.downloadCount = downloadCount;
 	}
 
 	public void setLicense(String license) {

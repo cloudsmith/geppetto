@@ -10,9 +10,9 @@
  */
 package com.puppetlabs.geppetto.forge.v2.model;
 
+import com.google.gson.annotations.Expose;
 import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.semver.Version;
-import com.google.gson.annotations.Expose;
 
 /**
  * Describes a module release
@@ -20,9 +20,6 @@ import com.google.gson.annotations.Expose;
 public class FlatRelease extends TimestampedEntity {
 	@Expose
 	private Version version;
-
-	@Expose
-	private String notes;
 
 	@Expose
 	private Metadata metadata;
@@ -38,6 +35,25 @@ public class FlatRelease extends TimestampedEntity {
 
 	@Expose
 	private String file_md5;
+
+	@Expose
+	private String slug;
+
+	@Expose
+	private String readme;
+
+	@Expose
+	private String changelog;
+
+	@Expose
+	private String license;
+
+	/**
+	 * @return the changelog
+	 */
+	public String getChangelog() {
+		return changelog;
+	}
 
 	/**
 	 * @return Download count
@@ -68,6 +84,13 @@ public class FlatRelease extends TimestampedEntity {
 	}
 
 	/**
+	 * @return the license
+	 */
+	public String getLicense() {
+		return license;
+	}
+
+	/**
 	 * @return JSON metadata
 	 */
 	public Metadata getMetadata() {
@@ -75,10 +98,17 @@ public class FlatRelease extends TimestampedEntity {
 	}
 
 	/**
-	 * @return Notes
+	 * @return the readme
 	 */
-	public String getNotes() {
-		return notes;
+	public String getReadme() {
+		return readme;
+	}
+
+	/**
+	 * @return the slug
+	 */
+	public String getSlug() {
+		return slug;
 	}
 
 	/**
@@ -86,5 +116,85 @@ public class FlatRelease extends TimestampedEntity {
 	 */
 	public Version getVersion() {
 		return version;
+	}
+
+	/**
+	 * @param changelog
+	 *            the changelog to set
+	 */
+	public void setChangelog(String changelog) {
+		this.changelog = changelog;
+	}
+
+	/**
+	 * @param downloads
+	 *            the downloads to set
+	 */
+	public void setDownloads(Long downloads) {
+		this.downloads = downloads;
+	}
+
+	/**
+	 * @param fileMD5
+	 *            the fileMD5 to set
+	 */
+	public void setFileMD5(String fileMD5) {
+		this.file_md5 = fileMD5;
+	}
+
+	/**
+	 * @param fileSize
+	 *            the fileSize to set
+	 */
+	public void setFileSize(Long fileSize) {
+		this.file_size = fileSize;
+	}
+
+	/**
+	 * @param fileType
+	 *            the fileType to set
+	 */
+	public void setFileType(String fileType) {
+		this.file_type = fileType;
+	}
+
+	/**
+	 * @param license
+	 *            the license to set
+	 */
+	public void setLicense(String license) {
+		this.license = license;
+	}
+
+	/**
+	 * @param metadata
+	 *            the metadata to set
+	 */
+	public void setMetadata(Metadata metadata) {
+		this.metadata = metadata;
+	}
+
+	/**
+	 * @param readme
+	 *            the readme to set
+	 */
+	public void setReadme(String readme) {
+		this.readme = readme;
+	}
+
+	/**
+	 * @param slug
+	 *            the slug to set
+	 */
+	public void setSlug(String slug) {
+		this.slug = slug;
+	}
+
+	/**
+	 * @param version
+	 *            the version to set
+	 */
+	public void setVersion(Version version) {
+		this.version = version;
 	}
 }

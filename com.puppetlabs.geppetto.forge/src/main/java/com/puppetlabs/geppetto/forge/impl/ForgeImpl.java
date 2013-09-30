@@ -27,6 +27,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.security.DigestOutputStream;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -81,7 +83,7 @@ class ForgeImpl implements Forge {
 
 	@Override
 	public File build(File moduleSource, File destination, FileFilter fileFilter, Metadata[] resultingMetadata,
-			File[] resultingMetadataFile, Diagnostic result) throws IOException {
+			byte[][] resultingMD5, Diagnostic result) throws IOException {
 		if(fileFilter == null)
 			fileFilter = moduleFileFilter;
 
@@ -134,15 +136,19 @@ class ForgeImpl implements Forge {
 		if(!extractedFrom[0].getName().equals(METADATA_JSON_NAME))
 			internalSaveJSONMetadata(md, metadataJSON);
 
-		if(resultingMetadataFile != null)
-			resultingMetadataFile[0] = metadataJSON;
-
 		final File moduleArchive = new File(destination, zipArchiveName);
 		OutputStream out = new GZIPOutputStream(new FileOutputStream(moduleArchive));
+		if(resultingMD5 == null)
+			// Pack closes its output
+			TarUtils.pack(destModuleDir, out, null, true, null);
+		else {
+			MessageDigest digest = Checksums.getMessageDigest();
+			DigestOutputStream digestOut = new DigestOutputStream(out, digest);
 
-		// Pack closes its output
-		TarUtils.pack(destModuleDir, out, null, true, null);
-
+			// Pack closes its output
+			TarUtils.pack(destModuleDir, digestOut, null, true, null);
+			resultingMD5[0] = digest.digest();
+		}
 		return moduleArchive;
 	}
 

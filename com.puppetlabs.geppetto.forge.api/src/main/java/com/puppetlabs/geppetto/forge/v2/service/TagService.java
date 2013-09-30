@@ -60,7 +60,7 @@ public class TagService extends ForgeService {
 	 * @throws IOException
 	 */
 	public Tag get(String name) throws IOException {
-		return getClient(false).get(getTagPath(name), null, Tag.class);
+		return getClient(false).getV2(getTagPath(name), null, Tag.class);
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class TagService extends ForgeService {
 	public List<Tag> getAll(ListPreferences listPreferences) throws IOException {
 		List<Tag> tags = null;
 		try {
-			tags = getClient(false).get(Constants.COMMAND_GROUP_TAGS, toQueryMap(listPreferences), Constants.LIST_TAG);
+			tags = getClient(false).getV2(Constants.COMMAND_GROUP_TAGS, toQueryMap(listPreferences), Constants.LIST_TAG);
 		}
 		catch(HttpResponseException e) {
 			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
@@ -95,7 +95,7 @@ public class TagService extends ForgeService {
 	public List<Module> getModules(String name, ListPreferences listPreferences) throws IOException {
 		List<Module> modules = null;
 		try {
-			modules = getClient(false).get(
+			modules = getClient(false).getV2(
 				getTagPath(name) + "/modules", toQueryMap(listPreferences), Constants.LIST_MODULE);
 		}
 		catch(HttpResponseException e) {

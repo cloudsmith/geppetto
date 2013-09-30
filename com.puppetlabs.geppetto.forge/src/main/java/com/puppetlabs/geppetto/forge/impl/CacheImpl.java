@@ -18,6 +18,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.annotation.Nullable;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.google.inject.name.Named;
 import com.puppetlabs.geppetto.common.os.StreamUtil;
 import com.puppetlabs.geppetto.forge.Cache;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
@@ -25,9 +30,6 @@ import com.puppetlabs.geppetto.forge.util.Checksums;
 import com.puppetlabs.geppetto.forge.util.ModuleUtils;
 import com.puppetlabs.geppetto.forge.v2.service.ReleaseService;
 import com.puppetlabs.geppetto.semver.Version;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.google.inject.name.Named;
 
 @Singleton
 class CacheImpl implements Cache {
@@ -46,6 +48,7 @@ class CacheImpl implements Cache {
 	private transient String cacheKey;
 
 	@Inject(optional = true)
+	@Nullable
 	@Named(CACHE_LOCATION)
 	private File location;
 

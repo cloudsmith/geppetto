@@ -41,9 +41,9 @@ public class Package extends AbstractForgeMojo {
 	@Component
 	private RepositorySystem repositorySystem;
 
-	private File buildForge(File moduleSource, File destination, Metadata[] resultingMetadata, Diagnostic result)
-			throws IOException {
-		return getForgeUtil().build(moduleSource, destination, null, resultingMetadata, null, result);
+	private File buildForge(File moduleSource, File destination, Metadata[] resultingMetadata, byte[][] resultingMD5,
+			Diagnostic result) throws IOException {
+		return getForgeUtil().build(moduleSource, destination, null, resultingMetadata, resultingMD5, result);
 	}
 
 	@Override
@@ -65,7 +65,8 @@ public class Package extends AbstractForgeMojo {
 			MavenProject project = getProject();
 			File moduleRoot = moduleRoots.iterator().next();
 			Metadata[] resultingMetadata = new Metadata[1];
-			project.getArtifact().setFile(buildForge(moduleRoot, buildDir, resultingMetadata, result));
+			byte[][] resultingMD5 = new byte[1][];
+			project.getArtifact().setFile(buildForge(moduleRoot, buildDir, resultingMetadata, resultingMD5, result));
 
 			Artifact pmriArtifact = repositorySystem.createArtifact(
 				project.getGroupId(), project.getArtifactId(), project.getVersion(), "compile", "pmri");
@@ -95,7 +96,7 @@ public class Package extends AbstractForgeMojo {
 				return;
 			}
 			for(File moduleRoot : moduleRoots)
-				buildForge(moduleRoot, builtModules, null, result);
+				buildForge(moduleRoot, builtModules, null, null, result);
 		}
 	}
 }

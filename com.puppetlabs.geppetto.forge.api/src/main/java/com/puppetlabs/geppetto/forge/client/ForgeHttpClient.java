@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nullable;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -48,12 +50,12 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.InputStreamBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.message.BasicNameValuePair;
-import com.puppetlabs.geppetto.forge.client.Authenticator.AuthResponse;
-import com.puppetlabs.geppetto.forge.model.Constants;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.puppetlabs.geppetto.forge.client.Authenticator.AuthResponse;
+import com.puppetlabs.geppetto.forge.model.Constants;
 
 /**
  * Class responsible for all request and response processing
@@ -77,12 +79,17 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 	private String v2URL;
 
 	@Inject
+	@Named(Constants.API_V3_URL_NAME)
+	private String v3URL;
+
+	@Inject
 	private Gson gson;
 
 	@Inject
 	private HttpClient httpClient;
 
 	@Inject(optional = true)
+	@Nullable
 	private Authenticator authenticator;
 
 	private String userAgent = USER_AGENT;
@@ -120,10 +127,8 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 			request.addHeader(HttpHeaders.USER_AGENT, userAgent);
 	}
 
-	private HttpGet createGetRequest(String urlStr, Map<String, String> params, boolean useV1) {
-		StringBuilder bld = new StringBuilder(useV1
-				? createV1Uri(urlStr)
-				: createV2Uri(urlStr));
+	private HttpGet createGetRequest(String urlStr, Map<String, String> params) {
+		StringBuilder bld = new StringBuilder(urlStr);
 		if(params != null && !params.isEmpty()) {
 			List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
 			for(Map.Entry<String, String> param : params.entrySet())
@@ -161,9 +166,8 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 		executeRequest(request, null);
 	}
 
-	@Override
-	public void download(String urlStr, Map<String, String> params, final OutputStream output) throws IOException {
-		HttpGet request = createGetRequest(urlStr, params, false);
+	private void doDownload(String urlStr, Map<String, String> params, final OutputStream output) throws IOException {
+		HttpGet request = createGetRequest(urlStr, params);
 		configureRequest(request);
 		httpClient.execute(request, new ResponseHandler<Void>() {
 			@Override
@@ -178,6 +182,29 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 				return null;
 			}
 		});
+	}
+
+	private <V> V doGet(String urlStr, Map<String, String> params, Type type) throws IOException {
+		HttpGet request = createGetRequest(urlStr, params);
+		configureRequest(request);
+		return executeRequest(request, type);
+	}
+
+	public InputStream download(String urlStr, Map<String, String> params) throws IOException {
+		HttpGet request = createGetRequest(v3URL + urlStr, params);
+		configureRequest(request);
+		HttpResponse response = httpClient.execute(request);
+		return response.getEntity().getContent();
+	}
+
+	@Override
+	public void download(String urlStr, Map<String, String> params, final OutputStream output) throws IOException {
+		doDownload(v3URL + urlStr, params, output);
+	}
+
+	@Override
+	public void downloadV2(String urlStr, Map<String, String> params, final OutputStream output) throws IOException {
+		doDownload(v2URL + urlStr, params, output);
 	}
 
 	private synchronized void endRequest() {
@@ -196,16 +223,17 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 
 	@Override
 	public <V> V get(String urlStr, Map<String, String> params, Type type) throws IOException {
-		HttpGet request = createGetRequest(urlStr, params, false);
-		configureRequest(request);
-		return executeRequest(request, type);
+		return doGet(v3URL + urlStr, params, type);
 	}
 
 	@Override
 	public <V> V getV1(String urlStr, Map<String, String> params, Type type) throws IOException {
-		HttpGet request = createGetRequest(urlStr, params, true);
-		configureRequest(request);
-		return executeRequest(request, type);
+		return doGet(v1URL + urlStr, params, type);
+	}
+
+	@Override
+	public <V> V getV2(String urlStr, Map<String, String> params, Type type) throws IOException {
+		return doGet(v2URL + urlStr, params, type);
 	}
 
 	@Override

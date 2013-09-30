@@ -68,12 +68,15 @@ public class Checksums {
 		bld.append(hexChars[b & 0x0f]);
 	}
 
+	public static void appendHex(StringBuilder bld, byte[] digest) {
+		for(int idx = 0; idx < digest.length; ++idx)
+			appendHex(bld, digest[idx]);
+	}
+
 	public static void appendSHA1(StringBuilder bld, String value) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA1");
-			byte[] digest = md.digest(value.getBytes("UTF-8"));
-			for(int idx = 0; idx < digest.length; ++idx)
-				appendHex(bld, digest[idx]);
+			appendHex(bld, md.digest(value.getBytes("UTF-8")));
 		}
 		catch(UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
@@ -112,7 +115,10 @@ public class Checksums {
 		return bld.toString();
 	}
 
-	private static MessageDigest getMessageDigest() {
+	/**
+	 * @return a new MD5 message digest
+	 */
+	public static MessageDigest getMessageDigest() {
 		try {
 			return MessageDigest.getInstance("MD5");
 		}
@@ -150,6 +156,12 @@ public class Checksums {
 			for(File child : children)
 				loadChecksums(checksums, md, child, basedirLen, exclusionFilter);
 		}
+	}
+
+	public static String toHexString(byte[] digest) {
+		StringBuilder bld = new StringBuilder();
+		appendHex(bld, digest);
+		return bld.toString();
 	}
 
 }

@@ -12,8 +12,9 @@
  */
 package com.puppetlabs.geppetto.pp.dsl.ui.search;
 
+import javax.annotation.Nullable;
+
 import org.apache.log4j.Logger;
-import com.puppetlabs.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -26,6 +27,7 @@ import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.puppetlabs.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 
 /**
  * @author Jan Koehnlein - Initial contribution and API
@@ -43,6 +45,7 @@ public class OpenPuppetElementHandler extends AbstractHandler {
 
 	// TODO: This does not have to be configurable
 	@Inject(optional = true)
+	@Nullable
 	@Named("xtext.enable.styledLables")
 	private boolean enableStyledLabels = true;
 

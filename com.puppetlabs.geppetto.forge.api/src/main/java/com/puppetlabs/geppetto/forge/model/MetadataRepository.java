@@ -8,15 +8,12 @@
  * Contributors:
  *   Puppet Labs
  */
-package com.puppetlabs.geppetto.forge.v2;
+package com.puppetlabs.geppetto.forge.model;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Set;
 
-import com.puppetlabs.geppetto.forge.model.Dependency;
-import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.semver.Version;
 
 /**
@@ -33,7 +30,7 @@ public interface MetadataRepository {
 	 *            Set that will received all dependencies that could not be resolved
 	 * @return The list of resolved modules.
 	 */
-	Collection<Release> deepResolve(Dependency dependency, Set<Dependency> unresolvedCollector) throws IOException;
+	Collection<Metadata> deepResolve(Dependency dependency, Set<Dependency> unresolvedCollector) throws IOException;
 
 	/**
 	 * Return the best candidate for the given dependency
@@ -41,7 +38,7 @@ public interface MetadataRepository {
 	 * @param dependency
 	 * @return The release that is the best match for the dependency or <code>null</code> if no match was found
 	 */
-	Release resolve(Dependency dependency) throws IOException;
+	Metadata resolve(Dependency dependency) throws IOException;
 
 	/**
 	 * Resolve an exact version of a module.
@@ -50,7 +47,8 @@ public interface MetadataRepository {
 	 *            The name of the module
 	 * @param version
 	 *            The desired version
-	 * @return The release that corresponds to the given module and version or <code>null</code> when no such release exists.
+	 * @return The release that corresponds to the given module and version or <code>null</code> when no such release
+	 *         exists.
 	 */
-	Release resolve(ModuleName name, Version version) throws IOException;
+	Metadata resolve(ModuleName name, Version version) throws IOException;
 }

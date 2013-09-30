@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package com.puppetlabs.geppetto.forge.api.it;
+package com.puppetlabs.geppetto.forge.v3.api.it;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -16,13 +16,10 @@ import org.junit.runners.Suite.SuiteClasses;
 
 // @fmtOff
 @SuiteClasses({
-	ModuleTestCreate.class,
-	ReleaseTestCreate.class,
-	UserTests.class,
-	ModuleTests.class,
-	ReleaseTests.class,
-	ReleaseTestDelete.class,
-	ModuleTestDelete.class,
+	OwnersTests.class,
+	ModulesTests.class,
+	ReleasesTests.class,
+	FilesTests.class
 })
 // @fmtOn
 @RunWith(Suite.class)

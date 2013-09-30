@@ -60,8 +60,8 @@ public interface Forge {
 	 *            filter annotated by {@link Named @Named}({@link ForgeConstants#MODULE_FILE_FILTER}) will be used.
 	 * @param resultingMetadata
 	 *            A one element array that will receive the resulting metadata. Can be <tt>null</tt>.
-	 * @param resultingMetadataFile
-	 *            A one element array that will receive the resulting metadata file. Can be <tt>null</tt>.
+	 * @param resultingMD5
+	 *            A one element array that will receive the resulting MD5 digest of the file. Can be <tt>null</tt>.
 	 * @param result
 	 *            diagnostics generated during extraction
 	 * @return The resulting gzipped tar file or <code>null</code> if extraction could not be performed. When that
@@ -70,7 +70,7 @@ public interface Forge {
 	 * @throws IOException
 	 */
 	File build(File moduleSource, File destination, FileFilter filter, Metadata[] resultingMetadata,
-			File[] resultingMetadataFile, Diagnostic result) throws IOException;
+			byte[][] resultingMD5, Diagnostic result) throws IOException;
 
 	/**
 	 * List modified files in an installed module

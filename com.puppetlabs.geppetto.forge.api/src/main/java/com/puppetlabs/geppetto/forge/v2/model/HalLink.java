@@ -10,9 +10,8 @@
  */
 package com.puppetlabs.geppetto.forge.v2.model;
 
-import com.puppetlabs.geppetto.forge.model.Entity;
-
 import com.google.gson.annotations.Expose;
+import com.puppetlabs.geppetto.forge.model.Entity;
 
 /**
  * This represents the link entity from a series of links. This is loosely
@@ -28,5 +27,13 @@ public class HalLink extends Entity {
 	 */
 	public String getHref() {
 		return href;
+	}
+
+	/**
+	 * @param href
+	 *            the href to set
+	 */
+	public void setHref(String href) {
+		this.href = href;
 	}
 }

@@ -15,8 +15,9 @@ package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 import static com.google.common.collect.Iterables.contains;
 import static com.google.common.collect.Iterables.isEmpty;
 
+import javax.annotation.Nullable;
+
 import org.apache.log4j.Logger;
-import com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceFinder.ILocalResourceAccess;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IStorage;
 import org.eclipse.emf.common.util.URI;
@@ -39,9 +40,11 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+import com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceFinder.ILocalResourceAccess;
 
 /**
- * This is a repackaing of the class from the xtext findrefs package - it implements a package private interface in a class
+ * This is a repackaing of the class from the xtext findrefs package - it implements a package private interface in a
+ * class
  * that needed a different implementation.
  * 
  * TODO: Contribute change to Xtext, make the ILocalResourceAccess a public interface. (The implementation is public).
@@ -55,6 +58,7 @@ public class EditorResourceAccess implements ILocalResourceAccess {
 	private static final Logger LOG = Logger.getLogger(EditorResourceAccess.class);
 
 	@Inject(optional = true)
+	@Nullable
 	private IWorkbench workbench;
 
 	@Inject

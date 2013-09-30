@@ -71,8 +71,11 @@
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-multibindings</artifactId>
-			<version>3.0</version>
 		</dependency>
+	  	<dependency>
+	  		<groupId>com.google.code.findbugs</groupId>
+	  		<artifactId>annotations</artifactId>
+	  	</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -80,7 +83,6 @@
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-core-asl</artifactId>
-			<version>1.9.12</version>
 		</dependency>
 	</dependencies>
 

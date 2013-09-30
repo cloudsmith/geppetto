@@ -1,5 +1,6 @@
 package com.puppetlabs.geppetto.injectable.standalone.impl;
 
+import javax.annotation.Nullable;
 import javax.inject.Named;
 
 import org.apache.http.client.HttpClient;
@@ -17,10 +18,12 @@ import com.google.inject.Provider;
 public class StandaloneHttpClientProvider implements Provider<HttpClient> {
 
 	@Inject(optional = true)
+	@Nullable
 	@Named(CoreConnectionPNames.CONNECTION_TIMEOUT)
 	private Integer connectonTimeout;
 
 	@Inject(optional = true)
+	@Nullable
 	@Named(CoreConnectionPNames.SO_TIMEOUT)
 	private Integer soTimeout;
 

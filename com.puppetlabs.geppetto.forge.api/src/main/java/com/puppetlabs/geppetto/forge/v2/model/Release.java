@@ -35,4 +35,12 @@ public class Release extends FlatRelease {
 	public Module getModule() {
 		return module;
 	}
+
+	/**
+	 * @param module
+	 *            the module to set
+	 */
+	public void setModule(Module module) {
+		this.module = module;
+	}
 }

@@ -23,7 +23,6 @@ import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
-import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.semver.VersionRange;
 
 /**
@@ -41,6 +40,31 @@ public interface ForgeService {
 	 * @throws IOException
 	 */
 	Collection<File> downloadDependencies(Iterable<Metadata> metadatas, File importedModulesDir, Diagnostic result)
+			throws IOException;
+
+	/**
+	 * Install a specific release of a module from the Forge repository. A
+	 * module is an archive that contains one single folder. In some cases,
+	 * like when installing into a pre-existing workspace project, it's
+	 * desirable to skip this folder and instead expand everything beneath
+	 * it into the given <code>destination</code>. This behavior can be
+	 * enforced by setting the <code>destinationIncludesTopFolder</code> to <code>true</code>.
+	 * 
+	 * @param release
+	 *            The module release
+	 * @param destination
+	 *            The destination for the install.
+	 * @param destinationIncludesTopFolder
+	 *            When <code>true</code>, assume that all content beneath the
+	 *            top folder in the archive should be installed directly beneath the
+	 *            given <code>destination</code>. When this flag is <code>false</code> the top folder of the archive
+	 *            will be expanded as-is beneath
+	 *            the <code>destination</code>.
+	 * @param force
+	 *            Set to <code>true</code> to overwrite an existing module.
+	 * @return The metadata extracted from the metadata.json file
+	 */
+	Metadata install(Metadata release, File destination, boolean destinationIncludesTopFolder, boolean force)
 			throws IOException;
 
 	/**
@@ -71,31 +95,6 @@ public interface ForgeService {
 	 */
 	Metadata install(ModuleName fullName, VersionRange range, File destination, boolean destinationIncludesTopFolder,
 			boolean force) throws IOException;
-
-	/**
-	 * Install a specific release of a module from the Forge repository. A
-	 * module is an archive that contains one single folder. In some cases,
-	 * like when installing into a pre-existing workspace project, it's
-	 * desirable to skip this folder and instead expand everything beneath
-	 * it into the given <code>destination</code>. This behavior can be
-	 * enforced by setting the <code>destinationIncludesTopFolder</code> to <code>true</code>.
-	 * 
-	 * @param release
-	 *            The module release
-	 * @param destination
-	 *            The destination for the install.
-	 * @param destinationIncludesTopFolder
-	 *            When <code>true</code>, assume that all content beneath the
-	 *            top folder in the archive should be installed directly beneath the
-	 *            given <code>destination</code>. When this flag is <code>false</code> the top folder of the archive
-	 *            will be expanded as-is beneath
-	 *            the <code>destination</code>.
-	 * @param force
-	 *            Set to <code>true</code> to overwrite an existing module.
-	 * @return The metadata extracted from the metadata.json file
-	 */
-	Metadata install(Release release, File destination, boolean destinationIncludesTopFolder, boolean force)
-			throws IOException;
 
 	/**
 	 * Publish a gzipped module tarball to the Forge. The provided diagnostic is used for informational messages
@@ -138,7 +137,7 @@ public interface ForgeService {
 	 * @return A set of releases that constitutes the successful part of the resolution
 	 * @throws IOException
 	 */
-	Set<Release> resolveDependencies(Iterable<Metadata> metadatas, Set<Dependency> unresolvedCollector)
+	Set<Metadata> resolveDependencies(Iterable<Metadata> metadatas, Set<Dependency> unresolvedCollector)
 			throws IOException;
 
 	/**

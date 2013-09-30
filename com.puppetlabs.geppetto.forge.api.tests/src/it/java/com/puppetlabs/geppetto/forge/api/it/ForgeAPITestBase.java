@@ -2,15 +2,15 @@ package com.puppetlabs.geppetto.forge.api.it;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+
+import com.google.inject.AbstractModule;
 import com.puppetlabs.geppetto.forge.client.ForgeHttpModule;
 import com.puppetlabs.geppetto.forge.client.GsonModule;
 import com.puppetlabs.geppetto.forge.client.OAuthModule;
 import com.puppetlabs.geppetto.forge.v2.ForgeAPI;
 import com.puppetlabs.geppetto.semver.Version;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-
-import com.google.inject.AbstractModule;
 
 public class ForgeAPITestBase {
 	public static class TestModule extends AbstractModule {
@@ -18,6 +18,14 @@ public class ForgeAPITestBase {
 		@Override
 		protected void configure() {
 			install(GsonModule.INSTANCE);
+			install(new ForgeHttpModule() {
+
+				@Override
+				protected String getBaseURL() {
+					return FORGE_STAGING_SERVICE_BASE_URL;
+				}
+			});
+			install(new OAuthModule(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, TEST_USER, TEST_PASSWORD));
 			bind(HttpClient.class).toInstance(new DefaultHttpClient());
 		}
 	}
@@ -46,13 +54,7 @@ public class ForgeAPITestBase {
 
 	protected static ForgeAPI getTestUserForge() {
 		if(testUserForge == null)
-			testUserForge = new ForgeAPI(new TestModule(), new ForgeHttpModule() {
-
-				@Override
-				protected String getBaseURL() {
-					return FORGE_STAGING_SERVICE_BASE_URL;
-				}
-			}, new OAuthModule(FORGE_CLIENT_ID, FORGE_CLIENT_SECRET, TEST_USER, TEST_PASSWORD));
+			testUserForge = new ForgeAPI(new TestModule());
 		return testUserForge;
 	}
 }

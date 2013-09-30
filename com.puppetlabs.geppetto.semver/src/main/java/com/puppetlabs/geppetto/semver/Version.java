@@ -48,6 +48,16 @@ public class Version implements Comparable<Version>, Serializable {
 		return new Version(major, minor, patch, preRelease);
 	}
 
+	/**
+	 * Creates a new instance from the given <code>version</code> string. This method will return <code>null</code> on
+	 * <code>null</code> input.
+	 * 
+	 * @param version
+	 *            The version in string form.
+	 * @return The created version.
+	 * @throws IllegalArgumentException
+	 *             if the version string is not a valid semver version.
+	 */
 	public static Version create(String version) {
 		if(version == null || version.length() == 0)
 			return null;
@@ -58,6 +68,21 @@ public class Version implements Comparable<Version>, Serializable {
 					"' does not represent a valid semantic version");
 		return new Version(
 			Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), m.group(4));
+	}
+
+	/**
+	 * Checks if the given <code>version</code> is a valid semver version.
+	 * 
+	 * @param version
+	 *            The version to check. Passing <code>null</code> yields a response of <code>false</code>.
+	 * @return <code>true</code> if the given <code>version</code> is valid.
+	 */
+	public static boolean isValid(String version) {
+		if(version != null && version.length() > 0) {
+			Matcher m = VERSION_PATTERN.matcher(version);
+			return m.matches();
+		}
+		return false;
 	}
 
 	private final int major;

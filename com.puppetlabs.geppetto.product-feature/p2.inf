@@ -5,8 +5,8 @@ properties.1.name=df_LT.providerName
 properties.1.value=Puppet Labs, Inc.
 
 instructions.configure=\
-	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:0,location:http${#58}//download.cloudsmith.com/geppetto/4.x,name:Geppetto Updates);\
-	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:1,location:http${#58}//download.cloudsmith.com/geppetto/4.x,name:Geppetto Updates);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:0,location:http${#58}//geppetto-updates.puppetlabs.com/4.x,name:Geppetto Updates);\
+	org.eclipse.equinox.p2.touchpoint.eclipse.addRepository(type:1,location:http${#58}//geppetto-updates.puppetlabs.com/4.x,name:Geppetto Updates);\
 	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:0,location:http${#58}//download.eclipse.org/releases/indigo);\
 	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:1,location:http${#58}//download.eclipse.org/releases/indigo);\
 	org.eclipse.equinox.p2.touchpoint.eclipse.removeRepository(type:0,location:http${#58}//download.eclipse.org/releases/juno);\

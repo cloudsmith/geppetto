@@ -42,6 +42,9 @@ public class Module extends TimestampedEntity {
 	private String commit_feed_url;
 
 	@Expose
+	private Integer downloads;
+
+	@Expose
 	private User owner;
 
 	@Expose
@@ -72,6 +75,13 @@ public class Module extends TimestampedEntity {
 	 */
 	public String getDescription() {
 		return description;
+	}
+
+	/**
+	 * @return Total number of downloads
+	 */
+	public Integer getDownloads() {
+		return downloads;
 	}
 
 	/**
@@ -157,6 +167,14 @@ public class Module extends TimestampedEntity {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * @param downloads
+	 *            Total number of downloads
+	 */
+	public void setDownloads(Integer downloads) {
+		this.downloads = downloads;
 	}
 
 	/**

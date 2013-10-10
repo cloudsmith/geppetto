@@ -105,6 +105,8 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 
 	private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z][a-zA-Z0-9_-]*$");
 
+	private static final Pattern STRICT_NAME_PATTERN = Pattern.compile("^[a-z][a-z0-9_]*$");
+
 	/**
 	 * <p>
 	 * Checks that the given name only contains lowercase letters, numbers and underscores and that it begins with a
@@ -272,7 +274,9 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 			sepIdx = moduleName.indexOf('-');
 
 		if(sepIdx >= 0) {
-			owner = moduleName.substring(0, sepIdx);
+			owner = sepIdx == 0
+					? null
+					: moduleName.substring(0, sepIdx);
 			name = moduleName.substring(sepIdx + 1);
 		}
 		else
@@ -287,8 +291,6 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	private final String name;
 
 	private final String semanticName;
-
-	private static final Pattern STRICT_NAME_PATTERN = Pattern.compile("^[a-z][a-z0-9_]*$");
 
 	protected ModuleName(ModuleName m) {
 		this.separator = m.separator;
@@ -351,11 +353,17 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 			separator = '-';
 		}
 
-		if(!(idx > 0 && idx < fullName.length() - 1))
-			throw new BadNameSyntaxException();
+		if(idx < 0) {
+			this.owner = NO_VALUE;
+			this.name = checkName(fullName, strict);
+		}
+		else {
+			if(!(idx > 0 && idx < fullName.length() - 1))
+				throw new BadNameSyntaxException();
 
-		this.owner = checkOwner(fullName.substring(0, idx), strict);
-		this.name = checkName(fullName.substring(idx + 1), strict);
+			this.owner = checkOwner(fullName.substring(0, idx), strict);
+			this.name = checkName(fullName.substring(idx + 1), strict);
+		}
 
 		String semName = createSemanticName();
 		if(semName.equals(fullName))
@@ -378,7 +386,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 */
 	public ModuleName(String owner, char separator, String name, boolean strict) throws BadNameSyntaxException,
 			BadOwnerCharactersException, BadNameCharactersException {
-		this.owner = owner == null
+		this.owner = owner == null || owner.length() == 0
 				? NO_VALUE
 				: checkOwner(owner, strict);
 
@@ -386,7 +394,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 			throw new BadNameSyntaxException();
 
 		this.separator = separator;
-		this.name = name == null
+		this.name = name == null || name.length() == 0
 				? NO_VALUE
 				: checkName(name, strict);
 		this.semanticName = createSemanticName();
@@ -480,8 +488,10 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * @param builder
 	 */
 	public void toString(StringBuilder builder) {
-		builder.append(owner);
-		builder.append(separator);
+		if(owner != NO_VALUE) {
+			builder.append(owner);
+			builder.append(separator);
+		}
 		builder.append(name);
 	}
 

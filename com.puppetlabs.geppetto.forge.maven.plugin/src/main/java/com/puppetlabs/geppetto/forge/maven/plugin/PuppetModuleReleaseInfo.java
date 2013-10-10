@@ -22,6 +22,7 @@ import com.google.common.base.Charsets;
 import com.google.gson.annotations.Expose;
 import com.puppetlabs.geppetto.forge.model.Entity;
 import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
 
 /**
  * Stores information about a release that cannot be contained in a POM
@@ -70,6 +71,9 @@ public class PuppetModuleReleaseInfo extends Entity {
 	}
 
 	@Expose
+	private ModuleName moduleName;
+
+	@Expose
 	private String changelog;
 
 	@Expose
@@ -101,6 +105,16 @@ public class PuppetModuleReleaseInfo extends Entity {
 
 	public Metadata getMetadata() {
 		return metadata;
+	}
+
+	/**
+	 * We need an extra module name since the one in the metadata cannot be trusted
+	 * and the maven coordinates are lower cased
+	 * 
+	 * @return The name of the module
+	 */
+	public ModuleName getModuleName() {
+		return moduleName;
 	}
 
 	public String getReadme() {
@@ -169,6 +183,10 @@ public class PuppetModuleReleaseInfo extends Entity {
 
 	public void setMetadata(Metadata metadata) {
 		this.metadata = metadata;
+	}
+
+	public void setModuleName(ModuleName moduleName) {
+		this.moduleName = moduleName;
 	}
 
 	public void setReadme(String readme) {

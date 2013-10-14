@@ -10,9 +10,10 @@
  */
 package com.puppetlabs.geppetto.pp.dsl.target;
 
+import org.eclipse.emf.common.util.URI;
+
 import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor.ComplianceLevel;
 import com.puppetlabs.geppetto.semver.Version;
-import org.eclipse.emf.common.util.URI;
 
 public enum PuppetTarget {
 	// @fmtOff
@@ -24,7 +25,7 @@ public enum PuppetTarget {
 	PUPPET_ENTERPRISE20("2.7.9", "PE 2.0", "puppet-2.7.19.pptp", "2.0.2", ComplianceLevel.PUPPET_2_7), // TODO: Fix a 2.7.9 pptp
 	PUPPET_ENTERPRISE27("2.7.19", "PE 2.7", "puppet-2.7.19.pptp", "2.7.2", ComplianceLevel.PUPPET_2_7),
 	PUPPET_ENTERPRISE28("2.7.21", "PE 2.8", "puppet-2.7.19.pptp", "2.8.1", ComplianceLevel.PUPPET_2_7), // TODO: Fix a 2.7.21 pptp
-	PUPPET_ENTERPRISE30("3.2.2", "PE 3.0", "puppet-3.2.0.pptp", "3.0.0", ComplianceLevel.PUPPET_3_2); // TODO: Fix a 3.2.2 pptp
+	PUPPET_ENTERPRISE30("3.2.4", "PE 3.0", "puppet-3.2.0.pptp", "3.0.1", ComplianceLevel.PUPPET_3_2); // TODO: Fix a 3.2.2 pptp
 	// @fmtOn
 
 	public static PuppetTarget forComplianceLevel(ComplianceLevel level, boolean enterprise) {

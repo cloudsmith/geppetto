@@ -25,7 +25,8 @@ import com.google.gson.JsonSerializer;
 /**
  * A qualified name that is case insensitive and also separator insensitive when performing comparisons
  * and hash code calculations. The instance does however preserve both case and the separator. The
- * created instance is immutable and suitable for use as key in hash tables and trees.
+ * created instance is immutable and suitable for use as key in hash tables and trees. The strings
+ * contained in a module name are interned to save memory and increase performance.
  */
 public class ModuleName implements Serializable, Comparable<ModuleName> {
 	public static class BadNameCharactersException extends IllegalArgumentException {
@@ -355,20 +356,20 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 
 		if(idx < 0) {
 			this.owner = NO_VALUE;
-			this.name = checkName(fullName, strict);
+			this.name = checkName(fullName, strict).intern();
 		}
 		else {
 			if(!(idx > 0 && idx < fullName.length() - 1))
 				throw new BadNameSyntaxException();
 
-			this.owner = checkOwner(fullName.substring(0, idx), strict);
-			this.name = checkName(fullName.substring(idx + 1), strict);
+			this.owner = checkOwner(fullName.substring(0, idx), strict).intern();
+			this.name = checkName(fullName.substring(idx + 1), strict).intern();
 		}
 
 		String semName = createSemanticName();
 		if(semName.equals(fullName))
 			semName = fullName; // Don't waste string instance here. This will be the common case
-		this.semanticName = semName;
+		this.semanticName = semName.intern();
 	}
 
 	/**
@@ -388,7 +389,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 			BadOwnerCharactersException, BadNameCharactersException {
 		this.owner = owner == null || owner.length() == 0
 				? NO_VALUE
-				: checkOwner(owner, strict);
+				: checkOwner(owner, strict).intern();
 
 		if(!(separator == '-' || separator == '/'))
 			throw new BadNameSyntaxException();
@@ -396,8 +397,8 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		this.separator = separator;
 		this.name = name == null || name.length() == 0
 				? NO_VALUE
-				: checkName(name, strict);
-		this.semanticName = createSemanticName();
+				: checkName(name, strict).intern();
+		this.semanticName = createSemanticName().intern();
 	}
 
 	public ModuleName(String qualifier, String name, boolean strict) {

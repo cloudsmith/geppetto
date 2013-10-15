@@ -72,10 +72,6 @@
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-multibindings</artifactId>
 		</dependency>
-	  	<dependency>
-	  		<groupId>com.google.code.findbugs</groupId>
-	  		<artifactId>annotations</artifactId>
-	  	</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

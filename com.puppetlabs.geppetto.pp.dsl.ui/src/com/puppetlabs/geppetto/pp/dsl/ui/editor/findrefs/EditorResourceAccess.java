@@ -15,8 +15,6 @@ package com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs;
 import static com.google.common.collect.Iterables.contains;
 import static com.google.common.collect.Iterables.isEmpty;
 
-import javax.annotation.Nullable;
-
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IStorage;
@@ -40,6 +38,7 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.inject.Inject;
+import com.puppetlabs.geppetto.common.annotations.Nullable;
 import com.puppetlabs.geppetto.pp.dsl.ui.editor.findrefs.PPReferenceFinder.ILocalResourceAccess;
 
 /**

@@ -10,7 +10,6 @@
  */
 package com.puppetlabs.geppetto.injectable.eclipse.impl;
 
-import javax.annotation.Nullable;
 import javax.inject.Named;
 
 import org.apache.http.auth.AuthScope;
@@ -28,6 +27,7 @@ import org.eclipse.core.net.proxy.IProxyData;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.puppetlabs.geppetto.common.annotations.Nullable;
 import com.puppetlabs.geppetto.injectable.eclipse.Activator;
 
 public class EclipseHttpClientProvider implements Provider<HttpClient> {

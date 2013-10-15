@@ -18,11 +18,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.annotation.Nullable;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.name.Named;
+import com.puppetlabs.geppetto.common.annotations.Nullable;
 import com.puppetlabs.geppetto.common.os.StreamUtil;
 import com.puppetlabs.geppetto.forge.Cache;
 import com.puppetlabs.geppetto.forge.model.ModuleName;

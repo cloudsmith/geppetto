@@ -10,10 +10,9 @@
  */
 package com.puppetlabs.geppetto.graph;
 
-import javax.annotation.Nullable;
-
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.puppetlabs.geppetto.common.annotations.Nullable;
 
 /**
  * Producer of HREF attribute suitable for github (e.g. https://github.com/owner/proj/branch/<file>#Lnn).

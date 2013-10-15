@@ -12,7 +12,6 @@
         <cs:dependency name="org.eclipse.emf.mwe2.launch" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
         <cs:dependency name="org.eclipse.emf.mwe2.language" componentType="osgi.bundle" filter="(!(pruned.product.build=true))"/>
         <cs:dependency name="org.eclipse.m2e.core" componentType="osgi.bundle"/>
-        <cs:dependency name="findbugsAnnotations" componentType="osgi.bundle"/>
 	</cs:dependencies>
     <cs:actions>
         <cs:public name="product.zip-cocoa.macosx.x86" actor="ant">

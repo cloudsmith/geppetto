@@ -12,8 +12,6 @@
  */
 package com.puppetlabs.geppetto.pp.dsl.ui.search;
 
-import javax.annotation.Nullable;
-
 import org.apache.log4j.Logger;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -27,6 +25,7 @@ import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.puppetlabs.geppetto.common.annotations.Nullable;
 import com.puppetlabs.geppetto.pp.dsl.ui.labeling.PPDescriptionLabelProvider;
 
 /**

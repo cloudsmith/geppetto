@@ -13,7 +13,6 @@
   <rm:locator pattern="^org\.polarion\.eclipse\.team\.svn\.connector(\..+)?$" searchPathRef="svn.connectors"/>
   <rm:locator pattern="^org\.apache\.commons\.compress(\..+)?$" searchPathRef="commons-compress"/>
   <rm:locator pattern="^org\.jruby(\..+)?$" searchPathRef="maven.central"/>
-  <rm:locator pattern="^findbugsAnnotations(\..+)?$" searchPathRef="maven.central"/>
   <rm:locator searchPathRef="orbit" failOnError="false"/>
   <rm:locator searchPathRef="platform" failOnError="false"/>
   <rm:locator searchPathRef="kepler" failOnError="false"/>
@@ -93,7 +92,6 @@
       <maven:mappings>
         <maven:entry artifactId="commons-compress" groupId="org.apache.commons" name="org.apache.commons.compress"/>
         <maven:entry artifactId="jruby-complete" groupId="org.jruby" name="org.jruby.jruby"/>
-        <maven:entry artifactId="annotations" groupId="com.google.code.findbugs" name="findbugsAnnotations"/>
       </maven:mappings>
     </rm:provider>
   </rm:searchPath>

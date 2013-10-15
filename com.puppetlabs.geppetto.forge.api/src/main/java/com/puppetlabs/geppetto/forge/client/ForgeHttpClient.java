@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -54,6 +52,7 @@ import org.apache.http.message.BasicNameValuePair;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import com.puppetlabs.geppetto.common.annotations.Nullable;
 import com.puppetlabs.geppetto.forge.client.Authenticator.AuthResponse;
 import com.puppetlabs.geppetto.forge.model.Constants;
 

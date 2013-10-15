@@ -2,12 +2,12 @@ Geppetto is aimed at developing tools to simplify the process of authoring and
 consuming Puppet modules and manifests.
 
 The Geppetto IDE tooling can be downloaded as a stand-alone product
-from http://cloudsmith.github.com/geppetto/download.html
+from https://downloads.puppetlabs.com/geppetto/downloads
 or installed into an existing Eclipse IDE from
-http://download.cloudsmith.com/geppetto/updates.
+hhttp://updates.puppetlabs.com/geppetto.
 
 For FAQ, and more information visit the Geppetto site:
-http://cloudsmith.github.com/geppetto/
+http://puppetlabs.github.io/geppetto/faq.html
 
 
 The project's foundation is a model of the Puppet DSL, along with parsers,

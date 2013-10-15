@@ -33,6 +33,7 @@ import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.name.Named;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
@@ -186,6 +187,12 @@ public class GsonModule extends AbstractModule {
 		}
 	}
 
+	public static final ChecksumMapAdapter CHECKSUM_ADAPTER = new ChecksumMapAdapter();
+
+	public static final VersionJsonAdapter VERSION_ADAPTER = new VersionJsonAdapter();
+
+	public static final VersionRangeJsonAdapter VERSION_RANGE_ADAPTER = new VersionRangeJsonAdapter();
+
 	public static GsonModule INSTANCE = new GsonModule();
 
 	private static final Pattern ISO_8601_PTRN = Pattern.compile("^(\\d\\d\\d\\d-\\d\\d-\\d\\dT\\d\\d:\\d\\d:\\d\\d)(Z|(?:[+-]\\d\\d:\\d\\d))$");
@@ -200,19 +207,30 @@ public class GsonModule extends AbstractModule {
 
 	private final GsonBuilder gsonBuilder;
 
+	private final GsonBuilder gsonV3Builder;
+
 	private final Gson gson;
 
 	private GsonModule() {
 		gsonBuilder = new GsonBuilder();
 		gsonBuilder.excludeFieldsWithoutExposeAnnotation();
 		gsonBuilder.setPrettyPrinting();
-		gsonBuilder.registerTypeAdapter(VersionRange.class, new VersionRangeJsonAdapter());
-		gsonBuilder.registerTypeAdapter(Version.class, new VersionJsonAdapter());
+		gsonBuilder.registerTypeAdapter(VersionRange.class, VERSION_RANGE_ADAPTER);
+		gsonBuilder.registerTypeAdapter(Version.class, VERSION_ADAPTER);
 		gsonBuilder.registerTypeAdapter(ModuleName.class, new ModuleName.JsonAdapter());
-		gsonBuilder.registerTypeAdapter(ChecksumMapAdapter.TYPE, new ChecksumMapAdapter());
+		gsonBuilder.registerTypeAdapter(ChecksumMapAdapter.TYPE, CHECKSUM_ADAPTER);
 		gsonBuilder.registerTypeAdapter(Date.class, new DateJsonAdapter());
 
 		gson = gsonBuilder.create();
+
+		gsonV3Builder = new GsonBuilder();
+		gsonV3Builder.excludeFieldsWithoutExposeAnnotation();
+		gsonV3Builder.serializeNulls();
+		gsonV3Builder.registerTypeAdapter(VersionRange.class, VERSION_RANGE_ADAPTER);
+		gsonV3Builder.registerTypeAdapter(Version.class, VERSION_ADAPTER);
+		gsonV3Builder.registerTypeAdapter(ModuleName.class, new ModuleName.JsonAdapter());
+		gsonV3Builder.registerTypeAdapter(ChecksumMapAdapter.TYPE, CHECKSUM_ADAPTER);
+		gsonV3Builder.setDateFormat("yyyy-MM-dd HH:mm:ss Z");
 	}
 
 	@Override
@@ -222,6 +240,12 @@ public class GsonModule extends AbstractModule {
 	@Provides
 	public Gson provideGson() {
 		return gsonBuilder.create();
+	}
+
+	@Provides
+	@Named("gson-v3")
+	public Gson provideV3Gson() {
+		return gsonV3Builder.create();
 	}
 
 	/**

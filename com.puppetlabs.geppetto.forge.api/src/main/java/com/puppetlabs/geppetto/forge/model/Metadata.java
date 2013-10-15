@@ -16,13 +16,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.puppetlabs.geppetto.semver.Version;
 import com.google.gson.annotations.Expose;
+import com.puppetlabs.geppetto.semver.Version;
 
 /**
  * Module meta-data
  */
 public class Metadata extends Entity {
+	private static List<Type> copyTypes(List<Type> types) {
+		if(types != null) {
+			int top = types.size();
+			if(top > 0) {
+				List<Type> copy = new ArrayList<Type>(types.size());
+				for(Type type : types)
+					copy.add(new Type(type));
+			}
+		}
+		return Collections.emptyList();
+	}
+
 	private static String nullToEmpty(String s) {
 		if(s == null)
 			s = "";
@@ -92,10 +104,7 @@ public class Metadata extends Entity {
 		else
 			dependencies = new ArrayList<Dependency>(src.dependencies);
 
-		if(src.types == null || src.types.isEmpty())
-			types = Collections.emptyList();
-		else
-			types = new ArrayList<Type>(src.types);
+		types = copyTypes(src.types);
 
 		if(checksums == null || checksums.isEmpty())
 			checksums = Collections.emptyMap();

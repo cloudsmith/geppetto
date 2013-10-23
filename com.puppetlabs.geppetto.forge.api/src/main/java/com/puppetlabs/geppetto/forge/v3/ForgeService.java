@@ -29,6 +29,9 @@ public abstract class ForgeService<T extends Entity, I> {
 	public static class And<T extends Entity> extends ArrayList<Query<T>> implements Query<T> {
 		private static final long serialVersionUID = 1L;
 
+		public And() {
+		}
+
 		public And(Collection<Query<T>> queries) {
 			super(queries);
 		}

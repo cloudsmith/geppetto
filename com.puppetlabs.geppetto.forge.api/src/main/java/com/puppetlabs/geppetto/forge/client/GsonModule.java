@@ -243,9 +243,20 @@ public class GsonModule extends AbstractModule {
 	}
 
 	@Provides
+	public GsonBuilder provideGsonBuilder() {
+		return gsonBuilder;
+	}
+
+	@Provides
 	@Named("gson-v3")
 	public Gson provideV3Gson() {
 		return gsonV3Builder.create();
+	}
+
+	@Provides
+	@Named("gson-v3")
+	public GsonBuilder provideV3GsonBuilder() {
+		return gsonV3Builder;
 	}
 
 	/**

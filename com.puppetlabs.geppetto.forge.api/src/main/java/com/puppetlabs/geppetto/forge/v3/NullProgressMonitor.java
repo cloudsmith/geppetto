@@ -11,8 +11,28 @@
  */
 package com.puppetlabs.geppetto.forge.v3;
 
-import com.puppetlabs.geppetto.forge.v3.model.User;
+public class NullProgressMonitor implements ProgressMonitor {
+	private boolean canceled = false;
 
-public interface Users extends ForgeService<User, String> {
+	@Override
+	public void beginTask(int toDo) {
+	}
 
+	@Override
+	public void cancel() {
+		canceled = true;
+	}
+
+	@Override
+	public void endTask() {
+	}
+
+	@Override
+	public boolean isCanceled() {
+		return canceled;
+	}
+
+	@Override
+	public void work(String message, int workDone) {
+	}
 }

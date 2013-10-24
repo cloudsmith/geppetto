@@ -7,55 +7,31 @@
  * 
  * Contributors:
  *   Puppet Labs
+ * 
  */
 package com.puppetlabs.geppetto.forge.v1.service;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpResponseException;
-import com.puppetlabs.geppetto.forge.client.ForgeClient;
-import com.puppetlabs.geppetto.forge.model.Constants;
 import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
-
-import com.google.inject.Inject;
 
 /**
  * A CRUD service for {@link Module} objects
  */
-public class ModuleService {
-	@Inject
-	private ForgeClient forgeClient;
+public interface ModuleService {
 
 	/**
 	 * Cleanly abort the currently executing request. This method does nothing if there is
 	 * no executing request.
 	 */
-	public void abortCurrentRequest() {
-		forgeClient.abortCurrentRequest();
-	}
+	void abortCurrentRequest();
 
 	/**
 	 * @param keyword
 	 *            KeyWord to use in the search. May be <code>null</code> to get all modules.
-	 * @return All Modules that matches the given keyword
+	 * @return All DefaultModules that matches the given keyword
 	 * @throws IOException
 	 */
-	public List<ModuleInfo> search(String keyword) throws IOException {
-		List<ModuleInfo> modules = null;
-		try {
-			modules = forgeClient.getV1(Constants.COMMAND_GROUP_MODULES, keyword == null
-					? null
-					: Collections.singletonMap("q", keyword), Constants.LIST_MODULE_INFO);
-		}
-		catch(HttpResponseException e) {
-			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
-				throw e;
-		}
-		if(modules == null)
-			modules = Collections.emptyList();
-		return modules;
-	}
+	List<ModuleInfo> search(String keyword) throws IOException;
 }

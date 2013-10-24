@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 
 /**
- * Base functionality for producing href for Exports and Modules.
+ * Base functionality for producing href for Exports and DefaultModules.
  * 
  */
 public abstract class AbstractHrefProducer implements IHrefProducer {

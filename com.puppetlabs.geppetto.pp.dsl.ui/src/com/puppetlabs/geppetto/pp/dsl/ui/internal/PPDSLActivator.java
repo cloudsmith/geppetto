@@ -163,7 +163,7 @@ public class PPDSLActivator extends PPActivator {
 	@Override
 	protected Module getUiModule(String grammar) {
 		if(PPDSLConstants.PPTP_LANGUAGE_NAME.equals(grammar))
-			return new PptpUIModule(); // Modules.EMPTY_MODULE;
+			return new PptpUIModule(); // DefaultModules.EMPTY_MODULE;
 		else if(PPDSLConstants.PPTP_RUBY_LANGUAGE_NAME.equals(grammar))
 			return new PptpRubyUIModule();
 

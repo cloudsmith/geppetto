@@ -7,17 +7,13 @@
  * 
  * Contributors:
  *   Puppet Labs
+ * 
  */
 package com.puppetlabs.geppetto.forge.v2.service;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpResponseException;
-import com.puppetlabs.geppetto.forge.model.Constants;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
 import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.forge.v2.model.Tag;
@@ -25,10 +21,7 @@ import com.puppetlabs.geppetto.forge.v2.model.Tag;
 /**
  * A CRUD service for {@link Module} objects
  */
-public class ModuleService extends ForgeService {
-	private static String getModulePath(String owner, String name) {
-		return Constants.COMMAND_GROUP_MODULES + '/' + owner + '/' + name;
-	}
+public interface ModuleService extends ForgeService {
 
 	/**
 	 * Create a new Module based on the given <code>module</code> template. The
@@ -39,9 +32,7 @@ public class ModuleService extends ForgeService {
 	 * @return The created module
 	 * @throws IOException
 	 */
-	public Module create(ModuleTemplate module) throws IOException {
-		return getClient(true).postJSON(Constants.COMMAND_GROUP_MODULES, module, Module.class);
-	}
+	Module create(ModuleTemplate module) throws IOException;
 
 	/**
 	 * Delete the module identified by <code>owner</code> and <code>name</code>.
@@ -52,9 +43,7 @@ public class ModuleService extends ForgeService {
 	 *            The name of the module.
 	 * @throws IOException
 	 */
-	public void delete(String owner, String name) throws IOException {
-		getClient(true).delete(getModulePath(owner, name));
-	}
+	void delete(String owner, String name) throws IOException;
 
 	/**
 	 * @param owner
@@ -64,9 +53,7 @@ public class ModuleService extends ForgeService {
 	 * @return Details of the module identified by <code>owner</code> and <code>name</code>.
 	 * @throws IOException
 	 */
-	public Module get(String owner, String name) throws IOException {
-		return getClient(false).getV2(getModulePath(owner, name), null, Module.class);
-	}
+	Module get(String owner, String name) throws IOException;
 
 	/**
 	 * @param owner
@@ -78,20 +65,7 @@ public class ModuleService extends ForgeService {
 	 * @return All releases of the module identified by <code>owner</code> and <code>name</code>.
 	 * @throws IOException
 	 */
-	public List<Release> getReleases(String owner, String name, ListPreferences listPreferences) throws IOException {
-		List<Release> releases = null;
-		try {
-			releases = getClient(false).getV2(
-				getModulePath(owner, name) + "/releases", toQueryMap(listPreferences), Constants.LIST_RELEASE);
-		}
-		catch(HttpResponseException e) {
-			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
-				throw e;
-		}
-		if(releases == null)
-			releases = Collections.emptyList();
-		return releases;
-	}
+	List<Release> getReleases(String owner, String name, ListPreferences listPreferences) throws IOException;
 
 	/**
 	 * @param owner
@@ -103,20 +77,7 @@ public class ModuleService extends ForgeService {
 	 * @return The tags attached to the module identified by <code>owner</code> and <code>name</code>.
 	 * @throws IOException
 	 */
-	public List<Tag> getTags(String owner, String name, ListPreferences listPreferences) throws IOException {
-		List<Tag> tags = null;
-		try {
-			tags = getClient(false).getV2(
-				getModulePath(owner, name) + "/tags", toQueryMap(listPreferences), Constants.LIST_TAG);
-		}
-		catch(HttpResponseException e) {
-			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
-				throw e;
-		}
-		if(tags == null)
-			tags = Collections.emptyList();
-		return tags;
-	}
+	List<Tag> getTags(String owner, String name, ListPreferences listPreferences) throws IOException;
 
 	/**
 	 * Returns a list of a list of matching modules. Any module with a name that contains <code>keyword</code> is
@@ -130,22 +91,7 @@ public class ModuleService extends ForgeService {
 	 * @return A list of matching modules.
 	 * @throws IOException
 	 */
-	public List<Module> search(String keyword, ListPreferences listPreferences) throws IOException {
-		Map<String, String> map = toQueryMap(listPreferences);
-		if(keyword != null)
-			map.put("keyword", keyword);
-		List<Module> modules = null;
-		try {
-			modules = getClient(false).getV2(Constants.COMMAND_GROUP_MODULES, map, Constants.LIST_MODULE);
-		}
-		catch(HttpResponseException e) {
-			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
-				throw e;
-		}
-		if(modules == null)
-			modules = Collections.emptyList();
-		return modules;
-	}
+	List<Module> search(String keyword, ListPreferences listPreferences) throws IOException;
 
 	/**
 	 * Updates the module identified with <code>owner</code> and <code>name</code> with
@@ -160,7 +106,6 @@ public class ModuleService extends ForgeService {
 	 * @return The updated module
 	 * @throws IOException
 	 */
-	public Module update(String owner, String name, ModuleTemplate module) throws IOException {
-		return getClient(true).patch(getModulePath(owner, name), module, Module.class);
-	}
+	Module update(String owner, String name, ModuleTemplate module) throws IOException;
+
 }

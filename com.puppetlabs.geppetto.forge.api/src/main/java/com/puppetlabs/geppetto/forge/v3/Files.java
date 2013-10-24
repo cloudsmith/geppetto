@@ -15,16 +15,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.google.inject.Inject;
-import com.puppetlabs.geppetto.forge.client.ForgeClient;
 import com.puppetlabs.geppetto.forge.model.VersionedName;
 
 /**
  * Endpoint capable of performing downloads
  */
-public class Files {
-	@Inject
-	private ForgeClient client;
+public interface Files {
 
 	/**
 	 * @param owner
@@ -36,15 +32,7 @@ public class Files {
 	 * @return The content of a particular release
 	 * @throws IOException
 	 */
-	public InputStream download(VersionedName release) throws IOException {
-		StringBuilder bld = new StringBuilder("files");
-		bld.append('/');
-		release.getModuleName().withSeparator('-').toString(bld);
-		bld.append('-');
-		release.getVersion().toString(bld);
-		bld.append(".tar.gz");
-		return client.download(bld.toString(), null);
-	}
+	InputStream download(VersionedName release) throws IOException;
 
 	/**
 	 * @param owner
@@ -58,13 +46,6 @@ public class Files {
 	 * @return The content of a particular release
 	 * @throws IOException
 	 */
-	public void download(VersionedName release, OutputStream output) throws IOException {
-		StringBuilder bld = new StringBuilder("files");
-		bld.append('/');
-		release.getModuleName().withSeparator('-').toString(bld);
-		bld.append('-');
-		release.getVersion().toString(bld);
-		bld.append(".tar.gz");
-		client.download(bld.toString(), null, output);
-	}
+	void download(VersionedName release, OutputStream output) throws IOException;
+
 }

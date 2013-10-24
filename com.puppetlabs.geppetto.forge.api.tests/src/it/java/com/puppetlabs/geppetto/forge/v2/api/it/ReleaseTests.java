@@ -37,7 +37,7 @@ public class ReleaseTests extends ForgeAPITestBase {
 	/* Disabled since it's not really used and puts a hard strain on the server
 	@Test
 	public void testListReleases() throws IOException {
-		ReleaseService service = getTestUserForge().createReleaseService();
+		DefaultReleaseService service = getTestUserForge().createReleaseService();
 		List<Release> releases = service.list(null);
 		assertNotNull("Null Release list", releases);
 		assertFalse("Empty Release list", releases.isEmpty());
@@ -45,15 +45,15 @@ public class ReleaseTests extends ForgeAPITestBase {
 
 	@Test
 	public void testListReleasesSorted() throws IOException {
-		ReleaseService service = getTestUserForge().createReleaseService();
+		DefaultReleaseService service = getTestUserForge().createReleaseService();
 		ListPreferences listPrefs = new ListPreferences();
 		listPrefs.setLimit(4);
 		listPrefs.setOffset(2);
 		listPrefs.setSortBy("name");
 		listPrefs.setSortOrder("descending");
-		List<Release> Releases = service.list(listPrefs);
-		assertNotNull("Null Release list", Releases);
-		assertFalse("Empty Release list", Releases.isEmpty());
+		List<Release> DefaultReleases = service.list(listPrefs);
+		assertNotNull("Null Release list", DefaultReleases);
+		assertFalse("Empty Release list", DefaultReleases.isEmpty());
 	}
 	*/
 

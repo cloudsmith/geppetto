@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.puppetlabs.geppetto.forge.model.Entity;
-import com.puppetlabs.geppetto.forge.v3.ForgeService.PaginationInfo;
+import com.puppetlabs.geppetto.forge.v3.PaginationInfo;
 
 public class PaginatedResult<T extends Entity> extends Entity {
 	@Expose

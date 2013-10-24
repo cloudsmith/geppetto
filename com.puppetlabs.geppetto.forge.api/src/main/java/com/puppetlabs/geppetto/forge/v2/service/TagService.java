@@ -7,26 +7,20 @@
  * 
  * Contributors:
  *   Puppet Labs
+ * 
  */
 package com.puppetlabs.geppetto.forge.v2.service;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpResponseException;
-import com.puppetlabs.geppetto.forge.model.Constants;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
 import com.puppetlabs.geppetto.forge.v2.model.Tag;
 
 /**
  * A CRUD service for {@link Tag} objects
  */
-public class TagService extends ForgeService {
-	private static String getTagPath(String name) {
-		return Constants.COMMAND_GROUP_TAGS + '/' + name;
-	}
+public interface TagService extends ForgeService {
 
 	/**
 	 * Create a new Tag based on the given <code>Tag</code> template. The
@@ -37,10 +31,7 @@ public class TagService extends ForgeService {
 	 * @return The created Tag
 	 * @throws IOException
 	 */
-	public Tag create(Tag tag) throws IOException {
-		return getClient(true).postJSON(Constants.COMMAND_GROUP_TAGS, tag, Tag.class);
-
-	}
+	Tag create(Tag tag) throws IOException;
 
 	/**
 	 * Delete the Tag identified by <code>name</code>.
@@ -49,9 +40,7 @@ public class TagService extends ForgeService {
 	 *            The name of the Tag.
 	 * @throws IOException
 	 */
-	public void delete(String name) throws IOException {
-		getClient(true).delete(getTagPath(name));
-	}
+	void delete(String name) throws IOException;
 
 	/**
 	 * @param name
@@ -59,9 +48,7 @@ public class TagService extends ForgeService {
 	 * @return Details about a particular Tag
 	 * @throws IOException
 	 */
-	public Tag get(String name) throws IOException {
-		return getClient(false).getV2(getTagPath(name), null, Tag.class);
-	}
+	Tag get(String name) throws IOException;
 
 	/**
 	 * Returns a list of all known Tags.
@@ -71,41 +58,16 @@ public class TagService extends ForgeService {
 	 * @return A list of all Tags.
 	 * @throws IOException
 	 */
-	public List<Tag> getAll(ListPreferences listPreferences) throws IOException {
-		List<Tag> tags = null;
-		try {
-			tags = getClient(false).getV2(Constants.COMMAND_GROUP_TAGS, toQueryMap(listPreferences), Constants.LIST_TAG);
-		}
-		catch(HttpResponseException e) {
-			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
-				throw e;
-		}
-		if(tags == null)
-			tags = Collections.emptyList();
-		return tags;
-	}
+	List<Tag> getAll(ListPreferences listPreferences) throws IOException;
 
 	/**
 	 * @param name
 	 *            The name of the Tag.
 	 * @param listPreferences
-	 * @return Modules for a particular tag
+	 * @return DefaultModules for a particular tag
 	 * @throws IOException
 	 */
-	public List<Module> getModules(String name, ListPreferences listPreferences) throws IOException {
-		List<Module> modules = null;
-		try {
-			modules = getClient(false).getV2(
-				getTagPath(name) + "/modules", toQueryMap(listPreferences), Constants.LIST_MODULE);
-		}
-		catch(HttpResponseException e) {
-			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
-				throw e;
-		}
-		if(modules == null)
-			modules = Collections.emptyList();
-		return modules;
-	}
+	List<Module> getModules(String name, ListPreferences listPreferences) throws IOException;
 
 	/**
 	 * Updates the Tag identified by <code>name</code> with
@@ -118,7 +80,6 @@ public class TagService extends ForgeService {
 	 * @return The updated Tag
 	 * @throws IOException
 	 */
-	public Tag update(String name, Tag tag) throws IOException {
-		return getClient(true).patch(getTagPath(name), tag, Tag.class);
-	}
+	Tag update(String name, Tag tag) throws IOException;
+
 }

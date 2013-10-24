@@ -10,9 +10,8 @@
  */
 package com.puppetlabs.geppetto.forge.v1;
 
-import com.puppetlabs.geppetto.forge.v1.service.ModuleService;
-
 import com.google.inject.Injector;
+import com.puppetlabs.geppetto.forge.v1.service.ModuleService;
 
 /**
  * This is the main entry point to the API. Sample usage:
@@ -27,7 +26,7 @@ import com.google.inject.Injector;
  * ForgeAPI forge = new ForgeAPI(injector);
  * 
  * // Use the forge instance to create a service.
- * ModuleService moduleService = forge.createModuleService();
+ * DefaultModuleService moduleService = forge.createModuleService();
  * 
  * // Use the service
  * List<ModuleInfo> stdLibReleases = moduleService.getModules("puppetlabs");

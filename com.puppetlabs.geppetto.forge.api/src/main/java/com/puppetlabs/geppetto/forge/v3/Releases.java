@@ -11,17 +11,16 @@
  */
 package com.puppetlabs.geppetto.forge.v3;
 
-import java.lang.reflect.Type;
-
-import com.google.gson.reflect.TypeToken;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.model.VersionedName;
-import com.puppetlabs.geppetto.forge.v3.model.PaginatedResult;
 import com.puppetlabs.geppetto.forge.v3.model.Release;
 import com.puppetlabs.geppetto.semver.Version;
 
-public class Releases extends ForgeService<Release, VersionedName> {
-
+/**
+ * @author thhal
+ * 
+ */
+public interface Releases extends ForgeService<Release, VersionedName> {
 	public static class DependencyOf extends Compare<Release> {
 		public DependencyOf(VersionedName versionedName) {
 			super("dependency_of", versionedName.toString());
@@ -53,33 +52,4 @@ public class Releases extends ForgeService<Release, VersionedName> {
 	public static final SortBy<Release> MODULE = new SortBy<Release>("module");
 
 	public static final SortBy<Release> DOWNLOAD_COUNT = new SortBy<Release>("download_count");
-
-	/**
-	 * A type representing a {@link PaginatedResult} of {@link Release} instances
-	 */
-	public static final Type RESULT_TYPE = new TypeToken<PaginatedResult<Release>>() {
-	}.getType();
-
-	@Override
-	void addIdSegment(StringBuilder bld, VersionedName id) {
-		id.getModuleName().withSeparator('-').toString(bld);
-		bld.append('-');
-		id.getVersion().toString(bld);
-	}
-
-	@Override
-	Class<Release> getElementResultType() {
-		return Release.class;
-	}
-
-	@Override
-	String getEndpointSegment() {
-		return "releases";
-	}
-
-	@Override
-	Type getPaginatedResultType() {
-		return Releases.RESULT_TYPE;
-	}
-
 }

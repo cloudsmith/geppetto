@@ -8,7 +8,7 @@
  * Contributors:
  *   Puppet Labs
  */
-package com.puppetlabs.geppetto.forge.v3.repository;
+package com.puppetlabs.geppetto.forge.v3.impl;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -27,9 +27,9 @@ import com.puppetlabs.geppetto.forge.model.Dependency;
 import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.forge.model.MetadataRepository;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.forge.v3.ForgeService.ProgressMonitor;
-import com.puppetlabs.geppetto.forge.v3.ForgeService.Visitor;
+import com.puppetlabs.geppetto.forge.v3.ProgressMonitor;
 import com.puppetlabs.geppetto.forge.v3.Releases;
+import com.puppetlabs.geppetto.forge.v3.Visitor;
 import com.puppetlabs.geppetto.forge.v3.model.Release;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
@@ -144,7 +144,7 @@ public class MetadataRepositoryImpl implements MetadataRepository {
 	private static final Metadata[] emptyReleaseArray = new Metadata[0];
 
 	@Inject
-	Releases releases;
+	private Releases releases;
 
 	public Collection<Metadata> deepResolve(Dependency dependency, Set<Dependency> unresolvedCollector)
 			throws IOException {

@@ -54,7 +54,7 @@ public class DependencyGraphTheme extends DefaultStyleTheme implements Dependenc
 
 		// ---VERTEX STYLES
 
-		// Resolved Modules
+		// Resolved DefaultModules
 		// TODO: Add a URL to the module itself (can be done by instance as they are all unique)
 		// - uses default shape
 		// - label is set per instance
@@ -89,7 +89,7 @@ public class DependencyGraphTheme extends DefaultStyleTheme implements Dependenc
 			styles.href("") //
 		));
 
-		// Unresolved Modules (i.e. one that does not exist)
+		// Unresolved DefaultModules (i.e. one that does not exist)
 		Collections.addAll(rules, Select.vertex(STYLE_CLASS_UNRESOLVED_MODULE).withStyles(//
 			styles.shape(NodeShape.ellipse),//
 			styles.color(ERROR_COLOR), // red text

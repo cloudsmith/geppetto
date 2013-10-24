@@ -7,38 +7,22 @@
  * 
  * Contributors:
  *   Puppet Labs
+ * 
  */
 package com.puppetlabs.geppetto.forge.v2.service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import org.apache.http.HttpStatus;
-import org.apache.http.client.HttpResponseException;
-import com.puppetlabs.geppetto.forge.model.Constants;
 import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.semver.Version;
 
 /**
  * A CRUD service for {@link Release} objects
  */
-public class ReleaseService extends ForgeService {
-	private static String getReleasePath(String owner, String name, Version version) {
-		StringBuilder bld = new StringBuilder();
-		bld.append(Constants.COMMAND_GROUP_RELEASES);
-		bld.append('/');
-		bld.append(owner);
-		bld.append('/');
-		bld.append(name);
-		bld.append('/');
-		version.toString(bld);
-		return bld.toString();
-	}
+public interface ReleaseService extends ForgeService {
 
 	/**
 	 * Create a new Release based on the given <code>gzipFile</code>. The
@@ -51,17 +35,7 @@ public class ReleaseService extends ForgeService {
 	 * @return
 	 * @throws IOException
 	 */
-	public Release create(String owner, String name, String notes, InputStream gzipFile, long fileSize)
-			throws IOException {
-		Map<String, String> parts = new HashMap<String, String>();
-		parts.put("owner", owner);
-		parts.put("module", name);
-		if(notes != null && !notes.isEmpty())
-			parts.put("notes", notes);
-		return getClient(true).postUpload(
-			Constants.COMMAND_GROUP_RELEASES, parts, gzipFile, "application/x-compressed-tar", "tempfile.tar.gz",
-			fileSize, Release.class);
-	}
+	Release create(String owner, String name, String notes, InputStream gzipFile, long fileSize) throws IOException;
 
 	/**
 	 * Delete the Release identified by <code>owner</code>, <code>name</code>, and <code>version.
@@ -74,9 +48,7 @@ public class ReleaseService extends ForgeService {
 	 *            The version of the module Release
 	 * @throws IOException
 	 */
-	public void delete(String owner, String name, Version version) throws IOException {
-		getClient(true).delete(getReleasePath(owner, name, version));
-	}
+	void delete(String owner, String name, Version version) throws IOException;
 
 	/**
 	 * @param owner
@@ -90,10 +62,7 @@ public class ReleaseService extends ForgeService {
 	 * @return The content of a particular release
 	 * @throws IOException
 	 */
-	public void download(String owner, String name, Version version, OutputStream output) throws IOException {
-		String path = Constants.COMMAND_GROUP_FILES + '/' + owner + '-' + name + '-' + version + ".tar.gz";
-		getClient(false).downloadV2(path, null, output);
-	}
+	void download(String owner, String name, Version version, OutputStream output) throws IOException;
 
 	/**
 	 * @param owner
@@ -105,31 +74,17 @@ public class ReleaseService extends ForgeService {
 	 * @return Details about a particular release
 	 * @throws IOException
 	 */
-	public Release get(String owner, String name, Version version) throws IOException {
-		return getClient(false).getV2(getReleasePath(owner, name, version), null, Release.class);
-	}
+	Release get(String owner, String name, Version version) throws IOException;
 
 	/**
 	 * Returns a list of all known releases.
 	 * 
 	 * @param listPreferences
 	 *            Pagination preferences or <code>null</code> to get all in no particular order.
-	 * @return A list of all Releases.
+	 * @return A list of all DefaultReleases.
 	 * @throws IOException
 	 */
-	public List<Release> list(ListPreferences listPreferences) throws IOException {
-		List<Release> releases = null;
-		try {
-			releases = getClient(false).getV2(Constants.COMMAND_GROUP_RELEASES, null, Constants.LIST_RELEASE);
-		}
-		catch(HttpResponseException e) {
-			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)
-				throw e;
-		}
-		if(releases == null)
-			releases = Collections.emptyList();
-		return releases;
-	}
+	List<Release> list(ListPreferences listPreferences) throws IOException;
 
 	/**
 	 * Updates the Release identified by <code>owner</code>, <code>name</code>, and <code>version with
@@ -146,7 +101,6 @@ public class ReleaseService extends ForgeService {
 	 * @return The updated Release
 	 * @throws IOException
 	 */
-	public Release update(String owner, String name, Version version, Release release) throws IOException {
-		return getClient(true).patch(getReleasePath(owner, name, version), release, Release.class);
-	}
+	Release update(String owner, String name, Version version, Release release) throws IOException;
+
 }

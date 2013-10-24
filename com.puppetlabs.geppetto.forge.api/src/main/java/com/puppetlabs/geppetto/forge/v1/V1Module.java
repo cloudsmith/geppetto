@@ -9,10 +9,15 @@
  *   Puppet Labs
  * 
  */
-package com.puppetlabs.geppetto.forge.v3;
+package com.puppetlabs.geppetto.forge.v1;
 
-import com.puppetlabs.geppetto.forge.v3.model.User;
+import com.google.inject.AbstractModule;
+import com.puppetlabs.geppetto.forge.v1.impl.DefaultModuleService;
+import com.puppetlabs.geppetto.forge.v1.service.ModuleService;
 
-public interface Users extends ForgeService<User, String> {
-
+public class V1Module extends AbstractModule {
+	@Override
+	protected void configure() {
+		bind(ModuleService.class).to(DefaultModuleService.class);
+	}
 }

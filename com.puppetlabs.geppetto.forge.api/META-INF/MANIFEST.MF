@@ -28,8 +28,7 @@ Export-Package: com.puppetlabs.geppetto.forge.client;
  com.puppetlabs.geppetto.forge.v2.model;uses:="com.puppetlabs.geppetto.forge.model,com.puppetlabs.geppetto.semver,com.google.gson",
  com.puppetlabs.geppetto.forge.v2.service;uses:="com.puppetlabs.geppetto.semver,com.puppetlabs.geppetto.forge.v2.model,com.puppetlabs.geppetto.forge.client",
  com.puppetlabs.geppetto.forge.v3,
- com.puppetlabs.geppetto.forge.v3.model,
- com.puppetlabs.geppetto.forge.v3.repository
+ com.puppetlabs.geppetto.forge.v3.model
 Import-Package: com.google.gson,
  com.google.gson.annotations,
  com.google.gson.reflect,

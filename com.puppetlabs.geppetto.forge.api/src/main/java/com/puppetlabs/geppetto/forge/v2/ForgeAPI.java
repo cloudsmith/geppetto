@@ -10,6 +10,10 @@
  */
 package com.puppetlabs.geppetto.forge.v2;
 
+import com.google.gson.Gson;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+import com.google.inject.Module;
 import com.puppetlabs.geppetto.forge.client.ForgeHttpModule;
 import com.puppetlabs.geppetto.forge.client.GsonModule;
 import com.puppetlabs.geppetto.forge.model.Constants;
@@ -18,10 +22,6 @@ import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
 import com.puppetlabs.geppetto.forge.v2.service.ReleaseService;
 import com.puppetlabs.geppetto.forge.v2.service.TagService;
 import com.puppetlabs.geppetto.forge.v2.service.UserService;
-import com.google.gson.Gson;
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import com.google.inject.Module;
 
 /**
  * This is the main entry point to the API. Sample usage:
@@ -36,7 +36,7 @@ import com.google.inject.Module;
  * ForgeAPI forge = new ForgeAPI(injector);
  * 
  * // Use the forge instance to create a service.
- * ModuleService moduleService = forge.createModuleService();
+ * DefaultModuleService moduleService = forge.createModuleService();
  * 
  * // Use the service
  * List<Release> stdLibReleases = moduleService.getReleases("puppetlabs", "stdlib", null);

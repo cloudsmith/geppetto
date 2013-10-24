@@ -27,8 +27,7 @@ import com.puppetlabs.geppetto.forge.api.tests.GuiceJUnitRunner;
 import com.puppetlabs.geppetto.forge.api.tests.GuiceJUnitRunner.TestModules;
 import com.puppetlabs.geppetto.forge.model.Entity;
 import com.puppetlabs.geppetto.forge.v3.ForgeService;
-import com.puppetlabs.geppetto.forge.v3.ForgeService.PaginationInfo;
-import com.puppetlabs.geppetto.forge.v3.ForgeService.Compare;
+import com.puppetlabs.geppetto.forge.v3.PaginationInfo;
 import com.puppetlabs.geppetto.forge.v3.model.PaginatedResult;
 
 @RunWith(GuiceJUnitRunner.class)
@@ -41,7 +40,7 @@ public abstract class EndpointTests<T extends Entity, I> extends ForgeAPITestBas
 		assertNotNull("Null instance", instance);
 	}
 
-	protected void testList(Compare<T> query) throws IOException {
+	protected void testList(ForgeService.Compare<T> query) throws IOException {
 		PaginatedResult<T> result = getService().list(query, null, null, false);
 		assertNotNull("Null result", result);
 		PaginationInfo nxt = result.getNext();

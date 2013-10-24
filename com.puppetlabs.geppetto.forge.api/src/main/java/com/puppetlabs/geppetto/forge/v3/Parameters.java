@@ -11,8 +11,8 @@
  */
 package com.puppetlabs.geppetto.forge.v3;
 
-import com.puppetlabs.geppetto.forge.v3.model.User;
+import java.util.Map;
 
-public interface Users extends ForgeService<User, String> {
-
+public interface Parameters {
+	void append(Map<String, String> collector);
 }

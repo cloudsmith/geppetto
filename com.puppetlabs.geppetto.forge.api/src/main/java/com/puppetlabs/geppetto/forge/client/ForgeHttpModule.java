@@ -19,7 +19,10 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Named;
 import com.puppetlabs.geppetto.forge.model.MetadataRepository;
-import com.puppetlabs.geppetto.forge.v3.repository.MetadataRepositoryImpl;
+import com.puppetlabs.geppetto.forge.v1.V1Module;
+import com.puppetlabs.geppetto.forge.v2.V2Module;
+import com.puppetlabs.geppetto.forge.v3.V3Module;
+import com.puppetlabs.geppetto.forge.v3.impl.MetadataRepositoryImpl;
 
 /**
  * This is the default HTTP Guice module
@@ -41,6 +44,9 @@ public abstract class ForgeHttpModule extends AbstractModule {
 	@Override
 	protected void configure() {
 		bind(ForgeClient.class).to(ForgeHttpClient.class);
+		install(new V1Module());
+		install(new V2Module());
+		install(new V3Module());
 		bind(MetadataRepository.class).to(MetadataRepositoryImpl.class);
 	}
 

@@ -11,8 +11,19 @@
  */
 package com.puppetlabs.geppetto.forge.v3;
 
-import com.puppetlabs.geppetto.forge.v3.model.User;
+import java.util.Map;
 
-public interface Users extends ForgeService<User, String> {
+import com.puppetlabs.geppetto.forge.model.Entity;
 
+public class SortBy<T extends Entity> implements Parameters {
+	private String columnName;
+
+	public SortBy(String columnName) {
+		this.columnName = columnName;
+	}
+
+	@Override
+	public void append(Map<String, String> collector) {
+		collector.put("sort_by", columnName);
+	}
 }

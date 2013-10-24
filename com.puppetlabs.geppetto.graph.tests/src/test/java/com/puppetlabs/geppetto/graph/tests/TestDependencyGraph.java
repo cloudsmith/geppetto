@@ -49,7 +49,7 @@ public class TestDependencyGraph extends AbstractValidationTest {
 		BuildResult buildResult = vs.validate(chain, root, options, null, SubMonitor.convert(null));
 		assertTrue("Validation had errors", chain.getSeverity() < Diagnostic.ERROR);
 		getDependencyGraphProducer().produceGraph(
-			null, "Demo Modules Dependencies", null, dotStream, buildResult, chain);
+			null, "Demo DefaultModules Dependencies", null, dotStream, buildResult, chain);
 
 		// produce SVG
 		SVGProducer svgProducer = getSVGProducer();
@@ -205,7 +205,7 @@ public class TestDependencyGraph extends AbstractValidationTest {
 		FileOutputStream dotStream = new FileOutputStream(new File(outputFolder, "forgeGraphSVG.dot"));
 		BuildResult buildResult = vs.validate(chain, root, options, null, SubMonitor.convert(null));
 		getDependencyGraphProducer().produceGraph(
-			null, "Forge Modules Dependencies", null, dotStream, buildResult, chain);
+			null, "Forge DefaultModules Dependencies", null, dotStream, buildResult, chain);
 
 		// produce SVG
 		SVGProducer svgProducer = getSVGProducer();
@@ -302,7 +302,7 @@ public class TestDependencyGraph extends AbstractValidationTest {
 
 		BuildResult buildResult = vs.validate(chain, root, options, null, SubMonitor.convert(null));
 		getDependencyGraphProducer().produceGraph(
-			null, "Karel Modules Dependencies", null, dotStream, buildResult, chain);
+			null, "Karel DefaultModules Dependencies", null, dotStream, buildResult, chain);
 
 		// produce SVG
 		SVGProducer svgProducer = getSVGProducer();

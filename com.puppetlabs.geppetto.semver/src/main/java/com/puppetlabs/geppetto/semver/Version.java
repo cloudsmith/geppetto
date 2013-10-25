@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 public class Version implements Comparable<Version>, Serializable {
 	private static final long serialVersionUID = 1L;
 
+	private static final WeakCache<Version> instanceCache = new WeakCache<Version>();
+
 	public static final String SNAPSHOT_SUFFIX = "-SNAPSHOT";
 
 	public static final Pattern VERSION_PATTERN = Pattern.compile("^(\\d+)\\.(\\d+)\\.(\\d+)(?:-([0-9a-zA-Z-]*))?$");
@@ -45,7 +47,7 @@ public class Version implements Comparable<Version>, Serializable {
 
 		if(preRelease != null && preRelease.length() >= 0 && !PRE_RELEASE_PATTERN.matcher(preRelease).matches())
 			throw new IllegalArgumentException("Illegal characters in pre-release");
-		return new Version(major, minor, patch, preRelease);
+		return instanceCache.cache(new Version(major, minor, patch, preRelease));
 	}
 
 	/**
@@ -66,8 +68,8 @@ public class Version implements Comparable<Version>, Serializable {
 		if(!m.matches())
 			throw new IllegalArgumentException("The string '" + version +
 					"' does not represent a valid semantic version");
-		return new Version(
-			Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), m.group(4));
+		return instanceCache.cache(new Version(
+			Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), m.group(4)));
 	}
 
 	/**

@@ -34,13 +34,15 @@ public class WeakCache<T> {
 	 */
 	public T cache(T value) {
 		if(value != null) {
-			WeakReference<T> ref = cache.get(value);
-			if(ref != null) {
-				T cachedValue = ref.get();
-				if(cachedValue != null)
-					return cachedValue;
+			synchronized(cache) {
+				WeakReference<T> ref = cache.get(value);
+				if(ref != null) {
+					T cachedValue = ref.get();
+					if(cachedValue != null)
+						return cachedValue;
+				}
+				cache.put(value, new WeakReference<T>(value));
 			}
-			cache.put(value, new WeakReference<T>(value));
 		}
 		return value;
 	}

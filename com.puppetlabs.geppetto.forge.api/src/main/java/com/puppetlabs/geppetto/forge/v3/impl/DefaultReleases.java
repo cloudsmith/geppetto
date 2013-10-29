@@ -29,7 +29,7 @@ public class DefaultReleases extends AbstractForgeService<Release, VersionedName
 
 	@Override
 	void addIdSegment(StringBuilder bld, VersionedName id) {
-		id.getModuleName().withSeparator('-').toString(bld);
+		id.getModuleName().toString(bld);
 		bld.append('-');
 		id.getVersion().toString(bld);
 	}

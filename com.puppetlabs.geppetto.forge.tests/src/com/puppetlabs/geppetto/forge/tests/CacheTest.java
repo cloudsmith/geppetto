@@ -17,13 +17,13 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.IOException;
 
-import com.puppetlabs.geppetto.forge.Cache;
-import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.semver.Version;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.puppetlabs.geppetto.forge.Cache;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
+import com.puppetlabs.geppetto.semver.Version;
 
 public class CacheTest extends AbstractForgeTest {
 
@@ -44,7 +44,7 @@ public class CacheTest extends AbstractForgeTest {
 	@Test
 	public void testClean() {
 		try {
-			File file = fixture.retrieve(new ModuleName("puppetlabs-stdlib"), Version.create("2.3.1"));
+			File file = fixture.retrieve(ModuleName.fromString("puppetlabs-stdlib"), Version.fromString("2.3.1"));
 			assertTrue("Retrieved file is not a file", file.isFile());
 			fixture.clean();
 			assertFalse("Clean did not remove the cached files", file.isFile());
@@ -57,7 +57,7 @@ public class CacheTest extends AbstractForgeTest {
 	@Test
 	public void testRetrieve__String() {
 		try {
-			File file = fixture.retrieve(new ModuleName("puppetlabs-stdlib"), Version.create("2.3.1"));
+			File file = fixture.retrieve(ModuleName.fromString("puppetlabs-stdlib"), Version.fromString("2.3.1"));
 			assertTrue("Retrieved file is not a file", file.isFile());
 		}
 		catch(IOException e) {

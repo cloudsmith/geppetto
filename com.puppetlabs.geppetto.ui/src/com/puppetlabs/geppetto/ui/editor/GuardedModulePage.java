@@ -168,7 +168,7 @@ abstract class GuardedModulePage extends FormPage {
 			}
 			int result = IMessageProvider.NONE;
 			try {
-				Version.create(version);
+				Version.fromString(version);
 				msgManager.removeMessage(DEFAULT_MESSAGE_KEY, control);
 			}
 			catch(IllegalArgumentException e) {

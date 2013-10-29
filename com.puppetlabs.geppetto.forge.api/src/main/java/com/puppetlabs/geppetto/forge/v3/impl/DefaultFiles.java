@@ -31,7 +31,7 @@ public class DefaultFiles implements Files {
 	public InputStream download(VersionedName release) throws IOException {
 		StringBuilder bld = new StringBuilder("files");
 		bld.append('/');
-		release.getModuleName().withSeparator('-').toString(bld);
+		release.getModuleName().toString(bld);
 		bld.append('-');
 		release.getVersion().toString(bld);
 		bld.append(".tar.gz");
@@ -42,7 +42,7 @@ public class DefaultFiles implements Files {
 	public void download(VersionedName release, OutputStream output) throws IOException {
 		StringBuilder bld = new StringBuilder("files");
 		bld.append('/');
-		release.getModuleName().withSeparator('-').toString(bld);
+		release.getModuleName().toString(bld);
 		bld.append('-');
 		release.getVersion().toString(bld);
 		bld.append(".tar.gz");

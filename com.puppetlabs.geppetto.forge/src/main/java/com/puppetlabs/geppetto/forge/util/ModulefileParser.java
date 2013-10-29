@@ -20,13 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.puppetlabs.geppetto.diagnostic.Diagnostic;
-import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
-import com.puppetlabs.geppetto.forge.model.Dependency;
-import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.semver.Version;
-import com.puppetlabs.geppetto.semver.VersionRange;
-
 import org.jrubyparser.SourcePosition;
 import org.jrubyparser.ast.FCallNode;
 import org.jrubyparser.ast.FixnumNode;
@@ -37,6 +30,13 @@ import org.jrubyparser.ast.Node;
 import org.jrubyparser.ast.NodeType;
 import org.jrubyparser.ast.RootNode;
 import org.jrubyparser.ast.StrNode;
+
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
+import com.puppetlabs.geppetto.forge.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
 
 /**
  * An Modulefile parser that produces calls with one, two, or three string
@@ -125,11 +125,11 @@ public abstract class ModulefileParser {
 
 		ModuleName m = null;
 		try {
-			m = new ModuleName(name, true);
+			m = ModuleName.create(name, true);
 		}
 		catch(IllegalArgumentException e1) {
 			try {
-				m = new ModuleName(name, false);
+				m = ModuleName.create(name, false);
 				addWarning(pos, getBadNameMessage(e1, dependency));
 			}
 			catch(IllegalArgumentException e2) {
@@ -141,7 +141,7 @@ public abstract class ModulefileParser {
 
 	protected Version createVersion(String version, SourcePosition pos) {
 		try {
-			return Version.create(version);
+			return Version.fromString(version);
 		}
 		catch(IllegalArgumentException e) {
 			addError(pos, e.getMessage());

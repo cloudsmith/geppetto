@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
+import org.jrubyparser.SourcePosition;
+import org.jrubyparser.lexer.SyntaxException;
+
 import com.puppetlabs.geppetto.common.os.StreamUtil;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
@@ -32,9 +35,6 @@ import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
-
-import org.jrubyparser.SourcePosition;
-import org.jrubyparser.lexer.SyntaxException;
 
 /**
  * Utility class with helper methods for Forge Module related tasks.
@@ -130,7 +130,7 @@ public class ModuleUtils {
 	}
 
 	public static void buildFileName(ModuleName qname, Version version, StringBuilder bld) {
-		qname.withSeparator('-').toString(bld);
+		qname.toString(bld);
 		bld.append('-');
 		version.toString(bld);
 	}
@@ -292,7 +292,7 @@ public class ModuleUtils {
 	public static void printModulefile(Metadata md, PrintWriter out) throws IOException {
 		ModuleName name = md.getName();
 		if(name != null)
-			addKeyValueNode(out, "name", name.withSeparator('-').toString());
+			addKeyValueNode(out, "name", name.toString());
 		if(md.getVersion() != null)
 			addKeyValueNode(out, "version", md.getVersion().toString());
 		out.println();
@@ -309,12 +309,11 @@ public class ModuleUtils {
 		if(md.getDescription() != null)
 			addKeyValueNode(out, "description", md.getDescription());
 		for(Dependency dep : md.getDependencies()) {
-			ModuleName depName = dep.getName().withSeparator('/');
 			VersionRange ver = dep.getVersionRequirement();
 			if(ver != null)
-				addKeyValueNode(out, "dependency", depName.toString(), ver.toString());
+				addKeyValueNode(out, "dependency", dep.getName().toString('/'), ver.toString());
 			else
-				addKeyValueNode(out, "dependency", depName.toString());
+				addKeyValueNode(out, "dependency", dep.getName().toString('/'));
 		}
 	}
 

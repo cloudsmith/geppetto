@@ -19,23 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-
-import com.puppetlabs.geppetto.common.tracer.DefaultTracer;
-import com.puppetlabs.geppetto.common.tracer.ITracer;
-import com.puppetlabs.geppetto.common.tracer.NullTracer;
-import com.puppetlabs.geppetto.diagnostic.Diagnostic;
-import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
-import com.puppetlabs.geppetto.forge.FilePosition;
-import com.puppetlabs.geppetto.forge.Forge;
-import com.puppetlabs.geppetto.forge.model.Dependency;
-import com.puppetlabs.geppetto.forge.model.Metadata;
-import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.pp.dsl.ui.PPUiConstants;
-import com.puppetlabs.geppetto.pp.dsl.ui.internal.PPDSLActivator;
-import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor;
-import com.puppetlabs.geppetto.semver.Version;
-import com.puppetlabs.geppetto.semver.VersionRange;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
@@ -61,6 +44,21 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
 import com.google.inject.Injector;
 import com.google.inject.Provider;
+import com.puppetlabs.geppetto.common.tracer.DefaultTracer;
+import com.puppetlabs.geppetto.common.tracer.ITracer;
+import com.puppetlabs.geppetto.common.tracer.NullTracer;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
+import com.puppetlabs.geppetto.forge.FilePosition;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
+import com.puppetlabs.geppetto.pp.dsl.ui.PPUiConstants;
+import com.puppetlabs.geppetto.pp.dsl.ui.internal.PPDSLActivator;
+import com.puppetlabs.geppetto.pp.dsl.validation.IValidationAdvisor;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
 
 /**
  * Builder of Modulefile/metadata.json.
@@ -99,7 +97,6 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 			return null;
 		}
 
-		name = name.withSeparator('-');
 		if(tracer.isTracing())
 			tracer.trace("Resolving required name: ", name);
 		BiMap<IProject, Version> candidates = HashBiMap.create();
@@ -119,7 +116,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 				String mn = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
 				moduleName = mn == null
 						? null
-						: new ModuleName(mn);
+						: ModuleName.fromString(mn);
 			}
 			catch(CoreException e) {
 				log.error("Could not read project Modulename property", e);
@@ -137,7 +134,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 			// get the version from the persisted property
 			if(matched) {
 				try {
-					version = Version.create(p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION));
+					version = Version.fromString(p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION));
 				}
 				catch(Exception e) {
 					log.error("Error while getting version from project", e);
@@ -560,10 +557,9 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		}
 
 		if(version == null)
-			version = Version.create("0.0.0");
+			version = Version.fromString("0.0.0");
 
 		if(moduleName != null) {
-			moduleName = moduleName.withSeparator('-');
 			if(!project.getName().toLowerCase().contains(moduleName.getName().toString().toLowerCase()))
 				createWarningMarker(moduleFile, "Mismatched name - project does not reflect module: '" + moduleName +
 						"'", null);

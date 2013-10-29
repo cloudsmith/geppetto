@@ -13,22 +13,22 @@ package com.puppetlabs.geppetto.forge.api.tests;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Test;
+
 import com.puppetlabs.geppetto.forge.model.Dependency;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
-
-import org.junit.Test;
 
 public class DependencyTest {
 
 	@Test
 	public void testMatches__String_String() {
 		Dependency dep = new Dependency();
-		dep.setName(new ModuleName("amodule/name"));
+		dep.setName(ModuleName.fromString("amodule/name"));
 		dep.setVersionRequirement(VersionRange.create("2.3.x"));
-		assertTrue(dep.matches(new ModuleName("amodule-name"), Version.create("2.3.2")));
-		assertFalse(dep.matches(new ModuleName("amodule-name"), Version.create("2.2.9")));
-		assertFalse(dep.matches(new ModuleName("anotherModule/name"), Version.create("2.3.2")));
+		assertTrue(dep.matches(ModuleName.fromString("amodule-name"), Version.fromString("2.3.2")));
+		assertFalse(dep.matches(ModuleName.fromString("amodule-name"), Version.fromString("2.2.9")));
+		assertFalse(dep.matches(ModuleName.fromString("anotherModule/name"), Version.fromString("2.3.2")));
 	}
 }

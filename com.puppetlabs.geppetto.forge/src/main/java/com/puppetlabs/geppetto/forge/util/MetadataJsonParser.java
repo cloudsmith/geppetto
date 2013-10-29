@@ -19,15 +19,15 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
+import org.codehaus.jackson.JsonLocation;
+import org.codehaus.jackson.JsonParseException;
+
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
 import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
-
-import org.codehaus.jackson.JsonLocation;
-import org.codehaus.jackson.JsonParseException;
 
 public abstract class MetadataJsonParser extends JsonPositionalParser {
 	public static final DiagnosticType METADATA_JSON = new DiagnosticType(
@@ -47,12 +47,12 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 			return null;
 
 		try {
-			return new ModuleName(moduleName, true);
+			return ModuleName.create(moduleName, true);
 		}
 		catch(IllegalArgumentException e) {
 			try {
 				chain.addChild(createDiagnostic(jsonName, WARNING, getBadNameMessage(e, dependency)));
-				return new ModuleName(moduleName, false);
+				return ModuleName.create(moduleName, false);
 			}
 			catch(IllegalArgumentException e2) {
 				chain.addChild(createDiagnostic(jsonName, ERROR, getBadNameMessage(e, dependency)));
@@ -67,7 +67,7 @@ public abstract class MetadataJsonParser extends JsonPositionalParser {
 			return null;
 
 		try {
-			return Version.create(version);
+			return Version.fromString(version);
 		}
 		catch(IllegalArgumentException e) {
 			chain.addChild(createDiagnostic(jsonVersion, ERROR, e.getMessage()));

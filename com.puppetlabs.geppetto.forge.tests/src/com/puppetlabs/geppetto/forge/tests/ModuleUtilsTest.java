@@ -15,12 +15,12 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
+import org.junit.Test;
+
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.util.ModuleUtils;
-
-import org.junit.Test;
 
 public class ModuleUtilsTest extends AbstractForgeTest {
 
@@ -29,7 +29,7 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 		try {
 			Metadata md = getForgeUtil().createFromModuleDirectory(
 				getTestData("puppetlabs-apache"), false, null, null, new Diagnostic());
-			assertEquals("Unexpected module name", new ModuleName("puppetlabs-apache"), md.getName());
+			assertEquals("Unexpected module name", ModuleName.fromString("puppetlabs-apache"), md.getName());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());
@@ -41,7 +41,7 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 		try {
 			Metadata md = getForgeUtil().createFromModuleDirectory(
 				getTestData("DavidSchmitt-collectd"), false, null, null, new Diagnostic());
-			assertEquals("Unexpected module name", new ModuleName("davidschmitt-collectd"), md.getName());
+			assertEquals("Unexpected module name", ModuleName.fromString("davidschmitt-collectd"), md.getName());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());
@@ -53,7 +53,7 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 		try {
 			Metadata md = getForgeUtil().createFromModuleDirectory(
 				getTestData("bobsh-iptables"), false, null, null, new Diagnostic());
-			assertEquals("Unexpected module name", new ModuleName("bobsh/iptables"), md.getName());
+			assertEquals("Unexpected module name", ModuleName.fromString("bobsh/iptables"), md.getName());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());
@@ -65,7 +65,7 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 		try {
 			Metadata md = getForgeUtil().createFromModuleDirectory(
 				getTestData("ghoneycutt-rsync"), false, null, null, new Diagnostic());
-			assertEquals("Unexpected module name", new ModuleName("ghoneycutt-RSync"), md.getName());
+			assertEquals("Unexpected module name", ModuleName.fromString("ghoneycutt-RSync"), md.getName());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());
@@ -77,7 +77,7 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 		try {
 			Metadata md = getForgeUtil().createFromModuleDirectory(
 				getTestData("lab42-common"), false, null, null, new Diagnostic());
-			assertEquals("Unexpected module name", new ModuleName("lab42-common"), md.getName());
+			assertEquals("Unexpected module name", ModuleName.fromString("lab42-common"), md.getName());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());
@@ -89,7 +89,7 @@ public class ModuleUtilsTest extends AbstractForgeTest {
 		try {
 			Metadata md = new Metadata();
 			ModuleUtils.parseModulefile(getTestData("puppetlabs-apache/Modulefile"), md, new Diagnostic());
-			assertEquals("Unexpected module name", new ModuleName("puppetlabs-apache"), md.getName());
+			assertEquals("Unexpected module name", ModuleName.fromString("puppetlabs-apache"), md.getName());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());

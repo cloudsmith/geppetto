@@ -38,7 +38,7 @@ public class ForgeAPITestBase {
 
 	public static final IPath TEST_GZIPPED_RELEASE = Path.fromPortableString("testData/geppetto-testmodule-0.1.0.tar.gz");
 
-	public static final Version TEST_RELEASE_VERSION = Version.create("0.1.0");
+	public static final Version TEST_RELEASE_VERSION = Version.fromString("0.1.0");
 
 	private static final String FORGE_CLIENT_ID = "cac18b1f07f13a244c47644548b29cbbe58048f3aaccdeefa7c0306467afda44";
 

@@ -101,7 +101,7 @@ class ForgeServiceImpl implements ForgeService {
 			int pfxLen = bld.length();
 			for(Metadata release : releasesToDownload) {
 				bld.setLength(pfxLen);
-				release.getName().withSeparator('-').toString(bld);
+				release.getName().toString(bld);
 				bld.append(':');
 				release.getVersion().toString(bld);
 				result.addChild(new Diagnostic(INFO, FORGE, bld.toString()));

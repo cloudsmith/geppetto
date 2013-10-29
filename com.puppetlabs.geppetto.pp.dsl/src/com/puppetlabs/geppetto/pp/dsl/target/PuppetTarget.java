@@ -74,10 +74,10 @@ public enum PuppetTarget {
 	private final URI targetURI;
 
 	PuppetTarget(String version, String literal, String targetURI, String peVersion, ComplianceLevel complianceLevel) {
-		this.version = Version.create(version);
+		this.version = Version.fromString(version);
 		this.literal = literal;
 		this.targetURI = PptpResourceUtil.getURI(targetURI);
-		this.peVersion = Version.create(peVersion);
+		this.peVersion = Version.fromString(peVersion);
 		this.complianceLevel = complianceLevel;
 	}
 

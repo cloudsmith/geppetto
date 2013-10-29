@@ -212,19 +212,19 @@ public class VersionRangeTest {
 			assertFalse(range.isIncluded(Version.create(0, 9, 9)));
 			assertFalse(range.isIncluded(Version.create(1, 0, 1)));
 			assertFalse(range.isIncluded(Version.create(1, 0, 0, "alpha")));
-			assertTrue(range.isIncluded(Version.create("1.0.0")));
+			assertTrue(range.isIncluded(Version.fromString("1.0.0")));
 
 			range = VersionRange.create("1.0.0");
 			assertFalse(range.isIncluded(Version.create(0, 9, 9)));
 			assertFalse(range.isIncluded(Version.create(1, 0, 1)));
 			assertFalse(range.isIncluded(Version.create(1, 0, 0, "alpha")));
-			assertTrue(range.isIncluded(Version.create("1.0.0")));
+			assertTrue(range.isIncluded(Version.fromString("1.0.0")));
 
 			range = VersionRange.create(">=1.0.0 <=1.0.0");
 			assertFalse(range.isIncluded(Version.create(0, 9, 9)));
 			assertFalse(range.isIncluded(Version.create(1, 0, 1)));
 			assertFalse(range.isIncluded(Version.create(1, 0, 0, "alpha")));
-			assertTrue(range.isIncluded(Version.create("1.0.0")));
+			assertTrue(range.isIncluded(Version.fromString("1.0.0")));
 		}
 		catch(IllegalArgumentException e) {
 			fail(e.getMessage());

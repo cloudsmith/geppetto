@@ -16,18 +16,6 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 
-import com.puppetlabs.geppetto.common.os.FileUtils;
-import com.puppetlabs.geppetto.forge.Forge;
-import com.puppetlabs.geppetto.forge.model.Metadata;
-import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.forge.util.ModuleUtils;
-import com.puppetlabs.geppetto.pp.dsl.ui.builder.PPBuildJob;
-import com.puppetlabs.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
-import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
-import com.puppetlabs.geppetto.semver.Version;
-import com.puppetlabs.geppetto.ui.UIPlugin;
-import com.puppetlabs.geppetto.ui.util.ResourceUtil;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -50,6 +38,17 @@ import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.internal.ide.DialogUtil;
 
 import com.google.inject.Inject;
+import com.puppetlabs.geppetto.common.os.FileUtils;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
+import com.puppetlabs.geppetto.forge.util.ModuleUtils;
+import com.puppetlabs.geppetto.pp.dsl.ui.builder.PPBuildJob;
+import com.puppetlabs.geppetto.pp.dsl.ui.pptp.PptpTargetProjectHandler;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.ui.util.ResourceUtil;
 
 public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 
@@ -141,8 +140,8 @@ public class NewPuppetModuleProjectWizard extends Wizard implements INewWizard {
 	protected void initializeProjectContents(IProgressMonitor monitor) throws Exception {
 		SubMonitor submon = SubMonitor.convert(monitor, 100);
 		Metadata metadata = new Metadata();
-		metadata.setName(new ModuleName(getModuleOwner(), project.getName().toLowerCase(), true));
-		metadata.setVersion(Version.create("0.1.0"));
+		metadata.setName(ModuleName.create(getModuleOwner(), project.getName().toLowerCase(), true));
+		metadata.setVersion(Version.fromString("0.1.0"));
 
 		if(ResourceUtil.getFile(project.getFullPath().append("manifests/init.pp")).exists()) { //$NON-NLS-1$
 			File modulefile = project.getLocation().append(MODULEFILE_NAME).toFile(); //$NON-NLS-1$

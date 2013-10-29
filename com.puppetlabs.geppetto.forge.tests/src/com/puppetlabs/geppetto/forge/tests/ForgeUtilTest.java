@@ -133,7 +133,7 @@ public class ForgeUtilTest extends AbstractForgeTest {
 	public void generate() {
 		try {
 			Metadata metadata = new Metadata();
-			metadata.setName(new ModuleName("cloudsmith/testmodule"));
+			metadata.setName(ModuleName.fromString("cloudsmith/testmodule"));
 			File installFolder = getTestOutputFolder("testmodule-install", true);
 			installFolder.delete();
 			fixture.generate(installFolder, metadata);

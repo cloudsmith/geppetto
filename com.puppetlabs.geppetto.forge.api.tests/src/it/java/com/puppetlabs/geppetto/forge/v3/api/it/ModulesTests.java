@@ -30,7 +30,7 @@ public class ModulesTests extends EndpointTests<Module, ModuleName> {
 
 	@Test
 	public void testGetModule() throws IOException {
-		testGet(new ModuleName("puppetlabs-java"));
+		testGet(ModuleName.fromString("puppetlabs-java"));
 	}
 
 	@Test

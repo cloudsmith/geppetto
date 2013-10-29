@@ -26,6 +26,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.ecore.EClass;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
+import com.google.inject.Inject;
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.diagnostic.DiagnosticType;
 import com.puppetlabs.geppetto.forge.model.Dependency;
@@ -55,16 +64,6 @@ import com.puppetlabs.graph.graphcss.StyleSet;
 import com.puppetlabs.graph.style.IStyle;
 import com.puppetlabs.graph.style.IStyleFactory;
 import com.puppetlabs.graph.style.labels.LabelRow;
-
-import org.eclipse.emf.ecore.EClass;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
-import com.google.inject.Inject;
 
 /**
  * Calculates dependency data for a set of modules. The logic handles:
@@ -179,9 +178,9 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 			File parent = root.getParentFile();
 			ModuleName moduleName;
 			if(parent != null)
-				moduleName = new ModuleName(safeOwner(parent.getName()), safeName(root.getName(), false), false);
+				moduleName = ModuleName.create(safeOwner(parent.getName()), safeName(root.getName(), false), false);
 			else
-				moduleName = new ModuleName("root", ModuleName.safeName(root.getName(), false), false);
+				moduleName = ModuleName.create("root", ModuleName.safeName(root.getName(), false), false);
 			return new ModuleNodeData(moduleName, null, ModuleType.ROOT, "");
 		}
 
@@ -371,7 +370,7 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 
 		// Create pseudo module for non modular content
 		nonModularNode = ModuleNodeData.root(root);
-		pptpNode = new ModuleNodeData(new ModuleName("root", "puppet", false), null, ModuleType.PPTP, ""); // will not be rendered
+		pptpNode = new ModuleNodeData(ModuleName.create("root", "puppet", false), null, ModuleType.PPTP, ""); // will not be rendered
 
 		// create module nodes for missing (unsatisfied dependencies)
 		// unless dependency is to represented module name, but version is not matched (in which case
@@ -393,7 +392,7 @@ public class DependencyDataCalculator implements DependencyGraphStyles, Dependen
 						b = ModuleNodeData.unresolved(name);
 						// need to generate one that can not be found if name is null
 						moduleNodeData.put(name == null
-								? new ModuleName("no", "name", false)
+								? ModuleName.create("no", "name", false)
 								: name, b);
 					}
 				}

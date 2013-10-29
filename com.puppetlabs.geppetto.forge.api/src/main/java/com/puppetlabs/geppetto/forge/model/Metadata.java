@@ -23,6 +23,7 @@ import com.puppetlabs.geppetto.semver.Version;
  * Module meta-data
  */
 public class Metadata extends Entity {
+
 	private static List<Type> copyTypes(List<Type> types) {
 		if(types != null) {
 			int top = types.size();
@@ -44,37 +45,37 @@ public class Metadata extends Entity {
 	}
 
 	@Expose
-	private ModuleName name;
-
-	@Expose
-	private Version version;
-
-	@Expose
-	private String summary;
-
-	@Expose
 	private String author;
-
-	@Expose
-	private String description;
-
-	@Expose
-	private List<Dependency> dependencies;
-
-	@Expose
-	private List<Type> types;
 
 	@Expose
 	private Map<String, byte[]> checksums;
 
 	@Expose
-	private String source;
+	private List<Dependency> dependencies;
+
+	@Expose
+	private String description;
+
+	@Expose
+	private String license;
+
+	@Expose
+	private ModuleName name;
 
 	@Expose
 	private String project_page;
 
 	@Expose
-	private String license;
+	private String source;
+
+	@Expose
+	private String summary;
+
+	@Expose
+	private List<Type> types;
+
+	@Expose
+	private Version version;
 
 	/**
 	 * Creates an empty Metadata instance
@@ -262,9 +263,7 @@ public class Metadata extends Entity {
 	 *            the name to set
 	 */
 	public void setName(ModuleName name) {
-		this.name = name == null
-				? null
-				: name.withSeparator('-');
+		this.name = name;
 	}
 
 	/**

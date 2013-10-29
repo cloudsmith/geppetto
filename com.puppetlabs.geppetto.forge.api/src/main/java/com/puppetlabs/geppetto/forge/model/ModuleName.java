@@ -73,11 +73,8 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 				JsonDeserializationContext context) throws JsonParseException {
 			String name = json.getAsString();
 			String owner = null;
-			char sep = '-';
 			int sepIdx = name.indexOf('/');
-			if(sepIdx >= 0)
-				sep = '/';
-			else
+			if(sepIdx < 0)
 				sepIdx = name.indexOf('-');
 
 			if(sepIdx >= 0) {
@@ -87,14 +84,16 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 			else {
 				name = ModuleName.safeName(name, false);
 			}
-			return new ModuleName(owner, sep, name, false);
+			return ModuleName.create(owner, name, false);
 		}
 
 		@Override
 		public JsonElement serialize(ModuleName src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
-			return new JsonPrimitive(src.toString());
+			return new JsonPrimitive(src.toString('-'));
 		}
 	}
+
+	public static final JsonAdapter MODULE_NAME_ADAPTER = new JsonAdapter();
 
 	private static final long serialVersionUID = 1L;
 
@@ -162,11 +161,73 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		throw new BadOwnerCharactersException(strict);
 	}
 
+	/**
+	 * <p>
+	 * Creates a name from a string with a separator.
+	 * </p>
+	 * <p>
+	 * The separator may be either '/' or '-' and if more than one separator is present, then one placed first wins.
+	 * Thus<br/>
+	 * &quot;foo-bar-baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar-baz&quot;, separator '-'<br/>
+	 * &quot;foo/bar-baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar-baz&quot;, separator '/'<br/>
+	 * &quot;foo/bar/baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar/baz&quot;, separator '/'<br/>
+	 * &quot;foo-bar/baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar/baz&quot;, separator '-'<br/>
+	 * </p>
+	 * 
+	 * @param fullName
+	 *            The name to set
+	 * @param strict
+	 *            <code>true</code> means do not allow <code>owner</code> that starts with a digit or uppercase letters
+	 *            or dash in the <code>name</code>
+	 * @throws BadNameCharactersException
+	 * @throws BadOwnerCharactersException
+	 * @throws BadNameSyntaxException
+	 */
+	public static ModuleName create(String fullName, boolean strict) throws BadNameSyntaxException,
+			BadNameCharactersException, BadOwnerCharactersException {
+		return new ModuleName(fullName, strict);
+	}
+
+	/**
+	 * Creates a name using specified owner, name, and separator.
+	 * 
+	 * @param owner
+	 * @param name
+	 * @param strict
+	 *            <code>true</code> means do not allow <code>owner</code> that starts with a digit or uppercase letters
+	 *            or dash in the <code>name</code>
+	 * @throws BadNameCharactersException
+	 * @throws BadOwnerCharactersException
+	 * @throws BadNameSyntaxException
+	 */
+	public static ModuleName create(String owner, String name, boolean strict) throws BadNameSyntaxException,
+			BadOwnerCharactersException, BadNameCharactersException {
+		return new ModuleName(owner, name, strict);
+	}
+
 	private static final StringBuilder createBuilder(String from, int idx) {
 		StringBuilder bld = new StringBuilder(from.length());
 		for(int catchUp = 0; catchUp < idx; catchUp++)
 			bld.append(from.charAt(catchUp));
 		return bld;
+	}
+
+	/**
+	 * Creates a name from a string with a separator. This is a equivalent to {@link #create(String, boolean)
+	 * ModuleName(fullName, false)} although this method will yield a <code>null</code> return on <code>null</code> or
+	 * empty input.
+	 * 
+	 * @param fullName
+	 *            The name to set or <code>null</code>
+	 * @throws BadOwnerCharactersException
+	 * @throws BadNameCharactersException
+	 * @throws BadNameSyntaxException
+	 */
+	public static ModuleName fromString(String fullName) throws BadNameSyntaxException, BadNameCharactersException,
+			BadOwnerCharactersException {
+		return fullName == null || fullName.isEmpty()
+				? null
+				: new ModuleName(fullName, false);
 	}
 
 	/**
@@ -285,74 +346,17 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 		return new String[] { owner, name };
 	}
 
-	private final char separator;
-
 	private final String owner;
 
 	private final String name;
 
 	private final String semanticName;
 
-	protected ModuleName(ModuleName m) {
-		this.separator = m.separator;
-		this.owner = m.owner;
-		this.name = m.name;
-		this.semanticName = m.semanticName;
-	}
-
-	private ModuleName(ModuleName m, char separator) {
-		this.separator = separator;
-		this.owner = m.owner;
-		this.name = m.name;
-		this.semanticName = m.semanticName;
-	}
-
-	/**
-	 * Creates a name from a string with a separator. This is a equivalent to {@link #ModuleName(String, boolean)
-	 * ModuleName(fullName, false)}
-	 * 
-	 * @param fullName
-	 *            The name to set
-	 * @throws BadOwnerCharactersException
-	 * @throws BadNameCharactersException
-	 * @throws BadNameSyntaxException
-	 */
-	public ModuleName(String fullName) throws BadNameSyntaxException, BadNameCharactersException,
-			BadOwnerCharactersException {
-		this(fullName, false);
-	}
-
-	/**
-	 * <p>
-	 * Creates a name from a string with a separator.
-	 * </p>
-	 * <p>
-	 * The separator may be either '/' or '-' and if more than one separator is present, then one placed first wins.
-	 * Thus<br/>
-	 * &quot;foo-bar-baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar-baz&quot;, separator '-'<br/>
-	 * &quot;foo/bar-baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar-baz&quot;, separator '/'<br/>
-	 * &quot;foo/bar/baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar/baz&quot;, separator '/'<br/>
-	 * &quot;foo-bar/baz&quot; yields owner = &quot;foo&quot;, name = &quot;bar/baz&quot;, separator '-'<br/>
-	 * </p>
-	 * 
-	 * @param fullName
-	 *            The name to set
-	 * @param strict
-	 *            <code>true</code> means do not allow <code>owner</code> that starts with a digit or uppercase letters
-	 *            or dash in the <code>name</code>
-	 * @throws BadNameCharactersException
-	 * @throws BadOwnerCharactersException
-	 * @throws BadNameSyntaxException
-	 */
-	public ModuleName(String fullName, boolean strict) throws BadNameSyntaxException, BadNameCharactersException,
+	private ModuleName(String fullName, boolean strict) throws BadNameSyntaxException, BadNameCharactersException,
 			BadOwnerCharactersException {
 		int idx = fullName.indexOf('/');
-		if(idx > 0)
-			separator = '/';
-		else {
+		if(idx < 0)
 			idx = fullName.indexOf('-');
-			separator = '-';
-		}
 
 		if(idx < 0) {
 			this.owner = NO_VALUE;
@@ -365,50 +369,24 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 			this.owner = checkOwner(fullName.substring(0, idx), strict).intern();
 			this.name = checkName(fullName.substring(idx + 1), strict).intern();
 		}
-
-		String semName = createSemanticName();
-		if(semName.equals(fullName))
-			semName = fullName; // Don't waste string instance here. This will be the common case
-		this.semanticName = semName.intern();
+		this.semanticName = createSemanticName();
 	}
 
-	/**
-	 * Creates a name using specified owner, name, and separator.
-	 * 
-	 * @param owner
-	 * @param separator
-	 * @param name
-	 * @param strict
-	 *            <code>true</code> means do not allow <code>owner</code> that starts with a digit or uppercase letters
-	 *            or dash in the <code>name</code>
-	 * @throws BadNameCharactersException
-	 * @throws BadOwnerCharactersException
-	 * @throws BadNameSyntaxException
-	 */
-	public ModuleName(String owner, char separator, String name, boolean strict) throws BadNameSyntaxException,
+	private ModuleName(String owner, String name, boolean strict) throws BadNameSyntaxException,
 			BadOwnerCharactersException, BadNameCharactersException {
 		this.owner = owner == null || owner.length() == 0
 				? NO_VALUE
 				: checkOwner(owner, strict).intern();
 
-		if(!(separator == '-' || separator == '/'))
-			throw new BadNameSyntaxException();
-
-		this.separator = separator;
 		this.name = name == null || name.length() == 0
 				? NO_VALUE
 				: checkName(name, strict).intern();
-		this.semanticName = createSemanticName().intern();
-	}
-
-	public ModuleName(String qualifier, String name, boolean strict) {
-		this(qualifier, '/', name, strict);
+		this.semanticName = createSemanticName();
 	}
 
 	/**
 	 * <p>
-	 * Compare this name to <tt>other</tt> for lexical magnitude using case insensitive comparisons. The separator is
-	 * considered but only after both owner and names are equal.
+	 * Compare this name to <tt>other</tt> for lexical magnitude using case insensitive comparisons.
 	 * </p>
 	 * 
 	 * @param other
@@ -417,14 +395,13 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 */
 	@Override
 	public int compareTo(ModuleName other) {
-		int cmp = semanticName.compareTo(other.semanticName);
-		if(cmp == 0)
-			cmp = separator - other.separator;
-		return cmp;
+		return semanticName == other.semanticName
+				? 0
+				: semanticName.compareTo(other.semanticName); // Both are intern
 	}
 
 	private String createSemanticName() {
-		return owner.toLowerCase() + '/' + name.toLowerCase();
+		return (owner.toLowerCase() + '-' + name.toLowerCase()).intern();
 	}
 
 	/**
@@ -434,12 +411,7 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 */
 	@Override
 	public boolean equals(Object o) {
-		if(this == o)
-			return true;
-		if(!(o instanceof ModuleName))
-			return false;
-		ModuleName qo = (ModuleName) o;
-		return semanticName.equals(qo.semanticName);
+		return this == o || o instanceof ModuleName && semanticName == ((ModuleName) o).semanticName; // Both are intern
 	}
 
 	/**
@@ -457,13 +429,6 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	}
 
 	/**
-	 * @return the separator
-	 */
-	public char getSeparator() {
-		return separator;
-	}
-
-	/**
 	 * Computes the hash value for this qualified name. The separator is excluded from the computation
 	 * 
 	 * @return The computed hash code.
@@ -474,13 +439,34 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	}
 
 	/**
-	 * Returns the string representation fo this instance.
+	 * Returns the string representation for this instance using the
+	 * default '-' separator
 	 */
 	@Override
 	public String toString() {
 		StringBuilder bld = new StringBuilder();
-		toString(bld);
+		toString(bld, '-');
 		return bld.toString();
+	}
+
+	/**
+	 * @param separator
+	 *            The separator to use between owner and name
+	 *            Returns the string representation fo this instance.
+	 */
+	public String toString(char separator) {
+		StringBuilder bld = new StringBuilder();
+		toString(bld, separator);
+		return bld.toString();
+	}
+
+	/**
+	 * Present this object as a string onto the given builder using the default '-' separator.
+	 * 
+	 * @param builder
+	 */
+	public void toString(StringBuilder builder) {
+		toString(builder, '-');
 	}
 
 	/**
@@ -488,26 +474,11 @@ public class ModuleName implements Serializable, Comparable<ModuleName> {
 	 * 
 	 * @param builder
 	 */
-	public void toString(StringBuilder builder) {
+	public void toString(StringBuilder builder, char separator) {
 		if(owner != NO_VALUE) {
 			builder.append(owner);
 			builder.append(separator);
 		}
 		builder.append(name);
-	}
-
-	/**
-	 * Returns an instance that is guaranteed to have the given
-	 * separator. The returned instance might be this instance or
-	 * a new instance depending on if this instance already has the
-	 * given separator.
-	 * 
-	 * @param separator
-	 * @return A name with the given separator, possibly this instance
-	 */
-	public ModuleName withSeparator(char separator) {
-		return this.separator == separator
-				? this
-				: new ModuleName(this, separator);
 	}
 }

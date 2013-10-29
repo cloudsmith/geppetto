@@ -29,7 +29,7 @@ public class DefaultModules extends AbstractForgeService<Module, ModuleName> imp
 
 	@Override
 	void addIdSegment(StringBuilder bld, ModuleName id) {
-		id.withSeparator('-').toString(bld);
+		id.toString(bld);
 	}
 
 	@Override

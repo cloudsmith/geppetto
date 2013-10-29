@@ -15,10 +15,10 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
+import org.junit.Test;
+
 import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
-
-import org.junit.Test;
 
 public class ForgeServiceTest extends AbstractForgeTest {
 
@@ -26,7 +26,7 @@ public class ForgeServiceTest extends AbstractForgeTest {
 	public void testLoadJSONMetadata__File() {
 		try {
 			Metadata md = getForgeUtil().loadJSONMetadata(getTestData("puppetlabs-apache/metadata.json"));
-			assertEquals("Unexpected module name", new ModuleName("puppetlabs-apache"), md.getName());
+			assertEquals("Unexpected module name", ModuleName.fromString("puppetlabs-apache"), md.getName());
 		}
 		catch(IOException e) {
 			fail(e.getMessage());

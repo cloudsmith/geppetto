@@ -21,6 +21,15 @@ import com.puppetlabs.geppetto.semver.Version;
 public class VersionedName implements Serializable, Comparable<VersionedName> {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Find the first dash or a slash that is followed by a digit. That position
+	 * must denote the separator between the name and the version since the version
+	 * must start with a digit and the name must start with a letter.
+	 * 
+	 * @param slug
+	 *            The string to parse
+	 * @return The position of the separator or -1 if it cannot be found
+	 */
 	public static int getVersionSeparatorPosition(String slug) {
 		if(slug == null)
 			return -1;
@@ -45,6 +54,7 @@ public class VersionedName implements Serializable, Comparable<VersionedName> {
 	 * @param moduleName
 	 * @param version
 	 * 
+	 * @return The created name
 	 * @throws IllegalArgumentException
 	 */
 	public VersionedName(ModuleName moduleName, Version version) throws IllegalArgumentException {
@@ -52,25 +62,55 @@ public class VersionedName implements Serializable, Comparable<VersionedName> {
 		this.version = version;
 	}
 
+	/**
+	 * Create a versioned name based on a slug. The slug consists of three parts that are separated
+	 * by either '/' or '-'. The method {@link #getVersionSeparatorPosition(String)} is used when
+	 * determining the position of the version separator.
+	 * 
+	 * @param slug
+	 *            The string to create the owner/name/version from
+	 * @return The created name
+	 */
 	public VersionedName(String slug) {
 		int sep = getVersionSeparatorPosition(slug);
 		if(sep <= 0)
 			throw new IllegalArgumentException(
 				"Must be a full module name (owner [-/] name) and a version separated by a dash or slash");
 
-		moduleName = new ModuleName(slug.substring(0, sep));
-		version = Version.create(slug.substring(sep + 1));
+		moduleName = ModuleName.fromString(slug.substring(0, sep));
+		version = Version.fromString(slug.substring(sep + 1));
 	}
 
 	/**
-	 * @param parts
-	 *            A three element array with owner, name, and version
-	 * 
+	 * @param moduleName
+	 * @param version
+	 * @return The created name
 	 * @throws IllegalArgumentException
 	 */
 	public VersionedName(String moduleName, String version) throws IllegalArgumentException {
-		this.moduleName = new ModuleName(moduleName);
-		this.version = Version.create(version);
+		this(ModuleName.fromString(moduleName), Version.fromString(version));
+	}
+
+	/**
+	 * @param owner
+	 * @param name
+	 * @param version
+	 * @return The created name
+	 * @throws IllegalArgumentException
+	 */
+	public VersionedName(String owner, String name, String version) throws IllegalArgumentException {
+		this(ModuleName.create(owner, name, false), Version.create(version));
+	}
+
+	/**
+	 * @param owner
+	 * @param name
+	 * @param version
+	 * @return The created name
+	 * @throws IllegalArgumentException
+	 */
+	public VersionedName(String owner, String name, Version version) throws IllegalArgumentException {
+		this(ModuleName.create(owner, name, false), version);
 	}
 
 	@Override

@@ -29,7 +29,7 @@ public interface Releases extends ForgeService<Release, VersionedName> {
 
 	public static class OfModule extends Compare<Release> {
 		public OfModule(ModuleName module) {
-			super("module", module.withSeparator('-').toString());
+			super("module", module.toString('-'));
 		}
 	}
 

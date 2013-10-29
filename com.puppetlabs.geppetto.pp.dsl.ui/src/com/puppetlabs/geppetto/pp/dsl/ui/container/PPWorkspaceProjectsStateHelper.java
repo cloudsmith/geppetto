@@ -15,15 +15,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-
-import com.puppetlabs.geppetto.diagnostic.Diagnostic;
-import com.puppetlabs.geppetto.forge.Forge;
-import com.puppetlabs.geppetto.forge.model.Dependency;
-import com.puppetlabs.geppetto.forge.model.Metadata;
-import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.semver.Version;
-import com.puppetlabs.geppetto.semver.VersionRange;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -34,6 +25,13 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.Forge;
+import com.puppetlabs.geppetto.forge.model.Dependency;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
 
 /**
  * Helper for Puppet Projects.
@@ -61,8 +59,7 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 		ModuleName name = d.getName();
 		if(name == null)
 			return null;
-		// Names with "/" are not allowed
-		name = name.withSeparator('-');
+
 		String namepart = name + "-";
 		BiMap<IProject, Version> candidates = HashBiMap.create();
 		int len = namepart.length();
@@ -71,7 +68,7 @@ public class PPWorkspaceProjectsStateHelper extends AbstractStorage2UriMapperCli
 			String n = p.getName();
 			if(n.startsWith(namepart) && n.length() > len && isAccessibleXtextProject(p)) {
 				try {
-					candidates.put(p, Version.create(p.getName().substring(len)));
+					candidates.put(p, Version.fromString(p.getName().substring(len)));
 				}
 				catch(IllegalArgumentException e) {
 					// Project name does not end with a valid version. Just skip it

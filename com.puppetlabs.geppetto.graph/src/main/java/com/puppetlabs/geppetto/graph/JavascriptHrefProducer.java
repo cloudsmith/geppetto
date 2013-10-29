@@ -78,7 +78,7 @@ public class JavascriptHrefProducer extends RelativeFileHrefProducer {
 		StringBuilder builder = new StringBuilder();
 		builder.append("javascript:showUnresolved(");
 		builder.append("'");
-		builder.append(fromModuleName.withSeparator('_'));
+		fromModuleName.toString(builder, '_');
 		builder.append("', ");
 		builder.append("'");
 		builder.append(name);

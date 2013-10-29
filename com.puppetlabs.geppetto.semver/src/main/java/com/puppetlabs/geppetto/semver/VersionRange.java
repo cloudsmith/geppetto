@@ -66,6 +66,53 @@ public class VersionRange implements Serializable {
 		">=" + Version.MIN, Version.MIN, true, Version.MAX, true);
 
 	/**
+	 * Same as {@link #fromString(String)}
+	 * 
+	 * @param versionRequirement
+	 *            The string form of the version requirement
+	 * @return The created range
+	 */
+	public static VersionRange create(String versionRequirement) {
+		return fromString(versionRequirement);
+	}
+
+	/**
+	 * Creates a new VersionRange according to detailed specification.
+	 * 
+	 * @param lower
+	 * @param lowerBoundInclusive
+	 * @param upper
+	 * @param upperBoundInclusive
+	 * @return
+	 */
+	public static VersionRange create(Version lower, boolean lowerBoundInclusive, Version upper,
+			boolean upperBoundInclusive) {
+		return new VersionRange(null, lower, lowerBoundInclusive, upper, upperBoundInclusive);
+	}
+
+	private static Version createVersion(String version, String range) {
+		try {
+			return Version.fromString(version);
+		}
+		catch(IllegalArgumentException e) {
+			throw vomit(e.getMessage(), range);
+		}
+	}
+
+	/**
+	 * Returns a range that will be an exact match for the given version.
+	 * 
+	 * @param version
+	 *            The version that the range must match
+	 * @return The created range
+	 */
+	public static VersionRange exact(Version version) {
+		return version == null
+				? null
+				: new VersionRange(null, version, true, version, true);
+	}
+
+	/**
 	 * Returns a range based on the given string. See class documentation
 	 * for details.
 	 * 
@@ -73,7 +120,7 @@ public class VersionRange implements Serializable {
 	 *            The string form of the version requirement
 	 * @return The created range
 	 */
-	public static VersionRange create(String versionRequirement) {
+	public static VersionRange fromString(String versionRequirement) {
 		if(versionRequirement == null)
 			return null;
 
@@ -217,42 +264,6 @@ public class VersionRange implements Serializable {
 			throw new IllegalArgumentException("lower bound must be less or equal to upper bound");
 
 		return new VersionRange(versionRequirement, min, minInclude, max, maxInclude);
-	}
-
-	/**
-	 * Creates a new VersionRange according to detailed specification.
-	 * 
-	 * @param lower
-	 * @param lowerBoundInclusive
-	 * @param upper
-	 * @param upperBoundInclusive
-	 * @return
-	 */
-	public static VersionRange create(Version lower, boolean lowerBoundInclusive, Version upper,
-			boolean upperBoundInclusive) {
-		return new VersionRange(null, lower, lowerBoundInclusive, upper, upperBoundInclusive);
-	}
-
-	private static Version createVersion(String version, String range) {
-		try {
-			return Version.create(version);
-		}
-		catch(IllegalArgumentException e) {
-			throw vomit(e.getMessage(), range);
-		}
-	}
-
-	/**
-	 * Returns a range that will be an exact match for the given version.
-	 * 
-	 * @param version
-	 *            The version that the range must match
-	 * @return The created range
-	 */
-	public static VersionRange exact(Version version) {
-		return version == null
-				? null
-				: new VersionRange(null, version, true, version, true);
 	}
 
 	/**

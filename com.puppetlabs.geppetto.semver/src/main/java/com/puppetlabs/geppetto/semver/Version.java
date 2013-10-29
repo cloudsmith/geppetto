@@ -51,16 +51,27 @@ public class Version implements Comparable<Version>, Serializable {
 	}
 
 	/**
+	 * Same as {@link #fromString(String)}
+	 * 
+	 * @param version
+	 *            The version in string form
+	 * @return The created version
+	 */
+	public static Version create(String version) {
+		return fromString(version);
+	}
+
+	/**
 	 * Creates a new instance from the given <code>version</code> string. This method will return <code>null</code> on
 	 * <code>null</code> input.
 	 * 
 	 * @param version
-	 *            The version in string form.
+	 *            The version in string form
 	 * @return The created version.
 	 * @throws IllegalArgumentException
 	 *             if the version string is not a valid semver version.
 	 */
-	public static Version create(String version) {
+	public static Version fromString(String version) {
 		if(version == null || version.length() == 0)
 			return null;
 

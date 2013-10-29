@@ -136,7 +136,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 					@Override
 					public void handleEvent(ModifyEvent ev) {
 						try {
-							new ModuleName(moduleNameText.getText());
+							ModuleName.fromString(moduleNameText.getText());
 							moduleNameText.setForeground(colorOfText);
 							updateStatus(OK_WITHOUT_TEXT);
 						}
@@ -214,7 +214,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 				Object[] selection = getSelectedElements();
 				if(selection.length == 1) {
 					ModuleInfo mi = (ModuleInfo) selection[0];
-					moduleNameText.setText(mi.getFullName().withSeparator('-').toString());
+					moduleNameText.setText(mi.getFullName().toString());
 					Version v = mi.getVersion();
 					versionRequirementText.setText(v == null
 							? ""
@@ -321,7 +321,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 					StringBuilder bld = new StringBuilder();
 					String fullName = getText(element);
 					try {
-						new ModuleName(fullName, true);
+						ModuleName.create(fullName, true);
 					}
 					catch(IllegalArgumentException e) {
 						bld.append("- ");
@@ -402,8 +402,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 									for(Object result : results) {
 										ModuleInfo module = (ModuleInfo) result;
 										model.addDependency(
-											module.getFullName().withSeparator('-').toString(),
-											module.getVersion().toString());
+											module.getFullName().toString(), module.getVersion().toString());
 									}
 								}
 								else
@@ -508,8 +507,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 			ModuleName moduleName = metadata.getName();
 			if(toBeEdited == null || !toBeEdited.equals(moduleName))
 				for(MetadataModel.Dependency dependency : getModel().getDependencies())
-					if(moduleName.withSeparator('-').toString().equals(
-						nameWithDashSeparator(dependency.getModuleName())))
+					if(moduleName.toString().equals(nameWithDashSeparator(dependency.getModuleName())))
 						return;
 
 			ModuleInfo module = new ModuleInfo(moduleName, metadata.getVersion());
@@ -526,7 +524,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 			ModuleName always = null;
 			if(toBeEdited != null)
 				try {
-					always = new ModuleName(toBeEdited);
+					always = ModuleName.fromString(toBeEdited);
 				}
 				catch(IllegalArgumentException e) {
 					// Keep always as null since a match is impossible
@@ -584,12 +582,12 @@ class ModuleDependenciesPage extends GuardedModulePage {
 			int syntaxSeverity = IMessageProvider.NONE;
 			String syntax = null;
 			try {
-				new ModuleName(name, true);
+				ModuleName.create(name, true);
 			}
 			catch(IllegalArgumentException e) {
 				syntaxSeverity = IMessageProvider.WARNING;
 				try {
-					new ModuleName(name, false);
+					ModuleName.create(name, false);
 				}
 				catch(IllegalArgumentException e2) {
 					syntaxSeverity = IMessageProvider.ERROR;

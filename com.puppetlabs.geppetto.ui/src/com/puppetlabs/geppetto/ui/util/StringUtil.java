@@ -18,7 +18,7 @@ public class StringUtil {
 	public static String getModuleText(ModuleInfo module) {
 		StringBuilder bld = new StringBuilder();
 		if(module.getFullName() != null) {
-			module.getFullName().withSeparator('-').toString(bld);
+			module.getFullName().toString(bld);
 			bld.append(' ');
 		}
 		if(module.getVersion() != null)

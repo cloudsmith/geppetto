@@ -18,13 +18,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import com.puppetlabs.geppetto.forge.ForgeService;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
-
-import org.junit.Before;
-import org.junit.Test;
 
 public class ForgeTest extends AbstractForgeTest {
 
@@ -34,7 +34,7 @@ public class ForgeTest extends AbstractForgeTest {
 	public void install() {
 		try {
 			File installFolder = getTestOutputFolder("stdlib-install", true);
-			fixture.install(new ModuleName("puppetlabs/stdlib"), null, installFolder, false, true);
+			fixture.install(ModuleName.fromString("puppetlabs/stdlib"), null, installFolder, false, true);
 			File found = new File(installFolder, "stdlib");
 			assertTrue("Installation did not produce the expected result", found.isDirectory());
 		}

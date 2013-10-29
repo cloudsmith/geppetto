@@ -33,7 +33,7 @@ public class StrictMetadataJsonParser extends MetadataJsonParser {
 		if(name == null)
 			return null;
 		try {
-			return new ModuleName(name, false);
+			return ModuleName.create(name, false);
 		}
 		catch(IllegalArgumentException e) {
 			return null;
@@ -117,7 +117,7 @@ public class StrictMetadataJsonParser extends MetadataJsonParser {
 						break;
 					case version:
 						try {
-							md.setVersion(Version.create(arg));
+							md.setVersion(Version.fromString(arg));
 						}
 						catch(IllegalArgumentException e) {
 						}

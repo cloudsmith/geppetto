@@ -10,15 +10,40 @@
  */
 package com.puppetlabs.geppetto.forge.model;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+import com.google.gson.annotations.Expose;
 import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
-import com.google.gson.annotations.Expose;
 
 /**
  * Describes a dependency from one module to another.
  */
 public class Dependency extends Entity {
+	/**
+	 * We need a special serializer for Metadata because the name uses a dash as separator whereas
+	 * the name in a dependency uses a slash.
+	 */
+	public static class JsonAdapter implements JsonSerializer<Dependency> {
+		@Override
+		public JsonElement serialize(Dependency src, java.lang.reflect.Type typeOfSrc, JsonSerializationContext context) {
+			JsonObject json = new JsonObject();
+			if(src.getName() != null)
+				json.add("name", new JsonPrimitive(src.getName().toString('/')));
+			if(src.getRepository() != null)
+				json.add("repository", context.serialize(src.getRepository()));
+			if(src.getVersionRequirement() != null)
+				json.add("version_requirement", context.serialize(src.getVersionRequirement()));
+			return json;
+		}
+	}
+
+	public static final JsonAdapter DEPENDENCY_ADAPTER = new JsonAdapter();
+
 	@Expose
 	private ModuleName name;
 
@@ -105,9 +130,7 @@ public class Dependency extends Entity {
 	 *            the name to set
 	 */
 	public void setName(ModuleName name) {
-		this.name = name == null
-				? null
-				: name.withSeparator('/');
+		this.name = name;
 	}
 
 	/**

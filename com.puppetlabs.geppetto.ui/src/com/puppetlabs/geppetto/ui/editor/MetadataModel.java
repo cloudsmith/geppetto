@@ -24,19 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.puppetlabs.geppetto.diagnostic.Diagnostic;
-import com.puppetlabs.geppetto.diagnostic.ExceptionDiagnostic;
-import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
-import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.forge.model.ModuleName.BadNameCharactersException;
-import com.puppetlabs.geppetto.forge.util.CallSymbol;
-import com.puppetlabs.geppetto.forge.util.ModuleUtils;
-import com.puppetlabs.geppetto.forge.util.RubyValueSerializer;
-import com.puppetlabs.geppetto.forge.util.ValueSerializer;
-import com.puppetlabs.geppetto.pp.dsl.ui.builder.PPModuleMetadataBuilder;
-import com.puppetlabs.geppetto.semver.VersionRange;
-import com.puppetlabs.geppetto.ui.UIPlugin;
-
 import org.codehaus.jackson.JsonFactory;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -51,6 +38,18 @@ import org.jrubyparser.lexer.SyntaxException;
 import org.jrubyparser.parser.ParserConfiguration;
 
 import com.google.common.io.CharStreams;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.diagnostic.ExceptionDiagnostic;
+import com.puppetlabs.geppetto.diagnostic.FileDiagnostic;
+import com.puppetlabs.geppetto.forge.model.ModuleName;
+import com.puppetlabs.geppetto.forge.model.ModuleName.BadNameCharactersException;
+import com.puppetlabs.geppetto.forge.util.CallSymbol;
+import com.puppetlabs.geppetto.forge.util.ModuleUtils;
+import com.puppetlabs.geppetto.forge.util.RubyValueSerializer;
+import com.puppetlabs.geppetto.forge.util.ValueSerializer;
+import com.puppetlabs.geppetto.pp.dsl.ui.builder.PPModuleMetadataBuilder;
+import com.puppetlabs.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.ui.UIPlugin;
 
 public class MetadataModel {
 	public interface Dependency {
@@ -338,8 +337,8 @@ public class MetadataModel {
 	public synchronized void addDependency(String moduleName, String versionRequirement) {
 		ModuleName m;
 		try {
-			m = new ModuleName(moduleName);
-			moduleName = m.withSeparator('/').toString();
+			m = ModuleName.fromString(moduleName);
+			moduleName = m.toString('/');
 		}
 		catch(IllegalArgumentException e) {
 			m = null;
@@ -348,7 +347,7 @@ public class MetadataModel {
 		if(m != null) {
 			for(Dependency dep : dependencies)
 				try {
-					ModuleName candidate = new ModuleName(dep.getModuleName());
+					ModuleName candidate = ModuleName.fromString(dep.getModuleName());
 					if(m.equals(candidate)) {
 						dep.setNameAndVersion(moduleName, versionRequirement);
 						return;
@@ -608,7 +607,7 @@ public class MetadataModel {
 		ModuleName name;
 		VersionRange range;
 		try {
-			name = new ModuleName(dep.getModuleName(), false);
+			name = ModuleName.create(dep.getModuleName(), false);
 			range = VersionRange.create(dep.getVersionRequirement());
 			return PPModuleMetadataBuilder.getBestMatchingProject(name, range) != null;
 		}

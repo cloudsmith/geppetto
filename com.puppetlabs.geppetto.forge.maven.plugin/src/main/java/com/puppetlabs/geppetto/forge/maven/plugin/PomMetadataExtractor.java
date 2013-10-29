@@ -63,7 +63,9 @@ public class PomMetadataExtractor extends AbstractMetadataExtractor {
 	@Override
 	public Metadata performMetadataExtraction(File existingFile, Diagnostic result) throws IOException {
 		Metadata metadata = new Metadata();
-		metadata.setName(new ModuleName(mavenProject.getGroupId(), mavenProject.getArtifactId(), true));
+		String gid = mavenProject.getGroupId();
+		String owner = gid.substring(gid.lastIndexOf('.') + 1);
+		metadata.setName(ModuleName.create(owner, mavenProject.getArtifactId(), true));
 		metadata.setVersion(Version.create(mavenProject.getVersion()));
 		metadata.setSummary(mavenProject.getName());
 
@@ -91,7 +93,9 @@ public class PomMetadataExtractor extends AbstractMetadataExtractor {
 							: Version.create(r.getUpperBound().toString());
 
 					Dependency forgeDep = new Dependency();
-					forgeDep.setName(new ModuleName(dep.getGroupId(), dep.getArtifactId(), true));
+					String dgid = mavenProject.getGroupId();
+					String downer = dgid.substring(dgid.lastIndexOf('.') + 1);
+					forgeDep.setName(ModuleName.create(downer, dep.getArtifactId(), true));
 					forgeDep.setVersionRequirement(VersionRange.create(
 						lower, r.isLowerBoundInclusive(), upper, r.isUpperBoundInclusive()));
 

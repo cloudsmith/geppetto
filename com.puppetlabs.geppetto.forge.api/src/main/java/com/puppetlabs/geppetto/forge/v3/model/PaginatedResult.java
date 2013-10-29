@@ -23,7 +23,7 @@ public class PaginatedResult<T extends Entity> extends Entity {
 		int limit = pagination.getLimit();
 		int last = pagination.getOffset() + limit;
 		int left = pagination.getTotal() - last;
-		if(left < 0)
+		if(left <= 0)
 			return null;
 		if(limit > left)
 			limit = left;

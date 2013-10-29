@@ -12,6 +12,9 @@ public class AbbrevModule extends Entity {
 	@Expose
 	private String name;
 
+	@Expose
+	private AbbrevUser owner;
+
 	/**
 	 * Returns the name. Please note that this name does not include
 	 * the owner so it is not a full module identifier.
@@ -20,6 +23,13 @@ public class AbbrevModule extends Entity {
 	 */
 	public String getName() {
 		return name;
+	}
+
+	/**
+	 * @return the owner
+	 */
+	public AbbrevUser getOwner() {
+		return owner;
 	}
 
 	/**
@@ -35,6 +45,14 @@ public class AbbrevModule extends Entity {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @param owner
+	 *            the owner to set
+	 */
+	public void setOwner(AbbrevUser owner) {
+		this.owner = owner;
 	}
 
 	/**

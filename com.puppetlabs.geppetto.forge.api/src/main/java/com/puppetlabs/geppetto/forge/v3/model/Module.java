@@ -17,9 +17,6 @@ public class Module extends AbbrevModule {
 	private Date updated_at;
 
 	@Expose
-	private AbbrevUser owner;
-
-	@Expose
 	private Release current_release;
 
 	@Expose
@@ -58,13 +55,6 @@ public class Module extends AbbrevModule {
 
 	public String getIssuesURL() {
 		return issues_url;
-	}
-
-	/**
-	 * @return the modules owner
-	 */
-	public AbbrevUser getOwner() {
-		return owner;
 	}
 
 	/**
@@ -121,14 +111,6 @@ public class Module extends AbbrevModule {
 	 */
 	public void setIssuesURL(String issuesURL) {
 		this.issues_url = issuesURL;
-	}
-
-	/**
-	 * @param owner
-	 *            the owner to set
-	 */
-	public void setOwner(AbbrevUser owner) {
-		this.owner = owner;
 	}
 
 	/**

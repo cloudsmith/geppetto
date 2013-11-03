@@ -71,8 +71,9 @@ public interface ForgeClient {
 	void downloadV2(String uri, Map<String, String> params, OutputStream output) throws IOException;
 
 	/**
-	 * Executes a HTTP GET request. The http response is expected to be a JSON representation of
-	 * an object of the specified <code>type</code>. The object is parsed and returned.
+	 * Executes a HTTP GET request using an URI that is relative to the version less base URI. The http response is
+	 * expected to be a JSON representation of an object of the specified <code>type</code>. The object is parsed and
+	 * returned.
 	 * 
 	 * @param urlStr
 	 *            The URL of the request
@@ -84,7 +85,7 @@ public interface ForgeClient {
 	 * @throws IOException
 	 *             if the request could not be completed
 	 */
-	<V> V get(String urlStr, Map<String, String> params, Type type) throws IOException;
+	<V> V getBaseRelative(String urlStr, Map<String, String> params, Type type) throws IOException;
 
 	/**
 	 * Executes a HTTP GET request using the legacy v1 API. The http response is expected to be a JSON representation of
@@ -117,6 +118,22 @@ public interface ForgeClient {
 	 *             if the request could not be completed
 	 */
 	<V> V getV2(String urlStr, Map<String, String> params, Type type) throws IOException;
+
+	/**
+	 * Executes a HTTP GET request using the v3 API. The http response is expected to be a JSON representation of
+	 * an object of the specified <code>type</code>. The object is parsed and returned.
+	 * 
+	 * @param urlStr
+	 *            The URL of the request
+	 * @param params
+	 *            Parameters to include in the URL
+	 * @param type
+	 *            The expected type of the result
+	 * @return An object of the expected type
+	 * @throws IOException
+	 *             if the request could not be completed
+	 */
+	<V> V get(String urlStr, Map<String, String> params, Type type) throws IOException;
 
 	/**
 	 * Patch data to URI

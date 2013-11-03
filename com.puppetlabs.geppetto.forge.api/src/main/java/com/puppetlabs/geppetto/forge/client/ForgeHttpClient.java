@@ -70,6 +70,10 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 	}
 
 	@Inject
+	@Named(Constants.BASE_URL_NAME)
+	private String baseURL;
+
+	@Inject
 	@Named(Constants.API_V1_URL_NAME)
 	private String v1URL;
 
@@ -221,8 +225,8 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 	}
 
 	@Override
-	public <V> V get(String urlStr, Map<String, String> params, Type type) throws IOException {
-		return doGet(v3URL + urlStr, params, type);
+	public <V> V getBaseRelative(String urlStr, Map<String, String> params, Type type) throws IOException {
+		return doGet(baseURL + urlStr, params, type);
 	}
 
 	@Override
@@ -233,6 +237,11 @@ public class ForgeHttpClient implements Constants, ForgeClient {
 	@Override
 	public <V> V getV2(String urlStr, Map<String, String> params, Type type) throws IOException {
 		return doGet(v2URL + urlStr, params, type);
+	}
+
+	@Override
+	public <V> V get(String urlStr, Map<String, String> params, Type type) throws IOException {
+		return doGet(v3URL + urlStr, params, type);
 	}
 
 	@Override

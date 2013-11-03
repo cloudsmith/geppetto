@@ -14,6 +14,7 @@ package com.puppetlabs.geppetto.forge.v3.impl;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
+import java.net.URI;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -76,6 +77,11 @@ public abstract class AbstractForgeService<T extends Entity, I> implements Forge
 		bld.append('/');
 		addIdSegment(bld, id);
 		return client.get(bld.toString(), null, getElementResultType());
+	}
+
+	@Override
+	public T get(URI uri) throws IOException {
+		return client.getBaseRelative(uri.toString(), null, getElementResultType());
 	}
 
 	abstract Class<T> getElementResultType();

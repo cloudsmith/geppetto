@@ -13,6 +13,7 @@ package com.puppetlabs.geppetto.forge.v3;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -118,6 +119,17 @@ public interface ForgeService<T extends Entity, I> {
 	 * @throws IOException
 	 */
 	T get(I id) throws IOException;
+
+	/**
+	 * Retrieve the entity that corresponds to the given relative <code>uri</code>.
+	 * 
+	 * @param uri
+	 *            The uri of the wanted entity
+	 * @return The entity that matches the <code>id</code> or <code>null</code> if no such entry could be found.
+	 * 
+	 * @throws IOException
+	 */
+	T get(URI uri) throws IOException;
 
 	/**
 	 * Returns a paginated result that corresponds to the given <code>query</code>, <code>orderBy</code>, and

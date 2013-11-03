@@ -14,6 +14,7 @@ import static com.puppetlabs.geppetto.forge.model.Constants.API_OAUTH_URL_NAME;
 import static com.puppetlabs.geppetto.forge.model.Constants.API_V1_URL_NAME;
 import static com.puppetlabs.geppetto.forge.model.Constants.API_V2_URL_NAME;
 import static com.puppetlabs.geppetto.forge.model.Constants.API_V3_URL_NAME;
+import static com.puppetlabs.geppetto.forge.model.Constants.BASE_URL_NAME;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -50,6 +51,8 @@ public abstract class ForgeHttpModule extends AbstractModule {
 		bind(MetadataRepository.class).to(MetadataRepositoryImpl.class);
 	}
 
+	@Provides
+	@Named(BASE_URL_NAME)
 	protected abstract String getBaseURL();
 
 	@Provides

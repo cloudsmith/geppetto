@@ -2,7 +2,7 @@
 <feature
       id="com.puppetlabs.geppetto.site"
       label="Puppet Labs Geppetto Update Site"
-      version="4.0.0.qualifier">
+      version="4.0.1.qualifier">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]

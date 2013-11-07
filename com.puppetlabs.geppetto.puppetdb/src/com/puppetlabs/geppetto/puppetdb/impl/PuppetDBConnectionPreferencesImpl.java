@@ -10,8 +10,8 @@
  */
 package com.puppetlabs.geppetto.puppetdb.impl;
 
-import static com.puppetlabs.geppetto.puppetdb.impl.PuppetDBManagerImpl.getPuppetDBNode;
 import static com.puppetlabs.geppetto.injectable.CommonModuleProvider.getCommonModule;
+import static com.puppetlabs.geppetto.puppetdb.impl.PuppetDBManagerImpl.getPuppetDBNode;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -97,32 +97,38 @@ public class PuppetDBConnectionPreferencesImpl implements PuppetDBConnectionPref
 	}
 
 	@Override
-	public PuppetDBClient getClient() {
+	public PuppetDBClient getClient() throws BackingStoreException {
 		BasicAPIPreferences prefs = new BasicAPIPreferences();
 		prefs.setServiceHostname(getHostname());
-		prefs.setServiceSSLPort(getPort());
+		prefs.setServicePort(getPort());
 		prefs.setAllowAllHosts(true);
-		return PuppetDBClientFactory.newClient(prefs, getCommonModule(), new AbstractModule() {
-			@Override
-			protected void configure() {
-				bind(SSLSocketFactory.class).toProvider(new AbstractSSLSocketFactoryProvider() {
-					@Override
-					protected Certificate getCACertificate(CertificateFactory factory) throws IOException, GeneralSecurityException {
-						return generateCaCertificate(factory);
-					}
+		PuppetDBClient client;
+		if(getHostCert() == null)
+			client = PuppetDBClientFactory.newClient(prefs, getCommonModule());
+		else {
+			client = PuppetDBClientFactory.newClient(prefs, getCommonModule(), new AbstractModule() {
+				@Override
+				protected void configure() {
+					bind(SSLSocketFactory.class).toProvider(new AbstractSSLSocketFactoryProvider() {
+						@Override
+						protected Certificate getCACertificate(CertificateFactory factory) throws IOException, GeneralSecurityException {
+							return generateCaCertificate(factory);
+						}
 
-					@Override
-					protected Certificate getHostCertificate(CertificateFactory factory) throws IOException, GeneralSecurityException {
-						return generateHostCertificate(factory);
-					}
+						@Override
+						protected Certificate getHostCertificate(CertificateFactory factory) throws IOException, GeneralSecurityException {
+							return generateHostCertificate(factory);
+						}
 
-					@Override
-					protected KeySpec getPrivateKeySpec() throws KeyException, IOException {
-						return generateHostPrivateKey();
-					}
-				});
-			}
-		});
+						@Override
+						protected KeySpec getPrivateKeySpec() throws KeyException, IOException {
+							return generateHostPrivateKey();
+						}
+					});
+				}
+			});
+		}
+		return client;
 	}
 
 	public String getHostCert() throws BackingStoreException {

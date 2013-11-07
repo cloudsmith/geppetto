@@ -50,11 +50,11 @@ public class ResourceEvent extends LeafNode<ResourceEvents> {
 				break;
 			case 3:
 				if(resource != null)
-					txt = resource.getSourcefile();
+					txt = resource.getFile();
 				break;
 			case 4:
 				if(resource != null)
-					txt = Integer.toString(resource.getSourceline());
+					txt = Integer.toString(resource.getLine());
 				break;
 			case 5:
 				txt = dateFormat.format(event.getTimestamp());

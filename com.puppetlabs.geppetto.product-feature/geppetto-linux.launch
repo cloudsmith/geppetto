@@ -13,7 +13,7 @@
 <booleanAttribute key="default" value="false"/>
 <booleanAttribute key="includeOptional" value="false"/>
 <stringAttribute key="location" value="${workspace_loc}/../runtime-geppetto"/>
-<stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-1.7.0-openjdk-1.7.0.60-2.4.2.4.fc19.x86_64"/>
+<stringAttribute key="org.eclipse.jdt.launching.JRE_CONTAINER" value="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-1.7.0-openjdk-1.7.0.60-2.4.3.0.fc19.x86_64"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROGRAM_ARGUMENTS" value="-os ${target.os} -ws ${target.ws} -arch ${target.arch} -nl ${target.nl} -consoleLog -console"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.pde.ui.workbenchClasspathProvider"/>
 <stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Xms40m -Xmx384m"/>

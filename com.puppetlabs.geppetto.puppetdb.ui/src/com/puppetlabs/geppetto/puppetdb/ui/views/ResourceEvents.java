@@ -10,12 +10,8 @@
  */
 package com.puppetlabs.geppetto.puppetdb.ui.views;
 
-import static com.puppetlabs.puppetdb.javaclient.model.Resource.CERTNAME;
-import static com.puppetlabs.puppetdb.javaclient.model.Resource.TITLE;
-import static com.puppetlabs.puppetdb.javaclient.model.Resource.TYPE;
-import static com.puppetlabs.puppetdb.javaclient.query.Query.and;
-import static com.puppetlabs.puppetdb.javaclient.query.Query.eq;
-import static com.puppetlabs.puppetdb.javaclient.query.Query.or;
+import static com.puppetlabs.puppetdb.javaclient.model.Resource.*;
+import static com.puppetlabs.puppetdb.javaclient.query.Query.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +23,7 @@ import java.util.Map;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Display;
+import org.osgi.service.prefs.BackingStoreException;
 
 import com.puppetlabs.geppetto.puppetdb.ui.UIPlugin;
 import com.puppetlabs.puppetdb.javaclient.model.Event;
@@ -57,6 +54,10 @@ public abstract class ResourceEvents extends PuppetDBQuery<ResourceEvent> implem
 				resourceMap.put(getResourceKey(resource.getCertname(), resource.getTitle(), resource.getType()), resource);
 			}
 			return resourceMap;
+		}
+		catch(BackingStoreException e) {
+			UIPlugin.logException("Unable to query PuppetDB for resources", e);
+			return Collections.emptyMap();
 		}
 		catch(IOException e) {
 			UIPlugin.logException("Unable to query PuppetDB for resources", e);

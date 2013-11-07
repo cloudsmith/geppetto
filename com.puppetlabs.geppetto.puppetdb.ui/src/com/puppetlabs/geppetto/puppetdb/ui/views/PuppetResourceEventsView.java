@@ -30,17 +30,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.TreeColumnLayout;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.util.OpenStrategy;
-import org.eclipse.jface.viewers.CellLabelProvider;
-import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
-import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.IDoubleClickListener;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.TreeViewerColumn;
+import org.eclipse.jface.viewers.*;
 import org.eclipse.jface.window.ToolTip;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -52,14 +42,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
-import org.eclipse.ui.IActionBars;
-import org.eclipse.ui.IEditorDescriptor;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchActionConstants;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.OpenAndLinkWithEditorHelper;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.*;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.ui.texteditor.IDocumentProvider;
@@ -279,7 +262,7 @@ public class PuppetResourceEventsView extends ViewPart implements ISelectionChan
 		if(resource == null)
 			return null;
 
-		return getExistingWorkspaceFile(resource.getSourcefile());
+		return getExistingWorkspaceFile(resource.getFile());
 	}
 
 	private IFile getExistingWorkspaceFile(String pathStr) {
@@ -316,7 +299,7 @@ public class PuppetResourceEventsView extends ViewPart implements ISelectionChan
 				Resource resource = ((ResourceEvent) ((IStructuredSelection) selection).getFirstElement()).getResource();
 				IDocumentProvider documentProvider = editor.getDocumentProvider();
 				IDocument document = documentProvider.getDocument(editor.getEditorInput());
-				int line = resource.getSourceline() - 1;
+				int line = resource.getLine() - 1;
 				if(line < 0)
 					line = 0;
 				editor.selectAndReveal(document.getLineOffset(line), document.getLineLength(line));

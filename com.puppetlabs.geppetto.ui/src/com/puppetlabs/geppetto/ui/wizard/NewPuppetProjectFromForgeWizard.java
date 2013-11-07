@@ -14,6 +14,9 @@ import static com.puppetlabs.geppetto.common.Strings.trimToNull;
 import static com.puppetlabs.geppetto.forge.Forge.METADATA_JSON_NAME;
 import static com.puppetlabs.geppetto.forge.Forge.MODULEFILE_NAME;
 import static com.puppetlabs.geppetto.ui.UIPlugin.getLocalString;
+import static com.puppetlabs.geppetto.ui.util.ModuleUtil.getFullName;
+import static com.puppetlabs.geppetto.ui.util.ModuleUtil.getText;
+import static com.puppetlabs.geppetto.ui.util.ModuleUtil.getModuleVersion;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -24,19 +27,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
-
-import com.puppetlabs.geppetto.diagnostic.Diagnostic;
-import com.puppetlabs.geppetto.forge.ForgeService;
-import com.puppetlabs.geppetto.forge.model.Metadata;
-import com.puppetlabs.geppetto.forge.util.ModuleUtils;
-import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
-import com.puppetlabs.geppetto.forge.v1.service.ModuleService;
-import com.puppetlabs.geppetto.semver.VersionRange;
-import com.puppetlabs.geppetto.ui.UIPlugin;
-import com.puppetlabs.geppetto.ui.dialog.ModuleListSelectionDialog;
-import com.puppetlabs.geppetto.ui.util.ResourceUtil;
-import com.puppetlabs.geppetto.ui.util.StringUtil;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -64,6 +54,17 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 
 import com.google.inject.Inject;
+import com.puppetlabs.geppetto.diagnostic.Diagnostic;
+import com.puppetlabs.geppetto.forge.ForgeService;
+import com.puppetlabs.geppetto.forge.model.Metadata;
+import com.puppetlabs.geppetto.forge.util.ModuleUtils;
+import com.puppetlabs.geppetto.forge.v3.Modules;
+import com.puppetlabs.geppetto.forge.v3.model.Module;
+import com.puppetlabs.geppetto.semver.Version;
+import com.puppetlabs.geppetto.semver.VersionRange;
+import com.puppetlabs.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.ui.dialog.ModuleListSelectionDialog;
+import com.puppetlabs.geppetto.ui.util.ResourceUtil;
 
 public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizard {
 
@@ -142,10 +143,10 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			});
 		}
 
-		protected ModuleInfo[] getModuleChoices(final String keyword) {
-			ModuleInfo[] zeroModules = new ModuleInfo[0];
+		protected Module[] getModuleChoices(final String keyword) {
+			Module[] zeroModules = new Module[0];
 			try {
-				final ModuleInfo[][] choicesResult = new ModuleInfo[1][];
+				final Module[][] choicesResult = new Module[1][];
 				choicesResult[0] = zeroModules;
 				getContainer().run(true, true, new IRunnableWithProgress() {
 					@Override
@@ -157,10 +158,11 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 								@Override
 								public void run() {
 									try {
-										List<ModuleInfo> choices = moduleService.search(keyword);
+										List<Module> choices = moduleService.listAll(
+											new Modules.WithText(keyword), null, false);
 										int top = choices.size();
 										if(top > 0)
-											choicesResult[0] = choices.toArray(new ModuleInfo[top]);
+											choicesResult[0] = choices.toArray(new Module[top]);
 									}
 									catch(SocketException e) {
 										// A user abort will cause a "Socket closed" exception We don't
@@ -201,7 +203,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 						}
 					}
 				});
-				ModuleInfo[] choices = choicesResult[0];
+				Module[] choices = choicesResult[0];
 				if(choices.length > 0)
 					return choices;
 				MessageDialog.openConfirm(
@@ -248,7 +250,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			if(askKeywordDialog.open() != Window.OK)
 				return;
 
-			ModuleInfo[] choices = getModuleChoices(askKeywordDialog.getValue());
+			Module[] choices = getModuleChoices(askKeywordDialog.getValue());
 			if(choices.length == 0)
 				return;
 
@@ -261,15 +263,15 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			}
 
 			if(dialog.open() == Window.OK) {
-				setModule((ModuleInfo) dialog.getFirstResult());
+				setModule((Module) dialog.getFirstResult());
 			}
 		}
 
-		protected void setModule(ModuleInfo selectedModule) {
+		protected void setModule(Module selectedModule) {
 			module = selectedModule;
 
-			moduleField.setText(StringUtil.getModuleText(module));
-			projectNameField.setText(module.getFullName().getName());
+			moduleField.setText(getText(module));
+			projectNameField.setText(getFullName(module).getName());
 
 			validatePage();
 		}
@@ -293,7 +295,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 			}
 
 			if(super.validatePage()) {
-				String preferredProjectName = module.getFullName().getName();
+				String preferredProjectName = getFullName(module).getName();
 
 				if(!preferredProjectName.equals(getProjectName())) {
 					setErrorMessage(null);
@@ -313,7 +315,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 	private ForgeService forgeService;
 
 	@Inject
-	private ModuleService moduleService;
+	private Modules moduleService;
 
 	private static final Pattern OK_KEYWORD_CHARACTERS = Pattern.compile("^[0-9A-Za-z_-]*$");
 
@@ -321,7 +323,7 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 
 	private static final Logger log = Logger.getLogger(NewPuppetProjectFromForgeWizard.class);
 
-	protected ModuleInfo module;
+	protected Module module;
 
 	@Override
 	protected String getProjectCreationPageDescription() {
@@ -347,12 +349,13 @@ public class NewPuppetProjectFromForgeWizard extends NewPuppetModuleProjectWizar
 
 		SubMonitor submon = SubMonitor.convert(monitor, "Generating project...", 100);
 		try {
-			VersionRange vr = module.getVersion() == null
+			Version v = getModuleVersion(module);
+			VersionRange vr = v == null
 					? null
-					: VersionRange.exact(module.getVersion());
+					: VersionRange.exact(v);
 
 			File projectDir = project.getLocation().toFile();
-			forgeService.install(module.getFullName(), vr, projectDir, true, true);
+			forgeService.install(getFullName(module), vr, projectDir, true, true);
 
 			File moduleFile = new File(projectDir, MODULEFILE_NAME);
 			boolean moduleFileExists = moduleFile.exists();

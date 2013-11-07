@@ -16,6 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import com.puppetlabs.geppetto.forge.model.Entity;
@@ -82,6 +83,12 @@ public interface ForgeService<T extends Entity, I> {
 	}
 
 	/**
+	 * Cleanly abort the currently executing request. This method does nothing if there is
+	 * no executing request.
+	 */
+	void abortCurrentRequest();
+
+	/**
 	 * <p>
 	 * Let the given <code>visitor</code> visit all entities that matches the given <code>query</code> in the order
 	 * given by <code>orderBy</code>. If a <code>progressMonitor</code> is provided, then it is initialized to the total
@@ -132,7 +139,7 @@ public interface ForgeService<T extends Entity, I> {
 	T get(URI uri) throws IOException;
 
 	/**
-	 * Returns a paginated result that corresponds to the given <code>query</code>, <code>orderBy</code>, and
+	 * Returns a paginated result that corresponds to the given <code>query</code>, <code>sortBy</code>, and
 	 * <code>paginationInfo</code>. New pagination info for the next and previous page can be obtained from
 	 * the returned result.
 	 * 
@@ -149,5 +156,19 @@ public interface ForgeService<T extends Entity, I> {
 	 */
 	PaginatedResult<T> list(Query<T> query, SortBy<T> sortBy, PaginationInfo pagination, boolean includeDeleted)
 			throws IOException;
+
+	/**
+	 * Returns result that corresponds to the given <code>query</code> and <code>sortBy</code>.
+	 * 
+	 * @param query
+	 *            The query or <code>null</code> for all elements.
+	 * @param sortBy
+	 *            The sort order or <code>null</code> for default order.
+	 * @param includeDeleted
+	 *            Set to <code>true</code> to include deleted entries.
+	 * @return
+	 * @throws IOException
+	 */
+	List<T> listAll(Query<T> query, SortBy<T> sortBy, boolean includeDeleted) throws IOException;
 
 }

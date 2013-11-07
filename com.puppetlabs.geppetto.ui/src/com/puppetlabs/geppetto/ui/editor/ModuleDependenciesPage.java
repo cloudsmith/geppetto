@@ -74,13 +74,12 @@ import com.puppetlabs.geppetto.diagnostic.Diagnostic;
 import com.puppetlabs.geppetto.forge.Forge;
 import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
+import com.puppetlabs.geppetto.forge.model.VersionedName;
 import com.puppetlabs.geppetto.semver.Version;
 import com.puppetlabs.geppetto.semver.VersionRange;
 import com.puppetlabs.geppetto.ui.UIPlugin;
 import com.puppetlabs.geppetto.ui.dialog.ModuleListSelectionDialog;
 import com.puppetlabs.geppetto.ui.editor.MetadataModel.Dependency;
-import com.puppetlabs.geppetto.ui.util.StringUtil;
 
 class ModuleDependenciesPage extends GuardedModulePage {
 	protected class DependenciesSectionPart extends ModuleSectionPart {
@@ -213,8 +212,8 @@ class ModuleDependenciesPage extends GuardedModulePage {
 
 				Object[] selection = getSelectedElements();
 				if(selection.length == 1) {
-					ModuleInfo mi = (ModuleInfo) selection[0];
-					moduleNameText.setText(mi.getFullName().toString());
+					VersionedName mi = (VersionedName) selection[0];
+					moduleNameText.setText(mi.getModuleName().toString());
 					Version v = mi.getVersion();
 					versionRequirementText.setText(v == null
 							? ""
@@ -400,9 +399,9 @@ class ModuleDependenciesPage extends GuardedModulePage {
 								Object[] results = dialog.getResult();
 								if(results.length > 1) {
 									for(Object result : results) {
-										ModuleInfo module = (ModuleInfo) result;
+										VersionedName module = (VersionedName) result;
 										model.addDependency(
-											module.getFullName().toString(), module.getVersion().toString());
+											module.getModuleName().toString(), module.getVersion().toString());
 									}
 								}
 								else
@@ -502,7 +501,7 @@ class ModuleDependenciesPage extends GuardedModulePage {
 			section.setClient(client);
 		}
 
-		private void addDependencyIfNotPresent(Metadata metadata, Map<String, ModuleInfo> moduleInfos,
+		private void addDependencyIfNotPresent(Metadata metadata, Map<String, VersionedName> moduleInfos,
 				ModuleName toBeEdited) throws IOException {
 			ModuleName moduleName = metadata.getName();
 			if(toBeEdited == null || !toBeEdited.equals(moduleName))
@@ -510,15 +509,15 @@ class ModuleDependenciesPage extends GuardedModulePage {
 					if(moduleName.toString().equals(nameWithDashSeparator(dependency.getModuleName())))
 						return;
 
-			ModuleInfo module = new ModuleInfo(moduleName, metadata.getVersion());
-			moduleInfos.put(StringUtil.getModuleText(module), module);
+			VersionedName vn = new VersionedName(moduleName, metadata.getVersion());
+			moduleInfos.put(vn.toString(), vn);
 		}
 
-		private Object[] getModuleChoices(String toBeEdited) {
+		private VersionedName[] getModuleChoices(String toBeEdited) {
 
 			Forge forge = getEditor().getForge();
 
-			Map<String, ModuleInfo> modules = new HashMap<String, ModuleInfo>();
+			Map<String, VersionedName> modules = new HashMap<String, VersionedName>();
 			IProject current = getCurrentProject();
 			Diagnostic chain = new Diagnostic();
 			ModuleName always = null;
@@ -548,8 +547,8 @@ class ModuleDependenciesPage extends GuardedModulePage {
 					UIPlugin.getInstance().log(e);
 				}
 			}
-			EList<Object> choices = new UniqueEList.FastCompare<Object>(modules.values());
-			return choices.toArray();
+			EList<VersionedName> choices = new UniqueEList.FastCompare<VersionedName>(modules.values());
+			return choices.toArray(new VersionedName[choices.size()]);
 		}
 
 		int getRowNumber(Object element) {

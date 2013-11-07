@@ -11,21 +11,30 @@
 package com.puppetlabs.geppetto.forge.v1.impl;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpResponseException;
 
+import com.google.gson.reflect.TypeToken;
 import com.google.inject.Inject;
 import com.puppetlabs.geppetto.forge.client.ForgeClient;
 import com.puppetlabs.geppetto.forge.model.Constants;
 import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
 import com.puppetlabs.geppetto.forge.v1.service.ModuleService;
+import com.puppetlabs.geppetto.forge.v2.model.Release;
 
 public class DefaultModuleService implements ModuleService {
 	@Inject
 	private ForgeClient forgeClient;
+
+	/**
+	 * A type representing a {@link List} of {@link Release} instances
+	 */
+	Type LIST_MODULE_INFO = new TypeToken<List<ModuleInfo>>() {
+	}.getType();
 
 	@Override
 	public void abortCurrentRequest() {
@@ -38,7 +47,7 @@ public class DefaultModuleService implements ModuleService {
 		try {
 			modules = forgeClient.getV1(Constants.COMMAND_GROUP_MODULES, keyword == null
 					? null
-					: Collections.singletonMap("q", keyword), Constants.LIST_MODULE_INFO);
+					: Collections.singletonMap("q", keyword), LIST_MODULE_INFO);
 		}
 		catch(HttpResponseException e) {
 			if(e.getStatusCode() != HttpStatus.SC_NOT_FOUND)

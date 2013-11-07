@@ -53,7 +53,6 @@ import com.puppetlabs.geppetto.forge.model.MetadataRepository;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.util.ModuleUtils;
 import com.puppetlabs.geppetto.forge.util.TarUtils;
-import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
 import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
@@ -66,9 +65,6 @@ class ForgeServiceImpl implements ForgeService {
 
 	@Inject
 	private ModuleService moduleService;
-
-	@Inject
-	private com.puppetlabs.geppetto.forge.v1.service.ModuleService moduleServiceV1;
 
 	@Inject
 	private ReleaseService releaseService;
@@ -284,10 +280,5 @@ class ForgeServiceImpl implements ForgeService {
 	@Override
 	public List<Module> search(String term) throws IOException {
 		return moduleService.search(term, null);
-	}
-
-	@Override
-	public List<ModuleInfo> search_v1(String term) throws IOException {
-		return moduleServiceV1.search(term);
 	}
 }

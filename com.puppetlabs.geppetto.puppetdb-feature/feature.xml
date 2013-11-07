@@ -2,7 +2,7 @@
 <feature
       id="com.puppetlabs.geppetto.puppetdb"
       label="%featureName"
-      version="4.0.0.qualifier"
+      version="4.0.1.qualifier"
       provider-name="%providerName"
       image="geppetto_update_120.jpg">
 
@@ -35,4 +35,5 @@ http://www.eclipse.org/legal/epl-v10.html
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
 </feature>

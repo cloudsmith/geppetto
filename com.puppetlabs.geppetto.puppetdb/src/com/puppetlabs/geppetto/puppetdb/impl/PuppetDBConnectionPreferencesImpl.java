@@ -10,8 +10,8 @@
  */
 package com.puppetlabs.geppetto.puppetdb.impl;
 
-import static com.puppetlabs.geppetto.puppetdb.impl.PuppetDBManagerImpl.getPuppetDBNode;
 import static com.puppetlabs.geppetto.injectable.CommonModuleProvider.getCommonModule;
+import static com.puppetlabs.geppetto.puppetdb.impl.PuppetDBManagerImpl.getPuppetDBNode;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -41,6 +41,10 @@ public class PuppetDBConnectionPreferencesImpl implements PuppetDBConnectionPref
 	private static final String PREF_CA_CERT = "ca-cert";
 
 	private static final Charset ASCII = Charset.forName("ASCII");
+
+	private static final String PREF_HOST = "host";
+
+	private static final String PREF_PORT = "port";
 
 	private static final String PREF_HOST_CERT = "host-cert";
 
@@ -97,32 +101,38 @@ public class PuppetDBConnectionPreferencesImpl implements PuppetDBConnectionPref
 	}
 
 	@Override
-	public PuppetDBClient getClient() {
+	public PuppetDBClient getClient() throws BackingStoreException {
 		BasicAPIPreferences prefs = new BasicAPIPreferences();
 		prefs.setServiceHostname(getHostname());
-		prefs.setServiceSSLPort(getPort());
+		prefs.setServicePort(getPort());
 		prefs.setAllowAllHosts(true);
-		return PuppetDBClientFactory.newClient(prefs, getCommonModule(), new AbstractModule() {
-			@Override
-			protected void configure() {
-				bind(SSLSocketFactory.class).toProvider(new AbstractSSLSocketFactoryProvider() {
-					@Override
-					protected Certificate getCACertificate(CertificateFactory factory) throws IOException, GeneralSecurityException {
-						return generateCaCertificate(factory);
-					}
+		PuppetDBClient client;
+		if(getHostCert() == null)
+			client = PuppetDBClientFactory.newClient(prefs, getCommonModule());
+		else {
+			client = PuppetDBClientFactory.newClient(prefs, getCommonModule(), new AbstractModule() {
+				@Override
+				protected void configure() {
+					bind(SSLSocketFactory.class).toProvider(new AbstractSSLSocketFactoryProvider() {
+						@Override
+						protected Certificate getCACertificate(CertificateFactory factory) throws IOException, GeneralSecurityException {
+							return generateCaCertificate(factory);
+						}
 
-					@Override
-					protected Certificate getHostCertificate(CertificateFactory factory) throws IOException, GeneralSecurityException {
-						return generateHostCertificate(factory);
-					}
+						@Override
+						protected Certificate getHostCertificate(CertificateFactory factory) throws IOException, GeneralSecurityException {
+							return generateHostCertificate(factory);
+						}
 
-					@Override
-					protected KeySpec getPrivateKeySpec() throws KeyException, IOException {
-						return generateHostPrivateKey();
-					}
-				});
-			}
-		});
+						@Override
+						protected KeySpec getPrivateKeySpec() throws KeyException, IOException {
+							return generateHostPrivateKey();
+						}
+					});
+				}
+			});
+		}
+		return client;
 	}
 
 	public String getHostCert() throws BackingStoreException {
@@ -154,6 +164,14 @@ public class PuppetDBConnectionPreferencesImpl implements PuppetDBConnectionPref
 
 	private Preferences getPreferences() {
 		return getPuppetDBNode().node(getIdentifier());
+	}
+
+	void makePersistent() throws BackingStoreException {
+		// Store the host name and port as preference settings too although they are present in the key. We must do this
+		// to ensure that the node really exists in the preference store for cases where all other preference of this node
+		// are null.
+		setPreference(PREF_HOST, hostname);
+		setPreference(PREF_PORT, Integer.toString(port));
 	}
 
 	@Override

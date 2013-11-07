@@ -258,9 +258,9 @@ public class NewPuppetDBClientWizard extends Wizard implements INewWizard {
 
 		private ValidateFileModifyListener caCert = new ValidateFileModifyListener(null, null);
 
-		private ValidateFileModifyListener hostCert = new ValidateFileModifyListener(null, "_UI_HostCert_must_be_set");
+		private ValidateFileModifyListener hostCert = new ValidateFileModifyListener(null, null);
 
-		private ValidateFileModifyListener hostPrivateKey = new ValidateFileModifyListener(null, "_UI_HostPrivateKey_must_be_set");
+		private ValidateFileModifyListener hostPrivateKey = new ValidateFileModifyListener(null, null);
 
 		protected NewPuppetDBClientWizardPage() {
 			super("Add new PuppetDB Connection");
@@ -323,7 +323,7 @@ public class NewPuppetDBClientWizard extends Wizard implements INewWizard {
 			dnsField.addVerifyListener(new HostnameVerifyListener());
 			Text portField = createLabeledText("_UI_Port_label", toolkit, group, port);
 			portField.addVerifyListener(new IntVerifyListener());
-			portField.setText("8081");
+			portField.setText("8080");
 			toolkit.paintBordersFor(group);
 		}
 
@@ -346,12 +346,15 @@ public class NewPuppetDBClientWizard extends Wizard implements INewWizard {
 					access.setCaCert(readAsciiFile(caCert.getValue()));
 					access.setHostCert(readAsciiFile(hostCert.getValue()));
 					access.setHostPrivateKey(readAsciiFile(hostPrivateKey.getValue()));
+					puppetDBManager.flush();
 					return null;
 				}
 			});
 		}
 
 		String readAsciiFile(File file) throws IOException {
+			if(file == null)
+				return null;
 			ByteArrayOutputStream bld = new ByteArrayOutputStream();
 			FileInputStream input = new FileInputStream(file);
 			try {

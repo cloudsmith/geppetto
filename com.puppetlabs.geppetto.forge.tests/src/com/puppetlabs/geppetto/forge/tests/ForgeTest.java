@@ -23,7 +23,6 @@ import org.junit.Test;
 
 import com.puppetlabs.geppetto.forge.ForgeService;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
 
 public class ForgeTest extends AbstractForgeTest {
@@ -50,19 +49,6 @@ public class ForgeTest extends AbstractForgeTest {
 			List<Module> hits = fixture.search("rsync");
 			assertFalse("No modules found matching 'rsync'", hits.isEmpty());
 			for(Module mi : hits)
-				System.out.println(mi.getFullName());
-		}
-		catch(IOException e) {
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	public void searchModules_v1() {
-		try {
-			List<ModuleInfo> hits = fixture.search_v1("rsync");
-			assertFalse("No modules found matching 'rsync'", hits.isEmpty());
-			for(ModuleInfo mi : hits)
 				System.out.println(mi.getFullName());
 		}
 		catch(IOException e) {

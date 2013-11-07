@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.graphics.Image;
+import org.osgi.service.prefs.BackingStoreException;
 
 import com.puppetlabs.geppetto.puppetdb.PuppetDBConnectionPreferences;
 import com.puppetlabs.geppetto.puppetdb.ui.UIPlugin;
@@ -47,8 +48,9 @@ public class PuppetDBConnection extends TreeNode<PuppetDBConnections, PuppetDBQu
 	 * Returns the client that represent the PuppetDB instance
 	 * 
 	 * @return The client
+	 * @throws BackingStoreException
 	 */
-	public synchronized PuppetDBClient getClient() {
+	public synchronized PuppetDBClient getClient() throws BackingStoreException {
 		if(client == null)
 			client = dbAccess.getClient();
 		return client;

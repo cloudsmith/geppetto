@@ -32,7 +32,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubMonitor;
@@ -85,11 +84,10 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 	 * @return The matching project or <code>null</code>.
 	 */
 	public static IProject getBestMatchingProject(ModuleName requiredName, VersionRange versionRequirement) {
-		return getBestMatchingProject(requiredName, versionRequirement, NullTracer.INSTANCE, new NullProgressMonitor());
+		return getBestMatchingProject(requiredName, versionRequirement, NullTracer.INSTANCE);
 	}
 
-	private static IProject getBestMatchingProject(ModuleName name, VersionRange vr, ITracer tracer,
-			IProgressMonitor monitor) {
+	private static IProject getBestMatchingProject(ModuleName name, VersionRange vr, ITracer tracer) {
 		// Names with "/" are not allowed
 		if(name == null) {
 			if(tracer.isTracing())
@@ -224,24 +222,25 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 	@Override
 	protected IProject[] build(int kind, @SuppressWarnings("rawtypes") Map args, IProgressMonitor monitor)
 			throws CoreException {
-		checkCancel(monitor);
+		SubMonitor subMon = SubMonitor.convert(monitor);
+		checkCancel(subMon);
 
 		IResourceDelta delta = getDelta(getProject());
 		if(delta == null)
-			fullBuild(monitor);
+			fullBuild(subMon);
 		else
-			incrementalBuild(delta, monitor);
+			incrementalBuild(delta, subMon);
 		return null;
 	}
 
-	private void checkCancel(IProgressMonitor monitor) throws OperationCanceledException {
+	private void checkCancel(SubMonitor monitor) throws OperationCanceledException {
 		if(monitor.isCanceled()) {
 			forgetLastBuiltState();
 			throw new OperationCanceledException();
 		}
 	}
 
-	private void checkCircularDependencies(final IProgressMonitor monitor) {
+	private void checkCircularDependencies() {
 		IProject p = getProject();
 		List<IProject> visited = Lists.newArrayList();
 		List<IProject> circular = Lists.newArrayList();
@@ -291,6 +290,8 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		removeErrorMarkers();
 		// potentially remove the dynamic project references, but this will probably trigger project reconfig
 		// better to wait until the sync as they are probably still the same
+		if(monitor != null)
+			monitor.done();
 	}
 
 	private void createErrorMarker(IResource r, String message, Dependency d) {
@@ -346,7 +347,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		createMarker(IMarker.SEVERITY_WARNING, r, message, d);
 	}
 
-	private void fullBuild(IProgressMonitor monitor) {
+	private void fullBuild(SubMonitor monitor) {
 		removeErrorMarkers();
 		syncModuleMetadata(monitor);
 	}
@@ -361,7 +362,7 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		return validationAdvisor;
 	}
 
-	private void incrementalBuild(IResourceDelta delta, final IProgressMonitor monitor) {
+	private void incrementalBuild(IResourceDelta delta, final SubMonitor monitor) {
 		removeErrorMarkers();
 		final Wrapper<Boolean> buildFlag = Wrapper.wrap(Boolean.FALSE);
 
@@ -457,14 +458,13 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 	 * @param handle
 	 * @return
 	 */
-	private List<IProject> resolveDependencies(Metadata metadata, IFile moduleMetadataFile, IProgressMonitor monitor) {
+	private List<IProject> resolveDependencies(Metadata metadata, IFile moduleMetadataFile) {
 		List<IProject> result = Lists.newArrayList();
 
 		// parse the 'Modulefile' or 'metadata.json' and get full name and version, use this as name of target entry
 		try {
 			for(Dependency d : metadata.getDependencies()) {
-				checkCancel(monitor);
-				IProject best = getBestMatchingProject(d.getName(), d.getVersionRequirement(), tracer, monitor);
+				IProject best = getBestMatchingProject(d.getName(), d.getVersionRequirement(), tracer);
 				if(best != null) {
 					if(!result.contains(best))
 						result.add(best);
@@ -484,154 +484,164 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 		return result;
 	}
 
-	private void syncModulefileAndReferences(final IProgressMonitor monitor) {
-		IProject project = getProject();
-		if(!isAccessiblePuppetProject(project))
-			return;
-
-		if(tracer.isTracing())
-			tracer.trace("Syncing modulefile with project");
-
-		File projectDir = project.getLocation().toFile();
-		if(!forge.hasModuleMetadata(projectDir, null)) {
-			// puppet project without modulefile should reference the target project
-			syncProjectReferences(Lists.newArrayList(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME)), monitor);
-			return;
-		}
-
-		checkCancel(monitor);
-		SubMonitor subMon = SubMonitor.convert(monitor, 4);
-
-		// get metadata
-		Metadata metadata;
-		File[] extractionSource = new File[1];
-		IFile metadataResource = project.getFile(METADATA_JSON_NAME);
-		boolean metadataDerived = metadataResource.isDerived();
-
-		if(metadataDerived) {
-			try {
-				// Delete this file. It will be recreated from other
-				// sources.
-				metadataResource.delete(true, subMon.newChild(1));
-			}
-			catch(CoreException e) {
-				log.error("Unable to delete metadata.json", e);
-			}
-		}
-		else {
-			// The one that will be created should be considered to
-			// be derived
-			metadataDerived = !metadataResource.exists();
-		}
-
-		Diagnostic diagnostic = new Diagnostic();
+	private void syncModulefileAndReferences(final SubMonitor subMon) {
+		subMon.setWorkRemaining(4);
 		try {
-			// Load metadata, types, checksums etc.
-			metadata = forge.createFromModuleDirectory(projectDir, true, null, extractionSource, diagnostic);
-		}
-		catch(Exception e) {
-			createErrorMarker(project, "Can not parse Modulefile or other metadata source: " + e.getMessage(), null);
-			if(log.isDebugEnabled())
-				log.debug("Could not parse module description: '" + project.getName() + "'", e);
-			return; // give up - errors have been logged.
-		}
+			IProject project = getProject();
+			if(!isAccessiblePuppetProject(project))
+				return;
 
-		if(metadata == null) {
-			createErrorMarker(project, "Unable to find Modulefile or other metadata source", null);
-			return;
-		}
+			if(tracer.isTracing())
+				tracer.trace("Syncing modulefile with project");
 
-		// Find the resource used for metadata extraction
-		File extractionSourceFile = extractionSource[0];
-		IPath extractionSourcePath = Path.fromOSString(extractionSourceFile.getAbsolutePath());
-		IFile moduleFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(extractionSourcePath);
+			File projectDir = project.getLocation().toFile();
+			if(!forge.hasModuleMetadata(projectDir, null)) {
+				// puppet project without modulefile should reference the target project
+				syncProjectReferences(
+					Lists.newArrayList(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME)), subMon.newChild(7));
+				return;
+			}
 
-		createResourceMarkers(moduleFile, diagnostic);
+			checkCancel(subMon);
 
-		// sync version and name project data
-		Version version = null;
-		ModuleName moduleName = null;
-		if(metadata != null) {
-			version = metadata.getVersion();
-			moduleName = metadata.getName();
-		}
+			// get metadata
+			Metadata metadata;
+			File[] extractionSource = new File[1];
+			IFile metadataResource = project.getFile(METADATA_JSON_NAME);
+			boolean metadataDerived = metadataResource.isDerived();
 
-		if(version == null)
-			version = Version.fromString("0.0.0");
-
-		if(moduleName != null) {
-			if(!project.getName().toLowerCase().contains(moduleName.getName().toString().toLowerCase()))
-				createWarningMarker(moduleFile, "Mismatched name - project does not reflect module: '" + moduleName +
-						"'", null);
-		}
-
-		try {
-			IProject p = getProject();
-			String storedVersion = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
-			String vstr = version.toString();
-			if(!vstr.equals(storedVersion))
-				p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, vstr);
-
-			String storedName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
-			if(moduleName == null) {
-				if(storedName != null)
-					p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, null);
+			if(metadataDerived) {
+				try {
+					// Delete this file. It will be recreated from other
+					// sources.
+					metadataResource.delete(true, subMon.newChild(1));
+				}
+				catch(CoreException e) {
+					log.error("Unable to delete metadata.json", e);
+				}
 			}
 			else {
-				String mstr = moduleName.toString();
-				if(!mstr.equals(storedName))
-					p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, mstr.toString());
+				// The one that will be created should be considered to
+				// be derived
+				metadataDerived = !metadataResource.exists();
+				subMon.worked(1);
 			}
-		}
-		catch(CoreException e1) {
-			log.error("Could not set version or symbolic module name of project", e1);
-		}
 
-		List<IProject> resolutions = resolveDependencies(metadata, moduleFile, subMon.newChild(1));
-		// add the TP project
-		resolutions.add(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME));
-
-		syncProjectReferences(resolutions, subMon.newChild(1));
-
-		// Sync the built .json version
-		if(metadataDerived) {
+			Diagnostic diagnostic = new Diagnostic();
 			try {
-				// Recreate the metadata.json file
-				File mf = new File(project.getLocation().toFile(), METADATA_JSON_NAME);
-				forge.saveJSONMetadata(metadata, mf);
-				// must refresh the file as it was written outside the resource framework
-				try {
-					metadataResource.refreshLocal(IResource.DEPTH_ZERO, subMon.newChild(1));
-				}
-				catch(CoreException e) {
-					log.error("Could not refresh 'metadata.json'", e);
-				}
-
-				try {
-					metadataResource.setDerived(true, monitor);
-				}
-				catch(CoreException e) {
-					log.error("Could not make 'metadata.json' derived", e);
-				}
-
+				// Load metadata, types, checksums etc.
+				metadata = forge.createFromModuleDirectory(projectDir, true, null, extractionSource, diagnostic);
 			}
-			catch(IOException e) {
-				createErrorMarker(moduleFile, "Error while writing 'metadata.json': " + e.getMessage(), null);
-				log.error("Could not build 'metadata.json' for: '" + moduleFile + "'", e);
+			catch(Exception e) {
+				createErrorMarker(project, "Can not parse Modulefile or other metadata source: " + e.getMessage(), null);
+				if(log.isDebugEnabled())
+					log.debug("Could not parse module description: '" + project.getName() + "'", e);
+				return; // give up - errors have been logged.
+			}
+
+			if(metadata == null) {
+				createErrorMarker(project, "Unable to find Modulefile or other metadata source", null);
+				return;
+			}
+
+			// Find the resource used for metadata extraction
+			File extractionSourceFile = extractionSource[0];
+			IPath extractionSourcePath = Path.fromOSString(extractionSourceFile.getAbsolutePath());
+			IFile moduleFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(extractionSourcePath);
+
+			createResourceMarkers(moduleFile, diagnostic);
+
+			// sync version and name project data
+			Version version = null;
+			ModuleName moduleName = null;
+			if(metadata != null) {
+				version = metadata.getVersion();
+				moduleName = metadata.getName();
+			}
+
+			if(version == null)
+				version = Version.fromString("0.0.0");
+
+			if(moduleName != null) {
+				if(!project.getName().toLowerCase().contains(moduleName.getName().toString().toLowerCase()))
+					createWarningMarker(moduleFile, "Mismatched name - project does not reflect module: '" +
+							moduleName + "'", null);
+			}
+
+			try {
+				IProject p = getProject();
+				String storedVersion = p.getPersistentProperty(PROJECT_PROPERTY_MODULEVERSION);
+				String vstr = version.toString();
+				if(!vstr.equals(storedVersion))
+					p.setPersistentProperty(PROJECT_PROPERTY_MODULEVERSION, vstr);
+
+				String storedName = p.getPersistentProperty(PROJECT_PROPERTY_MODULENAME);
+				if(moduleName == null) {
+					if(storedName != null)
+						p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, null);
+				}
+				else {
+					String mstr = moduleName.toString();
+					if(!mstr.equals(storedName))
+						p.setPersistentProperty(PROJECT_PROPERTY_MODULENAME, mstr.toString());
+				}
+			}
+			catch(CoreException e1) {
+				log.error("Could not set version or symbolic module name of project", e1);
+			}
+
+			checkCancel(subMon);
+			List<IProject> resolutions = resolveDependencies(metadata, moduleFile);
+
+			// add the TP project
+			resolutions.add(getProjectByName(PPUiConstants.PPTP_TARGET_PROJECT_NAME));
+
+			syncProjectReferences(resolutions, subMon.newChild(1));
+
+			// Sync the built .json version
+			if(metadataDerived) {
+				try {
+					// Recreate the metadata.json file
+					File mf = new File(project.getLocation().toFile(), METADATA_JSON_NAME);
+					forge.saveJSONMetadata(metadata, mf);
+					// must refresh the file as it was written outside the resource framework
+					try {
+						metadataResource.refreshLocal(IResource.DEPTH_ZERO, subMon.newChild(1));
+					}
+					catch(CoreException e) {
+						log.error("Could not refresh 'metadata.json'", e);
+					}
+
+					try {
+						metadataResource.setDerived(true, subMon.newChild(1));
+					}
+					catch(CoreException e) {
+						log.error("Could not make 'metadata.json' derived", e);
+					}
+
+				}
+				catch(IOException e) {
+					createErrorMarker(moduleFile, "Error while writing 'metadata.json': " + e.getMessage(), null);
+					log.error("Could not build 'metadata.json' for: '" + moduleFile + "'", e);
+				}
 			}
 		}
-		if(monitor != null)
-			monitor.done();
+		finally {
+			subMon.done();
+		}
 	}
 
-	private void syncModuleMetadata(final IProgressMonitor monitor) {
-		syncModulefileAndReferences(monitor);
-		checkCircularDependencies(monitor);
+	private void syncModuleMetadata(final SubMonitor subMon) {
+		syncModulefileAndReferences(subMon);
+		checkCircularDependencies();
 	}
 
-	private void syncProjectReferences(List<IProject> wanted, IProgressMonitor monitor) {
+	private void syncProjectReferences(List<IProject> wanted, SubMonitor subMon) {
+		subMon.setWorkRemaining(2);
 		try {
+			checkCancel(subMon);
 			final IProject project = getProject();
+			project.refreshLocal(IResource.DEPTH_INFINITE, subMon.newChild(1));
 			final IProjectDescription description = getProject().getDescription();
 			List<IProject> current = Lists.newArrayList(description.getDynamicReferences());
 			if(current.size() == wanted.size() && current.containsAll(wanted))
@@ -639,12 +649,15 @@ public class PPModuleMetadataBuilder extends IncrementalProjectBuilder implement
 			// not in sync, set them
 			IProjectDescription desc = getProject().getDescription();
 			desc.setDynamicReferences(wanted.toArray(new IProject[wanted.size()]));
-			project.setDescription(desc, monitor);
+			project.setDescription(desc, subMon.newChild(1));
 			// Trigger full rebuild once we're done here
 			new PPBuildJob(getWorkspaceRoot().getWorkspace()).schedule();
 		}
 		catch(CoreException e) {
 			log.error("Can not sync project's dynamic dependencies", e);
+		}
+		finally {
+			subMon.done();
 		}
 	}
 

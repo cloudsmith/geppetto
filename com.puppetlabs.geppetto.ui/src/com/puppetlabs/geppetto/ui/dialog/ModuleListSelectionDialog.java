@@ -10,9 +10,6 @@
  */
 package com.puppetlabs.geppetto.ui.dialog;
 
-import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
-import com.puppetlabs.geppetto.ui.UIPlugin;
-import com.puppetlabs.geppetto.ui.util.StringUtil;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
@@ -20,13 +17,23 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.dialogs.FilteredList;
 import org.eclipse.ui.internal.misc.StringMatcher;
 
+import com.puppetlabs.geppetto.forge.model.VersionedName;
+import com.puppetlabs.geppetto.forge.v3.model.Module;
+import com.puppetlabs.geppetto.ui.UIPlugin;
+import com.puppetlabs.geppetto.ui.util.ModuleUtil;
+
 public class ModuleListSelectionDialog extends ElementListSelectionDialog {
 
 	protected static class ModuleLabelProvider extends LabelProvider {
 
 		@Override
 		public String getText(Object element) {
-			return StringUtil.getModuleText((ModuleInfo) element);
+			if(element instanceof VersionedName) {
+				StringBuilder bld = new StringBuilder();
+				((VersionedName) element).toString(bld, ' ');
+				return bld.toString();
+			}
+			return ModuleUtil.getText((Module) element);
 		}
 	}
 

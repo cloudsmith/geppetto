@@ -53,12 +53,13 @@ public class PuppetDBManagerImpl implements PuppetDBManager {
 	 */
 	@Override
 	public PuppetDBConnectionPreferences add(String hostname, int port) throws BackingStoreException {
-		PuppetDBConnectionPreferences pa = new PuppetDBConnectionPreferencesImpl(hostname, port);
+		PuppetDBConnectionPreferencesImpl pa = new PuppetDBConnectionPreferencesImpl(hostname, port);
 		String ident = pa.getIdentifier();
 		Preferences root = getPuppetDBNode();
 		if(root.nodeExists(ident))
 			throw new IllegalArgumentException("A node for " + ident + " already exists");
 		root.node(ident);
+		pa.makePersistent();
 		return pa;
 	}
 

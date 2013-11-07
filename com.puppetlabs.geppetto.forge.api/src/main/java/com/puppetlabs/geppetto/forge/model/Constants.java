@@ -15,7 +15,6 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
-import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
 import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.forge.v2.model.Tag;
@@ -130,11 +129,6 @@ public interface Constants {
 	 * A type representing a {@link List} of {@link Release} instances
 	 */
 	Type LIST_RELEASE = new TypeToken<List<Release>>() {}.getType();
-
-	/**
-	 * A type representing a {@link List} of {@link Release} instances
-	 */
-	Type LIST_MODULE_INFO = new TypeToken<List<ModuleInfo>>() {}.getType();
 
 	/**
 	 * A type representing a {@link List} of {@link Tag} instances

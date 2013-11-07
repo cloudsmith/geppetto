@@ -11,6 +11,7 @@
 package com.puppetlabs.geppetto.puppetdb.ui.views;
 
 import org.eclipse.jface.viewers.TreeViewer;
+import org.osgi.service.prefs.BackingStoreException;
 
 import com.puppetlabs.geppetto.puppetdb.ui.treenode.TreeNode;
 import com.puppetlabs.puppetdb.javaclient.PuppetDBClient;
@@ -20,7 +21,7 @@ public abstract class PuppetDBQuery<C extends TreeNode<?, ?>> extends TreeNode<P
 		super(parent);
 	}
 
-	public PuppetDBClient getClient() {
+	public PuppetDBClient getClient() throws BackingStoreException {
 		return getParent().getClient();
 	}
 

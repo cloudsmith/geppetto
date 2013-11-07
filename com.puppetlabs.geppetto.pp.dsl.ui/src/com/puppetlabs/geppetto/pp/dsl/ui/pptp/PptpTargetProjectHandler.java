@@ -17,11 +17,6 @@ import java.io.InputStream;
 import java.net.URL;
 
 import org.apache.log4j.Logger;
-import com.puppetlabs.geppetto.common.util.BundleAccess;
-import com.puppetlabs.geppetto.pp.dsl.target.PptpResourceUtil;
-import com.puppetlabs.geppetto.pp.dsl.target.PuppetTarget;
-import com.puppetlabs.geppetto.pp.dsl.ui.PPUiConstants;
-import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -40,6 +35,11 @@ import org.eclipse.xtext.ui.editor.preferences.IPreferenceStoreAccess;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import com.puppetlabs.geppetto.common.util.BundleAccess;
+import com.puppetlabs.geppetto.pp.dsl.target.PptpResourceUtil;
+import com.puppetlabs.geppetto.pp.dsl.target.PuppetTarget;
+import com.puppetlabs.geppetto.pp.dsl.ui.PPUiConstants;
+import com.puppetlabs.geppetto.pp.dsl.ui.preferences.PPPreferencesHelper;
 
 /**
  * Handler of the hidden puppet target project.
@@ -79,6 +79,7 @@ public class PptpTargetProjectHandler {
 			if(!p.isAccessible())
 				continue;
 			try {
+				p.refreshLocal(IResource.DEPTH_INFINITE, monitor);
 				if(p.hasNature(PPUiConstants.PUPPET_NATURE_ID)) {
 					IProjectDescription desc = p.getDescription();
 					IProject[] dynamicReferences = desc.getDynamicReferences();

@@ -43,7 +43,7 @@ public interface PuppetDBConnectionPreferences {
 
 	KeySpec generateHostPrivateKey() throws KeyException, IOException, BackingStoreException;
 
-	PuppetDBClient getClient();
+	PuppetDBClient getClient() throws BackingStoreException;
 
 	String getHostname();
 

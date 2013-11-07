@@ -21,7 +21,6 @@ import com.puppetlabs.geppetto.forge.client.ForgeException;
 import com.puppetlabs.geppetto.forge.model.Dependency;
 import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.forge.v1.model.ModuleInfo;
 import com.puppetlabs.geppetto.forge.v2.model.Module;
 import com.puppetlabs.geppetto.semver.VersionRange;
 
@@ -147,12 +146,4 @@ public interface ForgeService {
 	 *            Search term
 	 */
 	List<Module> search(String term) throws IOException;
-
-	/**
-	 * Use the old v1 API to search the Forge for modules matching <code>term</code>
-	 * 
-	 * @param term
-	 *            Search term
-	 */
-	List<ModuleInfo> search_v1(String term) throws IOException;
 }

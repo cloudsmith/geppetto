@@ -15,8 +15,10 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.inject.Inject;
@@ -45,6 +47,16 @@ public abstract class AbstractForgeService<T extends Entity, I> implements Forge
 	@Inject
 	private ForgeClient client;
 
+	private ProgressMonitor currentMonitor;
+
+	@Override
+	public void abortCurrentRequest() {
+		ProgressMonitor monitor = currentMonitor;
+		if(monitor != null)
+			monitor.cancel();
+		client.abortCurrentRequest();
+	}
+
 	/* (non-Javadoc)
 	 * @see com.puppetlabs.geppetto.forge.v3.ForgeService#accept(com.puppetlabs.geppetto.forge.v3.AbstractForgeService.Query, com.puppetlabs.geppetto.forge.v3.AbstractForgeService.SortBy, boolean, com.puppetlabs.geppetto.forge.v3.AbstractForgeService.Visitor, com.puppetlabs.geppetto.forge.v3.AbstractForgeService.ProgressMonitor)
 	 */
@@ -54,15 +66,21 @@ public abstract class AbstractForgeService<T extends Entity, I> implements Forge
 		if(progressMonitor == null)
 			progressMonitor = new NullProgressMonitor();
 
-		PaginatedResult<T> page = list(query, sortBy, null, includeDeleted);
-		progressMonitor.beginTask(page.getTotal());
+		currentMonitor = progressMonitor;
+		try {
+			PaginatedResult<T> page = list(query, sortBy, null, includeDeleted);
+			progressMonitor.beginTask(page.getTotal());
 
-		PaginationInfo pi = visitPage(page, visitor, progressMonitor);
-		while(pi != null)
-			pi = visitPage(list(query, sortBy, pi, includeDeleted), visitor, progressMonitor);
+			PaginationInfo pi = visitPage(page, visitor, progressMonitor);
+			while(pi != null)
+				pi = visitPage(list(query, sortBy, pi, includeDeleted), visitor, progressMonitor);
 
-		if(!progressMonitor.isCanceled())
-			progressMonitor.endTask();
+			if(!progressMonitor.isCanceled())
+				progressMonitor.endTask();
+		}
+		finally {
+			currentMonitor = null;
+		}
 	}
 
 	abstract void addIdSegment(StringBuilder bld, I id);
@@ -111,5 +129,40 @@ public abstract class AbstractForgeService<T extends Entity, I> implements Forge
 		else
 			params = Collections.emptyMap();
 		return client.get(getEndpointSegment(), params, getPaginatedResultType());
+	}
+
+	@Override
+	public List<T> listAll(Query<T> query, SortBy<T> sortBy, boolean includeDeleted) throws IOException {
+		ProgressMonitor monitor = new NullProgressMonitor();
+		currentMonitor = monitor;
+		try {
+			PaginatedResult<T> page = list(query, sortBy, null, includeDeleted);
+			monitor.beginTask(page.getTotal());
+
+			int total = page.getTotal();
+			if(total == 0)
+				return Collections.emptyList();
+
+			final List<T> result = new ArrayList<T>(total);
+			Visitor<T> visitor = new Visitor<T>() {
+				@Override
+				public void visit(T entity, ProgressMonitor progressMonitor) {
+					result.add(entity);
+				}
+			};
+
+			try {
+				PaginationInfo pi = visitPage(page, visitor, monitor);
+				while(pi != null)
+					pi = visitPage(list(query, sortBy, pi, includeDeleted), visitor, monitor);
+			}
+			catch(InvocationTargetException e) {
+				// The visitor never throws that
+			}
+			return result;
+		}
+		finally {
+			currentMonitor = null;
+		}
 	}
 }

@@ -53,7 +53,6 @@ import com.puppetlabs.geppetto.forge.model.MetadataRepository;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
 import com.puppetlabs.geppetto.forge.util.ModuleUtils;
 import com.puppetlabs.geppetto.forge.util.TarUtils;
-import com.puppetlabs.geppetto.forge.v2.model.Module;
 import com.puppetlabs.geppetto.forge.v2.model.Release;
 import com.puppetlabs.geppetto.forge.v2.service.ModuleService;
 import com.puppetlabs.geppetto.forge.v2.service.ReleaseService;
@@ -275,10 +274,5 @@ class ForgeServiceImpl implements ForgeService {
 				releasesToDownload.addAll(metadataRepo.deepResolve(dep, unresolvedCollector));
 		}
 		return releasesToDownload;
-	}
-
-	@Override
-	public List<Module> search(String term) throws IOException {
-		return moduleService.search(term, null);
 	}
 }

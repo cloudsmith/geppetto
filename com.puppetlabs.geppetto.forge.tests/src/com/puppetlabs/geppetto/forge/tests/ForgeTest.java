@@ -10,20 +10,17 @@
  */
 package com.puppetlabs.geppetto.forge.tests;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.puppetlabs.geppetto.forge.ForgeService;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.forge.v2.model.Module;
 
 public class ForgeTest extends AbstractForgeTest {
 
@@ -39,19 +36,6 @@ public class ForgeTest extends AbstractForgeTest {
 		}
 		catch(IOException e) {
 			e.printStackTrace();
-			fail(e.getMessage());
-		}
-	}
-
-	@Test
-	public void searchModules() {
-		try {
-			List<Module> hits = fixture.search("rsync");
-			assertFalse("No modules found matching 'rsync'", hits.isEmpty());
-			for(Module mi : hits)
-				System.out.println(mi.getFullName());
-		}
-		catch(IOException e) {
 			fail(e.getMessage());
 		}
 	}

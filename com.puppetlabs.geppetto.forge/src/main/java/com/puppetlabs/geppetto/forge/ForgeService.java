@@ -13,7 +13,6 @@ package com.puppetlabs.geppetto.forge;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 import com.puppetlabs.geppetto.diagnostic.Diagnostic;
@@ -21,7 +20,6 @@ import com.puppetlabs.geppetto.forge.client.ForgeException;
 import com.puppetlabs.geppetto.forge.model.Dependency;
 import com.puppetlabs.geppetto.forge.model.Metadata;
 import com.puppetlabs.geppetto.forge.model.ModuleName;
-import com.puppetlabs.geppetto.forge.v2.model.Module;
 import com.puppetlabs.geppetto.semver.VersionRange;
 
 /**
@@ -138,12 +136,4 @@ public interface ForgeService {
 	 */
 	Set<Metadata> resolveDependencies(Iterable<Metadata> metadatas, Set<Dependency> unresolvedCollector)
 			throws IOException;
-
-	/**
-	 * Search the module repository for modules matching <code>term</code>
-	 * 
-	 * @param term
-	 *            Search term
-	 */
-	List<Module> search(String term) throws IOException;
 }

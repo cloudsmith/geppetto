@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.puppetlabs.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.0.0</version>
+		<version>4.0.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>com.puppetlabs.geppetto.pp.dsl</artifactId>
@@ -64,32 +64,32 @@
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.pp</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.common</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.common.tracer</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.injectable.standalone</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.semver</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.ruby</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.xtext</groupId>

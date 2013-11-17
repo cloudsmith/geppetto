@@ -3,19 +3,19 @@
   <parent>
   	<groupId>com.puppetlabs.geppetto</groupId>
   	<artifactId>parent</artifactId>
-  	<version>4.0.0</version>
+  	<version>4.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>com.puppetlabs.geppetto.graph</artifactId>
   <dependencies>
   	<dependency>
   		<groupId>com.puppetlabs.geppetto</groupId>
   		<artifactId>com.puppetlabs.geppetto.validation</artifactId>
-  		<version>4.0.0</version>
+  		<version>4.0.1-SNAPSHOT</version>
   	</dependency>
   	<dependency>
   		<groupId>com.puppetlabs.geppetto</groupId>
   		<artifactId>com.puppetlabs.geppetto.ruby</artifactId>
-  		<version>4.0.0</version>
+  		<version>4.0.1-SNAPSHOT</version>
   	</dependency>
   	<dependency>
   		<groupId>com.puppetlabs.graph</groupId>

@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.puppetlabs.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.0.0</version>
+		<version>4.0.1-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>com.puppetlabs.geppetto.forge</artifactId>
@@ -31,22 +31,22 @@
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.common</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.diagnostic</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.forge.api</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.injectable.standalone</artifactId>
-			<version>4.0.0</version>
+			<version>4.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>

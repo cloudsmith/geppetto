@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.puppetlabs.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.0.0-SNAPSHOT</version>
+		<version>4.0.0</version>
 	</parent>
 	<artifactId>com.puppetlabs.geppetto.forge.api.tests</artifactId>
 	<name>Geppetto Forge API Tests</name>
@@ -86,12 +86,12 @@
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.injectable.standalone</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.forge.api</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.0</version>
 		</dependency>
 	</dependencies>
 </project>

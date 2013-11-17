@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>com.puppetlabs.geppetto</groupId>
 		<artifactId>parent</artifactId>
-		<version>4.0.0-SNAPSHOT</version>
+		<version>4.0.0</version>
 	</parent>
 
 	<artifactId>com.puppetlabs.geppetto.common.tracer</artifactId>
@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>com.puppetlabs.geppetto</groupId>
 			<artifactId>com.puppetlabs.geppetto.common</artifactId>
-			<version>4.0.0-SNAPSHOT</version>
+			<version>4.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>${guice.groupId}</groupId>

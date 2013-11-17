@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.puppetlabs.geppetto</groupId>
 	<artifactId>parent</artifactId>
-	<version>3.2.0-SNAPSHOT</version>
+	<version>4.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>Geppetto Site Project</name>
@@ -14,8 +13,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mavenVersion>3.0.5</mavenVersion>
-		<geppettoVersion>3.2.0-SNAPSHOT</geppettoVersion>
-		<parentSiteURL>https://am0.cloudsmith.com/nexus/content/sites/geppetto-site/</parentSiteURL>
+		<geppettoVersion>4.0.0-SNAPSHOT</geppettoVersion>
+		<nexusServer>http://nexus.tada.se</nexusServer>
+		<parentSiteURL>${nexusServer}/content/sites/geppetto-site</parentSiteURL>
 
 		<!-- We use property injection. But instead of '${' and '}' we use '.qual' 
 			or '-qua' as the start delimiter and 'r' as end delimiter. Hence when the 
@@ -25,11 +25,16 @@
 			qualifier to be replaced in other places -->
 		<ifie>.v${git.commit.time}</ifie>
 		<lifie>-v${git.commit.time}</lifie>
+
+		<!-- we'd like to use stock Guice, but that breaks Maven embedder
+             because it uses a modified Guice called Sisu -->
+		<guice.groupId>org.sonatype.sisu</guice.groupId>
+		<guice.artifactId>sisu-guice</guice.artifactId>
 	</properties>
 
 	<organization>
-		<name>Cloudsmith Inc.</name>
-		<url>http://www.cloudsmith.com</url>
+		<name>Puppet Labs, Inc.</name>
+		<url>http://www.puppetlabs.com</url>
 	</organization>
 
 	<url>${parentSiteURL}</url>
@@ -42,43 +47,43 @@
 
 	<distributionManagement>
 		<repository>
-			<id>cloudsmith</id>
-			<name>Cloudsmith Release Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/releases/</url>
+			<id>puppetlabs</id>
+			<name>Puppet Labs Release Repository</name>
+			<url>${nexusServer}/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
-			<id>cloudsmith-snapshots</id>
-			<name>Cloudsmith Snapshot Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots/</url>
+			<id>puppetlabs</id>
+			<name>Puppet Labs Snapshot Repository</name>
+			<url>${nexusServer}/content/repositories/snapshots/</url>
 		</snapshotRepository>
 		<site>
 			<id>geppetto-site</id>
-			<name>JRuby Maven site</name>
+			<name>Geppetto Site Repository</name>
 			<url>dav:${parentSiteURL}</url>
 		</site>
 	</distributionManagement>
 
 	<repositories>
 		<repository>
-			<id>cloudsmith-xtext</id>
-			<name>Eclipse Xtext Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/xtext</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>cloudsmith-snapshots</id>
-			<name>Cloudsmith Snapshot Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots</url>
+			<id>puppetlabs-snapshots</id>
+			<name>Puppet Labs Snapshot Repository</name>
+			<url>${nexusServer}/content/repositories/snapshots/</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 		<repository>
-			<id>cloudsmith-releases</id>
-			<name>Cloudsmith Releases</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/releases</url>
+			<id>puppetlabs-releases</id>
+			<name>Puppet Labs Release Repository</name>
+			<url>${nexusServer}/content/repositories/releases/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>puppetlabs-xtext</id>
+			<name>Puppet Labs Eclipse xtext</name>
+			<url>${nexusServer}/content/repositories/eclipse.xtext/</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -87,17 +92,9 @@
 
 	<pluginRepositories>
 		<pluginRepository>
-			<id>cloudsmith-xtext</id>
-			<name>Eclipse Xtext Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/xtext</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</pluginRepository>
-		<pluginRepository>
-			<id>cloudsmith-snapshots</id>
-			<name>Cloudsmith Snapshot Repository</name>
-			<url>https://am0.cloudsmith.com/nexus/content/repositories/snapshots</url>
+			<id>puppetlabs-snapshots</id>
+			<name>Puppet Labs Snapshot Repository</name>
+			<url>${nexusServer}/content/repositories/snapshots/</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -138,6 +135,11 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
+				<groupId>com.google.code.findbugs</groupId>
+				<artifactId>annotations</artifactId>
+				<version>2.0.1</version>
+			</dependency>
+			<dependency>
 				<groupId>com.google.code.gson</groupId>
 				<artifactId>gson</artifactId>
 				<version>2.2.2</version>
@@ -145,6 +147,11 @@
 			<dependency>
 				<groupId>com.google.inject</groupId>
 				<artifactId>guice</artifactId>
+				<version>3.0</version>
+			</dependency>
+			<dependency>
+				<groupId>com.google.inject.extensions</groupId>
+				<artifactId>guice-multibindings</artifactId>
 				<version>3.0</version>
 			</dependency>
 			<dependency>
@@ -193,6 +200,11 @@
 				</exclusions>
 			</dependency>
 			<dependency>
+				<groupId>org.antlr.runtime</groupId>
+				<artifactId>org.antlr.runtime</artifactId>
+				<version>3.2.0.v201101311130</version>
+			</dependency>
+			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpmime</artifactId>
 				<version>4.2.3</version>
@@ -221,36 +233,65 @@
 				<version>3.0.8</version>
 			</dependency>
 			<dependency>
+				<groupId>org.codehaus.jackson</groupId>
+				<artifactId>jackson-core-asl</artifactId>
+				<version>1.9.12</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.core</groupId>
+				<artifactId>org.eclipse.core.runtime</artifactId>
+				<version>3.9.0-v20130326-1255</version>
+			</dependency>
+			<dependency>
 				<groupId>org.eclipse.emf</groupId>
 				<artifactId>org.eclipse.emf.ecore</artifactId>
-				<version>2.8.0-v20120911-0500</version>
+				<version>2.9.1-v20130827-0309</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.emf</groupId>
 				<artifactId>org.eclipse.emf.common</artifactId>
-				<version>2.8.0-v20120911-0500</version>
+				<version>2.9.1-v20130827-0309</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.emf</groupId>
+				<artifactId>org.eclipse.emf.ecore.xmi</artifactId>
+				<version>2.9.1-v20130827-0309</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.equinox</groupId>
+				<artifactId>org.eclipse.equinox.common</artifactId>
+				<version>3.6.200-v20130402-1505</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.osgi</groupId>
+				<artifactId>org.eclipse.osgi</artifactId>
+				<version>3.9.1-v20130814-1242</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>org.eclipse.xtext</artifactId>
-				<version>[2.4.0,2.5.0)</version>
+				<version>2.4.3-v201309030823</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>org.eclipse.xtext.junit4</artifactId>
-				<version>[2.4.0,2.5.0)</version>
-				<scope>test</scope>
+				<version>2.4.3-v201309030823</version>
 			</dependency>
 			<dependency>
 				<groupId>com.puppetlabs.jruby</groupId>
 				<artifactId>jrubyparser</artifactId>
-				<version>0.3-alpha</version>
+				<version>0.3</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sonatype.aether</groupId>
 				<artifactId>aether-impl</artifactId>
 				<version>1.13.1</version>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.sonatype.sisu</groupId>
+				<artifactId>sisu-guice</artifactId>
+				<version>3.1.0</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
@@ -311,6 +352,7 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
 					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<goals>deploy</goals>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -332,6 +374,45 @@
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>build-helper-maven-plugin</artifactId>
+					<version>1.8</version>
+					<executions>
+						<execution>
+							<id>set-osgi-version</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>parse-version</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+					<extensions>true</extensions>
+					<version>2.4.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<version>2.9</version>
+					<configuration>
+						<skip>false</skip>
+						<additionalBuildcommands>
+							<buildcommand>org.eclipse.pde.ManifestBuilder</buildcommand>
+							<buildcommand>org.eclipse.pde.SchemaBuilder</buildcommand>
+						</additionalBuildcommands>
+						<additionalProjectnatures>
+							<projectnature>org.eclipse.pde.PluginNature</projectnature>
+						</additionalProjectnatures>
+						<classpathContainers>
+							<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+							<classpathContainer>org.eclipse.pde.core.requiredPlugins</classpathContainer>
+						</classpathContainers>
+					</configuration>
+				</plugin>
+				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<configuration>
@@ -342,7 +423,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-project-info-reports-plugin</artifactId>
-					<version>2.6</version>
+					<version>2.7</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -357,12 +438,12 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>2.2.2</version>
+					<version>2.4.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>2.5.1</version>
+					<version>3.1</version>
 					<configuration>
 						<source>1.6</source>
 						<target>1.6</target>
@@ -386,11 +467,23 @@
 							</goals>
 						</execution>
 					</executions>
+					<configuration>
+						<archive>
+							<manifestEntries>
+								<Bundle-ManifestVersion>2</Bundle-ManifestVersion>
+								<Bundle-Name>Source for the ${project.name}</Bundle-Name>
+								<Bundle-SymbolicName>${project.artifactId}.source</Bundle-SymbolicName>
+								<Bundle-Vendor>${project.organization.name}</Bundle-Vendor>
+								<Bundle-Version>${parsedVersion.osgiVersion}</Bundle-Version>
+								<Eclipse-SourceBundle>${project.artifactId};version="${parsedVersion.osgiVersion}";roots:="."</Eclipse-SourceBundle>
+							</manifestEntries>
+						</archive>
+					</configuration>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.9</version>
+					<version>2.9.1</version>
 					<executions>
 						<execution>
 							<id>attach-javadoc</id>
@@ -434,7 +527,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>2.13</version>
+					<version>2.15</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -476,3 +569,4 @@
 		</plugins>
 	</reporting>
 </project>
+

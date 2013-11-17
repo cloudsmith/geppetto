@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
-<aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aggregator="http://www.eclipse.org/b3/2011/aggregator/1.1.0" label="Xtext to Maven" buildRoot="target/xtext-maven-repo" packedStrategy="UNPACK_AS_SIBLING" mavenResult="true">
+<aggregator:Aggregation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aggregator="http://www.eclipse.org/b3/2011/aggregator/1.1.0" label="Xtext to Maven" buildRoot="target/xtext-maven-repo" packedStrategy="UNPACK_AS_SIBLING" mavenResult="true" strictMavenVersions="true">
   <validationSets label="main">
     <contributions label="Xtext">
-      <repositories location="http://download.eclipse.org/releases/maintenance">
+      <repositories location="http://download.eclipse.org/releases/kepler">
         <bundles name="org.eclipse.xtext"/>
         <bundles name="org.eclipse.xtext.junit4"/>
         <mapRules xsi:type="aggregator:ExclusionRule" name="org.eclipse.jdt.annotation"/>

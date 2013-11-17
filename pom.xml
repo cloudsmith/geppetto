@@ -13,8 +13,9 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<mavenVersion>3.0.5</mavenVersion>
-		<geppettoVersion>3.2.0-SNAPSHOT</geppettoVersion>
-		<parentSiteURL>http://nexus.delivery.puppetlabs.net/content/sites/geppetto-site</parentSiteURL>
+		<geppettoVersion>4.0.0-SNAPSHOT</geppettoVersion>
+		<nexusServer>http://nexus.tada.se</nexusServer>
+		<parentSiteURL>${nexusServer}/content/sites/geppetto-site</parentSiteURL>
 
 		<!-- We use property injection. But instead of '${' and '}' we use '.qual' 
 			or '-qua' as the start delimiter and 'r' as end delimiter. Hence when the 
@@ -48,16 +49,16 @@
 		<repository>
 			<id>puppetlabs</id>
 			<name>Puppet Labs Release Repository</name>
-			<url>http://nexus.delivery.puppetlabs.net/content/repositories/releases/</url>
+			<url>${nexusServer}/content/repositories/releases/</url>
 		</repository>
 		<snapshotRepository>
 			<id>puppetlabs</id>
 			<name>Puppet Labs Snapshot Repository</name>
-			<url>http://nexus.delivery.puppetlabs.net/content/repositories/snapshots/</url>
+			<url>${nexusServer}/content/repositories/snapshots/</url>
 		</snapshotRepository>
 		<site>
 			<id>geppetto-site</id>
-			<name>JRuby Maven site</name>
+			<name>Geppetto Site Repository</name>
 			<url>dav:${parentSiteURL}</url>
 		</site>
 	</distributionManagement>
@@ -66,7 +67,7 @@
 		<repository>
 			<id>puppetlabs-snapshots</id>
 			<name>Puppet Labs Snapshot Repository</name>
-			<url>http://nexus.delivery.puppetlabs.net/content/repositories/snapshots/</url>
+			<url>${nexusServer}/content/repositories/snapshots/</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -74,7 +75,7 @@
 		<repository>
 			<id>puppetlabs-releases</id>
 			<name>Puppet Labs Release Repository</name>
-			<url>http://nexus.delivery.puppetlabs.net/content/repositories/releases/</url>
+			<url>${nexusServer}/content/repositories/releases/</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -82,7 +83,7 @@
 		<repository>
 			<id>puppetlabs-xtext</id>
 			<name>Puppet Labs Eclipse xtext</name>
-			<url>http://nexus.delivery.puppetlabs.net/content/repositories/eclipse.xtext/</url>
+			<url>${nexusServer}/content/repositories/eclipse.xtext/</url>
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
@@ -93,7 +94,7 @@
 		<pluginRepository>
 			<id>puppetlabs-snapshots</id>
 			<name>Puppet Labs Snapshot Repository</name>
-			<url>http://nexus.delivery.puppetlabs.net/content/repositories/snapshots/</url>
+			<url>${nexusServer}/content/repositories/snapshots/</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -199,6 +200,11 @@
 				</exclusions>
 			</dependency>
 			<dependency>
+				<groupId>org.antlr.runtime</groupId>
+				<artifactId>org.antlr.runtime</artifactId>
+				<version>3.2.0.v201101311130</version>
+			</dependency>
+			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpmime</artifactId>
 				<version>4.2.3</version>
@@ -233,8 +239,18 @@
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.core</groupId>
+				<artifactId>org.eclipse.core.contenttype</artifactId>
+				<version>3.4.200-v20130326-1255</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.core</groupId>
+				<artifactId>org.eclipse.core.jobs</artifactId>
+				<version>3.5.300-v20130429-1813</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.core</groupId>
 				<artifactId>org.eclipse.core.runtime</artifactId>
-				<version>[3.9.0,3.10.0)</version>
+				<version>3.9.0-v20130326-1255</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.emf</groupId>
@@ -252,19 +268,54 @@
 				<version>2.9.1-v20130827-0309</version>
 			</dependency>
 			<dependency>
+				<groupId>org.eclipse.equinox</groupId>
+				<artifactId>org.eclipse.equinox.app</artifactId>
+				<version>1.3.100-v20130327-1442</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.equinox</groupId>
+				<artifactId>org.eclipse.equinox.common</artifactId>
+				<version>3.6.200-v20130402-1505</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.equinox</groupId>
+				<artifactId>org.eclipse.equinox.preferences</artifactId>
+				<version>3.5.100-v20130422-1538</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.equinox</groupId>
+				<artifactId>org.eclipse.equinox.registry</artifactId>
+				<version>3.5.301-v20130717-1549</version>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.osgi</groupId>
+				<artifactId>org.eclipse.osgi</artifactId>
+				<version>3.9.1-v20130814-1242</version>
+			</dependency>
+			<dependency>
 				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>org.eclipse.xtext</artifactId>
-				<version>[2.4.0,2.5.0)</version>
+				<version>2.4.3-v201309030823</version>
 			</dependency>
 			<dependency>
 				<groupId>org.eclipse.xtext</groupId>
 				<artifactId>org.eclipse.xtext.junit4</artifactId>
-				<version>[2.4.0,2.5.0)</version>
+				<version>2.4.3-v201309030823</version>
 			</dependency>
+			<dependency>
+				<groupId>org.eclipse.xtext</groupId>
+				<artifactId>org.eclipse.xtext.util</artifactId>
+				<version>2.4.3-v201309030823</version>
+			</dependency>
+		  	<dependency>
+		  		<groupId>com.puppetlabs.graph</groupId>
+		  		<artifactId>com.puppetlabs.graph</artifactId>
+		  		<version>1.0.2</version>
+		  	</dependency>
 			<dependency>
 				<groupId>com.puppetlabs.jruby</groupId>
 				<artifactId>jrubyparser</artifactId>
-				<version>0.3</version>
+				<version>0.4</version>
 			</dependency>
 			<dependency>
 				<groupId>org.sonatype.aether</groupId>

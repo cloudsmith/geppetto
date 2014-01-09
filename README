@@ -4,7 +4,7 @@ consuming Puppet modules and manifests.
 The Geppetto IDE tooling can be downloaded as a stand-alone product
 from https://downloads.puppetlabs.com/geppetto/downloads
 or installed into an existing Eclipse IDE from
-hhttp://updates.puppetlabs.com/geppetto.
+http://updates.puppetlabs.com/geppetto.
 
 For FAQ, and more information visit the Geppetto site:
 http://puppetlabs.github.io/geppetto/faq.html
